@@ -21,8 +21,9 @@ return new class extends Migration
             $table->boolean('r')->nuallable(false);
             $table->boolean('u')->nuallable(false);
             $table->boolean('d')->nuallable(false);
-            $table->boolean('estado')->nuallable(false);
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('modulo_id')->references('id')->on('modulos')->onDelete('cascade');
         });
     }
 

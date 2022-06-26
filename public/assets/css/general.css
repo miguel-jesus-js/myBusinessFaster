@@ -1,0 +1,128 @@
+.icono {
+    font-size: 20px;
+}
+
+.btn-tab {
+    border-radius: 0 !important;
+}
+
+.efecto-cargando {
+    width: 54px;
+    height: 25px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -27px;
+    margin-top: -10px;
+}
+
+.efecto-cargando b {
+    position: relative;
+    left: -16px;
+}
+
+#preloader6 {
+    position: relative;
+    width: 42px;
+    height: 42px;
+    animation: preloader_6 5s infinite linear;
+}
+
+#preloader6 span {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    background: red;
+    display: block;
+    animation: preloader_6_span 1s infinite linear;
+}
+
+#preloader6 span:nth-child(1) {
+    background: #2ecc71;
+
+}
+
+#preloader6 span:nth-child(2) {
+    left: 22px;
+    background: #9b59b6;
+    animation-delay: .2s;
+
+}
+
+#preloader6 span:nth-child(3) {
+    top: 22px;
+    background: #3498db;
+    animation-delay: .4s;
+}
+
+#preloader6 span:nth-child(4) {
+    top: 22px;
+    left: 22px;
+    background: #f1c40f;
+    animation-delay: .6s;
+}
+
+@keyframes preloader_6_span {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(0.5);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+table-modulos {
+    border: 1px solid #ccc;
+    padding: 10px;
+    font-size: 1em;
+}
+
+table-modulos tr:nth-child(even) {
+    background: #ccc;
+}
+
+table-modulos td {
+    padding: 5px;
+}
+
+table-modulos tr.noSearch {
+    background: White;
+    font-size: 0.8em;
+}
+
+table-modulos tr.noSearch td {
+    padding-top: 10px;
+    text-align: right;
+}
+
+.hide {
+    display: none;
+}
+
+.red {
+    color: Red;
+}
+
+.modal-header{
+    cursor: move;
+}
+#modal-user{
+    overflow: auto;
+    resize: both;
+}
+/* estilo para las paginaciones de las tablas */
+.radius-left{
+    border-radius: 5px 0px 0px 5px;
+}
+.radius-right{
+    border-radius: 0px 5px 5px 0px;
+}
+.pagination__controls{
+    display: flex;
+    justify-content: end;
+}

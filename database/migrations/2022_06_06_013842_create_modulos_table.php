@@ -16,9 +16,10 @@ return new class extends Migration
         Schema::create('modulos', function (Blueprint $table) {
             $table->id();
             $table->string('modulo', 30)->nuallable(false);
+            $table->string('icono', 30)->nuallable(false);
             $table->string('link', 50)->nuallable(false);
             $table->boolean('es_catalogo')->nuallable(false);
-            $table->timestamps();
+            //$table->timestamps();
         });
     }
 
