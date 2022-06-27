@@ -22,9 +22,9 @@ function msjInfo(icon, title, text){
     })
 }
 
-function confirmDelete(id, info, api, modulo){
+function confirmDelete(id, info, api, modulo, prefijo){
     Swal.fire({
-        title: '¿Esta seguro de eliminar el '+modulo+' '+info+'?',
+        title: '¿Esta seguro de eliminar '+prefijo+' '+modulo+' '+info+'?',
         icon: 'question',
         showDenyButton: true,
         confirmButtonText: 'Eliminar',
@@ -49,6 +49,9 @@ function confirmDelete(id, info, api, modulo){
                         switch(modulo){
                             case 'usuario':
                                 getUsuarios('api/getUsuarios/', 2);
+                                break;
+                            case 'marca':
+                                getMarcas('api/getMarcas/', 2);
                                 break;
                         }
                     }

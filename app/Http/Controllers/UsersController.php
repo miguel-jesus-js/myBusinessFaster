@@ -147,7 +147,8 @@ class UsersController extends Controller
             }
         }
     }
-    public function delete($id){
+    public function delete($id)
+    {
         try {
             User::find($id)->delete();
             return json_encode(['icon'  => 'success', 'title'   => 'Exitó', 'text'  => 'Usuario eliminado']);

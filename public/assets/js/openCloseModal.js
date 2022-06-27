@@ -8,13 +8,22 @@ function openModal(id_modal, modulo, tipo){
             $('#table-user-modulos tbody').empty();
             $('#table-modulos tbody').empty();
             if(tipo == 0){
-                $('#modal-title').html('Agregar usuarios');
+                $('#modal-title').html('Agregar usuario');
                 $('#btn-modal').html('Registrar');
                 $('#password').prop('disabled', false);
             }else if(tipo == 1){
                 $('#modal-title').html('Editar usuario');
                 $('#btn-modal').html('Actualizar');
                 $('#password').prop('disabled', true);
+            }
+            break;
+        case 'marcas':
+            if(tipo == 0){
+                $('#modal-title').html('Agregar marca');
+                $('#btn-modal').html('Registrar');
+            }else if(tipo == 1){
+                $('#modal-title').html('Editar marca');
+                $('#btn-modal').html('Actualizar');
             }
             break;
     }

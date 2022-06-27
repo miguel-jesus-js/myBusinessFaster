@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('marca', 50)->nullable(false);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

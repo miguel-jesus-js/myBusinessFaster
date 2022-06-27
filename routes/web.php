@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\ModulosController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\MarcasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,15 +26,25 @@ Route::get('/dashboard', function () {
 Route::get('/usuarios', function () {
     return view('usuarios');
 });
+Route::get('/marcas', function () {
+    return view('marcas');
+});
 
 //
 Route::get('api/getRoles', [RolesController::class, 'index']);
 Route::get('api/getModulos', [ModulosController::class, 'index']);
 
+//apis usuarios
 Route::get('api/getUsuarios/{filtro}', [UsersController::class, 'index']);
 Route::post('api/addUsuarios', [UsersController::class, 'create']);
 Route::put('api/updateUsuarios', [UsersController::class, 'update']);
 Route::delete('api/deleteUsuarios/{id}', [UsersController::class, 'delete']);
+//apis marcas
+Route::get('api/getMarcas/{filtro}', [MarcasController::class, 'index']);
+Route::post('api/addMarcas', [MarcasController::class, 'create']);
+Route::put('api/updateMarcas', [MarcasController::class, 'update']);
+Route::delete('api/deleteMarcas/{id}', [MarcasController::class, 'delete']);
+
 // Route::group(['middleware' => 'auth'], function () {
 //     //apis roles
     
