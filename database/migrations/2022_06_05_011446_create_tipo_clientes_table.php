@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('tipo_cliente', 30)->nullable(false);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

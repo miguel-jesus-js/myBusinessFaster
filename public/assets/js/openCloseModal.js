@@ -35,12 +35,19 @@ function openModal(id_modal, modulo, tipo){
             }
             break;
         case 'categorias':
-        if(tipo == 0){
-            $('#modal-title').html('Agregar categoría');
-        }else if(tipo == 1){
-            $('#modal-title').html('Editar categoría');
-        }
-        break;
+            if(tipo == 0){
+                $('#modal-title').html('Agregar categoría');
+            }else if(tipo == 1){
+                $('#modal-title').html('Editar categoría');
+            }
+            break;
+        case 'tipo_clientes':
+            if(tipo == 0){
+                $('#modal-title').html('Agregar tipo de cliente');
+            }else if(tipo == 1){
+                $('#modal-title').html('Editar tipo de cliente');
+            }
+            break;
         
     }
     $('#'+id_modal).modal({backdrop: 'static', keyboard: false});

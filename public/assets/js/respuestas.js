@@ -59,6 +59,10 @@ function confirmDelete(id, info, api, modulo, prefijo){
                             case 'categoria':
                                 getCategorias('api/getCategorias/', 2);
                                 break;
+                            case 'tipo de cliente':
+                                getTipoClientes('api/getTipoClientes/', 2);
+                                break;
+                            
                         }
                     }
                 }
