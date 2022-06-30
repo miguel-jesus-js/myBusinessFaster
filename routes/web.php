@@ -5,6 +5,7 @@ use App\Http\Controllers\RolesController;
 use App\Http\Controllers\ModulosController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\MarcasController;
+use App\Http\Controllers\MaterialesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,9 @@ Route::get('/usuarios', function () {
 Route::get('/marcas', function () {
     return view('marcas');
 });
+Route::get('/materiales', function () {
+    return view('materiales');
+});
 
 //
 Route::get('api/getRoles', [RolesController::class, 'index']);
@@ -44,6 +48,11 @@ Route::get('api/getMarcas/{filtro}', [MarcasController::class, 'index']);
 Route::post('api/addMarcas', [MarcasController::class, 'create']);
 Route::put('api/updateMarcas', [MarcasController::class, 'update']);
 Route::delete('api/deleteMarcas/{id}', [MarcasController::class, 'delete']);
+//apis materiales
+Route::get('api/getMateriales/{filtro}', [MaterialesController::class, 'index']);
+Route::post('api/addMateriales', [MaterialesController::class, 'create']);
+Route::put('api/updateMateriales', [MaterialesController::class, 'update']);
+Route::delete('api/deleteMateriales/{id}', [MaterialesController::class, 'delete']);
 
 // Route::group(['middleware' => 'auth'], function () {
 //     //apis roles

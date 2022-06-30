@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('productos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('material_id');
+            $table->unsignedBigInteger('materiale_id');
             $table->unsignedBigInteger('unidad_medida_id');
             $table->unsignedBigInteger('marca_id');
             $table->char('cod_barra', 13)->unique()->nullable(false);
@@ -35,7 +35,7 @@ return new class extends Migration
             $table->boolean('afecta_ventas')->nullable(false)->default(true);
             $table->timestamps();
             $table->softdeletes();
-            $table->foreign('material_id')->references('id')->on('materials')->onDelete('cascade');
+            $table->foreign('materiale_id')->references('id')->on('materiales')->onDelete('cascade');
             $table->foreign('unidad_medida_id')->references('id')->on('unidad_medidas')->onDelete('cascade');
             $table->foreign('marca_id')->references('id')->on('marcas')->onDelete('cascade');
         });

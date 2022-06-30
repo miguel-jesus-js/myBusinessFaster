@@ -145,7 +145,7 @@
                         <div class="tab-pane active show" id="tab-datos-pers">
                             <div class="row">
                                 <div class="col-sm-6 col-md-4 mb-3">
-                                    <input type="hidden" value="" id="id" name="id">
+                                    <input type="number" class="d-none" id="id" name="id">
                                     <label class="form-label required">Nombre(s)</label>
                                     <input type="text" class="form-control" name="nombres" id="nombres" placeholder="Nombre(s)" required autocomplete="off" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,50}">
                                 </div>

@@ -6,6 +6,9 @@ function filterGeneral(modulo, api, filtro){
         case 'marcas':
             getMarcas(api, filtro);
             break;
+        case 'materiales':
+            getMateriales(api, filtro);
+            break;
     }
 }
 $("#search").keyup(function() {
@@ -23,6 +26,13 @@ $("#search").keyup(function() {
                 getMarcas('api/getMarcas/', 2);
             }else{
                 getMarcas('api/getMarcas/', $(this).val());
+            }
+            break; 
+        case 'materiales':
+            if($(this).val() == ''){
+                getMateriales('api/getMateriales/', 2);
+            }else{
+                getMateriales('api/getMateriales/', $(this).val());
             }
             break; 
     }
