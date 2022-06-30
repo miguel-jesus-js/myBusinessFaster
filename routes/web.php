@@ -6,6 +6,7 @@ use App\Http\Controllers\ModulosController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\MarcasController;
 use App\Http\Controllers\MaterialesController;
+use App\Http\Controllers\CategoriasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,9 @@ Route::get('/marcas', function () {
 Route::get('/materiales', function () {
     return view('materiales');
 });
+Route::get('/categorias', function () {
+    return view('categorias');
+});
 
 //
 Route::get('api/getRoles', [RolesController::class, 'index']);
@@ -53,6 +57,11 @@ Route::get('api/getMateriales/{filtro}', [MaterialesController::class, 'index'])
 Route::post('api/addMateriales', [MaterialesController::class, 'create']);
 Route::put('api/updateMateriales', [MaterialesController::class, 'update']);
 Route::delete('api/deleteMateriales/{id}', [MaterialesController::class, 'delete']);
+//apis categorias
+Route::get('api/getCategorias/{filtro}', [CategoriasController::class, 'index']);
+Route::post('api/addCategorias', [CategoriasController::class, 'create']);
+Route::put('api/updateCategorias', [CategoriasController::class, 'update']);
+Route::delete('api/deleteCategorias/{id}', [CategoriasController::class, 'delete']);
 
 // Route::group(['middleware' => 'auth'], function () {
 //     //apis roles

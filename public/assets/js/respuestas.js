@@ -56,6 +56,9 @@ function confirmDelete(id, info, api, modulo, prefijo){
                             case 'material':
                                 getMateriales('api/getMateriales/', 2);
                                 break;
+                            case 'categoria':
+                                getCategorias('api/getCategorias/', 2);
+                                break;
                         }
                     }
                 }

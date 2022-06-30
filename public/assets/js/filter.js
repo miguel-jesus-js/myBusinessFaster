@@ -9,6 +9,9 @@ function filterGeneral(modulo, api, filtro){
         case 'materiales':
             getMateriales(api, filtro);
             break;
+        case 'categorias':
+            getCategorias(api, filtro);
+            break;
     }
 }
 $("#search").keyup(function() {
@@ -33,6 +36,13 @@ $("#search").keyup(function() {
                 getMateriales('api/getMateriales/', 2);
             }else{
                 getMateriales('api/getMateriales/', $(this).val());
+            }
+            break; 
+        case 'categorias':
+            if($(this).val() == ''){
+                getCategorias('api/getCategorias/', 2);
+            }else{
+                getCategorias('api/getCategorias/', $(this).val());
             }
             break; 
     }
