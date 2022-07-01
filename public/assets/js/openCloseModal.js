@@ -48,6 +48,13 @@ function openModal(id_modal, modulo, tipo){
                 $('#modal-title').html('Editar tipo de cliente');
             }
             break;
+        case 'proveedores':
+            if(tipo == 0){
+                $('#modal-title').html('Agregar proveedor');
+            }else if(tipo == 1){
+                $('#modal-title').html('Editar proveedor');
+            }
+            break;
         
     }
     $('#'+id_modal).modal({backdrop: 'static', keyboard: false});

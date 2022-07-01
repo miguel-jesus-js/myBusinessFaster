@@ -8,6 +8,7 @@ use App\Http\Controllers\MarcasController;
 use App\Http\Controllers\MaterialesController;
 use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\TipoClientesController;
+use App\Http\Controllers\ProveedoresController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,9 @@ Route::get('/categorias', function () {
 Route::get('/tipo_clientes', function () {
     return view('tipo_clientes');
 });
+Route::get('/proveedores', function () {
+    return view('proveedores');
+});
 
 //
 Route::get('api/getRoles', [RolesController::class, 'index']);
@@ -71,6 +75,11 @@ Route::get('api/getTipoClientes/{filtro}', [TipoClientesController::class, 'inde
 Route::post('api/addTipoClientes', [TipoClientesController::class, 'create']);
 Route::put('api/updateTipoClientes', [TipoClientesController::class, 'update']);
 Route::delete('api/deleteTipoClientes/{id}', [TipoClientesController::class, 'delete']);
+//apis proveedores
+Route::get('api/getProveedores/{filtro}', [ProveedoresController::class, 'index']);
+Route::post('api/addProveedores', [ProveedoresController::class, 'create']);
+Route::put('api/updateProveedores', [ProveedoresController::class, 'update']);
+Route::delete('api/deleteProveedores/{id}', [ProveedoresController::class, 'delete']);
 // Route::group(['middleware' => 'auth'], function () {
 //     //apis roles
     

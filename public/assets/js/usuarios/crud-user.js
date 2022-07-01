@@ -100,7 +100,7 @@ function getUsuarios(api, filtro){
                             <button type="button" class="btn p-0 border-0" onclick="onChange(${valor.id}, ${valor.role_id}, '${valor.nombres}', '${valor.app}', '${valor.apm}', '${valor.email}', '${valor.telefono}', '${valor.rfc}', '${valor.ciudad}', '${valor.estado}', '${valor.municipio}', ${valor.cp}, '${valor.colonia}', '${valor.calle}', ${valor.n_exterior}, ${valor.n_interior}, '${valor.nom_user}', ${accesoString});"><i class="ti ti-edit icono text-primary"></i></button>
                         </td>
                         <td>
-                            <button type="button" class="btn p-0 border-0" onclick="confirmDelete(${valor.id}, '${valor.marca}', 'api/deleteUsuarios/', 'usuario', 'el');"><i class="ti ti-trash icono text-danger"></i></button>
+                            <button type="button" class="btn p-0 border-0" onclick="confirmDelete(${valor.id}, '${valor.nombres}', 'api/deleteUsuarios/', 'usuario', 'el');"><i class="ti ti-trash icono text-danger"></i></button>
                         </td>
 
                     </tr>

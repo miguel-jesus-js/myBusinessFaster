@@ -15,6 +15,9 @@ function filterGeneral(modulo, api, filtro){
         case 'tipo_clientes':
             getTipoClientes(api, filtro);
             break;
+        case 'proveedores':
+            getProveedores(api, filtro);
+            break;
     }
 }
 $("#search").keyup(function() {
@@ -53,6 +56,13 @@ $("#search").keyup(function() {
                 getTipoClientes('api/getTipoClientes/', 2);
             }else{
                 getTipoClientes('api/getTipoClientes/', $(this).val());
+            }
+            break;
+        case 'proveedores':
+            if($(this).val() == ''){
+                getProveedores('api/getProveedores/', 2);
+            }else{
+                getProveedores('api/getProveedores/', $(this).val());
             }
             break;
     }
