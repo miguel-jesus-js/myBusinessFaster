@@ -9,6 +9,7 @@ use App\Http\Controllers\MaterialesController;
 use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\TipoClientesController;
 use App\Http\Controllers\ProveedoresController;
+use App\Http\Controllers\UnidadMedidasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,9 @@ Route::get('/categorias', function () {
 });
 Route::get('/tipo_clientes', function () {
     return view('tipo_clientes');
+});
+Route::get('/unidad_medidas', function () {
+    return view('unidad_medidas');
 });
 Route::get('/proveedores', function () {
     return view('proveedores');
@@ -80,6 +84,11 @@ Route::get('api/getProveedores/{filtro}', [ProveedoresController::class, 'index'
 Route::post('api/addProveedores', [ProveedoresController::class, 'create']);
 Route::put('api/updateProveedores', [ProveedoresController::class, 'update']);
 Route::delete('api/deleteProveedores/{id}', [ProveedoresController::class, 'delete']);
+//apis unida de medidas
+Route::get('api/getUnidadMedidas/{filtro}', [UnidadMedidasController::class, 'index']);
+Route::post('api/addUnidadMedidas', [UnidadMedidasController::class, 'create']);
+Route::put('api/updateUnidadMedidas', [UnidadMedidasController::class, 'update']);
+Route::delete('api/deleteUnidadMedidas/{id}', [UnidadMedidasController::class, 'delete']);
 // Route::group(['middleware' => 'auth'], function () {
 //     //apis roles
     

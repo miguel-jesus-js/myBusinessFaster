@@ -55,6 +55,13 @@ function openModal(id_modal, modulo, tipo){
                 $('#modal-title').html('Editar proveedor');
             }
             break;
+        case 'unidad_medidas':
+            if(tipo == 0){
+                $('#modal-title').html('Agregar unidad de medida');
+            }else if(tipo == 1){
+                $('#modal-title').html('Editar unidad de medida');
+            }
+            break;
         
     }
     $('#'+id_modal).modal({backdrop: 'static', keyboard: false});

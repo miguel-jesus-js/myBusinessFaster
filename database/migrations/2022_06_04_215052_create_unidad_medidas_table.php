@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('unidad_medida', 50)->nullable(false);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -37,14 +37,14 @@
                     </div>
                     <div class="col-md-1">
                         <label class="form-label">Filtros</label>
-                        <a class="nav-link dropdown-toggle btn" href="#navbar-help" data-bs-toggle="dropdown"
+                        <button class="nav-link dropdown-toggle btn" data-bs-toggle="dropdown"
                             data-bs-auto-close="outside" role="button" aria-expanded="true">
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
                                 <i class="ti ti-filter icono"></i>
                             </span>
-                        </a>
+                        </button>
                         <div class="dropdown-menu" data-bs-popper="static">
-                            <a class="dropdown-item" href="#">
+                            <button class="dropdown-item">
                                 <ul>
                                     <li>
                                         <label class="form-check">
@@ -65,7 +65,7 @@
                                         </label>
                                     </li>
                                 </ul>
-                            </a>
+                            </button>
                         </div>
                     </div>
                     <div class="col-md-2">

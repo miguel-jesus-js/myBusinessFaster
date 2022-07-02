@@ -17,7 +17,7 @@ class ProveedoresSeeder extends Seeder
     {
         $data = [
             [
-                'clave'       => 1,
+                'clave'         => 1,
                 'nombres'       => 'Diana berenice',
                 'app'           => 'Rodriguez',
                 'apm'           => 'Aguilar',
@@ -34,7 +34,7 @@ class ProveedoresSeeder extends Seeder
                 'n_exterior'    => 18
             ],
             [
-                'clave'       => 1,
+                'clave'         => 2,
                 'nombres'       => 'Miguel de Jesús',
                 'app'           => 'López',
                 'apm'           => 'López',
@@ -51,7 +51,7 @@ class ProveedoresSeeder extends Seeder
                 'n_exterior'    => 18
             ],
             [
-                'clave'       => 2,
+                'clave'         => 3,
                 'nombres'       => 'Jose Enrique',
                 'app'           => 'López',
                 'apm'           => 'López',
@@ -68,7 +68,7 @@ class ProveedoresSeeder extends Seeder
                 'n_exterior'    => 18,
             ],
             [
-                'clave'       => 2,
+                'clave'         => 4,
                 'nombres'       => 'Pedro alejandro',
                 'app'           => 'López',
                 'apm'           => 'López',
@@ -85,7 +85,7 @@ class ProveedoresSeeder extends Seeder
                 'n_exterior'    => 18
             ],
             [
-                'clave'       => 2,
+                'clave'         => 5,
                 'nombres'       => 'Esther',
                 'app'           => 'López',
                 'apm'           => 'Cruz',
@@ -102,7 +102,7 @@ class ProveedoresSeeder extends Seeder
                 'n_exterior'    => 18
             ],
             [
-                'clave'       => 2,
+                'clave'         => 6,
                 'nombres'       => 'Pedro',
                 'app'           => 'López',
                 'apm'           => 'Gómez',
@@ -119,7 +119,7 @@ class ProveedoresSeeder extends Seeder
                 'n_exterior'    => 18
             ],
             [
-                'clave'       => 2,
+                'clave'         => 7,
                 'nombres'       => 'Jesus',
                 'app'           => 'López',
                 'apm'           => 'Gómez',

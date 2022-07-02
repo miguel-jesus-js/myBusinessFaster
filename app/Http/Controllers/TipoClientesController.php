@@ -60,7 +60,7 @@ class TipoClientesController extends Controller
             TipoCliente::find($id)->delete();
             return json_encode(['icon'  => 'success', 'title'   => 'Exitó', 'text'  => 'Tipo de cliente eliminado']);
         } catch (\Exception $e) {
-            return json_encode(['icon'  => 'error', 'title'   => 'Error', 'text'  => 'Ocurrio un errorel tipo de cliente no fue eliminado']);
+            return json_encode(['icon'  => 'error', 'title'   => 'Error', 'text'  => 'Ocurrio un error el tipo de cliente no fue eliminado']);
         }
     }
 }

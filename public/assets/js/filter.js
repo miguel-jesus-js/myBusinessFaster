@@ -18,6 +18,9 @@ function filterGeneral(modulo, api, filtro){
         case 'proveedores':
             getProveedores(api, filtro);
             break;
+        case 'unidad_medidas':
+            getUnidadMedidas(api, filtro);
+            break;
     }
 }
 $("#search").keyup(function() {
@@ -63,6 +66,13 @@ $("#search").keyup(function() {
                 getProveedores('api/getProveedores/', 2);
             }else{
                 getProveedores('api/getProveedores/', $(this).val());
+            }
+            break;
+        case 'unidad_medidas':
+            if($(this).val() == ''){
+                getUnidadMedidas('api/getUnidadMedidas/', 2);
+            }else{
+                getUnidadMedidas('api/getUnidadMedidas/', $(this).val());
             }
             break;
     }
