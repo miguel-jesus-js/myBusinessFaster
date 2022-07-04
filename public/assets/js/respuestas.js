@@ -68,6 +68,9 @@ function confirmDelete(id, info, api, modulo, prefijo){
                             case 'unidad de medida':
                                 getUnidadMedidas('api/getUnidadMedidas/', 2);
                                 break;
+                            case 'clientes':
+                                getClientes('api/getClientes/', 2);
+                                break;
                         }
                     }
                 }

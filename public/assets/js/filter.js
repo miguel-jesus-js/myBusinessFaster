@@ -21,6 +21,9 @@ function filterGeneral(modulo, api, filtro){
         case 'unidad_medidas':
             getUnidadMedidas(api, filtro);
             break;
+        case 'clientes':
+            getClientes(api, filtro);
+            break;
     }
 }
 $("#search").keyup(function() {
@@ -73,6 +76,13 @@ $("#search").keyup(function() {
                 getUnidadMedidas('api/getUnidadMedidas/', 2);
             }else{
                 getUnidadMedidas('api/getUnidadMedidas/', $(this).val());
+            }
+            break;
+        case 'clientes':
+            if($(this).val() == ''){
+                getClientes('api/getClientes/', 2);
+            }else{
+                getClientes('api/getClientes/', $(this).val());
             }
             break;
     }

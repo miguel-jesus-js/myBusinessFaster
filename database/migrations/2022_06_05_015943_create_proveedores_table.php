@@ -21,12 +21,12 @@ return new class extends Migration
             $table->string('apm', 50)->nullable(false);
             $table->string('email', 50)->unique()->nullable(false);
             $table->char('telefono', 14)->unique()->nullable(false);
-            $table->char('rfc', 13)->unique()->nullable(false);
+            $table->char('rfc', 13)->unique()->nullable(true);
             $table->string('empresa', 50)->nullable(true);
-            $table->string('ciudad', 30)->nullable(true);
-            $table->string('estado', 30)->nullable(true);
-            $table->string('municipio', 30)->nullable(true);
-            $table->integer('cp')->nullable(true);
+            $table->string('ciudad', 30)->nullable(false);
+            $table->string('estado', 30)->nullable(false);
+            $table->string('municipio', 30)->nullable(false);
+            $table->integer('cp')->nullable(false);
             $table->string('colonia', 50)->nullable(false);
             $table->string('calle', 50)->nullable(false);
             $table->integer('n_exterior')->nullable(false);

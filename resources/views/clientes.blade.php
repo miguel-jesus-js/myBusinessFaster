@@ -5,13 +5,13 @@
         <div class="row align-items-center">
             <div class="col-md-8">
                 <div class="page-header-title">
-                    <h5 class="m-b-10">PROVEEDORES</h5>
+                    <h5 class="m-b-10">CLIENTES</h5>
                     <p class="m-b-0 text-white">Bienvenido</p>
                 </div>
             </div>
             <div class="col-md-4">
                 <ol class="breadcrumb breadcrumb-arrows" aria-label="breadcrumbs">
-                    <li class="breadcrumb-item"><i class="ti ti-user me-2"></i><a href="#">Proveedores</a></li>
+                    <li class="breadcrumb-item"><i class="ti ti-user me-2"></i><a href="#">Clientes</a></li>
                 </ol>
             </div>
         </div>
@@ -29,7 +29,7 @@
                         <label class="form-label">Buscar</label>
                         <div class="input-icon mb-3">
                             <input type="search" id="search" class="form-control" placeholder="Buscar..." autocomplete="off">
-                            <input type="hidden" value="proveedores" id="modulo">
+                            <input type="hidden" value="clientes" id="modulo">
                             <span class="input-icon-addon">
                                 <i class="ti ti-search"></i>
                             </span>
@@ -48,19 +48,19 @@
                                 <ul>
                                     <li>
                                         <label class="form-check">
-                                            <input class="form-check-input" name="filter" type="checkbox" onclick="filterGeneral('proveedores', 'api/getProveedores/', 0)">
+                                            <input class="form-check-input" name="filter" type="checkbox" onclick="filterGeneral('clientes', 'api/getClientes/', 0)">
                                             <span class="form-check-label">Todos</span>
                                         </label>
                                     </li>
                                     <li>
                                         <label class="form-check">
-                                            <input class="form-check-input" name="filter" type="checkbox" onclick="filterGeneral('proveedores', 'api/getProveedores/', 1)">
+                                            <input class="form-check-input" name="filter" type="checkbox" onclick="filterGeneral('clientes', 'api/getClientes/', 1)">
                                             <span class="form-check-label">Eliminados</span>
                                         </label>
                                     </li>
                                     <li>
                                         <label class="form-check">
-                                            <input class="form-check-input" name="filter" type="checkbox" checked onclick="filterGeneral('proveedores', 'api/getProveedores/', 2)">
+                                            <input class="form-check-input" name="filter" type="checkbox" checked onclick="filterGeneral('clientes', 'api/getClientes/', 2)">
                                             <span class="form-check-label">No eliminados</span>
                                         </label>
                                     </li>
@@ -70,24 +70,23 @@
                     </div>
                     <div class="col-md-2">
                         <label class="form-label invisible">add</label>
-                        <button onclick="openModal('modal-proveedor','proveedores', 0)" class="btn btn-primary">
-                            Agregar proveedor
+                        <button onclick="openModal('modal-cliente','clientes', 0)" class="btn btn-primary">
+                            Agregar usuario
                         </button>
                     </div>
                 </div><!-- row end -->
                 <br>
                 <div class="d-flex justify-content-end">
-                    <button class="btn" aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Recargar" onclick="getProveedores('api/getProveedores/', 2);">
+                    <button class="btn" aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Recargar" onclick="getClientes('api/getClientes/', 2);">
                         <i class="ti ti-refresh icono"></i>
                     </button>
                 </div>
                 <div class="table-responsive">
-                    <table id="table-proveedor" class="table shadow-sm bg-white">
+                    <table id="table-cliente" class="table shadow-sm bg-white">
                         <thead>
                             <tr>
-                                <th>Clave</th>
                                 <th>Nombre</th>
-                                <th>Empresa</th>
+                                <th>Tipo</th>
                                 <th>Correo</th>
                                 <th>Teléfono</th>
                                 <th colspan="2">Acciones</th>
@@ -104,15 +103,15 @@
     </div>
 </div>
 
-<div class="modal modal-blur fade" id="modal-proveedor" tabindex="-1" style="display: none;" aria-hidden="true">
+<div class="modal modal-blur fade" id="modal-cliente" tabindex="-1" style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modal-title"></h5>
-                <button type="button" class="btn-close" onclick="closeModal('modal-proveedor', 'form-add-proveedor')"></button>
+                <button type="button" class="btn-close" onclick="closeModal('modal-cliente', 'form-add-cliente')"></button>
             </div>
             <div class="modal-body">
-                <form id="form-add-proveedor">
+                <form id="form-add-cliente">
                     <ul class="nav nav-pills" data-bs-toggle="tabs">
                         <li class="nav-item active">
                             <a href="#tab-datos-pers" class="nav-link active btn-tab" data-bs-toggle="tab">
@@ -123,6 +122,11 @@
                             <a href="#contacto" class="nav-link btn-tab" data-bs-toggle="tab">
                                 <i class="ti ti-phone icono me-1"></i>
                                 Datos de contacto</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#direccionesEntrega" class="nav-link btn-tab" data-bs-toggle="tab">
+                                <i class="ti ti-lock-access icono me-1"></i>
+                                Direcciones de entrega</a>
                         </li>
                         
                     </ul>
@@ -152,9 +156,11 @@
                                     <label class="form-label required">Apellido M</label>
                                     <input type="text" class="form-control" name="apm" id="apm" placeholder="Apellido materno" required autocomplete="off" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,50}">
                                 </div>
-                                <div class="col-sm-6 col-md-4 mb-3">
-                                    <label class="form-label required">Clave</label>
-                                    <input type="text" class="form-control" name="clave" id="clave" placeholder="Clave" required autocomplete="off" maxlength="10" minlength="3">
+                                <div class="col-sm-6 col-md-4">
+                                    <label class="form-label required">Tipo</label>
+                                    <select class="form-select" name="tipo_cliente_id" id="tipo_cliente_id" onclick="getTipoClientes()" required>
+                                        <option value="" id="load-select">Elige una opción</option>
+                                    </select>
                                 </div>
                                 <div class="col-sm-6 col-md-4 mb-2">
                                     <label class="form-label">RFC</label>
@@ -214,8 +220,28 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="tab-pane" id="direccionesEntrega">
+                            <table class="table" id="table-cliente-direcciones">
+                                <thead>
+                                    <tr>
+                                        <th class="cliente_id">ID</th>
+                                        <th>Ciudad</th>
+                                        <th>Estado</th>
+                                        <th>Municipio</th>
+                                        <th>Colonia</th>
+                                        <th>Calle</th>
+                                        <th>N° Exterior</th>
+                                        <th>N° Interior</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-red btn-pill" onclick="closeModal('modal-proveedor', 'form-add-proveedor')">Cancelar</button>
+                            <button type="button" class="btn btn-red btn-pill" onclick="closeModal('modal-cliente', 'form-add-cliente')">Cancelar</button>
                             <button type="submit" class="btn btn-blue btn-pill">
                                 <span id="load-button" class="spinner-grow spinner-grow-sm me-1 d-none" role="status" aria-hidden="true"></span>
                                 <b id="btn-modal"></b>
@@ -229,12 +255,12 @@
 </div>
 @endsection
 @section('script')
-<script src="{{ asset('assets/js/proveedores/config.js') }}"></script>
-<script src="{{ asset('assets/js/proveedores/crud-proveedor.js') }}"></script>
+<script src="{{ asset('assets/js/clientes/config.js') }}"></script>
+<script src="{{ asset('assets/js/clientes/crud-cliente.js') }}"></script>
 <script>
     $( document ).ready(function() {
-        getProveedores('api/getProveedores/', 2);
-        $("#modal-proveedor").draggable();
+        getClientes('api/getClientes/', 2);
+        $("#modal-cliente").draggable();
     });
 </script>
 @endsection

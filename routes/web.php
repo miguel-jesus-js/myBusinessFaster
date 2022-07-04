@@ -10,6 +10,7 @@ use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\TipoClientesController;
 use App\Http\Controllers\ProveedoresController;
 use App\Http\Controllers\UnidadMedidasController;
+use App\Http\Controllers\ClientesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +49,9 @@ Route::get('/unidad_medidas', function () {
 });
 Route::get('/proveedores', function () {
     return view('proveedores');
+});
+Route::get('/clientes', function () {
+    return view('clientes');
 });
 
 //
@@ -89,6 +93,11 @@ Route::get('api/getUnidadMedidas/{filtro}', [UnidadMedidasController::class, 'in
 Route::post('api/addUnidadMedidas', [UnidadMedidasController::class, 'create']);
 Route::put('api/updateUnidadMedidas', [UnidadMedidasController::class, 'update']);
 Route::delete('api/deleteUnidadMedidas/{id}', [UnidadMedidasController::class, 'delete']);
+//apis clientes
+Route::get('api/getClientes/{filtro}', [ClientesController::class, 'index']);
+Route::post('api/addClientes', [ClientesController::class, 'create']);
+Route::put('api/updateClientes', [ClientesController::class, 'update']);
+Route::delete('api/deleteClientes/{id}', [ClientesController::class, 'delete']);
 // Route::group(['middleware' => 'auth'], function () {
 //     //apis roles
     

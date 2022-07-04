@@ -62,7 +62,13 @@ function openModal(id_modal, modulo, tipo){
                 $('#modal-title').html('Editar unidad de medida');
             }
             break;
-        
+        case 'clientes':
+            if(tipo == 0){
+                $('#modal-title').html('Agregar cliente');
+            }else if(tipo == 1){
+                $('#modal-title').html('Editar cliente');
+            }
+            break;
     }
     $('#'+id_modal).modal({backdrop: 'static', keyboard: false});
     if(tipo == 3){
