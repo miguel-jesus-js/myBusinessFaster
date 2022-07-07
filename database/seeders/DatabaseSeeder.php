@@ -22,6 +22,9 @@ class DatabaseSeeder extends Seeder
         $this->call(MarcasSeeder::class);
         $this->call(UnidadMedidasSeeder::class);
         $this->call(MaterialesSeeder::class);
+        $this->call(TipoClientesSeeder::class);
+        $this->call(ClientesSeeder::class);
+        $this->call(DireccionesEntregasSeeder::class);
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
