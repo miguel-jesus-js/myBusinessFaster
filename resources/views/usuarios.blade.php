@@ -230,7 +230,7 @@
                                     <div class="col-md-4">
                                         <label class="form-label required">Rol</label>
                                         <select class="form-select" name="role_id" id="role_id" onclick="getRoles()" required>
-                                            <option value="" id="load-select">Elige una opción</option>
+                                            <option value="" id="load-select" disabled selected>Elige una opción</option>
                                         </select>
                                     </div>
                                 </div>

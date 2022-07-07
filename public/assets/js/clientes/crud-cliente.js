@@ -1,6 +1,47 @@
 $('#form-add-cliente').submit(function(e){
     e.preventDefault();
     let data = $(this).serialize();
+    var i = 0;
+    var cliente_id = []
+    var ciudad = [];
+    var estado = [];
+    var municipio = [];
+    var cp = [];
+    var colonia = [];
+    var calle = [];
+    var n_exterior = [];
+    var n_interior = [];
+    var table_direcciones = $('#table-clientes-direcciones tbody');
+    table_direcciones.find('tr').each(function (i, el) {
+        var $tds = $(this).find('td');
+        cliente_id.push($tds.eq(0).text());//obtiene el id del modulo
+        ciudad.push($tds.eq(1).text()); //obtiene el valor del check true o false
+        estado.push($tds.eq(2).text());
+        municipio.push($tds.eq(3).text());
+        cp.push($tds.eq(4).text());
+        colonia.push($tds.eq(5).text());
+        calle.push($tds.eq(6).text());
+        n_exterior.push($tds.eq(7).text());
+        n_interior.push($tds.eq(8).text());
+    });
+    var datos  = [];
+    var objeto = {};
+    for(var i= 0; i < cliente_id.length; i++) {//creamos la estructura json para poder enviarlo
+       datos.push({ 
+            "cliente_id": cliente_id[i],
+            "ciudad": ciudad[i],
+            "estado": estado[i] ,
+            "municipio": municipio[i] ,
+            "cp": cp[i] ,
+            "colonia": colonia[i] ,
+            "calle": calle[i] ,
+            "n_exterior": n_exterior[i] ,
+            "n_interior": n_interior[i] ,
+        });
+    }
+    objeto = datos;
+    let json = JSON.stringify(objeto); //lista de objetos en Json
+    data = data + '&datos='+ json;
     var url = '';
     var tipo = '';
     if($('#id').val() == ''){
@@ -62,7 +103,7 @@ function getClientes(api, filtro){
                 row += `
                     <tr class="${elimnado}">
                         <td>${valor.nombres} ${valor.app} ${valor.apm}</td>
-                        <td>${valor.tipo_cliente_id}</td>
+                        <td>${valor.tipo_cliente.tipo_cliente }</td>
                         <td>${valor.email}</td>
                         <td>${valor.telefono}</td>
                         <td>
@@ -105,6 +146,9 @@ function onChange(id, tipo_cliente_id, nombres, app, apm, email, telefono, rfc, 
     //llenamos la tabla con los permisos
     var rowDirecciones = '';
     $.each(direcciones, function(index, valor){
+        if(valor.n_interior == null){
+            valor.n_interior = '';
+        }
         rowDirecciones += `
                     <tr>
                         <td>${valor.cliente_id}</td>
@@ -122,6 +166,6 @@ function onChange(id, tipo_cliente_id, nombres, app, apm, email, telefono, rfc, 
                     </tr>     
         `;
     });
-    $('#table-cliente-direcciones tbody').html(rowDirecciones);
-    $('#table-cliente-direcciones td:nth-child(1)').hide();//ocultamos la fila ID
+    $('#table-clientes-direcciones tbody').html(rowDirecciones);
+    $('#table-clientes-direcciones td:nth-child(1)').hide();//ocultamos la fila ID
 }

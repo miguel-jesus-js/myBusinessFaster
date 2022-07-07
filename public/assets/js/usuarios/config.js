@@ -9,7 +9,7 @@ function getRoles() {
                 $('#load-select').html('Cargando...');
             },
             success: function (response) {
-                $('#role_id').empty();
+                $('#load-select').html('Elige una opción');
                 let data = JSON.parse(response);
                 let option = '';
                 $.each(data, function (index, valor) {

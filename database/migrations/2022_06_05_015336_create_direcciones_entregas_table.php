@@ -24,7 +24,6 @@ return new class extends Migration
             $table->integer('n_exterior')->nullable(false);
             $table->integer('n_interior')->nullable(true);
             $table->timestamps();
-            $table->softdeletes();
             $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade');
         });
     }

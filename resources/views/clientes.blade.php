@@ -159,7 +159,7 @@
                                 <div class="col-sm-6 col-md-4">
                                     <label class="form-label required">Tipo</label>
                                     <select class="form-select" name="tipo_cliente_id" id="tipo_cliente_id" onclick="getTipoClientes()" required>
-                                        <option value="" id="load-select">Elige una opción</option>
+                                        <option value="" id="load-select" disabled selected>Elige una opción</option>
                                     </select>
                                 </div>
                                 <div class="col-sm-6 col-md-4 mb-2">
@@ -221,13 +221,19 @@
                             </div>
                         </div>
                         <div class="tab-pane" id="direccionesEntrega">
-                            <table class="table" id="table-cliente-direcciones">
+                            <div class="d-flex justify-content-end">
+                                <label class="form-label required invisible">Agregar dirección</label>
+                                <button type="button" class="btn btn-success" onclick="openModal('modal-direcciones','clientes', 2)">Agregar dirección</button>
+                            </div>
+                            <br>
+                            <table class="table" id="table-clientes-direcciones">
                                 <thead>
                                     <tr>
                                         <th class="cliente_id">ID</th>
                                         <th>Ciudad</th>
                                         <th>Estado</th>
                                         <th>Municipio</th>
+                                        <th>Código postal</th>
                                         <th>Colonia</th>
                                         <th>Calle</th>
                                         <th>N° Exterior</th>
@@ -247,6 +253,63 @@
                                 <b id="btn-modal"></b>
                             </button>
                         </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal para agregar direcciones -->
+<div class="modal modal-blur fade" id="modal-direcciones" tabindex="-1" style="display: none; z-index: 5000" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content border">
+            <div class="modal-header">
+                <h5 class="modal-title">Agregar direcciones de entrega</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="closeModal('modal-direcciones', 'form-add-direcciones')"></button>
+            </div>
+            <div class="modal-body">
+                <form action="" id="form-add-direcciones">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6 mb-3">
+                            <label class="form-label required">Ciudad</label>
+                            <input type="text" class="form-control" name="ciudad1" id="ciudad1" placeholder="Ciudad" required autocomplete="off" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,50}" maxlength="50" minlength="5">
+                        </div>
+                        <div class="col-sm-6 col-md-6 mb-3">
+                            <label class="form-label required">Estado</label>
+                            <input type="text" class="form-control" name="estado1" id="estado1" placeholder="Estado" required autocomplete="off" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,50}" maxlength="50" minlength="5">
+                        </div>
+                        <div class="col-sm-6 col-md-6 mb-3">
+                            <label class="form-label required">Municipio</label>
+                            <input type="text" class="form-control" name="municipio1" id="municipio1" placeholder="Municipio" required autocomplete="off" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,50}" maxlength="50" minlength="5">
+                        </div>
+                        <div class="col-sm-6 col-md-6 mb-3">
+                            <label class="form-label required">Código postal</label>
+                            <input type="number" class="form-control" name="cp1" id="cp1" placeholder="Código postal" required autocomplete="off" maxlength="5" minlength="5">
+                        </div>
+                        <div class="col-sm-6 col-md-6 mb-3">
+                            <label class="form-label required">Colonia</label>
+                            <input type="text" class="form-control" name="colonia1" id="colonia1" placeholder="Colonia" required autocomplete="off" maxlength="50" minlength="5">
+                        </div>
+                        <div class="col-sm-6 col-md-6 mb-3">
+                            <label class="form-label required">Calle</label>
+                            <input type="text" class="form-control" name="calle1" id="calle1" placeholder="Calle" required autocomplete="off">
+                        </div>
+                        <div class="col-sm-6 col-md-6 mb-3">
+                            <label class="form-label required">
+                                N° Exterior
+                                <span class="form-help" data-bs-toggle="popover" data-bs-placement="top" data-bs-html="true" data-bs-content="<p>Si no tiene número puede colocar 0</p>
+                                ">?</span>
+                            </label>
+                            <input type="number" class="form-control" name="n_exterior1" id="n_exterior1" placeholder="N° Exterior" required autocomplete="off" maxlength="5" minlength="0">
+                        </div>
+                        <div class="col-sm-6 col-md-6 mb-3">
+                            <label class="form-label">N° Interior</label>
+                            <input type="number" class="form-control" name="n_interior1" id="n_interior1" placeholder="N° Interior" autocomplete="off" maxlength="5" minlength="1">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close" onclick="closeModal('modal-direcciones', 'form-add-direcciones')">Cancelar</button>
+                        <button type="submit" class="btn btn-success" id="add-direcciones">Agregar</button>
                     </div>
                 </form>
             </div>

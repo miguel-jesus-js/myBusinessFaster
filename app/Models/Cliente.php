@@ -27,6 +27,7 @@ class Cliente extends Model
         'calle',
         'n_exterior',
         'n_interior',
+        'password'
     ];
     public function tipo_cliente(){
         return $this->belongsTo(TipoCliente::class);

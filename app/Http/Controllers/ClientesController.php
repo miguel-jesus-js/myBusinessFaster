@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Cliente;
 use App\Models\DireccionesEntrega;
+use Illuminate\Support\Facades\DB;
 
 class ClientesController extends Controller
 {
@@ -27,7 +28,7 @@ class ClientesController extends Controller
                                 ->orWhere('apm', 'like', '%'.$filtro.'%')
                                 ->orWhere('telefono', 'like', '%'.$filtro.'%')
                                 ->orWhere('email', 'like', '%'.$filtro.'%')
-                                ->empresa('empresa', 'like', '%'.$filtro.'%')
+                                ->orWhere('empresa', 'like', '%'.$filtro.'%')
                                 ->get();
                 break;
         }
@@ -58,6 +59,7 @@ class ClientesController extends Controller
 
         ]);
         $data = $request->all();
+        $data['password'] = bcrypt($data['email']);
         if(Cliente::where('email', $data['email'])->exists()){
             return json_encode(['icon'  => 'warning', 'title'   => 'Advertencia', 'text'  => 'El correo '.$request->all()['email'].' ya ha sido registrado']);
         }else if(Cliente::where('telefono', $data['telefono'])->exists()){
@@ -66,22 +68,32 @@ class ClientesController extends Controller
             return json_encode(['icon'  => 'warning', 'title'   => 'Advertencia', 'text'  => 'El RFC '.$request->all()['rfc'].' ya ha sido registrado']);
         }else{
             try {
+                DB::beginTransaction();
                 $newCliente = Cliente::create($data);
-                // $datos = json_decode($data['datos']);
-                // for($i = 0; $i < sizeof($datos); $i++)
-                // {
-                //     $datos[$i]->user_id = $newUser->id;
-                //     $newAcceso = new Acceso();
-                //     $newAcceso->user_id = $datos[$i]->user_id;                  
-                //     $newAcceso->modulo_id = $datos[$i]->modulo_id;                  
-                //     $newAcceso->c = $datos[$i]->c;                   
-                //     $newAcceso->r = $datos[$i]->r;                   
-                //     $newAcceso->u = $datos[$i]->u;                   
-                //     $newAcceso->d = $datos[$i]->d; 
-                //     $newAcceso->save();               
-                // }
+                $datos = json_decode($data['datos']);
+                for($i = 0; $i < sizeof($datos); $i++)
+                {
+                    $datos[$i]->cliente_id      = $newCliente->id;
+                    $newDireccion               = new DireccionesEntrega();
+                    $newDireccion->cliente_id   = $datos[$i]->cliente_id;                                 
+                    $newDireccion->ciudad       = $datos[$i]->ciudad;                   
+                    $newDireccion->estado       = $datos[$i]->estado;                   
+                    $newDireccion->municipio    = $datos[$i]->municipio;                   
+                    $newDireccion->cp           = $datos[$i]->cp; 
+                    $newDireccion->colonia      = $datos[$i]->colonia; 
+                    $newDireccion->calle        = $datos[$i]->calle; 
+                    $newDireccion->n_exterior   = $datos[$i]->n_exterior; 
+                    if($datos[$i]->n_interior == ''){
+                        $newDireccion->n_interior = null;
+                    } else{
+                        $newDireccion->n_interior   = $datos[$i]->n_interior; 
+                    }
+                    $newDireccion->save();               
+                }
+                DB::commit();
                 return json_encode(['icon'  => 'success', 'title'   => 'Exitó', 'text'  => 'Cliente registrado']);
             } catch (\Exception $e) {
+                DB::rollback();
                 return json_encode(['icon'  => 'error', 'title'   => 'Error', 'text'  => 'Ocurrio un error, el cliente no fue registrado']);
             }
         }
@@ -114,23 +126,33 @@ class ClientesController extends Controller
             return json_encode(['icon'  => 'warning', 'title'   => 'Advertencia', 'text'  => 'El RFC '.$request->all()['rfc'].' ya ha sido registrado']);
         }else{
             try {
+                DB::beginTransaction();
                 $clientes->update($data);
-                // $accesos = Acceso::where('user_id', $clientes->id)->delete();//eliminamos los permisos
-                // $datos = json_decode($data['datos']);
-                // for($i = 0; $i < sizeof($datos); $i++)
-                //     {//recorremos los permisos y los asignamos
-                //         $datos[$i]->user_id = $clientes->id;
-                //         $newAcceso = new Acceso();
-                //         $newAcceso->user_id = $datos[$i]->user_id;                  
-                //         $newAcceso->modulo_id = $datos[$i]->modulo_id;                  
-                //         $newAcceso->c = $datos[$i]->c;                   
-                //         $newAcceso->r = $datos[$i]->r;                   
-                //         $newAcceso->u = $datos[$i]->u;                   
-                //         $newAcceso->d = $datos[$i]->d; 
-                //         $newAcceso->save();               
-                //     }
+                $direcciones = DireccionesEntrega::where('cliente_id', $clientes->id)->delete();//eliminamos los permisos
+                $datos = json_decode($data['datos']);
+                for($i = 0; $i < sizeof($datos); $i++)
+                {
+                    $datos[$i]->cliente_id      = $clientes->id;
+                    $newDireccion               = new DireccionesEntrega();
+                    $newDireccion->cliente_id   = $datos[$i]->cliente_id;                                 
+                    $newDireccion->ciudad       = $datos[$i]->ciudad;                   
+                    $newDireccion->estado       = $datos[$i]->estado;                   
+                    $newDireccion->municipio    = $datos[$i]->municipio;                   
+                    $newDireccion->cp           = $datos[$i]->cp; 
+                    $newDireccion->colonia      = $datos[$i]->colonia; 
+                    $newDireccion->calle        = $datos[$i]->calle; 
+                    $newDireccion->n_exterior   = $datos[$i]->n_exterior; 
+                    if($datos[$i]->n_interior == ''){
+                        $newDireccion->n_interior = null;
+                    } else{
+                        $newDireccion->n_interior   = $datos[$i]->n_interior; 
+                    }
+                    $newDireccion->save();               
+                }
+                DB::commit();
                 return json_encode(['icon'  => 'success', 'title'   => 'Exitó', 'text'  => 'Datos actualizados']);
             } catch (\Exception $e) {
+                DB::rollback();
                 return json_encode(['icon'  => 'error', 'title'   => 'Error', 'text'  => 'Ocurrio un error los datos no fueron actualizados']);
             }
         }
