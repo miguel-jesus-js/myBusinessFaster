@@ -53,6 +53,9 @@ Route::get('/proveedores', function () {
 Route::get('/clientes', function () {
     return view('clientes');
 });
+Route::get('/productos', function () {
+    return view('productos');
+});
 
 //
 Route::get('api/getRoles', [RolesController::class, 'index']);

@@ -13,8 +13,17 @@
     <link rel="stylesheet" href="{{ asset('assets/css/tabler.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/jquery.mCustomScrollbar.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/dashboard.css') }}">
+
     <link rel="stylesheet" href="{{ asset('assets/css/general.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/iconfont/tabler-icons.min.css') }}">
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+<!-- (Optional) Latest compiled and minified JavaScript translation files -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/i18n/defaults-*.min.js"></script>
     <title>GEDO</title>
 </head>
 
@@ -298,6 +307,7 @@
     <script src="{{ asset('assets/js/respuestas.js') }}"></script>
     <script src="{{ asset('assets/js/pagination.js') }}"></script>
     <script src="{{ asset('assets/js/moverElementos.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap-select.min.js') }}"></script>
     <script src="{{ asset('assets/js/redimensionarTabla.js') }}"></script>
     <script src="{{ asset('assets/js/filter.js') }}"></script>
     <script src="{{ asset('assets/js/openCloseModal.js') }}"></script>

@@ -72,6 +72,13 @@ function openModal(id_modal, modulo, tipo){
                 $('#table-clientes-direcciones tbody').empty();
             }
             break;
+        case 'productos':
+            if(tipo == 0){
+                $('#modal-title').html('Agregar producto');
+            }else if(tipo == 1){
+                $('#modal-title').html('Editar producto');
+            }
+            break;
     }
     $('#'+id_modal).modal({backdrop: 'static', keyboard: false});
     if(tipo == 3){
