@@ -26,7 +26,9 @@ return new class extends Migration
             $table->float('utilidad')->nullable(false);
             $table->integer('stock_min')->nullable(false);
             $table->integer('stock')->nullable(false);
-            $table->string('img', 100)->nullable(true);
+            $table->string('img1', 100)->nullable(true);
+            $table->string('img2', 100)->nullable(true);
+            $table->string('img3', 100)->nullable(true);
             $table->date('caducidad')->nullable(true);
             $table->string('color', 50)->nullable(true);
             $table->string('talla', 15)->nullable(true);

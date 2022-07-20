@@ -1,19 +1,21 @@
-$('#form-add-categoria').submit(function(e){
+$('#form-add-producto').submit(function(e){
     e.preventDefault();
-    let data = $(this).serialize();
     var url = '';
     var tipo = '';
     if($('#id').val() == ''){
-        url = 'api/addCategorias';
+        url = 'api/addProductos';
         tipo = 'POST';
     }else{
-        url = 'api/updateCategorias';
+        url = 'api/updateProductos';
         tipo = 'PUT';
     }
     $.ajax({
         'type': tipo,
         'url': url,
-        'data': data,
+        'data': new FormData(this),
+        contentType: false,
+        cache: false,
+        processData:false,
         beforeSend: function(){
             $('#load-form').removeClass('d-none');
             $('#load-button').removeClass('d-none');
@@ -30,26 +32,32 @@ $('#form-add-categoria').submit(function(e){
                 text: respuesta.text
             });
             if(respuesta.icon == 'success'){
-                getCategorias('api/getCategorias/', 2);
-                closeModal('modal-categoria', 'form-add-categoria');
+                getProductos('api/getProductos/', 2);
+                closeModal('modal-producto', 'form-add-producto');
             }
         }
     });
-})
-function getCategorias(api, filtro){
+});
+function getProductos(api, filtro){
     $.ajax({
         'type': 'get',
         'url': api+filtro,
         beforeSend: function(){
-            $('#table-categoria tbody').empty();
-            $('#table-categoria tbody').html('<tr id="load-categorias"><td colspan="8"><center><h1>Cargando<span class="animated-dots"></span></h1></center></td></tr>');
+            $('#table-producto tbody').empty();
+            $('#table-producto tbody').html('<tr id="load-productos"><td colspan="8"><center><h1>Cargando<span class="animated-dots"></span></h1></center></td></tr>');
         },
         success: function(response){
-            $('#load-categorias').addClass('d-none');
+            $('#load-productos').addClass('d-none');
             var data = JSON.parse(response);
             var elimnado = '';
             var row = '';
+            var cat = '';
             $.each(data, function(index, valor){
+                cat = '';
+                for(var i=0; i<valor.categorias.length; i++){
+                    cat += `${valor.categorias[i].categoria}, `;
+                }
+                cat = cat.substr(0, cat.length - 2);
                 if(valor.deleted_at != null){ //validación para que los registros elimnados sean de color rojo
                     elimnado = 'table-danger';
                 }else{
@@ -57,21 +65,34 @@ function getCategorias(api, filtro){
                 }
                 row += `
                     <tr class="${elimnado}">
-                        <td>${valor.categoria}</td>
+                        <td>${valor.producto}</td>
+                        <td>${valor.materiales.material}</td>
+                        <td>${valor.unidad_medidas.unidad_medida}</td>
+                        <td>${valor.marcas.marca}</td>
+                        <td>${cat}</td>
+                        <td>$${valor.pre_venta}</td>
+                        <td>${valor.stock}</td>
                         <td>
-                            <button type="button" class="btn p-0 border-0" onclick="onChange(${valor.id}, '${valor.categoria}');"><i class="ti ti-edit icono text-primary"></i></button>
+                            <button type="button" class="btn p-0 border-0" onclick="onChange(${valor.id}, '${valor.marca}');"><i class="ti ti-edit icono text-primary"></i></button>
                         </td>
                         <td>
-                            <button type="button" class="btn p-0 border-0" onclick="confirmDelete(${valor.id}, '${valor.categoria}', 'api/deleteCategorias/', 'categoria', 'la');"><i class="ti ti-trash icono text-danger"></i></button>
+                            <button type="button" class="btn p-0 border-0" onclick="confirmDelete(${valor.id}, '${valor.marca}', 'api/deleteProductos/', 'producto', 'el');"><i class="ti ti-trash icono text-danger"></i></button>
                         </td>
 
                     </tr>
                 `;
             });
-            $('#table-categoria tbody').html(row);
-            $("#table-categoria").paginationTdA({
+            $('#table-producto tbody').html(row);
+            $("#table-producto").paginationTdA({
                 elemPerPage: 5
             });
+        },
+        error: function (request, status, error) {
+            if(request.status == 0){
+                msjInfo('error', 'Error', 'Se perdio la conexión con el servidor, intente nuevamente');
+            }else{
+                msjInfo('error', 'Error de servidor interno', 'No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión');
+            }
         }
     })
 }

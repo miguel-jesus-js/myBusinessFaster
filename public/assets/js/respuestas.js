@@ -12,14 +12,10 @@ const Toast = Swal.mixin({
 
 function msjInfo(icon, title, text){
     Swal.fire({
-        title: 'Custom animation with Animate.css',
-        showClass: {
-          popup: 'animate__animated animate__fadeInDown'
-        },
-        hideClass: {
-          popup: 'animate__animated animate__fadeOutUp'
-        }
-    })
+        icon: icon,
+        title: title,
+        text: text,
+      })
 }
 
 function confirmDelete(id, info, api, modulo, prefijo){

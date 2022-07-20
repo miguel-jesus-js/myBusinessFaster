@@ -11,6 +11,7 @@ use App\Http\Controllers\TipoClientesController;
 use App\Http\Controllers\ProveedoresController;
 use App\Http\Controllers\UnidadMedidasController;
 use App\Http\Controllers\ClientesController;
+use App\Http\Controllers\ProductosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -101,6 +102,11 @@ Route::get('api/getClientes/{filtro}', [ClientesController::class, 'index']);
 Route::post('api/addClientes', [ClientesController::class, 'create']);
 Route::put('api/updateClientes', [ClientesController::class, 'update']);
 Route::delete('api/deleteClientes/{id}', [ClientesController::class, 'delete']);
+//apis productos
+Route::get('api/getProductos/{filtro}', [ProductosController::class, 'index']);
+Route::post('api/addProductos', [ProductosController::class, 'create']);
+Route::put('api/updateProductos', [ProductosController::class, 'update']);
+Route::delete('api/deleteProductos/{id}', [ProductosController::class, 'delete']);
 // Route::group(['middleware' => 'auth'], function () {
 //     //apis roles
     

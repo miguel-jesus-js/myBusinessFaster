@@ -60,11 +60,14 @@ class ClientesController extends Controller
         ]);
         $data = $request->all();
         $data['password'] = bcrypt($data['email']);
-        if(Cliente::where('email', $data['email'])->exists()){
+        if(Cliente::where('email', $data['email'])->exists())
+        {
             return json_encode(['icon'  => 'warning', 'title'   => 'Advertencia', 'text'  => 'El correo '.$request->all()['email'].' ya ha sido registrado']);
-        }else if(Cliente::where('telefono', $data['telefono'])->exists()){
+        }else if(Cliente::where('telefono', $data['telefono'])->exists())
+        {
             return json_encode(['icon'  => 'warning', 'title'   => 'Advertencia', 'text'  => 'El telefóno '.$request->all()['telefono'].' ya ha sido registrado']);
-        }else if(Cliente::where('rfc', $data['rfc'])->exists()){
+        }else if(Cliente::where('rfc', $data['rfc'])->exists())
+        {
             return json_encode(['icon'  => 'warning', 'title'   => 'Advertencia', 'text'  => 'El RFC '.$request->all()['rfc'].' ya ha sido registrado']);
         }else{
             try {

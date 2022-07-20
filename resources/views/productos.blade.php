@@ -1,4 +1,7 @@
 @extends('layouts.base')
+@section('css')
+<link rel="stylesheet" href="{{ asset('assets/css/bootstrap-select.min.css') }}">
+@endsection
 @section('contenido')
 <div class="page-header">
     <div class="page-block">
@@ -85,7 +88,13 @@
                     <table id="table-producto" class="table shadow-sm bg-white">
                         <thead>
                             <tr>
-                                <th>Categoría</th>
+                                <th>Producto</th>
+                                <th>Material</th>
+                                <th>Unidad medida</th>
+                                <th>Marca</th>
+                                <th>Categorias</th>
+                                <th>Precio</th>
+                                <th>Stock</th>
                                 <th colspan="2">Acciones</th>
                             </tr>
                         </thead>
@@ -116,11 +125,6 @@
                                 Datos generales</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#cat" class="nav-link btn-tab" data-bs-toggle="tab">
-                                <i class="ti ti-sitemap icono me-1"></i>
-                                Categorias</a>
-                        </li>
-                        <li class="nav-item">
                             <a href="#caract" class="nav-link btn-tab" data-bs-toggle="tab">
                                 <i class="ti ti-list-details icono me-1"></i>
                                 Características</a>
@@ -148,110 +152,119 @@
                                 <div class="col-sm-6 col-md-4 mb-3">
                                     <input type="number" class="d-none" id="id" name="id">
                                     <label class="form-label required">C.Barra</label>
-                                    <input type="text" class="form-control" name="cod_barra" id="cod_barra" placeholder="Código de barra" required autocomplete="off" pattern="[0-9]{13,13}">
+                                    <input type="text" class="form-control" name="cod_barra" id="cod_barra" placeholder="Código de barra" required autocomplete="off" pattern="[0-9]{13,13}" minlength="13" maxlength="13" title="Solo numeros, 13 digitos">
                                 </div>
                                 <div class="col-sm-6 col-md-4 mb-3">
                                     <label class="form-label required">Producto</label>
-                                    <input type="text" class="form-control" name="producto" id="producto" placeholder="Producto" required autocomplete="off" pattern="{5,100}">
+                                    <input type="text" class="form-control" name="producto" id="producto" placeholder="Producto" required autocomplete="off" minlength="5" maxlength="100" title="Mínimo 5 caracteres máximo 100">
                                 </div>
                                 <div class="col-sm-6 col-md-4 mb-3">
                                     <label class="form-label required">Marca</label>
-                                    <select class="form-select" name="marca_id" id="marca_id" onclick="getMarcas()">
+                                    <select class="form-select" name="marca_id" id="marca_id" onclick="getMarcas()" required>
                                         <option value="" id="load-select" disabled selected>Elige una opción</option>
                                     </select>
                                 </div>
                                 <div class="col-sm-6 col-md-4 mb-3">
                                     <label class="form-label required">Material</label>
-                                    <select class="form-select">
-                                        <option>Mustard</option>
-                                        <option>Ketchup</option>
-                                        <option>Relish</option>
+                                    <select class="form-select" name="materiale_id" id="materiale_id" onclick="getMateriales()" required>
+                                        <option value="" id="load-select1" disabled selected>Elige una opción</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-6 col-md-4 mb-3">
+                                    <label class="form-label required">Categorias</label>
+                                    <select name="categoria_id[]" id="categoria_id" class="w-100 form-select" data-live-search="true" onclick="getCategorias()">
+                                        <option value="" id="load-select2" disabled selected>Elige una opción</option>
+                                    </select>                                    
+                                </div>
+                                <div class="col-sm-6 col-md-4 mb-3">
+                                    <label class="form-label required">U.Medida</label>
+                                    <select class="form-select" name="unidad_medida_id" id="unidad_medida_id" onclick="getUnidadMedidas()" required>
+                                        <option value="" id="load-select3" disabled selected>Elige una opción</option>
                                     </select>
                                 </div>
                                 <div class="col-sm-6 col-md-4 mb-2">
                                     <label class="form-label required">P.Compra</label>
-                                    <input type="number" class="form-control" name="pre_compra" id="pre_compra" placeholder="Precio compra" autocomplete="off">
+                                    <input type="number" class="form-control" name="pre_compra" id="pre_compra" placeholder="Precio compra" autocomplete="off" required min="1" maxlength="7" step=0.01>
                                 </div>
                                 <div class="col-sm-6 col-md-4 mb-2">
                                     <label class="form-label required">P.Venta</label>
-                                    <input type="number" class="form-control" name="pre_venta" id="pre_venta" placeholder="Precio venta" autocomplete="off">
+                                    <input type="number" class="form-control" name="pre_venta" id="pre_venta" placeholder="Precio venta" autocomplete="off" required min="1" maxlength="7" step=0.01>
                                 </div>
                                 <div class="col-sm-6 col-md-4 mb-2">
                                     <label class="form-label required">P.Mayoreo</label>
-                                    <input type="number" class="form-control" name="pre_mayoreo" id="pre_mayoreo" placeholder="Precio mayoreo" autocomplete="off">
+                                    <input type="number" class="form-control" name="pre_mayoreo" id="pre_mayoreo" placeholder="Precio mayoreo" autocomplete="off" required min="1" maxlength="7" step=0.01>
                                 </div>
                                 <div class="col-sm-6 col-md-4 mb-2">
                                     <label class="form-label required">Stock minimo</label>
-                                    <input type="number" class="form-control" name="stock_min" id="stock_min" placeholder="Stock minimo" autocomplete="off">
+                                    <input type="number" class="form-control" name="stock_min" id="stock_min" placeholder="Stock minimo" autocomplete="off" required min="1" maxlength="7">
                                 </div>
                                 <div class="col-sm-6 col-md-4 mb-2">
                                     <label class="form-label required">Stock</label>
-                                    <input type="number" class="form-control" name="stock" id="stock" placeholder="Stock" autocomplete="off">
+                                    <input type="number" class="form-control" name="stock" id="stock" placeholder="Stock" autocomplete="off" required min="1" maxlength="7">
                                 </div>
                                 <div class="col-sm-6 col-md-4 mb-2">
                                     <div class="form-label required">Inventario</div>
                                     <div>
                                         <label class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" checked>
+                                            <input class="form-check-input" name="afecta_ventas" id="afecta_ventas" type="checkbox" checked value="1">
                                             <span class="form-check-label">Afecta a ventas</span>
                                         </label>
                                         <label class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox">
+                                            <input class="form-check-input" name="es_produccion" id="es_produccion" type="checkbox" value="1">
                                             <span class="form-check-label">Es produccion</span>
                                         </label>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane" id="cat">
-                            <div class="row">
-                                <div class="col-sm-6 mb-3">
-                                    <label class="form-label required">Telefóno</label>
-                                    <input type="text" name="telefono" id="telefono" class="form-control" data-mask="(00) 0000-0000" data-mask-visible="true" placeholder="(00) 0000-0000" required autocomplete="off">
-                                </div>
-                                <div class="col-sm-6 mb-3">
-                                    <label class="form-label required">Correo</label>
-                                    <input type="email" class="form-control" name="email" id="email" placeholder="Correo" required autocomplete="off" pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}">
-                                </div>
-                            </div>
-                        </div>
                         <div class="tab-pane" id="caract">
-                            <div class="d-flex bd-highlight">
-                                <div class="p-2 flex-grow-1 bd-highlight">
-                                    <div class="col-md-4">
-                                        <label class="form-label required">Rol</label>
-                                        <select class="form-select" name="role_id" id="role_id" onclick="getRoles()" required>
-                                            <option value="" id="load-select" disabled selected>Elige una opción</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="p-2 bd-highlight">
-                                    <label class="form-label required invisible">Modulos</label>
-                                    <button type="button" class="btn btn-success" onclick="openModal('modal-modulos','usuarios', 2), getModulos()">Seleccionar modulos</button>
-                                </div>
+                            <div class="d-flex justify-content-end">
+                                <label class="form-label required invisible">Característica</label>
+                                <button type="button" class="btn btn-success" onclick="openModal('modal-caracteristica','productos', 2)">Agregar característica</button>
                             </div>
                             <br>
-                            <table class="table" id="table-user-modulos">
-                                <thead>
-                                    <tr>
-                                        <th class="role_id">ID</th>
-                                        <th>Modulo</th>
-                                        <th>Consultar</th>
-                                        <th>Registrar</th>
-                                        <th>Editar</th>
-                                        <th>Eliminar</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr id="pasar-modulos" class="d-none">
-                                        <td colspan="7"><center><h1>Cargando<span class="animated-dots"></span></h1></center></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        </div>
+                        <div class="tab-pane" id="extras">
+                            <div class="row">
+                                <div class="col-sm-6 col-md-4 mb-3">
+                                    <label class="form-label">F.Caducidad</label>
+                                    <input type="date" class="form-control" name="caducidad" id="caducidad" autocomplete="off">
+                                </div>
+                                <div class="col-sm-6 col-md-4 mb-3">
+                                    <label class="form-label">Color</label>
+                                    <input type="text" class="form-control" name="color" id="color" placeholder="Color" autocomplete="off" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,50}" minlength="3" maxlength="50" title="Mínimo 3 caracteres máximo 50">
+                                </div>
+                                <div class="col-sm-6 col-md-4 mb-3">
+                                    <label class="form-label">Talla</label>
+                                    <select class="form-select" name="talla" id="talla">
+                                        <option value="" disabled selected>Elige una opción</option>
+                                        <option value="XS">Extra chica</option>
+                                        <option value="CH">Chica</option>
+                                        <option value="M">Mediana</option>
+                                        <option value="G">Grande</option>
+                                        <option value="XG">Extra grande</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-6 col-md-4 mb-3">
+                                    <label class="form-label">Imagen 1</label>
+                                    <input type="file" class="form-control" name="img1" id="img1" accept="image/gif,image/jpeg,image/jpg,image/png">
+                                </div>
+                                <div class="col-sm-6 col-md-4 mb-3">
+                                    <label class="form-label">Imagen 2</label>
+                                    <input type="file" class="form-control" name="img2" id="img2" accept="image/gif,image/jpeg,image/jpg,image/png">
+                                </div>
+                                <div class="col-sm-6 col-md-4 mb-3">
+                                    <label class="form-label">Imagen 3</label>
+                                    <input type="file" class="form-control" name="img3" id="img3" accept="image/gif,image/jpeg,image/jpg,image/png">
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <label class="form-label">Descripción detallada</label>
+                                    <textarea class="form-control" name="desc_detallada" id="desc_detallada" placeholder="Descripción detallada" cols="30" rows="5" minlength="5" maxlength="200" title="Mínimo 5 caracteres máximo 200"></textarea>
+                                </div>
+                            </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-red btn-pill" onclick="closeModal('modal-user', 'form-add-user')">Cancelar</button>
+                            <button type="button" class="btn btn-red btn-pill" onclick="closeModal('modal-producto', 'form-add-producto')">Cancelar</button>
                             <button type="submit" class="btn btn-blue btn-pill">
                                 <span id="load-button" class="spinner-grow spinner-grow-sm me-1 d-none" role="status" aria-hidden="true"></span>
                                 <b id="btn-modal"></b>
@@ -263,15 +276,45 @@
         </div>
     </div>
 </div>
+<!-- Modal para agregar caracteristica -->
+<div class="modal modal-blur fade" id="modal-caracteristica" tabindex="-1" style="display: none; z-index: 5000" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content border">
+            <div class="modal-header">
+                <h5 class="modal-title">Agregar característica</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="" id="form-add-caracteristica">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="form-label required">Característica</label>
+                            <input type="text" class="form-control" name="color" id="color" placeholder="Característica" autocomplete="off" required pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{5,50}" minlength="5" maxlength="50" title="Mínimo 5 caracteres máximo 50">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+                        <button type="submit" class="btn btn-success">Agregar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 @section('script')
 <script src="{{ asset('assets/js/productos/config.js') }}"></script>
 <script src="{{ asset('assets/js/productos/crud-producto.js') }}"></script>
+<script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('assets/js/bootstrap-select.min.js') }}"></script>
 <script>
     $( document ).ready(function() {
         getProductos('api/getProductos/', 2);
-        $('materiale_id').selectpicker();
         $("#modal-producto").draggable();
+        $("#modal-caracteristica").draggable();
+        // let selectCat = $('button[data-id=categoria_id]').prevObject.prop('onclick', 'getCategorias()');
+        // debugger;
     });
 </script>
 @endsection
