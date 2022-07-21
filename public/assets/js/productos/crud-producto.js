@@ -91,7 +91,7 @@ function getProductos(api, filtro){
             if(request.status == 0){
                 msjInfo('error', 'Error', 'Se perdio la conexión con el servidor, intente nuevamente');
             }else{
-                msjInfo('error', 'Error de servidor interno', 'No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión');
+                msjInfo('error', 'Error de servidor interno', 'No se puede establecer una conexión a la base de datos ya que el equipo de destino denegó expresamente dicha conexión');
             }
         }
     })
