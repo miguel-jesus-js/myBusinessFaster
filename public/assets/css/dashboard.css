@@ -435,6 +435,7 @@ code {
 	position: relative;
 	border-radius: 0;
 	color: #fff;
+	max-height: 125px;
 }
 
 .page-header:before {

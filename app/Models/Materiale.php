@@ -10,4 +10,12 @@ class Materiale extends Model
 {
     use HasFactory, SoftDeletes;
     protected $fillable = ['material'];
+
+    public function scopeMaterial($query, $material)
+    {
+        if($material)
+        {
+            return $query->where('material', 'LIKE', '%'.$material.'%');
+        }
+    }
 }

@@ -11,4 +11,12 @@ class TipoCliente extends Model
     use HasFactory, softDeletes;
     protected $table = 'tipo_clientes';
     protected $fillable = ['tipo_cliente'];
+
+    public function scopeTipoCliente($query, $tipoCliente)
+    {
+        if($tipoCliente)
+        {
+            return $query->where('tipo_cliente', 'LIKE', '%'.$tipoCliente.'%');
+        }
+    }
 }

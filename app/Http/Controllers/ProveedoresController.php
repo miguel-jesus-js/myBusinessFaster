@@ -3,107 +3,51 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Requests\ProveedoresRequest;
+use App\Http\Requests\ProveedoresUploadRequest;
 use App\Models\Proveedore;
+use App\Imports\ProveedoresImport;
+use PDF;
 
 class ProveedoresController extends Controller
 {
-    public function index($filtro)
+    public function index(Request $request, $tipo)
     {
+        $filtro = $request->get('filtro');
         // 0 todo - 1 eliminados - 2 no eliminados
-        switch ($filtro){
+        switch ($tipo){
             case 0:
-                $proveedores = Proveedore::withTrashed()->get();
+                $proveedores = Proveedore::withTrashed()->proveedor($filtro)->get();
                 break;
             case 1:
-                $proveedores = Proveedore::onlyTrashed()->get();
+                $proveedores = Proveedore::onlyTrashed()->proveedor($filtro)->get();
                 break;
             case 2:
-                $proveedores = Proveedore::whereNull('deleted_at')->get();
-                break;
-            default:
-                $proveedores = Proveedore::where('nombres', 'like', '%'.$filtro.'%')
-                                ->orWhere('app', 'like', '%'.$filtro.'%')
-                                ->orWhere('apm', 'like', '%'.$filtro.'%')
-                                ->orWhere('telefono', 'like', '%'.$filtro.'%')
-                                ->orWhere('email', 'like', '%'.$filtro.'%')
-                                ->orWhere('clave', 'like', '%'.$filtro.'%')
-                                ->orWhere('empresa', 'like', '%'.$filtro.'%')
-                                ->get();
+                $proveedores = Proveedore::whereNull('deleted_at')->proveedor($filtro)->get();
                 break;
         }
         return json_encode($proveedores);
     }
-    public function create(Request $request)
+    public function create(ProveedoresRequest $request)
     {
-        $request->validate([
-            'clave'       => 'required',
-            'nombres'       => 'required',
-            'app'           => 'required',
-            'apm'           => 'required',
-            'email'         => 'required',
-            'telefono'      => 'required',
-            'ciudad'        => 'required',
-            'estado'        => 'required',
-            'municipio'     => 'required',
-            'cp'            => 'required',
-            'colonia'       => 'required',
-            'calle'         => 'required',
-            'n_exterior'    => 'required'
-
-        ]);
         $data = $request->all();
-        if(Proveedore::where('email', $data['email'])->exists()){
-            return json_encode(['icon'  => 'warning', 'title'   => 'Advertencia', 'text'  => 'El correo '.$request->all()['email'].' ya ha sido registrado']);
-        }else if(Proveedore::where('telefono', $data['telefono'])->exists()){
-            return json_encode(['icon'  => 'warning', 'title'   => 'Advertencia', 'text'  => 'El telefóno '.$request->all()['telefono'].' ya ha sido registrado']);
-        }else if(Proveedore::where('rfc', $data['rfc'])->exists()){
-            return json_encode(['icon'  => 'warning', 'title'   => 'Advertencia', 'text'  => 'El RFC '.$request->all()['rfc'].' ya ha sido registrado']);
-        }else if(Proveedore::where('clave', $data['clave'])->exists()){
-            return json_encode(['icon'  => 'warning', 'title'   => 'Advertencia', 'text'  => 'La clave '.$request->all()['clave'].' ya ha sido registrada']);
-        }else{
-            try {
-                Proveedore::create($data);
-                return json_encode(['icon'  => 'success', 'title'   => 'Exitó', 'text'  => 'Proveedor registrado']);
-            } catch (\Exception $e) {
-                return json_encode(['icon'  => 'error', 'title'   => 'Error', 'text'  => 'Ocurrio un error, el proveedor no fue registrado']);
-            }
+        try {
+            Proveedore::create($data);
+            return json_encode(['icon'  => 'success', 'title'   => 'Exitó', 'text'  => 'Proveedor registrado']);
+        } catch (\Exception $e) {
+            return json_encode(['icon'  => 'error', 'title'   => 'Error', 'text'  => 'Ocurrio un error, el proveedor no fue registrado']);
         }
     }
-    public function update(Request $request)
+    public function update(ProveedoresRequest $request)
     {
-        $request->validate([
-            'id'            => 'required',
-            'clave'         => 'required',
-            'nombres'       => 'required',
-            'app'           => 'required',
-            'apm'           => 'required',
-            'email'         => 'required',
-            'telefono'      => 'required',
-            'ciudad'        => 'required',
-            'estado'        => 'required',
-            'municipio'     => 'required',
-            'cp'            => 'required',
-            'colonia'       => 'required',
-            'calle'         => 'required',
-            'n_exterior'    => 'required',
-        ]);
         $proveedores = Proveedore::find($request->all()['id']);
         $data = $request->all();
-        if(Proveedore::where([['email', $data['email']], ['id', '<>', $proveedores['id']]])->exists()){
-            return json_encode(['icon'  => 'warning', 'title'   => 'Advertencia', 'text'  => 'El correo '.$request->all()['email'].' ya ha sido registrado']);
-        }else if(Proveedore::where([['telefono', $data['telefono']], ['id', '<>', $proveedores['id']]])->exists()){
-            return json_encode(['icon'  => 'warning', 'title'   => 'Advertencia', 'text'  => 'El telefóno '.$request->all()['telefono'].' ya ha sido registrado']);
-        }else if(Proveedore::where([['rfc', $data['rfc']], ['id', '<>', $proveedores['id']]])->exists()){
-            return json_encode(['icon'  => 'warning', 'title'   => 'Advertencia', 'text'  => 'El RFC '.$request->all()['rfc'].' ya ha sido registrado']);
-        }else if(Proveedore::where([['clave', $data['clave']], ['id', '<>', $proveedores['id']]])->exists()){
-            return json_encode(['icon'  => 'warning', 'title'   => 'Advertencia', 'text'  => 'La clave '.$request->all()['clave'].' ya ha sido registrado']);
-        }else{
-            try {
-                $proveedores->update($data);
-                return json_encode(['icon'  => 'success', 'title'   => 'Exitó', 'text'  => 'Datos actualizados']);
-            } catch (\Exception $e) {
-                return json_encode(['icon'  => 'error', 'title'   => 'Error', 'text'  => 'Ocurrio un error los datos no fueron actualizados']);
-            }
+        try {
+            $proveedores->update($data);
+            return json_encode(['icon'  => 'success', 'title'   => 'Exitó', 'text'  => 'Datos actualizados']);
+        } catch (\Exception $e) {
+            return json_encode(['icon'  => 'error', 'title'   => 'Error', 'text'  => 'Ocurrio un error los datos no fueron actualizados']);
         }
     }
     public function delete($id)
@@ -114,5 +58,28 @@ class ProveedoresController extends Controller
         } catch (\Exception $e) {
             return json_encode(['icon'  => 'error', 'title'   => 'Error', 'text'  => 'Ocurrio un error el Proveedor no fue eliminado']);
         }
+    }
+    public function downloadPlantilla()
+    {
+        $file = public_path('assets/plantillas/plantilla_proveedores.xlsx');
+        return response()->file($file);
+    }
+    public function uploadProveedor(ProveedoresUploadRequest $request)
+    {
+        try {
+            $file = $request->file('archivo');
+             Excel::import(new ProveedoresImport, $file);
+            return json_encode(['icon'  => 'success', 'title'   => 'Exitó', 'text'  => 'Proveedores registrados']);
+        } catch (\Exception $e) {
+            dd($e);
+            return json_encode(['icon'  => 'error', 'title'   => 'Error', 'text'  => 'Ocurrio un error, los proveedores no fueron registrados']);
+        }
+    }
+    public function exportarPDF()
+    {
+        $proveedores = Proveedore::whereNull('deleted_at')->get();
+        view()->share('pdf.proveedores_pdf',$proveedores);
+        $pdf = Pdf::loadView('pdf.proveedores_pdf', ['proveedores' => $proveedores])->setPaper('a4', 'landscape');
+        return $pdf->download('proveedores.pdf');
     }
 }

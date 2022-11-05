@@ -29,7 +29,7 @@ return new class extends Migration
             $table->integer('cp')->nullable(false);
             $table->string('colonia', 50)->nullable(false);
             $table->string('calle', 50)->nullable(false);
-            $table->integer('n_exterior')->nullable(false);
+            $table->integer('n_exterior')->nullable(true);
             $table->integer('n_interior')->nullable(true);
             $table->timestamps();
             $table->softdeletes();

@@ -3,30 +3,32 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Models\UnidadMedida;
+use App\Imports\UnidadMedidasImport;
+use App\Http\Requests\UnidadMedidasRequest;
+use App\Http\Requests\UnidadMedidasUploadRequest;
 
 class UnidadMedidasController extends Controller
 {
-    public function index($filtro)
+    public function index(Request $request, $tipo)
     {
+        $filtro = $request->get('filtro');
         // 0 todo - 1 eliminados - 2 no eliminados
-        switch ($filtro){
+        switch ($tipo){
             case 0:
-                $unidad_medias = UnidadMedida::withTrashed()->get();
+                $unidad_medias = UnidadMedida::withTrashed()->unidadMedida($filtro)->get();
                 break;
             case 1:
-                $unidad_medias = UnidadMedida::onlyTrashed()->get();
+                $unidad_medias = UnidadMedida::onlyTrashed()->unidadMedida($filtro)->get();
                 break;
             case 2:
-                $unidad_medias = UnidadMedida::whereNull('deleted_at')->get();
-                break;
-            default:
-                $unidad_medias = UnidadMedida::where('unidad_medida', 'like', '%'.$filtro.'%')->get();
+                $unidad_medias = UnidadMedida::whereNull('deleted_at')->unidadMedida($filtro)->get();
                 break;
         }
         return json_encode($unidad_medias);
     }
-    public function create(Request $request)
+    public function create(UnidadMedidasRequest $request)
     {
         $request->validate([
             'unidad_medida'       => 'required',
@@ -39,7 +41,7 @@ class UnidadMedidasController extends Controller
             return json_encode(['icon'  => 'error', 'title'   => 'Error', 'text'  => 'Ocurrio un error, la unidad de medida no fue registrada']);
         }
     }
-    public function update(Request $request)
+    public function update(UnidadMedidasRequest $request)
     {
         $request->validate([
             'id'                    => 'required',
@@ -62,5 +64,27 @@ class UnidadMedidasController extends Controller
         } catch (\Exception $e) {
             return json_encode(['icon'  => 'error', 'title'   => 'Error', 'text'  => 'Ocurrio un error la unidad de medida no fue eliminada']);
         }
+    }
+    public function downloadPlantilla()
+    {
+        $file = public_path('assets/plantillas/plantilla_unidad_medidas.xlsx');
+        return response()->file($file);
+    }
+    public function uploadUnidadMedida(UnidadMedidasUploadRequest $request)
+    {
+        try {
+            $file = $request->file('archivo');
+             Excel::import(new UnidadMedidasImport, $file);
+            return json_encode(['icon'  => 'success', 'title'   => 'Exitó', 'text'  => 'Unidades de medidas registrados']);
+        } catch (\Exception $e) {
+            return json_encode(['icon'  => 'error', 'title'   => 'Error', 'text'  => 'Ocurrio un error, las unidades de medidas no fueron registradas']);
+        }
+    }
+    public function exportarPDF()
+    {
+        $tipo_clientes = TipoCliente::whereNull('deleted_at')->get();
+        view()->share('pdf.tipo_clientes_pdf',$tipo_clientes);
+        $pdf = Pdf::loadView('pdf.tipo_clientes_pdf', ['tipo_clientes' => $tipo_clientes]);
+        return $pdf->download('tipo_clientes.pdf');
     }
 }

@@ -1,5 +1,6 @@
 $('#form-add-proveedor').submit(function(e){
     e.preventDefault();
+    removeClass('form-add-proveedor');
     let data = $(this).serialize();
     var url = '';
     var tipo = '';
@@ -15,31 +16,78 @@ $('#form-add-proveedor').submit(function(e){
         'url': url,
         'data': data,
         beforeSend: function(){
-            $('#load-form').removeClass('d-none');
-            $('#load-button').removeClass('d-none');
-            $('#btn-modal').html('enviando');
+            addHtmlEfectoLoad('load-form');
+            addClassBtnEfectoLoad('load-button', 'btn-modal');
         },
         success: function(response){
             let respuesta = JSON.parse(response);
-            $('#load-form').addClass('d-none');
-            $('#load-button').addClass('d-none');
-            $('#btn-modal').html('Registrar');
+            removeClassBtnEfectoLoad('load-form','load-button', 'btn-modal');
             Toast.fire({
                 icon: respuesta.icon,
                 title: respuesta.title,
                 text: respuesta.text
             });
             if(respuesta.icon == 'success'){
-                getProveedores('api/getProveedores/', 2);
+                getProveedores(2, '');
                 closeModal('modal-proveedor', 'form-add-proveedor');
             }
+        },
+        error: function(request, status, error){
+            switch (request.status) {
+                case 422:
+                    addValidacion(request.responseJSON.errors);
+                    break;
+                default:
+                    break;
+            }
+            removeClassBtnEfectoLoad('load-form','load-button', 'btn-modal');
         }
     });
 })
-function getProveedores(api, filtro){
+$('#form-upload-proveedor').submit(function(e){
+    e.preventDefault();
+    removeClass('form-upload-proveedor');
+    let data = $(this).serialize();
+    $.ajax({
+        'type': 'POST',
+        'url': 'api/uploadProveedor',
+        'data': new FormData(this),
+        'contentType': false,
+        'cache': false,
+        'processData': false,
+        beforeSend: function(){
+            addHtmlEfectoLoad('load-form1');
+            addClassBtnEfectoLoad('load-button1', 'btn-modal1');
+        },
+        success: function(response){
+            let respuesta = JSON.parse(response);
+            removeClassBtnEfectoLoad('load-form1','load-button1', 'btn-modal1');
+            Toast.fire({
+                icon: respuesta.icon,
+                title: respuesta.title,
+                text: respuesta.text
+            });
+            if(respuesta.icon == 'success'){
+                getProveedores(2, '');
+                closeModal('upload-proveedor', 'form-upload-proveedor');
+            }
+        },
+        error: function(request, status, error){
+            switch (request.status) {
+                case 422:
+                    addValidacion(Object.keys(request.responseJSON.errors), request.responseJSON.message);
+                    break;
+                default:
+                    break;
+            }
+            removeClassBtnEfectoLoad('load-form1','load-button1', 'btn-modal1');
+        }
+    });
+})
+function getProveedores(tipo, filtro){
     $.ajax({
         'type': 'get',
-        'url': api+filtro,
+        'url': '/api/getProveedores/'+tipo+'?filtro='+filtro,
         beforeSend: function(){
             $('#table-proveedor tbody').empty();
             $('#table-proveedor tbody').html('<tr id="load-proveedores"><td colspan="8"><center><h1>Cargando<span class="animated-dots"></span></h1></center></td></tr>');
@@ -64,6 +112,9 @@ function getProveedores(api, filtro){
                         <td>${valor.email}</td>
                         <td>${valor.telefono}</td>
                         <td>
+                            <button type="button" class="btn p-0 border-0" onclick="details('${valor.clave}', '${valor.nombres}', '${valor.app}', '${valor.apm}', '${valor.email}', '${valor.telefono}', '${valor.rfc}', '${valor.empresa}', '${valor.ciudad}', '${valor.estado}', '${valor.municipio}', ${valor.cp}, '${valor.colonia}', '${valor.calle}', ${valor.n_exterior}, ${valor.n_interior}, '${valor.created_at}', '${valor.updated_at}', '${valor.deleted_at}');"><i class="ti ti-eye icono text-success"></i></button>
+                        </td>
+                        <td>
                             <button type="button" class="btn p-0 border-0" onclick="onChange(${valor.id}, '${valor.clave}', '${valor.nombres}', '${valor.app}', '${valor.apm}', '${valor.email}', '${valor.telefono}', '${valor.rfc}', '${valor.empresa}', '${valor.ciudad}', '${valor.estado}', '${valor.municipio}', ${valor.cp}, '${valor.colonia}', '${valor.calle}', ${valor.n_exterior}, ${valor.n_interior});"><i class="ti ti-edit icono text-primary"></i></button>
                         </td>
                         <td>
@@ -77,6 +128,8 @@ function getProveedores(api, filtro){
             $("#table-proveedor").paginationTdA({
                 elemPerPage: 5
             });
+            let pag = $('.paginationClick').parent()[0];
+            pag.classList.add('active');
         }
     })
 }
@@ -99,4 +152,32 @@ function onChange(id, clave, nombres, app, apm, email, telefono, rfc, empresa, c
     $('#n_exterior').val(n_exterior);
     $('#n_interior').val(n_interior);
     openModal('modal-proveedor', 'proveedores', 1);
+}
+function details(clave, nombres, app, apm, email, telefono, rfc, empresa, ciudad, estado, municipio, cp, colonia, calle, n_exterior, n_interior, created_at, updated_at, deleted_at){
+    $('#d-clave').html(clave);
+    $('#d-nombres').html(nombres);
+    $('#d-app').html(app);
+    $('#d-apm').html(apm);
+    $('#d-email').html(email);
+    $('#d-telefono').html(telefono);
+    $('#d-rfc').html(rfc);
+    $('#d-empresa').html(empresa);
+    $('#d-ciudad').html(ciudad);
+    $('#d-estado').html(estado);
+    $('#d-municipio').html(municipio);
+    $('#d-cp').html(cp);
+    $('#d-colonia').html(colonia);
+    $('#d-calle').html(calle);
+    $('#d-n_exterior').html(n_exterior);
+    $('#d-n_interior').html(n_interior);
+    const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+    let creacion = new Date(created_at);
+    let actualizacion = new Date(updated_at);
+    let eliminacion = new Date(deleted_at);
+    $('#creacion').html(creacion.getDate()+' de '+meses[creacion.getMonth()]+' de '+creacion.getFullYear());
+    $('#actualizacion').html(actualizacion.getDate()+' de '+meses[actualizacion.getMonth()]+' de '+actualizacion.getFullYear());
+    if(eliminacion.getDate().toString() != 'NaN'){
+        $('#eliminacion').html(eliminacion.getDate()+' de '+meses[eliminacion.getMonth()]+' de '+eliminacion.getFullYear());
+    }
+    openModal('modal-detalle-proveedor', 'proveedores', 2);
 }

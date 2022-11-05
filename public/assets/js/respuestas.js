@@ -47,22 +47,22 @@ function confirmDelete(id, info, api, modulo, prefijo){
                                 getUsuarios('api/getUsuarios/', 2);
                                 break;
                             case 'marca':
-                                getMarcas('api/getMarcas/', 2);
+                                getMarcas(2, '');
                                 break;
                             case 'material':
-                                getMateriales('api/getMateriales/', 2);
+                                getMateriales(2, '');
                                 break;
                             case 'categoria':
-                                getCategorias('api/getCategorias/', 2);
+                                getCategorias(2, '');
                                 break;
                             case 'tipo de cliente':
-                                getTipoClientes('api/getTipoClientes/', 2);
+                                getTipoClientes(2, '');
                                 break;
                             case 'proveedor':
-                                getProveedores('api/getProveedores/', 2);
+                                getProveedores(2, '');
                                 break;
                             case 'unidad de medida':
-                                getUnidadMedidas('api/getUnidadMedidas/', 2);
+                                getUnidadMedidas(2, '');
                                 break;
                             case 'cliente':
                                 getClientes('api/getClientes/', 2);

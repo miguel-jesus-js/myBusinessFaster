@@ -11,7 +11,8 @@
             </div>
             <div class="col-md-4">
                 <ol class="breadcrumb breadcrumb-arrows" aria-label="breadcrumbs">
-                    <li class="breadcrumb-item"><i class="ti ti-user me-2"></i><a href="#">Clientes</a></li>
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><a href="/clientes">Clientes</a></li>
                 </ol>
             </div>
         </div>
@@ -25,7 +26,7 @@
             <!-- Page-body start -->
             <div class="page-body">
                 <div class="row">
-                    <div class="col-md-5">
+                    <div class="col-sm-6 col-md-6">
                         <label class="form-label">Buscar</label>
                         <div class="input-icon mb-3">
                             <input type="search" id="search" class="form-control" placeholder="Buscar..." autocomplete="off">
@@ -35,8 +36,8 @@
                             </span>
                         </div>
                     </div>
-                    <div class="col-md-1">
-                        <label class="form-label">Filtros</label>
+                    <div class="col-6 col-sm-4 col-md-3">
+                        <label class="form-label" id="filtro-select">Filtro: No eliminados</label>
                         <button class="nav-link dropdown-toggle btn" data-bs-toggle="dropdown"
                             data-bs-auto-close="outside" role="button" aria-expanded="true">
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
@@ -48,19 +49,19 @@
                                 <ul>
                                     <li>
                                         <label class="form-check">
-                                            <input class="form-check-input" name="filter" type="checkbox" onclick="filterGeneral('clientes', 'api/getClientes/', 0)">
+                                            <input class="form-check-input" name="filter" type="checkbox" onclick="filterGeneral('clientes', 0)">
                                             <span class="form-check-label">Todos</span>
                                         </label>
                                     </li>
                                     <li>
                                         <label class="form-check">
-                                            <input class="form-check-input" name="filter" type="checkbox" onclick="filterGeneral('clientes', 'api/getClientes/', 1)">
+                                            <input class="form-check-input" name="filter" type="checkbox" onclick="filterGeneral('clientes', 1)">
                                             <span class="form-check-label">Eliminados</span>
                                         </label>
                                     </li>
                                     <li>
                                         <label class="form-check">
-                                            <input class="form-check-input" name="filter" type="checkbox" checked onclick="filterGeneral('clientes', 'api/getClientes/', 2)">
+                                            <input class="form-check-input" name="filter" type="checkbox" checked onclick="filterGeneral('clientes', 2)">
                                             <span class="form-check-label">No eliminados</span>
                                         </label>
                                     </li>
@@ -68,19 +69,29 @@
                             </button>
                         </div>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-6 col-sm-2 col-md-2 offset-md-1">
                         <label class="form-label invisible">add</label>
                         <button onclick="openModal('modal-cliente','clientes', 0)" class="btn btn-primary">
-                            Agregar usuario
+                            Agregar cliente
                         </button>
                     </div>
                 </div><!-- row end -->
                 <br>
-                <div class="d-flex justify-content-end">
-                    <button class="btn" aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Recargar" onclick="getClientes('api/getClientes/', 2);">
+                <div class="btn-group table-actions">
+                    <a href="{{ route('exportarPdfMarca') }}" class="btn btn-dark btn-icon" aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Exportar PDF">
+                        <i class="ti ti-file-text icono"></i>
+                    </a>
+                    <button class="btn btn-dark btn-icon" aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Importar" onclick="openModal('upload-marca','marcas', 0)">
+                        <i class="ti ti-file-upload icono"></i>
+                    </button>
+                    <a href="{{ route('downloadPlantillaMarca') }}" target="_blank" class="btn btn-dark btn-icon" aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Descargar plantilla" onclick="downloadPlantilla()">
+                        <i class="ti ti-file-download icono"></i>
+                    </a>
+                    <button class="btn btn-dark btn-icon" aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Recargar" onclick="getClientes(2, '');">
                         <i class="ti ti-refresh icono"></i>
                     </button>
                 </div>
+                <br><br>
                 <div class="table-responsive">
                     <table id="table-cliente" class="table shadow-sm bg-white">
                         <thead>
@@ -322,7 +333,7 @@
 <script src="{{ asset('assets/js/clientes/crud-cliente.js') }}"></script>
 <script>
     $( document ).ready(function() {
-        getClientes('api/getClientes/', 2);
+        getClientes(2, '');
         $("#modal-cliente").draggable();
     });
 </script>

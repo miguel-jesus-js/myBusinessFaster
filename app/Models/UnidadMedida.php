@@ -11,4 +11,12 @@ class UnidadMedida extends Model
     use HasFactory, SoftDeletes;
     protected $table = 'unidad_medidas';
     protected $fillable = ['unidad_medida'];
+
+    public function scopeUnidadMedida($query, $unidadMedida)
+    {
+        if($unidadMedida)
+        {
+            return $query->where('unidad_medida', 'LIKE', '%'.$unidadMedida.'%');
+        }
+    }
 }

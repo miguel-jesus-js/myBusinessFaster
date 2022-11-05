@@ -10,4 +10,12 @@ class Marca extends Model
 {
     use HasFactory, SoftDeletes;
     protected $fillable = ['marca'];
+
+    public function scopeMarca($query, $marca)
+    {
+        if($marca)
+        {
+            return $query->where('marca', 'LIKE', '%'.$marca.'%');
+        }
+    }
 }

@@ -19,7 +19,13 @@
         
         var pagination = "<li class='page-item'><a class='page-link paginationInit' href='#' tabindex='-1' aria-disabled='true'>Anterior</a></li>";
         for (var i = 1; i <= last; i++)
-        { 
+        {
+            if(i == 0){
+                let active = 'active';
+            }
+            else{
+                let active = '';
+            }
             pagination += "<li class='page-item'><a class='page-link paginationClick' href='#'>"+ i +"</a></li>";
         }
         pagination += "<li class='page-item'><a class='page-link paginationEnd' href='#' tabindex='-1' aria-disabled='true'>Siguiente</a></li>"

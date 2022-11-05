@@ -130,7 +130,7 @@
                                     <li class="waves-effect waves-light">
                                         <div class="media">
                                             <img class="d-flex align-self-center img-radius"
-                                                src="assets/images/avatar-2.jpg" alt="Generic placeholder image">
+                                                src="" alt="Generic placeholder image">
                                             <div class="media-body">
                                                 <h5 class="notification-user">John Doe</h5>
                                                 <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer
@@ -142,7 +142,7 @@
                                     <li class="waves-effect waves-light">
                                         <div class="media">
                                             <img class="d-flex align-self-center img-radius"
-                                                src="assets/images/avatar-4.jpg" alt="Generic placeholder image">
+                                                src="" alt="Generic placeholder image">
                                             <div class="media-body">
                                                 <h5 class="notification-user">Joseph William</h5>
                                                 <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer
@@ -154,7 +154,7 @@
                                     <li class="waves-effect waves-light">
                                         <div class="media">
                                             <img class="d-flex align-self-center img-radius"
-                                                src="assets/images/avatar-3.jpg" alt="Generic placeholder image">
+                                                src="" alt="Generic placeholder image">
                                             <div class="media-body">
                                                 <h5 class="notification-user">Sara Soudein</h5>
                                                 <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer
@@ -170,7 +170,7 @@
                                     <img src="{{ asset('img/usuarios/avatar.png') }}" class="img-radius"
                                         alt="User-Profile-Image">
                                     <span>Miguel-JS</span>
-                                    <i class="ti-angle-down"></i>
+                                    <i class="ti ti-chevron-down"></i>
                                 </a>
                                 <ul class="show-notification profile-notification">
                                     <li class="waves-effect waves-light">
@@ -218,7 +218,7 @@
                                     <img class="img-80 img-radius" src="{{ asset('img/usuarios/avatar.png') }}"
                                         alt="User-Profile-Image">
                                     <div class="user-details">
-                                        <span id="more-details">Miguel-JS<i class="fa fa-caret-down"></i></span>
+                                        <span id="more-details">Miguel-JS<i class="ti ti-chevron-down"></i></span>
                                     </div>
                                 </div>
                                 <div class="main-menu-content">
@@ -266,10 +266,10 @@
                                         </li>
                                     </ul>
                                 </li> -->
-                                <li class="{{ (request()->is('portafolioAdmin')) ? 'active' : '' }}">
-                                    <a href="/portafolioAdmin" class="waves-effect waves-dark">
+                                <li class="{{ (request()->is('catalogos')) ? 'active' : '' }}">
+                                    <a href="/catalogos" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti ti-briefcase h2"></i><b>C</b></span>
-                                        <span class="pcoded-mtext">Portafolio</span>
+                                        <span class="pcoded-mtext">Catálogos</span>
                                     </a>
                                 </li>
                             </ul>
@@ -289,7 +289,6 @@
     <!-- Required Jquery -->
     <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/js/tabler.min.js') }}"></script>
-    <script src="{{ asset('assets/js/counter.js') }}"></script>
     <script src="{{ asset('assets/js/jquery.slimscroll.js') }}"></script>
     <script src="{{ asset('assets/js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
     <script src="{{ asset('assets/js/pcoded.min.js') }}"></script>
@@ -299,7 +298,6 @@
     <script src="{{ asset('assets/js/respuestas.js') }}"></script>
     <script src="{{ asset('assets/js/pagination.js') }}"></script>
     <script src="{{ asset('assets/js/moverElementos.js') }}"></script>
-    <script src="{{ asset('assets/js/bootstrap-select.min.js') }}"></script>
     <script src="{{ asset('assets/js/redimensionarTabla.js') }}"></script>
     <script src="{{ asset('assets/js/filter.js') }}"></script>
     <script src="{{ asset('assets/js/openCloseModal.js') }}"></script>

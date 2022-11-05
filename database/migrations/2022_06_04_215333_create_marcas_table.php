@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('marcas', function (Blueprint $table) {
             $table->id();
-            $table->string('marca', 50)->nullable(false);
+            $table->string('marca', 30)->nullable(false);
             $table->timestamps();
             $table->softDeletes();
         });

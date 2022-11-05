@@ -26,6 +26,7 @@ function openModal(id_modal, modulo, tipo){
             }else if(tipo == 1){
                 $('#modal-title').html('Editar marca');
             }
+            removeClass('form-add-marca');
             break;
         case 'materiales':
             if(tipo == 0){
@@ -87,6 +88,7 @@ function openModal(id_modal, modulo, tipo){
     $('#'+id_modal).modal('show');
 }
 function closeModal(id_modal, id_form,){
+    removeClass(id_form);
     $('#'+id_form).trigger('reset');
     $('#'+id_modal).modal('hide');
 }

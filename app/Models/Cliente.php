@@ -32,4 +32,17 @@ class Cliente extends Model
     public function tipo_cliente(){
         return $this->belongsTo(TipoCliente::class);
     }
+
+    public function scopeCliente($query, $cliente)
+    {
+        if($cliente)
+        {
+            return $query->where('nombres', 'like', '%'.$cliente.'%')
+                        ->orWhere('app', 'like', '%'.$cliente.'%')
+                        ->orWhere('apm', 'like', '%'.$cliente.'%')
+                        ->orWhere('telefono', 'like', '%'.$cliente.'%')
+                        ->orWhere('email', 'like', '%'.$cliente.'%')
+                        ->orWhere('empresa', 'like', '%'.$cliente.'%');
+        }
+    }
 }

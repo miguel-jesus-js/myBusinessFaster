@@ -11,7 +11,8 @@
             </div>
             <div class="col-md-4">
                 <ol class="breadcrumb breadcrumb-arrows" aria-label="breadcrumbs">
-                    <li class="breadcrumb-item"><i class="ti-brand-airtable me-2"></i><a href="#">Marcas</a></li>
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><a href="/marcas">Marcas</a></li>
                 </ol>
             </div>
         </div>
@@ -25,7 +26,7 @@
             <!-- Page-body start -->
             <div class="page-body">
                 <div class="row">
-                    <div class="col-md-5">
+                    <div class="col-sm-6 col-md-6">
                         <label class="form-label">Buscar</label>
                         <div class="input-icon mb-3">
                             <input type="search" id="search" class="form-control" placeholder="Buscar..." autocomplete="off">
@@ -35,11 +36,11 @@
                             </span>
                         </div>
                     </div>
-                    <div class="col-md-1">
-                        <label class="form-label">Filtros</label>
+                    <div class="col-6 col-sm-4 col-md-3">
+                        <label class="form-label" id="filtro-select">Filtro: No eliminados</label>
                         <button class="nav-link dropdown-toggle btn" data-bs-toggle="dropdown"
                             data-bs-auto-close="outside" role="button" aria-expanded="true">
-                            <span class="nav-link-icon d-md-none d-lg-inline-block">
+                            <span class="nav-link-icon">
                                 <i class="ti ti-filter icono"></i>
                             </span>
                         </button>
@@ -68,7 +69,7 @@
                             </button>
                         </div>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-6 col-sm-2 col-md-2 offset-md-1">
                         <label class="form-label invisible">add</label>
                         <button onclick="openModal('modal-marca','marcas', 0)" class="btn btn-primary">
                             Agregar marca
@@ -76,17 +77,27 @@
                     </div>
                 </div><!-- row end -->
                 <br>
-                <div class="d-flex justify-content-end">
-                    <button class="btn" aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Recargar" onclick="getMarcas('api/getMarcas/', 2);">
+                <div class="btn-group table-actions">
+                    <a href="{{ route('exportarPdfMarca') }}" class="btn btn-dark btn-icon" aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Exportar PDF">
+                        <i class="ti ti-file-text icono"></i>
+                    </a>
+                    <button class="btn btn-dark btn-icon" aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Importar" onclick="openModal('upload-marca','marcas', 0)">
+                        <i class="ti ti-file-upload icono"></i>
+                    </button>
+                    <a href="{{ route('downloadPlantillaMarca') }}" target="_blank" class="btn btn-dark btn-icon" aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Descargar plantilla" onclick="downloadPlantilla()">
+                        <i class="ti ti-file-download icono"></i>
+                    </a>
+                    <button class="btn btn-dark btn-icon" aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Recargar" onclick="getMarcas(2, '');">
                         <i class="ti ti-refresh icono"></i>
                     </button>
                 </div>
+                <br><br>
                 <div class="table-responsive">
                     <table id="table-marca" class="table shadow-sm bg-white">
                         <thead>
                             <tr>
-                                <th>Marca</th>
-                                <th colspan="2">Acciones</th>
+                                <th style="width: 80%">Marca</th>
+                                <th colspan="3">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -111,19 +122,13 @@
                 <form id="form-add-marca">
                     <div class="tab-content">
                         <div id="load-form" class="efecto-cargando d-none">
-                            <div id="preloader6">
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                            </div>
-                            <b class="h3">Cargando</b>
                         </div>
                         <div class="row">
                             <div class="col-md-12 mb-3">
                                 <input type="number" class="d-none" id="id" name="id">
                                 <label class="form-label required">Marca</label>
-                                <input type="text" class="form-control" name="marca" id="marca" placeholder="Marca" required autocomplete="off" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,50}">
+                                <input type="text" class="form-control" name="marca" id="marca" placeholder="Marca" required autocomplete="off" pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,20}">
+                                <div class="invalid-feedback" id="error-marca"></div>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -139,15 +144,75 @@
         </div>
     </div>
 </div>
+
+<div class="modal modal-blur fade" id="upload-marca" tabindex="-1" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Subir excel de marcas</h5>
+                <button type="button" class="btn-close" onclick="closeModal('upload-marca', 'form-upload-marca')"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form-upload-marca">
+                    <div class="tab-content">
+                        <div id="load-form1" class="efecto-cargando d-none">
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label required">Archivo</label>
+                                <input type="file" class="form-control" name="archivo" id="archivo" accept=".xlsx, .xls, .csv"  required autocomplete="off">
+                                <div class="invalid-feedback" id="error-archivo">Invalid feedback</div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-red btn-pill" onclick="closeModal('upload-marca', 'form-upload-marca')">Cancelar</button>
+                            <button type="submit" class="btn btn-blue btn-pill">
+                                <span id="load-button1" class="spinner-grow spinner-grow-sm me-1 d-none" role="status" aria-hidden="true"></span>
+                                <b id="btn-modal1">Cargar</b>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal modal-blur fade" id="modal-detalle-marca" tabindex="-1" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Detalles</h5>
+                <button type="button" class="btn-close" onclick="closeModal('modal-detalle-marca', 'form-add-marca')"></button>
+            </div>
+            <div class="modal-body">
+                <label class="form-label">Marca:</label>
+                <p id="nom-marca"></p>
+                <label class="form-label">Fecha de creación:</label>
+                <p id="creacion"></p>
+                <label class="form-label">Última fecha de actualización:</label>
+                <p id="actualizacion"></p>
+                <label class="form-label">Fecha de eliminación:</label>
+                <p id="eliminacion"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-red btn-pill" onclick="closeModal('modal-detalle-marca', 'form-add-marca')">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 @section('script')
 <script src="{{ asset('assets/js/marcas/config.js') }}"></script>
 <script src="{{ asset('assets/js/marcas/crud-marca.js') }}"></script>
+<script src="{{ asset('assets/js/shared.js') }}"></script>
 <script>
     $( document ).ready(function() {
-        getMarcas('api/getMarcas/', 2);
+        getMarcas(2, '');
         $("#modal-marca").draggable();
         $("#modal-modulos").draggable();
+        $("#modal-detalle-marca").draggable();
     });
 </script>
 @endsection

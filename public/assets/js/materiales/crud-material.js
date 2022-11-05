@@ -1,5 +1,6 @@
 $('#form-add-material').submit(function(e){
     e.preventDefault();
+    removeClass('form-add-marca');
     let data = $(this).serialize();
     var url = '';
     var tipo = '';
@@ -15,31 +16,79 @@ $('#form-add-material').submit(function(e){
         'url': url,
         'data': data,
         beforeSend: function(){
-            $('#load-form').removeClass('d-none');
-            $('#load-button').removeClass('d-none');
-            $('#btn-modal').html('enviando');
+            addHtmlEfectoLoad('load-form');
+            addClassBtnEfectoLoad('load-button', 'btn-modal');
         },
         success: function(response){
             let respuesta = JSON.parse(response);
-            $('#load-form').addClass('d-none');
-            $('#load-button').addClass('d-none');
-            $('#btn-modal').html('Registrar');
+            removeClassBtnEfectoLoad('load-form1','load-button1', 'btn-modal1');
             Toast.fire({
                 icon: respuesta.icon,
                 title: respuesta.title,
                 text: respuesta.text
             });
             if(respuesta.icon == 'success'){
-                getMateriales('api/getMateriales/', 2);
+                getMateriales(2, '');
                 closeModal('modal-material', 'form-add-material');
             }
+        },
+        error: function(request, status, error){
+            switch (request.status) {
+                case 422:
+                    addValidacion(Object.keys(request.responseJSON.errors), request.responseJSON.message);
+                    break;
+            
+                default:
+                    break;
+            }
+            removeClassBtnEfectoLoad('load-form1','load-button1', 'btn-modal1');
         }
     });
 })
-function getMateriales(api, filtro){
+$('#form-upload-material').submit(function(e){
+    e.preventDefault();
+    removeClass('form-upload-material');
+    let data = $(this).serialize();
+    $.ajax({
+        'type': 'POST',
+        'url': 'api/uploadMaterial',
+        'data': new FormData(this),
+        'contentType': false,
+        'cache': false,
+        'processData': false,
+        beforeSend: function(){
+            addHtmlEfectoLoad('load-form1');
+            addClassBtnEfectoLoad('load-button1', 'btn-modal1');
+        },
+        success: function(response){
+            let respuesta = JSON.parse(response);
+            removeClassBtnEfectoLoad('load-form1','load-button1', 'btn-modal1');
+            Toast.fire({
+                icon: respuesta.icon,
+                title: respuesta.title,
+                text: respuesta.text
+            });
+            if(respuesta.icon == 'success'){
+                getMateriales(2, '');
+                closeModal('upload-material', 'form-upload-material');
+            }
+        },
+        error: function(request, status, error){
+            switch (request.status) {
+                case 422:
+                    addValidacion(Object.keys(request.responseJSON.errors), request.responseJSON.message);
+                    break;
+                default:
+                    break;
+            }
+            removeClassBtnEfectoLoad('load-form1','load-button1', 'btn-modal1');
+        }
+    });
+})
+function getMateriales(tipo, filtro){
     $.ajax({
         'type': 'get',
-        'url': api+filtro,
+        'url': '/api/getMateriales/'+tipo+'?filtro='+filtro,
         beforeSend: function(){
             $('#table-material tbody').empty();
             $('#table-material tbody').html('<tr id="load-materiales"><td colspan="8"><center><h1>Cargando<span class="animated-dots"></span></h1></center></td></tr>');
@@ -59,6 +108,9 @@ function getMateriales(api, filtro){
                     <tr class="${elimnado}">
                         <td>${valor.material}</td>
                         <td>
+                            <button type="button" class="btn p-0 border-0"  aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Detalles" onclick="details('${valor.material}', '${valor.created_at}', '${valor.updated_at}', '${valor.deleted_at}');"><i class="ti ti-eye icono text-success"></i></button>
+                        </td>
+                        <td>
                             <button type="button" class="btn p-0 border-0" onclick="onChange(${valor.id}, '${valor.material}');"><i class="ti ti-edit icono text-primary"></i></button>
                         </td>
                         <td>
@@ -72,6 +124,8 @@ function getMateriales(api, filtro){
             $("#table-material").paginationTdA({
                 elemPerPage: 5
             });
+            let pag = $('.paginationClick').parent()[0];
+            pag.classList.add('active');
         }
     })
 }
@@ -79,4 +133,18 @@ function onChange(id, material){
     $('#id').val(id);
     $('#material').val(material);
     openModal('modal-material', 'materiales', 1);
+}
+function details(material, created_at, updated_at, deleted_at){
+    const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+    $('#nom-material').html(material);
+    let creacion = new Date(created_at);
+    let actualizacion = new Date(updated_at);
+    let eliminacion = new Date(deleted_at);
+    $('#creacion').html(creacion.getDate()+' de '+meses[creacion.getMonth()]+' de '+creacion.getFullYear());
+    $('#actualizacion').html(actualizacion.getDate()+' de '+meses[actualizacion.getMonth()]+' de '+actualizacion.getFullYear());
+    if(eliminacion.getDate().toString() != 'NaN'){
+    $('#eliminacion').html(eliminacion.getDate()+' de '+meses[eliminacion.getMonth()]+' de '+eliminacion.getFullYear());
+    }
+    openModal('modal-detalle-material', 'materiales', '2');
+
 }

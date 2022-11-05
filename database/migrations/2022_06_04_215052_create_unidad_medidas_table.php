@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('unidad_medidas', function (Blueprint $table) {
             $table->id();
-            $table->string('unidad_medida', 50)->nullable(false);
+            $table->string('unidad_medida', 30)->nullable(false);
             $table->timestamps();
             $table->softDeletes();
         });

@@ -3,34 +3,34 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Materiale;
+use App\Http\Requests\MaterialesRequest;
+use App\Http\Requests\MaterialesUploadRequest;
+use App\Imports\MaterialesImport;
+use PDF;
 
 class MaterialesController extends Controller
 {
-    public function index($filtro)
+    public function index(Request $request, $tipo)
     {
+        $filtro = $request->get('filtro');
         // 0 todo - 1 eliminados - 2 no eliminados
-        switch ($filtro){
+        switch ($tipo){
             case 0:
-                $materiales = Materiale::withTrashed()->get();
+                $materiales = Materiale::withTrashed()->material($filtro)->get();
                 break;
             case 1:
-                $materiales = Materiale::onlyTrashed()->get();
+                $materiales = Materiale::onlyTrashed()->material($filtro)->get();
                 break;
             case 2:
-                $materiales = Materiale::whereNull('deleted_at')->get();
-                break;
-            default:
-                $materiales = Materiale::where('material', 'like', '%'.$filtro.'%')->get();
+                $materiales = Materiale::whereNull('deleted_at')->material($filtro)->get();
                 break;
         }
         return json_encode($materiales);
     }
-    public function create(Request $request)
+    public function create(MaterialesRequest $request)
     {
-        $request->validate([
-            'material'       => 'required',
-        ]);
         $data = $request->all();
         try {
             Materiale::create($data);
@@ -39,7 +39,7 @@ class MaterialesController extends Controller
             return json_encode(['icon'  => 'error', 'title'   => 'Error', 'text'  => 'Ocurrio un error, el material no fue registrado']);
         }
     }
-    public function update(Request $request)
+    public function update(MaterialesRequest $request)
     {
         $request->validate([
             'id'          => 'required',
@@ -62,5 +62,27 @@ class MaterialesController extends Controller
         } catch (\Exception $e) {
             return json_encode(['icon'  => 'error', 'title'   => 'Error', 'text'  => 'Ocurrio un error el material no fue eliminado']);
         }
+    }
+    public function downloadPlantilla()
+    {
+        $file = public_path('assets/plantillas/plantilla_materiales.xlsx');
+        return response()->file($file);
+    }
+    public function uploadMaterial(MaterialesUploadRequest $request)
+    {
+        try {
+            $file = $request->file('archivo');
+             Excel::import(new MaterialesImport, $file);
+            return json_encode(['icon'  => 'success', 'title'   => 'Exitó', 'text'  => 'Materiales registrados']);
+        } catch (\Exception $e) {
+            return json_encode(['icon'  => 'error', 'title'   => 'Error', 'text'  => 'Ocurrio un error, los materiales no fueron registrados']);
+        }
+    }
+    public function exportarPDF()
+    {
+        $materiales = Materiale::whereNull('deleted_at')->get();
+        view()->share('pdf.materiales_pdf',$materiales);
+        $pdf = Pdf::loadView('pdf.materiales_pdf', ['materiales' => $materiales]);
+        return $pdf->download('materiales.pdf');
     }
 }

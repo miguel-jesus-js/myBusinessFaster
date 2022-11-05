@@ -126,3 +126,6 @@ table-modulos tr.noSearch td {
     display: flex;
     justify-content: end;
 }
+.table-actions{
+    float: right;
+}

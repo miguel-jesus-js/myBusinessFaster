@@ -77,10 +77,10 @@ $('#form-add-cliente').submit(function(e){
         }
     });
 })
-function getClientes(api, filtro){
+function getClientes(tipo, filtro){
     $.ajax({
         'type': 'get',
-        'url': api+filtro,
+        'url': '/api/getClientes/'+tipo+'?filtro='+filtro,
         beforeSend: function(){
             $('#table-cliente tbody').empty();
             $('#table-cliente tbody').html('<tr id="load-clientes"><td colspan="8"><center><h1>Cargando<span class="animated-dots"></span></h1></center></td></tr>');
@@ -100,10 +100,11 @@ function getClientes(api, filtro){
                 }else{
                     elimnado = '';
                 }
+
                 row += `
                     <tr class="${elimnado}">
                         <td>${valor.nombres} ${valor.app} ${valor.apm}</td>
-                        <td>${valor.tipo_cliente.tipo_cliente }</td>
+                        <td class="${valor.tipo_cliente == null ? 'bg-danger' : ''}">${valor.tipo_cliente == null ? 'Registro eliminado' : valor.tipo_cliente.tipo_cliente}</td>
                         <td>${valor.email}</td>
                         <td>${valor.telefono}</td>
                         <td>

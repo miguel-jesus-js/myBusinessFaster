@@ -3,30 +3,33 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Categoria;
+use App\Imports\CategoriasImport;
+use App\Http\Requests\CategoriasRequest;
+use App\Http\Requests\CategoriasUploadRequest;
+use PDF;
 
 class CategoriasController extends Controller
 {
-    public function index($filtro)
+    public function index(Request $request, $tipo)
     {
+        $filtro = $request->get('filtro');
         // 0 todo - 1 eliminados - 2 no eliminados
-        switch ($filtro){
+        switch ($tipo){
             case 0:
-                $categorias = Categoria::withTrashed()->get();
+                $categorias = Categoria::withTrashed()->categoria($filtro)->get();
                 break;
             case 1:
-                $categorias = Categoria::onlyTrashed()->get();
+                $categorias = Categoria::onlyTrashed()->categoria($filtro)->get();
                 break;
             case 2:
-                $categorias = Categoria::whereNull('deleted_at')->get();
-                break;
-            default:
-                $categorias = Categoria::where('categoria', 'like', '%'.$filtro.'%')->get();
+                $categorias = Categoria::whereNull('deleted_at')->categoria($filtro)->get();
                 break;
         }
         return json_encode($categorias);
     }
-    public function create(Request $request)
+    public function create(CategoriasRequest $request)
     {
         $request->validate([
             'categoria'       => 'required',
@@ -39,7 +42,7 @@ class CategoriasController extends Controller
             return json_encode(['icon'  => 'error', 'title'   => 'Error', 'text'  => 'Ocurrio un error, la Categoria no fue registrada']);
         }
     }
-    public function update(Request $request)
+    public function update(CategoriasRequest $request)
     {
         $request->validate([
             'id'          => 'required',
@@ -62,5 +65,27 @@ class CategoriasController extends Controller
         } catch (\Exception $e) {
             return json_encode(['icon'  => 'error', 'title'   => 'Error', 'text'  => 'Ocurrio un error la Categoria no fue eliminada']);
         }
+    }
+    public function downloadPlantilla()
+    {
+        $file = public_path('assets/plantillas/plantilla_categorias.xlsx');
+        return response()->file($file);
+    }
+    public function uploadCategoria(CategoriasUploadRequest $request)
+    {
+        try {
+            $file = $request->file('archivo');
+             Excel::import(new CategoriasImport, $file);
+            return json_encode(['icon'  => 'success', 'title'   => 'Exitó', 'text'  => 'Categorias registradas']);
+        } catch (\Exception $e) {
+            return json_encode(['icon'  => 'error', 'title'   => 'Error', 'text'  => 'Ocurrio un error, las categorias no fueron registradas']);
+        }
+    }
+    public function exportarPDF()
+    {
+        $categorias = Categoria::whereNull('deleted_at')->get();
+        view()->share('pdf.categoria_pdf',$categorias);
+        $pdf = Pdf::loadView('pdf.categoria_pdf', ['categorias' => $categorias]);
+        return $pdf->download('categorias.pdf');
     }
 }

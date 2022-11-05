@@ -1,5 +1,6 @@
 $('#form-add-unidad_medida').submit(function(e){
     e.preventDefault();
+    removeClass('form-add-unidad_medida');
     let data = $(this).serialize();
     var url = '';
     var tipo = '';
@@ -15,31 +16,78 @@ $('#form-add-unidad_medida').submit(function(e){
         'url': url,
         'data': data,
         beforeSend: function(){
-            $('#load-form').removeClass('d-none');
-            $('#load-button').removeClass('d-none');
-            $('#btn-modal').html('enviando');
+            addHtmlEfectoLoad('load-form');
+            addClassBtnEfectoLoad('load-button', 'btn-modal');
         },
         success: function(response){
             let respuesta = JSON.parse(response);
-            $('#load-form').addClass('d-none');
-            $('#load-button').addClass('d-none');
-            $('#btn-modal').html('Registrar');
+            removeClassBtnEfectoLoad('load-form','load-button', 'btn-modal');
             Toast.fire({
                 icon: respuesta.icon,
                 title: respuesta.title,
                 text: respuesta.text
             });
             if(respuesta.icon == 'success'){
-                getUnidadMedidas('api/getUnidadMedidas/', 2);
+                getUnidadMedidas(2, '');
                 closeModal('modal-unidad_medida', 'form-add-unidad_medida');
             }
+        },
+        error: function(request, status, error){
+            switch (request.status) {
+                case 422:
+                    addValidacion(Object.keys(request.responseJSON.errors), request.responseJSON.message);
+                    break;
+            
+                default:
+                    break;
+            }
+            removeClassBtnEfectoLoad('load-form','load-button', 'btn-modal');
         }
     });
 })
-function getUnidadMedidas(api, filtro){
+$('#form-upload-unidad_medida').submit(function(e){
+    e.preventDefault();
+    removeClass('form-upload-unidad_medida');
+    $.ajax({
+        'type': 'POST',
+        'url': 'api/uploadUnidadMedida',
+        'data': new FormData(this),
+        'contentType': false,
+        'cache': false,
+        'processData': false,
+        beforeSend: function(){
+            addHtmlEfectoLoad('load-form1');
+            addClassBtnEfectoLoad('load-button1', 'btn-modal1');
+        },
+        success: function(response){
+            let respuesta = JSON.parse(response);
+            removeClassBtnEfectoLoad('load-form1','load-button1', 'btn-modal1');
+            Toast.fire({
+                icon: respuesta.icon,
+                title: respuesta.title,
+                text: respuesta.text
+            });
+            if(respuesta.icon == 'success'){
+                getUnidadMedidas(2, '');
+                closeModal('upload-unidad_medida', 'form-upload-unidad_medida');
+            }
+        },
+        error: function(request, status, error){
+            switch (request.status) {
+                case 422:
+                    addValidacion(Object.keys(request.responseJSON.errors), request.responseJSON.message);
+                    break;
+                default:
+                    break;
+            }
+            removeClassBtnEfectoLoad('load-form1','load-button1', 'btn-modal1');
+        }
+    });
+})
+function getUnidadMedidas(tipo, filtro){
     $.ajax({
         'type': 'get',
-        'url': api+filtro,
+        'url': '/api/getUnidadMedidas/'+tipo+'?filtro='+filtro,
         beforeSend: function(){
             $('#table-unidad_medida tbody').empty();
             $('#table-unidad_medida tbody').html('<tr id="load-unidad_medidas"><td colspan="8"><center><h1>Cargando<span class="animated-dots"></span></h1></center></td></tr>');
@@ -59,6 +107,9 @@ function getUnidadMedidas(api, filtro){
                     <tr class="${elimnado}">
                         <td>${valor.unidad_medida}</td>
                         <td>
+                            <button type="button" class="btn p-0 border-0"  aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Detalles" onclick="details('${valor.unidad_medida}', '${valor.created_at}', '${valor.updated_at}', '${valor.deleted_at}');"><i class="ti ti-eye icono text-success"></i></button>
+                        </td>
+                        <td>
                             <button type="button" class="btn p-0 border-0" onclick="onChange(${valor.id}, '${valor.unidad_medida}');"><i class="ti ti-edit icono text-primary"></i></button>
                         </td>
                         <td>
@@ -72,6 +123,8 @@ function getUnidadMedidas(api, filtro){
             $("#table-unidad_medida").paginationTdA({
                 elemPerPage: 5
             });
+            let pag = $('.paginationClick').parent()[0];
+            pag.classList.add('active');
         }
     })
 }
@@ -79,4 +132,18 @@ function onChange(id, unidad_medida){
     $('#id').val(id);
     $('#unidad_medida').val(unidad_medida);
     openModal('modal-unidad_medida', 'unidad_medidas', 1);
+}
+function details(unidad_medida, created_at, updated_at, deleted_at){
+    const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+    $('#nom-unidad_medida').html(unidad_medida);
+    let creacion = new Date(created_at);
+    let actualizacion = new Date(updated_at);
+    let eliminacion = new Date(deleted_at);
+    $('#creacion').html(creacion.getDate()+' de '+meses[creacion.getMonth()]+' de '+creacion.getFullYear());
+    $('#actualizacion').html(actualizacion.getDate()+' de '+meses[actualizacion.getMonth()]+' de '+actualizacion.getFullYear());
+    if(eliminacion.getDate().toString() != 'NaN'){
+    $('#eliminacion').html(eliminacion.getDate()+' de '+meses[eliminacion.getMonth()]+' de '+eliminacion.getFullYear());
+    }
+    openModal('modal-detalle-unidad_medida', 'unidad_medidas', '2');
+
 }

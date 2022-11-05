@@ -28,4 +28,18 @@ class Proveedore extends Model
         'n_exterior',
         'n_interior'
     ];
+
+    public function scopeProveedor($query, $proveedor)
+    {
+        if($proveedor)
+        {
+            return $query->where('nombres', 'like', '%'.$proveedor.'%')
+                        ->orWhere('app', 'like', '%'.$proveedor.'%')
+                        ->orWhere('apm', 'like', '%'.$proveedor.'%')
+                        ->orWhere('telefono', 'like', '%'.$proveedor.'%')
+                        ->orWhere('email', 'like', '%'.$proveedor.'%')
+                        ->orWhere('clave', 'like', '%'.$proveedor.'%')
+                        ->orWhere('empresa', 'like', '%'.$proveedor.'%');
+        }
+    }
 }

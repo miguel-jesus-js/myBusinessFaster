@@ -9,27 +9,19 @@ use Illuminate\Support\Facades\DB;
 
 class ClientesController extends Controller
 {
-    public function index($filtro)
+    public function index(Request $request, $tipo)
     {
+        $filtro = $request->get('filtro');
         // 0 todo - 1 eliminados - 2 no eliminados
-        switch ($filtro){
+        switch ($tipo){
             case 0:
-                $clientes = Cliente::with('tipo_cliente')->withTrashed()->get();
+                $clientes = Cliente::with('tipo_cliente')->withTrashed()->cliente($filtro)->get();
                 break;
             case 1:
-                $clientes = Cliente::with('tipo_cliente')->onlyTrashed()->get();
+                $clientes = Cliente::with('tipo_cliente')->onlyTrashed()->cliente($filtro)->get();
                 break;
             case 2:
-                $clientes = Cliente::with('tipo_cliente')->whereNull('deleted_at')->get();
-                break;
-            default:
-                $clientes = Cliente::with('tipo_cliente')->where('nombres', 'like', '%'.$filtro.'%')
-                                ->orWhere('app', 'like', '%'.$filtro.'%')
-                                ->orWhere('apm', 'like', '%'.$filtro.'%')
-                                ->orWhere('telefono', 'like', '%'.$filtro.'%')
-                                ->orWhere('email', 'like', '%'.$filtro.'%')
-                                ->orWhere('empresa', 'like', '%'.$filtro.'%')
-                                ->get();
+                $clientes = Cliente::with('tipo_cliente')->whereNull('deleted_at')->cliente($filtro)->get();
                 break;
         }
         for($i=0; $i<count($clientes); $i++){

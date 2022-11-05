@@ -1,25 +1,42 @@
-function filterGeneral(modulo, api, filtro){
+var tipoFiltro = 2;
+function filterGeneral(modulo, tipo){
+    let textFiltro;
+    switch(tipo){
+        case 0:
+            tipoFiltro = 0;
+            textFiltro = 'Todos';
+            break;
+        case 1:
+            tipoFiltro = 1;
+            textFiltro = 'Eliminados';
+            break;
+        default:
+            tipoFiltro = 2;
+            textFiltro = 'No eliminados';
+            break;
+    }
+    $('#filtro-select').html('Filtro: '+textFiltro);
     switch (modulo){
         case 'usuarios':
             getUsuarios(api, filtro);
             break;
         case 'marcas':
-            getMarcas(api, filtro);
+            getMarcas(tipoFiltro, '');
             break;
         case 'materiales':
-            getMateriales(api, filtro);
+            getMateriales(tipoFiltro, '');
             break;
         case 'categorias':
-            getCategorias(api, filtro);
+            getCategorias(tipoFiltro, '');
             break;
         case 'tipo_clientes':
-            getTipoClientes(api, filtro);
+            getTipoClientes(tipoFiltro, '');
             break;
         case 'proveedores':
-            getProveedores(api, filtro);
+            getProveedores(tipoFiltro, '');
             break;
         case 'unidad_medidas':
-            getUnidadMedidas(api, filtro);
+            getUnidadMedidas(tipoFiltro, '');
             break;
         case 'clientes':
             getClientes(api, filtro);
@@ -37,46 +54,22 @@ $("#search").keyup(function() {
             }
             break; 
         case 'marcas':
-            if($(this).val() == ''){
-                getMarcas('api/getMarcas/', 2);
-            }else{
-                getMarcas('api/getMarcas/', $(this).val());
-            }
+            getMarcas(tipoFiltro, $(this).val());
             break; 
         case 'materiales':
-            if($(this).val() == ''){
-                getMateriales('api/getMateriales/', 2);
-            }else{
-                getMateriales('api/getMateriales/', $(this).val());
-            }
+            getMateriales(tipoFiltro, $(this).val());
             break; 
         case 'categorias':
-            if($(this).val() == ''){
-                getCategorias('api/getCategorias/', 2);
-            }else{
-                getCategorias('api/getCategorias/', $(this).val());
-            }
+            getCategorias(tipoFiltro, $(this).val());
             break; 
         case 'tipo_clientes':
-            if($(this).val() == ''){
-                getTipoClientes('api/getTipoClientes/', 2);
-            }else{
-                getTipoClientes('api/getTipoClientes/', $(this).val());
-            }
+            getTipoClientes(tipoFiltro, $(this).val());
             break;
         case 'proveedores':
-            if($(this).val() == ''){
-                getProveedores('api/getProveedores/', 2);
-            }else{
-                getProveedores('api/getProveedores/', $(this).val());
-            }
+            getProveedores(tipoFiltro, $(this).val());
             break;
         case 'unidad_medidas':
-            if($(this).val() == ''){
-                getUnidadMedidas('api/getUnidadMedidas/', 2);
-            }else{
-                getUnidadMedidas('api/getUnidadMedidas/', $(this).val());
-            }
+            getUnidadMedidas(tipoFiltro, $(this).val());
             break;
         case 'clientes':
             if($(this).val() == ''){
