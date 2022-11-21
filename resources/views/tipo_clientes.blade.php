@@ -205,7 +205,6 @@
 </div>
 @endsection
 @section('script')
-<script src="{{ asset('assets/js/tipo_cliente/config.js') }}"></script>
 <script src="{{ asset('assets/js/tipo_cliente/crud-tipo_cliente.js') }}"></script>
 <script src="{{ asset('assets/js/shared.js') }}"></script>
 <script>

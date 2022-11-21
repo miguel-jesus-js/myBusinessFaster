@@ -64,20 +64,25 @@ function openModal(id_modal, modulo, tipo){
             }
             break;
         case 'clientes':
-            $(".cliente_id").hide();//ocultamos la columna ID de la tabla, esto porque necesitamos el id para enviarlo al servidor
             if(tipo == 0){
                 $('#modal-title').html('Agregar cliente');
+                $(".cliente_id").hide();//ocultamos la columna ID de la tabla, esto porque necesitamos el id para enviarlo al servidor
                 $('#table-clientes-direcciones tbody').empty();
             }else if(tipo == 1){
                 $('#modal-title').html('Editar cliente');
+                $(".cliente_id").hide();//ocultamos la columna ID de la tabla, esto porque necesitamos el id para enviarlo al servidor
                 $('#table-clientes-direcciones tbody').empty();
             }
             break;
         case 'productos':
             if(tipo == 0){
                 $('#modal-title').html('Agregar producto');
+                $(".caracteristica_id").hide();//ocultamos la columna ID de la tabla, esto porque necesitamos el id para enviarlo al servidor
+                $('#table-caracteristicas tbody').empty();
             }else if(tipo == 1){
                 $('#modal-title').html('Editar producto');
+                (".caracteristica_id").hide();//ocultamos la columna ID de la tabla, esto porque necesitamos el id para enviarlo al servidor
+                $('#table-caracteristicas tbody').empty();
             }
             break;
     }

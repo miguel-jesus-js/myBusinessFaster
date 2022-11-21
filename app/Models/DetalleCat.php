@@ -9,7 +9,7 @@ class DetalleCat extends Model
 {
     use HasFactory;
     protected $table = 'detalle_cat';
-    protected $fiallable = [
+    protected $fillable = [
         'categoria_id',
         'producto_id',
     ];

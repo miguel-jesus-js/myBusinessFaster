@@ -65,7 +65,10 @@ function confirmDelete(id, info, api, modulo, prefijo){
                                 getUnidadMedidas(2, '');
                                 break;
                             case 'cliente':
-                                getClientes('api/getClientes/', 2);
+                                getClientes(2, '');
+                                break;
+                            case 'cliente':
+                                getProductos(2, '');
                                 break;
                         }
                     }

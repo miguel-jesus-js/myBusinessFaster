@@ -204,7 +204,6 @@
 </div>
 @endsection
 @section('script')
-<script src="{{ asset('assets/js/marcas/config.js') }}"></script>
 <script src="{{ asset('assets/js/marcas/crud-marca.js') }}"></script>
 <script src="{{ asset('assets/js/shared.js') }}"></script>
 <script>

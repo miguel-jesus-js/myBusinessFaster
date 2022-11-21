@@ -21,7 +21,9 @@ function getTipoClientes() {
     }
 }
 $('#form-add-direcciones').submit(function(e){
+    removeClass('form-add-cliente');
     e.preventDefault();
+    var data = $(this).serialize();
     var ciudad = $('#ciudad1').val();
     var estado = $('#estado1').val();
     var municipio = $('#municipio1').val();
@@ -30,12 +32,137 @@ $('#form-add-direcciones').submit(function(e){
     var calle =  $('#calle1').val();
     var n_exterior = $('#n_exterior1').val();
     var n_interior = $('#n_interior1').val();
-    let row = `<tr><td></td><td>${ciudad}</td><td>${estado}</td><td>${municipio}</td><td>${cp}</td><td>${colonia}</td><td>${calle}</td><td>${n_exterior}</td><td>${n_interior}</td><td><button type="button" class="btn p-0 border-0 borrar"><i class="ti ti-trash icono text-danger"></i></button></td></tr>`;
-    $('#table-clientes-direcciones tbody').append(row);
-    $('#table-clientes-direcciones td:nth-child(1)').hide();//ocultamos la fila ID
-    closeModal('modal-direcciones', 'form-add-direcciones');
+    $.ajax({
+        'type': 'POST',
+        'url': '/api/addDireccionesEntrega',
+        'data': data,
+        beforeSend: function(){
+            addHtmlEfectoLoad('load-form1');
+            addClassBtnEfectoLoad('load-button1', 'btn-modal1');
+        },
+        success: function(response){
+            removeClassBtnEfectoLoad('load-form1','load-button1', 'btn-modal1');
+            let row = `<tr>
+                <td>
+                    <input type="text" class="form-control input-table" readonly name="d-id[]" id="d-id[]" required autocomplete="off" maxlength="50" minlength="5">
+                </td>
+                <td>
+                    <input type="text" class="form-control input-table" readonly name="d-ciudad[]" id="d-ciudad[]" required autocomplete="off" maxlength="50" minlength="5" value="${ciudad}">
+                    <div class="invalid-feedback" id="error-d-ciudad[]"></div>
+                </td>
+                <td>
+                    <input type="text" class="form-control input-table" readonly name="d-estado[]" id="d-estado[]" required autocomplete="off" maxlength="50" minlength="5" value="${estado}">
+                    <div class="invalid-feedback" id="error-d-estado[]"></div>
+                </td>
+                <td>
+                    <input type="text" class="form-control input-table" readonly name="d-municipio[]" id="d-municipio[]" required autocomplete="off" maxlength="50" minlength="5" value="${municipio}">
+                    <div class="invalid-feedback" id="error-d-municipio[]"></div>
+                </td>
+                <td>
+                    <input type="number" class="form-control input-table" readonly name="d-cp[]" id="d-cp[]" required autocomplete="off" maxlength="50" minlength="5" value="${cp}">
+                    <div class="invalid-feedback" id="error-d-cp[]"></div>
+                </td>
+                <td>
+                    <input type="text" class="form-control input-table" readonly name="d-colonia[]" id="d-colonia[]" required autocomplete="off" maxlength="50" minlength="5" value="${colonia}">
+                    <div class="invalid-feedback" id="error-d-colonia[]"></div>
+                </td>
+                <td>
+                    <input type="text" class="form-control input-table" readonly name="d-calle[]" id="d-calle[]" required autocomplete="off" maxlength="50" minlength="5" value="${calle}">
+                    <div class="invalid-feedback" id="error-d-calle[]"></div>
+                </td>
+                <td>
+                    <input type="number" class="form-control input-table" readonly name="d-n_exterior[]" id="d-n_exterior[]" required autocomplete="off" maxlength="50" minlength="5" value="${n_exterior}">
+                    <div class="invalid-feedback" id="error-d-n_exterior[]"></div>
+                </td>
+                <td>
+                    <input type="number" class="form-control input-table" readonly name="d-n_interior[]" id="d-n_interior[]" required autocomplete="off" maxlength="50" minlength="5" value="${n_interior}">
+                    <div class="invalid-feedback" id="error-d-n_interior[]"></div>
+                </td>
+                <td>
+                    <div class="" id="editar">
+                        <button type="button" class="btn p-0 border-0 editar"><i class="ti ti-edit icono text-primary"></i></button>
+                        <button type="button" class="btn p-0 border-0 borrar"><i class="ti ti-trash icono text-danger"></i></button>
+                    </div>
+                    <div class="d-none" id="guardar">
+                        <button type="button" class="btn p-0 border-0 guardar"><i class="ti ti-device-floppy icono text-success"></i></button>
+                    </div>
+                </td>
+}           </tr>`;
+            $('#table-clientes-direcciones tbody').append(row);
+            $('#table-clientes-direcciones td:nth-child(1)').hide();//ocultamos la fila ID
+            closeModal('modal-direcciones', 'form-add-direcciones');
+        },
+        error: function(request, status, error){
+            switch (request.status) {
+                case 422:
+                    addValidacion(request.responseJSON.errors);
+                    break;
+                default:
+                    msjInfo('error', 'Error', 'Se perdio la conexión con el servidor, intente nuevamente');
+                    break;
+            }
+            removeClassBtnEfectoLoad('load-form1','load-button1', 'btn-modal1');
+        }
+    });
 })
-//eliminar un acceso
+//editar una dirección
+$(document).on('click', '.editar', function(event) {
+    event.preventDefault();
+    $(this).parent().addClass('d-none');
+    $(this).parent().siblings().removeClass('d-none');
+    let fila = $(this).closest('tr');
+    $.each(fila.children(), function(index, valor){
+        $(this).children().removeClass('input-table');
+        $(this).children().removeAttr('readonly');
+    })
+});
+//guardar una dirección
+$(document).on('click', '.guardar', function(event) {
+    event.preventDefault();
+    let fila = $(this).closest('tr');
+    var btnGuardar = $(this).parent();
+    var btnEditar = $(this).parent().siblings();
+    var data = '';
+    $.each(fila.children(), function(index, valor){
+        data += $(this).children().serialize() + '&';
+        $(this).children().removeClass('is-invalid');
+    });
+    $.ajax({
+        'type': 'POST',
+        'url': '/api/addDireccionesEntregaTable',
+        'data': data,
+        beforeSend: function(){
+        },
+        success: function(response){
+            $.each(fila.children(), function(index, valor){
+                $(this).children().addClass('input-table');
+                $(this).children().attr('readonly', true);
+            });
+            btnEditar.removeClass('d-none');
+            btnGuardar.addClass('d-none');
+        },
+        error: function(request, status, error){
+            switch (request.status) {
+                case 422:
+                    $.each(request.responseJSON.errors, function(index, valor){
+                        var arrayName = index.substring(0, index.length -2)+'[]';
+                        $.each(fila.children(), function(key, value){
+                            let inputName = $(this).children()[0].name;
+                            if(arrayName == inputName){
+                                $(this).children().addClass('is-invalid');
+                                $(this).children()[1].innerHTML = valor;
+                            }
+                        });
+                    });
+                    break;
+                default:
+                    msjInfo('error', 'Error', 'Se perdio la conexión con el servidor, intente nuevamente');
+                    break;
+            }
+        }
+    });
+});
+//editar una dirección
 $(document).on('click', '.borrar', function(event) {
     event.preventDefault();
     $(this).closest('tr').remove();

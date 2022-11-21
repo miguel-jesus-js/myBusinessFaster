@@ -4,20 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\Marca;
-use App\Models\Materiale;
-use App\Models\UnidadMedida;
-use App\Models\DetalleCat;
 
 class Producto extends Model
 {
-    use HasFactory, softDeletes;
+    use HasFactory;
     protected $fillable = [
-        'materiale_id',
-        'unidad_medida_id',
         'marca_id',
+        'almacene_id',
+        'unidad_medida_id',
+        'proveedore_id',
+        'materiale_id',
         'cod_barra',
+        'cod_sat',
         'producto',
         'pre_compra',
         'pre_venta',
@@ -31,21 +29,41 @@ class Producto extends Model
         'caducidad',
         'color',
         'talla',
+        'modelo',
+        'meses_garantia',
+        'peso_kg',
         'desc_detallada',
         'es_produccion',
         'afecta_venta',
     ];
+
+    public function scopeProducto($query, $producto)
+    {
+        if($producto)
+        {
+            return $query->where('producto', 'LIKE', '%'.$producto.'%');
+        }
+    }
+
     public function marcas()
     {
         return $this->belongsTo(Marca::class, 'marca_id', 'id');
     }
-    public function materiales()
+    public function almacenes()
     {
-        return $this->belongsTo(Materiale::class, 'materiale_id', 'id');
+        return $this->belongsTo(Almacene::class, 'almacene_id', 'id');
     }
     public function unidadMedidas()
     {
         return $this->belongsTo(UnidadMedida::class, 'unidad_medida_id', 'id');
+    }
+    public function proveedores()
+    {
+        return $this->belongsTo(Proveedore::class, 'proveedore_id', 'id');
+    }
+    public function materiales()
+    {
+        return $this->belongsTo(Materiale::class, 'materiale_id', 'id');
     }
     public function categorias()
     {

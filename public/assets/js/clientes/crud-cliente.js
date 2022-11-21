@@ -1,47 +1,7 @@
 $('#form-add-cliente').submit(function(e){
     e.preventDefault();
+    removeClass('form-add-cliente');
     let data = $(this).serialize();
-    var i = 0;
-    var cliente_id = []
-    var ciudad = [];
-    var estado = [];
-    var municipio = [];
-    var cp = [];
-    var colonia = [];
-    var calle = [];
-    var n_exterior = [];
-    var n_interior = [];
-    var table_direcciones = $('#table-clientes-direcciones tbody');
-    table_direcciones.find('tr').each(function (i, el) {
-        var $tds = $(this).find('td');
-        cliente_id.push($tds.eq(0).text());//obtiene el id del modulo
-        ciudad.push($tds.eq(1).text()); //obtiene el valor del check true o false
-        estado.push($tds.eq(2).text());
-        municipio.push($tds.eq(3).text());
-        cp.push($tds.eq(4).text());
-        colonia.push($tds.eq(5).text());
-        calle.push($tds.eq(6).text());
-        n_exterior.push($tds.eq(7).text());
-        n_interior.push($tds.eq(8).text());
-    });
-    var datos  = [];
-    var objeto = {};
-    for(var i= 0; i < cliente_id.length; i++) {//creamos la estructura json para poder enviarlo
-       datos.push({ 
-            "cliente_id": cliente_id[i],
-            "ciudad": ciudad[i],
-            "estado": estado[i] ,
-            "municipio": municipio[i] ,
-            "cp": cp[i] ,
-            "colonia": colonia[i] ,
-            "calle": calle[i] ,
-            "n_exterior": n_exterior[i] ,
-            "n_interior": n_interior[i] ,
-        });
-    }
-    objeto = datos;
-    let json = JSON.stringify(objeto); //lista de objetos en Json
-    data = data + '&datos='+ json;
     var url = '';
     var tipo = '';
     if($('#id').val() == ''){
@@ -56,24 +16,72 @@ $('#form-add-cliente').submit(function(e){
         'url': url,
         'data': data,
         beforeSend: function(){
-            $('#load-form').removeClass('d-none');
-            $('#load-button').removeClass('d-none');
-            $('#btn-modal').html('enviando');
+            addHtmlEfectoLoad('load-form');
+            addClassBtnEfectoLoad('load-button', 'btn-modal');
         },
         success: function(response){
             let respuesta = JSON.parse(response);
-            $('#load-form').addClass('d-none');
-            $('#load-button').addClass('d-none');
-            $('#btn-modal').html('Registrar');
+            removeClassBtnEfectoLoad('load-form','load-button', 'btn-modal');
             Toast.fire({
                 icon: respuesta.icon,
                 title: respuesta.title,
                 text: respuesta.text
             });
             if(respuesta.icon == 'success'){
-                getClientes('api/getClientes/', 2);
+                getClientes(2, '');
                 closeModal('modal-cliente', 'form-add-cliente');
             }
+        },
+        error: function(request, status, error){
+            switch (request.status) {
+                case 422:
+                    addValidacion(request.responseJSON.errors);
+                    break;
+                default:
+                    msjInfo('error', 'Error', 'Se perdio la conexión con el servidor, intente nuevamente');
+                    break;
+            }
+            removeClassBtnEfectoLoad('load-form','load-button', 'btn-modal');
+        }
+    });
+})
+$('#form-upload-cliente').submit(function(e){
+    e.preventDefault();
+    removeClass('form-upload-cliente');
+    $.ajax({
+        'type': 'POST',
+        'url': 'api/uploadCliente',
+        'data': new FormData(this),
+        'contentType': false,
+        'cache': false,
+        'processData': false,
+        beforeSend: function(){
+            addHtmlEfectoLoad('load-form1');
+            addClassBtnEfectoLoad('load-button1', 'btn-modal1');
+        },
+        success: function(response){
+            let respuesta = JSON.parse(response);
+            removeClassBtnEfectoLoad('load-form1','load-button1', 'btn-modal1');
+            Toast.fire({
+                icon: respuesta.icon,
+                title: respuesta.title,
+                text: respuesta.text
+            });
+            if(respuesta.icon == 'success'){
+                getClientes(2, '');
+                closeModal('upload-cliente', 'form-upload-cliente');
+            }
+        },
+        error: function(request, status, error){
+            switch (request.status) {
+                case 422:
+                    addValidacion(request.responseJSON.errors);
+                    break;
+                default:
+                    msjInfo('error', 'Error', 'Se perdio la conexión con el servidor, intente nuevamente');
+                    break;
+            }
+            removeClassBtnEfectoLoad('load-form1','load-button1', 'btn-modal1');
         }
     });
 })
@@ -104,7 +112,7 @@ function getClientes(tipo, filtro){
                 row += `
                     <tr class="${elimnado}">
                         <td>${valor.nombres} ${valor.app} ${valor.apm}</td>
-                        <td class="${valor.tipo_cliente == null ? 'bg-danger' : ''}">${valor.tipo_cliente == null ? 'Registro eliminado' : valor.tipo_cliente.tipo_cliente}</td>
+                        <td>${valor.tipo_cliente == null ? '' : valor.tipo_cliente.tipo_cliente}</td>
                         <td>${valor.email}</td>
                         <td>${valor.telefono}</td>
                         <td>
@@ -121,11 +129,15 @@ function getClientes(tipo, filtro){
             $("#table-cliente").paginationTdA({
                 elemPerPage: 5
             });
+            let pag = $('.paginationClick').parent()[0];
+            pag.classList.add('active');
         }
     })
 }
 function onChange(id, tipo_cliente_id, nombres, app, apm, email, telefono, rfc, empresa, ciudad, estado, municipio, cp, colonia, calle, n_exterior, n_interior, direcciones){
-    getTipoClientes();
+    getTipoClientes(()=>{
+        $('#tipo_cliente_id').val(tipo_cliente_id);
+    });
     $('#id').val(id);
     $('#nombres').val(nombres);
     $('#app').val(app);
@@ -133,17 +145,17 @@ function onChange(id, tipo_cliente_id, nombres, app, apm, email, telefono, rfc, 
     $('#email').val(email);
     $('#telefono').val(telefono);
     $('#rfc').val(rfc);
-    $('#empresa').val(empresa);
+    $('#empresa').val(empresa == null ? '' : empresa == null);
     $('#ciudad').val(ciudad);
     $('#estado').val(estado);
     $('#municipio').val(municipio);
     $('#cp').val(cp);
     $('#colonia').val(colonia);
     $('#calle').val(calle);
-    $('#n_exterior').val(n_exterior);
-    $('#n_interior').val(n_interior);
+    $('#n_exterior').val(n_exterior == null ? 0 : n_exterior);
+    $('#n_interior').val(n_interior == null ? 0 : n_interior);
     openModal('modal-cliente', 'clientes', 1);
-    $('#tipo_cliente_id').val(tipo_cliente_id);
+    
     //llenamos la tabla con los permisos
     var rowDirecciones = '';
     $.each(direcciones, function(index, valor){
@@ -152,17 +164,49 @@ function onChange(id, tipo_cliente_id, nombres, app, apm, email, telefono, rfc, 
         }
         rowDirecciones += `
                     <tr>
-                        <td>${valor.cliente_id}</td>
-                        <td>${valor.ciudad}</td>
-                        <td>${valor.estado}</td>
-                        <td>${valor.municipio}</td>
-                        <td>${valor.cp}</td>
-                        <td>${valor.colonia}</td>
-                        <td>${valor.calle}</td>
-                        <td>${valor.n_exterior}</td>
-                        <td>${valor.n_interior}</td>
                         <td>
-                            <button type="button" class="btn p-0 border-0 borrar"><i class="ti ti-trash icono text-danger"></i></button>
+                            <input type="text" class="form-control input-table" readonly name="d-id[]" id="d-id[]" required autocomplete="off" maxlength="50" minlength="5" value="${valor.id}">
+                            <div class="invalid-feedback" id="error-d-id[]"></div>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control input-table" readonly name="d-ciudad[]" id="d-ciudad[]" required autocomplete="off" maxlength="50" minlength="5" value="${valor['d-ciudad']}">
+                            <div class="invalid-feedback" id="error-d-ciudad[]"></div>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control input-table" readonly name="d-estado[]" id="d-estado[]" required autocomplete="off" maxlength="50" minlength="5" value="${valor['d-estado']}">
+                            <div class="invalid-feedback" id="error-d-estado[]"></div>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control input-table" readonly name="d-municipio[]" id="d-municipio[]" required autocomplete="off" maxlength="50" minlength="5" value="${valor['d-municipio']}">
+                            <div class="invalid-feedback" id="error-d-municipio[]"></div>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control input-table" readonly name="d-cp[]" id="d-cp[]" required autocomplete="off" maxlength="50" minlength="5" value="${valor['d-cp']}">
+                            <div class="invalid-feedback" id="error-d-cp[]"></div>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control input-table" readonly name="d-colonia[]" id="d-colonia[]" required autocomplete="off" maxlength="50" minlength="5" value="${valor['d-colonia']}">
+                            <div class="invalid-feedback" id="error-d-colonia[]"></div>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control input-table" readonly name="d-calle[]" id="d-calle[]" required autocomplete="off" maxlength="50" minlength="5" value="${valor['d-calle']}">
+                            <div class="invalid-feedback" id="error-d-calle[]"></div>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control input-table" readonly name="d-n_exterior[]" id="d-n_exterior[]" required autocomplete="off" maxlength="50" minlength="5" value="${valor['d-n_exterior'] == null ? 0 : valor['d-n_exterior']}">
+                            <div class="invalid-feedback" id="error-d-n_exterior[]"></div>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control input-table" readonly name="d-n_interior[]" id="d-n_interior[]" required autocomplete="off" maxlength="50" minlength="5" value="${valor['d-n_interior'] == null ? 0 : valor['d-n_interior']}">
+                            <div class="invalid-feedback" id="error-d-n_interior[]"></div>
+                        </td>
+                        <td>
+                            <div class="" id="editar">
+                                <button type="button" class="btn p-0 border-0 editar"><i class="ti ti-edit icono text-primary"></i></button>
+                            </div>
+                            <div class="d-none" id="guardar">
+                                <button type="button" class="btn p-0 border-0 guardar"><i class="ti ti-device-floppy icono text-success"></i></button>
+                            </div>
                         </td>
                     </tr>     
         `;

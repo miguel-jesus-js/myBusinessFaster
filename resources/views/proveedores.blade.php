@@ -40,7 +40,7 @@
                         <label class="form-label" id="filtro-select">Filtro: No eliminados</label>
                         <button class="nav-link dropdown-toggle btn" data-bs-toggle="dropdown"
                             data-bs-auto-close="outside" role="button" aria-expanded="true">
-                            <span class="nav-link-icon d-md-none d-lg-inline-block">
+                            <span class="nav-link-icon">
                                 <i class="ti ti-filter icono"></i>
                             </span>
                         </button>
@@ -101,7 +101,7 @@
                                 <th>Empresa</th>
                                 <th>Correo</th>
                                 <th>Teléfono</th>
-                                <th colspan="2">Acciones</th>
+                                <th colspan="3">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -206,15 +206,13 @@
                                     <div class="invalid-feedback" id="error-calle"></div>
                                 </div>
                                 <div class="col-sm-6 col-md-4 mb-3">
-                                    <label class="form-label">
-                                        N° Exterior
-                                    </label>
-                                    <input type="number" class="form-control" name="n_exterior" id="n_exterior" placeholder="N° Exterior" autocomplete="off" maxlength="5" minlength="1">
+                                    <label class="form-label">N° Exterior</label>
+                                    <input type="number" class="form-control" name="n_exterior" id="n_exterior" placeholder="N° Exterior" autocomplete="off" min="0" max="200">
                                     <div class="invalid-feedback" id="error-n_exterior"></div>
                                 </div>
                                 <div class="col-sm-6 col-md-4 mb-3">
                                     <label class="form-label">N° Interior</label>
-                                    <input type="number" class="form-control" name="n_interior" id="n_interior" placeholder="N° Interior" autocomplete="off" maxlength="5" minlength="1">
+                                    <input type="number" class="form-control" name="n_interior" id="n_interior" placeholder="N° Interior" autocomplete="off" min="0" max="200">
                                     <div class="invalid-feedback" id="error-n_interior"></div>
                                 </div>
                             </div>
@@ -289,77 +287,77 @@
                 <button type="button" class="btn-close" onclick="closeModal('modal-detalle-proveedor', 'form-add-proveedor')"></button>
             </div>
             <div class="modal-body">
-                <div class="row">
+                <div class="row detalles">
                     <div class="col-md-2 mb-1">
-                        <label class="form-label h5">Clave:</label>
+                        <label class="form-label">Clave:</label>
                         <p id="d-clave"></p>
                     </div>
                     <div class="col-md-2 mb-1">
-                        <label class="form-label h5">Nombre:</label>
+                        <label class="form-label">Nombre:</label>
                         <p id="d-nombres"></p>
                     </div>
                     <div class="col-md-2 mb-1">
-                        <label class="form-label h5">Apellido paterno:</label>
+                        <label class="form-label">Apellido paterno:</label>
                         <p id="d-app"></p>
                     </div>
                     <div class="col-md-2 mb-1">
-                        <label class="form-label h5">Apellido materno:</label>
+                        <label class="form-label">Apellido materno:</label>
                         <p id="d-apm"></p>
                     </div>
                     <div class="col-md-2 mb-1">
-                        <label class="form-label h5">Teléfono:</label>
+                        <label class="form-label">Teléfono:</label>
                         <p id="d-telefono"></p>
                     </div>
                     <div class="col-md-2 mb-1">
-                        <label class="form-label h5">RFC:</label>
+                        <label class="form-label">RFC:</label>
                         <p id="d-rfc"></p>
                     </div>
                     <div class="col-md-2 mb-1">
-                        <label class="form-label h5">Empresa:</label>
+                        <label class="form-label">Empresa:</label>
                         <p id="d-empresa"></p>
                     </div>
                     <div class="col-md-2 mb-1">
-                        <label class="form-label h5">Ciudad:</label>
+                        <label class="form-label">Ciudad:</label>
                         <p id="d-ciudad"></p>
                     </div>
                     <div class="col-md-2 mb-1">
-                        <label class="form-label h5">Estado:</label>
+                        <label class="form-label">Estado:</label>
                         <p id="d-estado"></p>
                     </div>
                     <div class="col-md-2 mb-1">
-                        <label class="form-label h5">Municipio:</label>
+                        <label class="form-label">Municipio:</label>
                         <p id="d-municipio"></p>
                     </div>
                     <div class="col-md-2 mb-1">
-                        <label class="form-label h5">Código postal:</label>
+                        <label class="form-label">Código postal:</label>
                         <p id="d-cp"></p>
                     </div>
                     <div class="col-md-2 mb-1">
-                        <label class="form-label h5">Colonia:</label>
+                        <label class="form-label">Colonia:</label>
                         <p id="d-colonia"></p>
                     </div>
                     <div class="col-md-2 mb-1">
-                        <label class="form-label h5">Calle:</label>
+                        <label class="form-label">Calle:</label>
                         <p id="d-calle"></p>
                     </div>
                     <div class="col-md-2 mb-1">
-                        <label class="form-label h5">N° Exterior:</label>
+                        <label class="form-label">N° Exterior:</label>
                         <p id="d-n_exterior"></p>
                     </div>
                     <div class="col-md-2 mb-1">
-                        <label class="form-label h5">N° Interior:</label>
+                        <label class="form-label">N° Interior:</label>
                         <p id="d-n_interior"></p>
                     </div>
-                    <div class="col-md-2 mb-1">
-                        <label class="form-label h5">Fecha de creación:</label>
+                    <div class="col-md-4 mb-1">
+                        <label class="form-label">Fecha de creación:</label>
                         <p id="creacion"></p>
                     </div>
-                    <div class="col-md-2 mb-1">
-                        <label class="form-label h5">Última fecha de actualización:</label>
+                    <div class="col-md-4 mb-1">
+                        <label class="form-label">Última fecha de actualización:</label>
                         <p id="actualizacion"></p>
                     </div>
-                    <div class="col-md-2 mb-1">
-                        <label class="form-label h5">Fecha de eliminación:</label>
+                    <div class="col-md-4 mb-1">
+                        <label class="form-label">Fecha de eliminación:</label>
                         <p id="eliminacion"></p>
                     </div>
                 </div>
@@ -372,13 +370,14 @@
 </div>
 @endsection
 @section('script')
-<script src="{{ asset('assets/js/proveedores/config.js') }}"></script>
 <script src="{{ asset('assets/js/proveedores/crud-proveedor.js') }}"></script>
 <script src="{{ asset('assets/js/shared.js') }}"></script>
 <script>
     $( document ).ready(function() {
         getProveedores(2, '');
         $("#modal-proveedor").draggable();
+        $("#upload-proveedor").draggable();
+        $("#modal-detalle-proveedor").draggable();
     });
 </script>
 @endsection

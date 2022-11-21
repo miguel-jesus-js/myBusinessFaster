@@ -72,7 +72,7 @@
                     <td>{{ $proveedores[$i]['telefono'] }}</td>
                     <td>{{ $proveedores[$i]['rfc'] }}</td>
                     <td>{{ $proveedores[$i]['empresa'] }}</td>
-                    <td>{{ $proveedores[$i]['calle'].' '.$proveedores[$i]['n_exterior'].', '.$proveedores[$i]['colonia'].', '.$proveedores[$i]['cp'].', '.$proveedores[$i]['municipio'].', '.$proveedores[$i]['estado'].', '.$proveedores[$i]['ciudad'] }}</td>
+                    <td>{{ $proveedores[$i]['calle'].' '.($proveedores[$i]['n_exterior'] == 0 ? '' : $proveedores[$i]['n_exterior']).', '.$proveedores[$i]['colonia'].', '.$proveedores[$i]['cp'].', '.$proveedores[$i]['municipio'].', '.$proveedores[$i]['estado'].', '.$proveedores[$i]['ciudad'] }}</td>
                 </tr>
 
                 @endfor

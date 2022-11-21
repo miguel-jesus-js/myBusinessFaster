@@ -11,15 +11,15 @@ class DireccionesEntrega extends Model
     use HasFactory;
     protected $table = 'direcciones_entregas';
     protected $fillable = [
-        'cliente_id',
-        'ciudad',
-        'estado',
-        'municipio',
-        'cp',
-        'colonia',
-        'calle',
-        'n_exterior',
-        'n_interior',
+        'd-cliente_id',
+        'd-ciudad',
+        'd-estado',
+        'd-municipio',
+        'd-cp',
+        'd-colonia',
+        'd-calle',
+        'd-n_exterior',
+        'd-n_interior',
     ];
     public function clientes()
     {

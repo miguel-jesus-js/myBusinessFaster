@@ -26,20 +26,21 @@ class ProveedoresRequest extends FormRequest
     {
         return [
             'clave'     => 'required|min:3|max:10|regex:/^[a-zA-Z0-9]+$/|unique:proveedores,clave,'.$this->id,
+            'nombres'   => 'required|min:3|max:50|regex:/^[\sA-Za-zÁÉÍÓÚáéíóúÑñ]{3,50}$/',
             'app'       => 'required|min:3|max:50|regex:/^[\sA-Za-zÁÉÍÓÚáéíóúÑñ]{3,50}$/',
             'apm'       => 'required|min:3|max:50|regex:/^[\sA-Za-zÁÉÍÓÚáéíóúÑñ]{3,50}$/',
             'email'     => 'required|min:10|max:50|email|unique:proveedores,email,'.$this->id,
             'telefono'  => 'required|min:14|max:14|unique:proveedores,telefono,'.$this->id,
-            'rfc'       => 'min:3|max:50|regex:/^([a-z]{3,4})(\d{2})(\d{2})(\d{2})([0-9a-z]{3})$/i|unique:proveedores,rfc,'.$this->id,
-            'empresa'   => 'min:3|max:50|regex:/^[\sA-Za-zÁÉÍÓÚáéíóúÑñ]{3,50}$/',
+            'rfc'       => 'nullable|min:3|max:50|regex:/^([a-z]{3,4})(\d{2})(\d{2})(\d{2})([0-9a-z]{3})$/i|unique:proveedores,rfc,'.$this->id,
+            'empresa'   => 'nullable|min:3|max:50|regex:/^[\sA-Za-zÁÉÍÓÚáéíóúÑñ]{3,50}$/',
             'ciudad'    => 'required|min:3|max:50|regex:/^[\sA-Za-zÁÉÍÓÚáéíóúÑñ]{3,50}$/',
             'estado'    => 'required|min:3|max:50|regex:/^[\sA-Za-zÁÉÍÓÚáéíóúÑñ]{3,50}$/',
             'municipio' => 'required|min:3|max:50|regex:/^[\sA-Za-zÁÉÍÓÚáéíóúÑñ]{3,50}$/',
             'cp'        => 'required|digits:5|numeric',
             'colonia'   => 'required|min:3|max:50|regex:/^[\sA-Za-zÁÉÍÓÚáéíóúÑñ]{3,50}$/',
             'calle'     => 'required|min:3|max:50|regex:/^[\sA-Za-zÁÉÍÓÚáéíóúÑñ]{3,50}$/',
-            'n_exterior'=> 'nullable|min:1|max:5|numeric',
-            'n_interior'=> 'nullable|min:1|max:5|numeric',
+            'n_exterior'=> 'nullable|min:0|max:2000|numeric',
+            'n_interior'=> 'nullable|min:0|max:2000|numeric',
         ];
     }
     public function messages()
@@ -101,11 +102,11 @@ class ProveedoresRequest extends FormRequest
             'calle.min'             => 'La calle debe tener mínimo 3 caracteres',
             'calle.max'             => 'La calle debe tener máximo 50 caracteres',
             'calle.regex'           => 'La calle debe ser letras sin caracteres especiales',
-            'n_exterior.min'        => 'El número exterior debe tener mínimo 1 carácter',
-            'n_exterior.max'        => 'El número exterior debe tener máximo 5 caracteres',
+            'n_exterior.min'        => 'El número exterior debe sey mayor o igual a 0',
+            'n_exterior.max'        => 'El número exterior no debe ser mayor a 2000',
             'n_exterior.numeric'    => 'El número exterior debe ser numeros',
-            'n_interior.min'        => 'El número interior debe tener mínimo 1 carácter',
-            'n_interior.max'        => 'El número interior debe tener máximo 5 caracteres',
+            'n_interior.min'        => 'El número interior debe sey mayor o igual a 0',
+            'n_interior.max'        => 'El número interior no debe ser mayor a 2000',
             'n_interior.numeric'    => 'El número interior debe ser numeros',
         ];
     }

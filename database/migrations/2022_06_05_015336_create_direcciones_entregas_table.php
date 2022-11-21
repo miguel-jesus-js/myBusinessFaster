@@ -14,17 +14,18 @@ return new class extends Migration
     public function up()
     {
         Schema::create('direcciones_entregas', function (Blueprint $table) {
-            $table->unsignedBigInteger('cliente_id');
-            $table->string('ciudad', 30)->nullable(false);
-            $table->string('estado', 30)->nullable(false);
-            $table->string('municipio', 30)->nullable(false);
-            $table->integer('cp')->nullable(false);
-            $table->string('colonia', 50)->nullable(false);
-            $table->string('calle', 50)->nullable(false);
-            $table->integer('n_exterior')->nullable(false);
-            $table->integer('n_interior')->nullable(true);
+            $table->id();
+            $table->unsignedBigInteger('d-cliente_id');
+            $table->string('d-ciudad', 30)->nullable(false);
+            $table->string('d-estado', 30)->nullable(false);
+            $table->string('d-municipio', 30)->nullable(false);
+            $table->integer('d-cp')->nullable(false);
+            $table->string('d-colonia', 50)->nullable(false);
+            $table->string('d-calle', 50)->nullable(false);
+            $table->integer('d-n_exterior')->nullable(false)->default(0);
+            $table->integer('d-n_interior')->nullable(false)->default(0);
             $table->timestamps();
-            $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade');
+            $table->foreign('d-cliente_id')->references('id')->on('clientes')->onDelete('cascade');
         });
     }
 

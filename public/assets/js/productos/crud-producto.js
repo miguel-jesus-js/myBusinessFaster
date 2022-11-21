@@ -1,5 +1,6 @@
 $('#form-add-producto').submit(function(e){
     e.preventDefault();
+    removeClass('form-add-producto');
     var url = '';
     var tipo = '';
     if($('#id').val() == ''){
@@ -17,31 +18,39 @@ $('#form-add-producto').submit(function(e){
         cache: false,
         processData:false,
         beforeSend: function(){
-            $('#load-form').removeClass('d-none');
-            $('#load-button').removeClass('d-none');
-            $('#btn-modal').html('enviando');
+            addHtmlEfectoLoad('load-form');
+            addClassBtnEfectoLoad('load-button', 'btn-modal');
         },
         success: function(response){
             let respuesta = JSON.parse(response);
-            $('#load-form').addClass('d-none');
-            $('#load-button').addClass('d-none');
-            $('#btn-modal').html('Registrar');
+            removeClassBtnEfectoLoad('load-form','load-button', 'btn-modal');
             Toast.fire({
                 icon: respuesta.icon,
                 title: respuesta.title,
                 text: respuesta.text
             });
             if(respuesta.icon == 'success'){
-                getProductos('api/getProductos/', 2);
+                getProductos(2, '');
                 closeModal('modal-producto', 'form-add-producto');
             }
+        },
+        error: function(request, status, error){
+            switch (request.status) {
+                case 422:
+                    addValidacion(request.responseJSON.errors);
+                    break;
+                default:
+                    msjInfo('error', 'Error', 'Se perdio la conexión con el servidor, intente nuevamente');
+                    break;
+            }
+            removeClassBtnEfectoLoad('load-form','load-button', 'btn-modal');
         }
     });
 });
-function getProductos(api, filtro){
+function getProductos(tipo, filtro){
     $.ajax({
         'type': 'get',
-        'url': api+filtro,
+        'url': '/api/getProductos/'+tipo+'?filtro='+filtro,
         beforeSend: function(){
             $('#table-producto tbody').empty();
             $('#table-producto tbody').html('<tr id="load-productos"><td colspan="8"><center><h1>Cargando<span class="animated-dots"></span></h1></center></td></tr>');
@@ -53,11 +62,6 @@ function getProductos(api, filtro){
             var row = '';
             var cat = '';
             $.each(data, function(index, valor){
-                cat = '';
-                for(var i=0; i<valor.categorias.length; i++){
-                    cat += `${valor.categorias[i].categoria}, `;
-                }
-                cat = cat.substr(0, cat.length - 2);
                 if(valor.deleted_at != null){ //validación para que los registros elimnados sean de color rojo
                     elimnado = 'table-danger';
                 }else{
@@ -65,12 +69,15 @@ function getProductos(api, filtro){
                 }
                 row += `
                     <tr class="${elimnado}">
+                        <td>${valor.cod_barra}</td>
                         <td>${valor.producto}</td>
-                        <td>${valor.materiales.material}</td>
-                        <td>${valor.unidad_medidas.unidad_medida}</td>
                         <td>${valor.marcas.marca}</td>
-                        <td>${cat}</td>
-                        <td>$${valor.pre_venta}</td>
+                        <td>${valor.almacenes.nombre}</td>
+                        <td>${valor.unidad_medidas.unidad_medida}</td>
+                        <td>${valor.proveedores.nombres + ' ('+valor.proveedores.empresa+')'}</td>
+                        <td>${valor.materiales == null ? '' : valor.materiales.material}</td>
+                        <td>${valor.pre_compra}</td>
+                        <td>${valor.pre_venta}</td>
                         <td>${valor.stock}</td>
                         <td>
                             <button type="button" class="btn p-0 border-0" onclick="onChange(${valor.id}, '${valor.marca}');"><i class="ti ti-edit icono text-primary"></i></button>
@@ -88,6 +95,7 @@ function getProductos(api, filtro){
             });
         },
         error: function (request, status, error) {
+            debugger;
             if(request.status == 0){
                 msjInfo('error', 'Error', 'Se perdio la conexión con el servidor, intente nuevamente');
             }else{

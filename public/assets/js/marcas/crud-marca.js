@@ -35,10 +35,10 @@ $('#form-add-marca').submit(function(e){
         error: function(request, status, error){
             switch (request.status) {
                 case 422:
-                    addValidacion(Object.keys(request.responseJSON.errors), request.responseJSON.message);
+                    addValidacion(request.responseJSON.errors);
                     break;
-            
                 default:
+                    msjInfo('error', 'Error', 'Se perdio la conexión con el servidor, intente nuevamente');
                     break;
             }
             removeClassBtnEfectoLoad('load-form1','load-button1', 'btn-modal1');
@@ -76,9 +76,10 @@ $('#form-upload-marca').submit(function(e){
         error: function(request, status, error){
             switch (request.status) {
                 case 422:
-                    addValidacion(Object.keys(request.responseJSON.errors), request.responseJSON.message);
+                    addValidacion(request.responseJSON.errors);
                     break;
                 default:
+                    msjInfo('error', 'Error', 'Se perdio la conexión con el servidor, intente nuevamente');
                     break;
             }
             removeClassBtnEfectoLoad('load-form1','load-button1', 'btn-modal1');

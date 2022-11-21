@@ -39,7 +39,10 @@ function filterGeneral(modulo, tipo){
             getUnidadMedidas(tipoFiltro, '');
             break;
         case 'clientes':
-            getClientes(api, filtro);
+            getClientes(tipoFiltro, '');
+            break;
+        case 'productos':
+            getProductos(tipoFiltro, '');
             break;
     }
 }
@@ -72,11 +75,10 @@ $("#search").keyup(function() {
             getUnidadMedidas(tipoFiltro, $(this).val());
             break;
         case 'clientes':
-            if($(this).val() == ''){
-                getClientes('api/getClientes/', 2);
-            }else{
-                getClientes('api/getClientes/', $(this).val());
-            }
+            getClientes(tipoFiltro, $(this).val());
+            break;
+        case 'productos':
+            getProductos(tipoFiltro, $(this).val());
             break;
     }
 });

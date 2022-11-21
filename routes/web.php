@@ -12,6 +12,8 @@ use App\Http\Controllers\ProveedoresController;
 use App\Http\Controllers\UnidadMedidasController;
 use App\Http\Controllers\ClientesController;
 use App\Http\Controllers\ProductosController;
+use App\Http\Controllers\DireccionesEntregasController;
+use App\Http\Controllers\AlmacenesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,6 +72,14 @@ Route::get('api/getUsuarios/{filtro}', [UsersController::class, 'index']);
 Route::post('api/addUsuarios', [UsersController::class, 'create']);
 Route::put('api/updateUsuarios', [UsersController::class, 'update']);
 Route::delete('api/deleteUsuarios/{id}', [UsersController::class, 'delete']);
+//apis almacenes
+Route::get('api/getAlmacenes/{tipo}', [AlmacenesController::class, 'index']);
+Route::post('api/addAlmacenes', [AlmacenesController::class, 'create']);
+Route::put('api/updateAlmacenes', [AlmacenesController::class, 'update']);
+Route::delete('api/deleteAlmacenes/{id}', [AlmacenesController::class, 'delete']);
+Route::get('api/downloadPlantillaMarca', [AlmacenesController::class, 'downloadPlantilla'])->name('downloadPlantillaMarca');
+Route::post('api/uploadMarca', [AlmacenesController::class, 'uploadMarca']);
+Route::get('api/exportarPdfMarca', [AlmacenesController::class, 'exportarPDF'])->name('exportarPdfMarca');
 //apis marcas
 Route::get('api/getMarcas/{tipo}', [MarcasController::class, 'index']);
 Route::post('api/addMarcas', [MarcasController::class, 'create']);
@@ -78,7 +88,6 @@ Route::delete('api/deleteMarcas/{id}', [MarcasController::class, 'delete']);
 Route::get('api/downloadPlantillaMarca', [MarcasController::class, 'downloadPlantilla'])->name('downloadPlantillaMarca');
 Route::post('api/uploadMarca', [MarcasController::class, 'uploadMarca']);
 Route::get('api/exportarPdfMarca', [MarcasController::class, 'exportarPDF'])->name('exportarPdfMarca');
-
 //apis materiales
 Route::get('api/getMateriales/{tipo}', [MaterialesController::class, 'index']);
 Route::post('api/addMateriales', [MaterialesController::class, 'create']);
@@ -124,11 +133,18 @@ Route::get('api/getClientes/{tipo}', [ClientesController::class, 'index']);
 Route::post('api/addClientes', [ClientesController::class, 'create']);
 Route::put('api/updateClientes', [ClientesController::class, 'update']);
 Route::delete('api/deleteClientes/{id}', [ClientesController::class, 'delete']);
+Route::get('api/downloadPlantillaCliente', [ClientesController::class, 'downloadPlantilla'])->name('downloadPlantillaCliente');
+Route::post('api/uploadCliente', [ClientesController::class, 'uploadCliente']);
+Route::get('api/exportarPdfCliente', [ClientesController::class, 'exportarPDF'])->name('exportarPdfCliente');
 //apis productos
 Route::get('api/getProductos/{filtro}', [ProductosController::class, 'index']);
 Route::post('api/addProductos', [ProductosController::class, 'create']);
 Route::put('api/updateProductos', [ProductosController::class, 'update']);
 Route::delete('api/deleteProductos/{id}', [ProductosController::class, 'delete']);
+//apis direcciones de entrega
+Route::post('api/addDireccionesEntrega', [DireccionesEntregasController::class, 'create']);
+Route::post('api/addDireccionesEntregaTable', [DireccionesEntregasController::class, 'createTable']);
+
 // Route::group(['middleware' => 'auth'], function () {
 //     //apis roles
     

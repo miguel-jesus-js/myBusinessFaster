@@ -40,7 +40,7 @@
                         <label class="form-label" id="filtro-select">Filtro: No eliminados</label>
                         <button class="nav-link dropdown-toggle btn" data-bs-toggle="dropdown"
                             data-bs-auto-close="outside" role="button" aria-expanded="true">
-                            <span class="nav-link-icon d-md-none d-lg-inline-block">
+                            <span class="nav-link-icon">
                                 <i class="ti ti-filter icono"></i>
                             </span>
                         </button>
@@ -204,7 +204,6 @@
 </div>
 @endsection
 @section('script')
-<script src="{{ asset('assets/js/unidad_medida/config.js') }}"></script>
 <script src="{{ asset('assets/js/unidad_medida/crud-unidad_medida.js') }}"></script>
 <script src="{{ asset('assets/js/shared.js') }}"></script>
 <script>

@@ -59,3 +59,41 @@ function readCatalogos(){
     }
     $('#lista-catalogos').html(row);
 }
+$("input:checkbox").on('click', function() {
+    // in the handler, 'this' refers to the box clicked on
+    var $box = $(this);
+    if ($box.is(":checked")) {
+      var group = "input:checkbox[name='" + $box.attr("name") + "']";
+      $(group).prop("checked", false);
+      $box.prop("checked", true);
+    } else {
+      $box.prop("checked", false);
+    }
+});
+
+function preview(idImagen, idVista){
+    let input = $('#'+idImagen);
+    let extencion = input.val().split(".").pop().toLowerCase();
+    if( input.val() != "" ){
+        if( extencion != "jpeg" && extencion != "png" && extencion != "jpg"){
+                input.replaceWith(input.val('').clone(true));
+                Toast.fire({
+                icon: "warning",
+                title: "Advertencia",
+                text: "Tipo de archivo no permitido"
+                });
+        }
+    }
+    let reader = new FileReader();
+    reader.onload = (e) => {
+        $("#"+idVista).attr('src', e.target.result);
+    }
+    $('#preview-'+idImagen).removeClass('d-none');
+    $('#name-'+idImagen).html(input[0].files[0].name);
+    $('#peso-'+idImagen).html(Math.round(input[0].files[0].size / 1000) +' KB');
+    reader.readAsDataURL(input[0].files[0]);
+}
+function removeImg(idImagen){
+    $('#'+idImagen).val('');
+    $('#preview-'+idImagen).addClass('d-none');
+}

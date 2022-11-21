@@ -38,6 +38,7 @@ $('#form-add-proveedor').submit(function(e){
                     addValidacion(request.responseJSON.errors);
                     break;
                 default:
+                    msjInfo('error', 'Error', 'Se perdio la conexión con el servidor, intente nuevamente');
                     break;
             }
             removeClassBtnEfectoLoad('load-form','load-button', 'btn-modal');
@@ -75,9 +76,10 @@ $('#form-upload-proveedor').submit(function(e){
         error: function(request, status, error){
             switch (request.status) {
                 case 422:
-                    addValidacion(Object.keys(request.responseJSON.errors), request.responseJSON.message);
+                    addValidacion(request.responseJSON.errors);
                     break;
                 default:
+                    msjInfo('error', 'Error', 'Se perdio la conexión con el servidor, intente nuevamente');
                     break;
             }
             removeClassBtnEfectoLoad('load-form1','load-button1', 'btn-modal1');
@@ -108,7 +110,7 @@ function getProveedores(tipo, filtro){
                     <tr class="${elimnado}">
                         <td>${valor.clave}</td>
                         <td>${valor.nombres} ${valor.app} ${valor.apm}</td>
-                        <td>${valor.empresa}</td>
+                        <td>${valor.empresa == null ? '' : valor.empresa}</td>
                         <td>${valor.email}</td>
                         <td>${valor.telefono}</td>
                         <td>
@@ -141,8 +143,8 @@ function onChange(id, clave, nombres, app, apm, email, telefono, rfc, empresa, c
     $('#apm').val(apm);
     $('#email').val(email);
     $('#telefono').val(telefono);
-    $('#rfc').val(rfc);
-    $('#empresa').val(empresa);
+    $('#rfc').val(rfc == 'null' ? '' : rfc);
+    $('#empresa').val(empresa == 'null' ? '': empresa);
     $('#ciudad').val(ciudad);
     $('#estado').val(estado);
     $('#municipio').val(municipio);

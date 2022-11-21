@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('clientes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('tipo_cliente_id');
+            $table->unsignedBigInteger('tipo_cliente_id')->nullable(true);
             $table->string('nombres', 50)->nullable(false);
             $table->string('app', 50)->nullable(false);
             $table->string('apm', 50)->nullable(false);
@@ -28,10 +28,12 @@ return new class extends Migration
             $table->string('municipio', 30)->nullable(false);
             $table->string('colonia', 50)->nullable(false);
             $table->string('calle', 50)->nullable(false);
-            $table->integer('n_exterior')->nullable(false);
-            $table->integer('n_interior')->nullable(true);
-            $table->integer('cp')->nullable(true);
+            $table->integer('n_exterior')->nullable(false)->default(0);
+            $table->integer('n_interior')->nullable(false)->default(0);
+            $table->integer('cp')->nullable(false);
             $table->string('password')->nullable(false);
+            $table->double('limite_credito', 8, 2)->nullable(false)->default(0);
+            $table->integer('dias_credito')->nullable(false)->default(0);
             $table->boolean('verificado')->default(false)->nullable(false);
             $table->timestamps();
             $table->softdeletes();

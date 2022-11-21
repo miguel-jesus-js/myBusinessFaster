@@ -3,9 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Requests\ClientesRequest;
+use App\Http\Requests\ClientesUploadRequest;
 use App\Models\Cliente;
+use App\Imports\ClientesImport;
 use App\Models\DireccionesEntrega;
 use Illuminate\Support\Facades\DB;
+use PDF;
 
 class ClientesController extends Controller
 {
@@ -25,131 +30,80 @@ class ClientesController extends Controller
                 break;
         }
         for($i=0; $i<count($clientes); $i++){
-            $direcciones = DireccionesEntrega::leftJoin('clientes', 'direcciones_entregas.cliente_id', '=', 'clientes.id')
-                ->select('direcciones_entregas.*')->where('direcciones_entregas.cliente_id', $clientes[$i]->id)
+            $direcciones = DireccionesEntrega::leftJoin('clientes', 'direcciones_entregas.d-cliente_id', '=', 'clientes.id')
+                ->select('direcciones_entregas.*')->where('direcciones_entregas.d-cliente_id', $clientes[$i]->id)
                 ->get();
             $clientes[$i]->direcciones = $direcciones;
         }
         return json_encode($clientes);
     }
-    public function create(Request $request)
+    public function create(ClientesRequest $request)
     {
-        $request->validate([
-            'tipo_cliente_id'       => 'required',
-            'nombres'               => 'required',
-            'app'                   => 'required',
-            'apm'                   => 'required',
-            'email'                 => 'required',
-            'telefono'              => 'required',
-            'ciudad'                => 'required',
-            'estado'                => 'required',
-            'municipio'             => 'required',
-            'cp'                    => 'required',
-            'colonia'               => 'required',
-            'calle'                 => 'required',
-            'n_exterior'            => 'required'
-
-        ]);
         $data = $request->all();
         $data['password'] = bcrypt($data['email']);
-        if(Cliente::where('email', $data['email'])->exists())
-        {
-            return json_encode(['icon'  => 'warning', 'title'   => 'Advertencia', 'text'  => 'El correo '.$request->all()['email'].' ya ha sido registrado']);
-        }else if(Cliente::where('telefono', $data['telefono'])->exists())
-        {
-            return json_encode(['icon'  => 'warning', 'title'   => 'Advertencia', 'text'  => 'El telefóno '.$request->all()['telefono'].' ya ha sido registrado']);
-        }else if(Cliente::where('rfc', $data['rfc'])->exists())
-        {
-            return json_encode(['icon'  => 'warning', 'title'   => 'Advertencia', 'text'  => 'El RFC '.$request->all()['rfc'].' ya ha sido registrado']);
-        }else{
-            try {
-                DB::beginTransaction();
-                $newCliente = Cliente::create($data);
-                $datos = json_decode($data['datos']);
-                for($i = 0; $i < sizeof($datos); $i++)
-                {
-                    $datos[$i]->cliente_id      = $newCliente->id;
-                    $newDireccion               = new DireccionesEntrega();
-                    $newDireccion->cliente_id   = $datos[$i]->cliente_id;                                 
-                    $newDireccion->ciudad       = $datos[$i]->ciudad;                   
-                    $newDireccion->estado       = $datos[$i]->estado;                   
-                    $newDireccion->municipio    = $datos[$i]->municipio;                   
-                    $newDireccion->cp           = $datos[$i]->cp; 
-                    $newDireccion->colonia      = $datos[$i]->colonia; 
-                    $newDireccion->calle        = $datos[$i]->calle; 
-                    $newDireccion->n_exterior   = $datos[$i]->n_exterior; 
-                    if($datos[$i]->n_interior == ''){
-                        $newDireccion->n_interior = null;
-                    } else{
-                        $newDireccion->n_interior   = $datos[$i]->n_interior; 
-                    }
-                    $newDireccion->save();               
-                }
-                DB::commit();
-                return json_encode(['icon'  => 'success', 'title'   => 'Exitó', 'text'  => 'Cliente registrado']);
-            } catch (\Exception $e) {
-                DB::rollback();
-                return json_encode(['icon'  => 'error', 'title'   => 'Error', 'text'  => 'Ocurrio un error, el cliente no fue registrado']);
+        try {
+            DB::beginTransaction();
+            $newCliente = Cliente::create($data);
+            for($i = 0; $i < sizeof($data['d-ciudad']); $i++)
+            {
+                $dataDirecc = [
+                    'd-cliente_id'      => $newCliente->id, 
+                    'd-ciudad'          => $data['d-ciudad'][$i],
+                    'd-estado'          => $data['d-estado'][$i],
+                    'd-municipio'       => $data['d-municipio'][$i],
+                    'd-cp'              => $data['d-cp'][$i],
+                    'd-colonia'         => $data['d-colonia'][$i],
+                    'd-calle'           => $data['d-calle'][$i],
+                    'd-n_exterior'      => $data['d-n_exterior'][$i],
+                    'd-n_interior'      => $data['d-n_interior'][$i],
+                ];
+                DireccionesEntrega::create($dataDirecc);
             }
+            DB::commit();
+            return json_encode(['icon'  => 'success', 'title'   => 'Exitó', 'text'  => 'Cliente registrado']);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return json_encode(['icon'  => 'error', 'title'   => 'Error', 'text'  => 'Ocurrio un error, el cliente no fue registrado']);
         }
     }
-    public function update(Request $request)
+    public function update(ClientesRequest $request)
     {
-        $request->validate([
-            'id'                    => 'required',
-            'tipo_cliente_id'       => 'required',
-            'nombres'               => 'required',
-            'app'                   => 'required',
-            'apm'                   => 'required',
-            'email'                 => 'required',
-            'telefono'              => 'required',
-            'ciudad'                => 'required',
-            'estado'                => 'required',
-            'municipio'             => 'required',
-            'cp'                    => 'required',
-            'colonia'               => 'required',
-            'calle'                 => 'required',
-            'n_exterior'            => 'required'
-        ]);
-        $clientes = Cliente::find($request->all()['id']);
+        $cliente = Cliente::find($request->all()['id']);
         $data = $request->all();
-        if(Cliente::where([['email', $data['email']], ['id', '<>', $clientes['id']]])->exists()){
-            return json_encode(['icon'  => 'warning', 'title'   => 'Advertencia', 'text'  => 'El correo '.$request->all()['email'].' ya ha sido registrado']);
-        }else if(Cliente::where([['telefono', $data['telefono']], ['id', '<>', $clientes['id']]])->exists()){
-            return json_encode(['icon'  => 'warning', 'title'   => 'Advertencia', 'text'  => 'El telefóno '.$request->all()['telefono'].' ya ha sido registrado']);
-        }else if(Cliente::where([['rfc', $data['rfc']], ['id', '<>', $clientes['id']]])->exists()){
-            return json_encode(['icon'  => 'warning', 'title'   => 'Advertencia', 'text'  => 'El RFC '.$request->all()['rfc'].' ya ha sido registrado']);
-        }else{
-            try {
-                DB::beginTransaction();
-                $clientes->update($data);
-                $direcciones = DireccionesEntrega::where('cliente_id', $clientes->id)->delete();//eliminamos los permisos
-                $datos = json_decode($data['datos']);
-                for($i = 0; $i < sizeof($datos); $i++)
+        $data['n_exterior'] = $data['n_exterior'] == null ? 0 : $data['n_exterior'];
+        $data['n_interior'] = $data['n_interior'] == null ? 0 : $data['n_interior'];
+        $data['limite_credito'] = $data['limite_credito'] == null ? 0 : $data['limite_credito'];
+        $data['dias_credito'] = $data['dias_credito'] == null ? 0 : $data['dias_credito'];
+        try {
+            DB::beginTransaction();
+            $cliente->update($data);
+            for($i = 0; $i < sizeof($data['d-ciudad']); $i++)
+            {
+                $dataDirecc = [
+                    'd-cliente_id'      => $cliente->id, 
+                    'd-ciudad'          => $data['d-ciudad'][$i],
+                    'd-estado'          => $data['d-estado'][$i],
+                    'd-municipio'       => $data['d-municipio'][$i],
+                    'd-cp'              => $data['d-cp'][$i],
+                    'd-colonia'         => $data['d-colonia'][$i],
+                    'd-calle'           => $data['d-calle'][$i],
+                    'd-n_exterior'      => $data['d-n_exterior'][$i] = $data['d-n_exterior'][$i] == null ? 0 : $data['d-n_exterior'][$i],
+                    'd-n_interior'      => $data['d-n_interior'][$i] = $data['d-n_interior'][$i] == null ? 0 : $data['d-n_interior'][$i],
+                ];
+                if($data['d-id'][$i] == null)
                 {
-                    $datos[$i]->cliente_id      = $clientes->id;
-                    $newDireccion               = new DireccionesEntrega();
-                    $newDireccion->cliente_id   = $datos[$i]->cliente_id;                                 
-                    $newDireccion->ciudad       = $datos[$i]->ciudad;                   
-                    $newDireccion->estado       = $datos[$i]->estado;                   
-                    $newDireccion->municipio    = $datos[$i]->municipio;                   
-                    $newDireccion->cp           = $datos[$i]->cp; 
-                    $newDireccion->colonia      = $datos[$i]->colonia; 
-                    $newDireccion->calle        = $datos[$i]->calle; 
-                    $newDireccion->n_exterior   = $datos[$i]->n_exterior; 
-                    if($datos[$i]->n_interior == ''){
-                        $newDireccion->n_interior = null;
-                    } else{
-                        $newDireccion->n_interior   = $datos[$i]->n_interior; 
-                    }
-                    $newDireccion->save();               
+                    DireccionesEntrega::create($dataDirecc);
+                }else{
+                    $direccion = DireccionesEntrega::find($data['d-id'][$i]);
+                    $direccion->update($dataDirecc);
                 }
-                DB::commit();
-                return json_encode(['icon'  => 'success', 'title'   => 'Exitó', 'text'  => 'Datos actualizados']);
-            } catch (\Exception $e) {
-                DB::rollback();
-                return json_encode(['icon'  => 'error', 'title'   => 'Error', 'text'  => 'Ocurrio un error los datos no fueron actualizados']);
             }
+            DB::commit();
+            return json_encode(['icon'  => 'success', 'title'   => 'Exitó', 'text'  => 'Datos actualizados']);
+        } catch (\Exception $e) {
+            dd($e);
+            DB::rollback();
+            return json_encode(['icon'  => 'error', 'title'   => 'Error', 'text'  => 'Ocurrio un error los datos no fueron actualizados']);
         }
     }
     public function delete($id)
@@ -160,5 +114,28 @@ class ClientesController extends Controller
         } catch (\Exception $e) {
             return json_encode(['icon'  => 'error', 'title'   => 'Error', 'text'  => 'Ocurrio un error el cliente no fue eliminado']);
         }
+    }
+    public function downloadPlantilla()
+    {
+        $file = public_path('assets/plantillas/plantilla_clientes.xlsx');
+        return response()->file($file);
+    }
+    public function uploadCliente(ClientesUploadRequest $request)
+    {
+        try {
+            $file = $request->file('archivo');
+             Excel::import(new ClientesImport, $file);
+            return json_encode(['icon'  => 'success', 'title'   => 'Exitó', 'text'  => 'Clientes registrados']);
+        } catch (\Exception $e) {
+            dd($e);
+            return json_encode(['icon'  => 'error', 'title'   => 'Error', 'text'  => 'Ocurrio un error, los clientes no fueron registrados']);
+        }
+    }
+    public function exportarPDF()
+    {
+        $clientes = Cliente::whereNull('deleted_at')->get();
+        view()->share('pdf.clientes_pdf',$clientes);
+        $pdf = Pdf::loadView('pdf.clientes_pdf', ['clientes' => $clientes])->setPaper('a4', 'landscape');
+        return $pdf->download('clientes.pdf');
     }
 }
