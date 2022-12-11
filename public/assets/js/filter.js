@@ -42,7 +42,7 @@ function filterGeneral(modulo, tipo){
             getClientes(tipoFiltro, '');
             break;
         case 'productos':
-            getProductos(tipoFiltro, '');
+            getProductos(tipoFiltro, '&producto=');
             break;
     }
 }
@@ -78,7 +78,7 @@ $("#search").keyup(function() {
             getClientes(tipoFiltro, $(this).val());
             break;
         case 'productos':
-            getProductos(tipoFiltro, $(this).val());
+            getProductos(tipoFiltro, '&producto='+$(this).val());
             break;
     }
 });

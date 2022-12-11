@@ -32,8 +32,6 @@ class ProveedoresController extends Controller
     public function create(ProveedoresRequest $request)
     {
         $data = $request->all();
-        $data['n_exterior'] == null ? 0 : $data['n_exterior'];
-        $data['n_interior'] == null ? 0 : $data['n_interior'];
         try {
             Proveedore::create($data);
             return json_encode(['icon'  => 'success', 'title'   => 'Exitó', 'text'  => 'Proveedor registrado']);
@@ -46,8 +44,6 @@ class ProveedoresController extends Controller
     {
         $proveedores = Proveedore::find($request->all()['id']);
         $data = $request->all();
-        $data['n_exterior'] = $data['n_exterior'] == null ? 0 : $data['n_exterior'];
-        $data['n_interior'] = $data['n_interior'] == null ? 0 : $data['n_interior'];
         try {
             $proveedores->update($data);
             return json_encode(['icon'  => 'success', 'title'   => 'Exitó', 'text'  => 'Datos actualizados']);

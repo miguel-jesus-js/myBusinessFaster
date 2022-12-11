@@ -21,7 +21,7 @@ function getTipoClientes() {
     }
 }
 $('#form-add-direcciones').submit(function(e){
-    removeClass('form-add-cliente');
+    removeClass('form-add-direcciones');
     e.preventDefault();
     var data = $(this).serialize();
     var ciudad = $('#ciudad1').val();
@@ -105,18 +105,6 @@ $('#form-add-direcciones').submit(function(e){
         }
     });
 })
-//editar una dirección
-$(document).on('click', '.editar', function(event) {
-    event.preventDefault();
-    $(this).parent().addClass('d-none');
-    $(this).parent().siblings().removeClass('d-none');
-    let fila = $(this).closest('tr');
-    $.each(fila.children(), function(index, valor){
-        $(this).children().removeClass('input-table');
-        $(this).children().removeAttr('readonly');
-    })
-});
-//guardar una dirección
 $(document).on('click', '.guardar', function(event) {
     event.preventDefault();
     let fila = $(this).closest('tr');
@@ -162,11 +150,7 @@ $(document).on('click', '.guardar', function(event) {
         }
     });
 });
-//editar una dirección
-$(document).on('click', '.borrar', function(event) {
-    event.preventDefault();
-    $(this).closest('tr').remove();
-});
+
 //seleccionar solo un checkbox
 $("input:checkbox").on('click', function() {
   // in the handler, 'this' refers to the box clicked on

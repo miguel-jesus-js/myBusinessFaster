@@ -16,7 +16,7 @@ function addClassBtnEfectoLoad(boton, botonModal){
 function removeClassBtnEfectoLoad(load,boton, botonModal){
     $('#'+load).html('');
     $('#'+boton).addClass('d-none');
-    $('#'+botonModal).html('Cargar');
+    $('#'+botonModal).html('Agregar');
 }
 function addValidacion(datos){
     $.each(datos, function(index, value){
@@ -59,7 +59,7 @@ function readCatalogos(){
     }
     $('#lista-catalogos').html(row);
 }
-$("input:checkbox").on('click', function() {
+$("input[name='filter']").on('click', function() {
     // in the handler, 'this' refers to the box clicked on
     var $box = $(this);
     if ($box.is(":checked")) {
@@ -97,3 +97,55 @@ function removeImg(idImagen){
     $('#'+idImagen).val('');
     $('#preview-'+idImagen).addClass('d-none');
 }
+$(document).on('click', '.editar', function(event) {
+    event.preventDefault();
+    $(this).parent().addClass('d-none');
+    $(this).parent().siblings().removeClass('d-none');
+    let fila = $(this).closest('tr');
+    $.each(fila.children(), function(index, valor){
+        $(this).children().removeClass('input-table');
+        $(this).children().removeAttr('readonly');
+    })
+});
+$(document).on('click', '.borrar', function(event) {
+    event.preventDefault();
+    let filaHijos = $(this).closest('tr').children();
+    let fila = $(this).closest('tr');
+    if(filaHijos[0].children[0].value == ''){
+        fila.remove();
+    }else{
+        $.ajax({
+            'type': 'delete',
+            'url': 'api/deleteCaract/'+filaHijos[0].children[0].value,
+            beforeSend: function () {
+            },
+            success: function (response) {
+                let respuesta = JSON.parse(response);
+                Toast.fire({
+                    icon: respuesta.icon,
+                    title: respuesta.title,
+                    text: respuesta.text
+                });
+                if(respuesta.icon == 'success'){
+                    fila.remove();
+                }
+            }
+        });
+    }
+});
+$(document).on('click', '.ver_mas', function(event) {
+    if($(this).children().hasClass('ti-eye')){
+        $(this).children().removeClass('ti-eye');
+        $(this).children().addClass('ti-eye-off');
+    }else{
+        $(this).children().removeClass('ti-eye-off');
+        $(this).children().addClass('ti-eye');
+    }
+    var oculto = $('.oculto').map(function(){
+        if($(this).hasClass('d-none')){
+            $(this).removeClass('d-none');
+        }else{
+            $(this).addClass('d-none');
+        }
+    });
+});

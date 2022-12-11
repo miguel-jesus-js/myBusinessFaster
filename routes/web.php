@@ -14,6 +14,7 @@ use App\Http\Controllers\ClientesController;
 use App\Http\Controllers\ProductosController;
 use App\Http\Controllers\DireccionesEntregasController;
 use App\Http\Controllers\AlmacenesController;
+use App\Http\Controllers\CaracteristicasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -140,10 +141,21 @@ Route::get('api/exportarPdfCliente', [ClientesController::class, 'exportarPDF'])
 Route::get('api/getProductos/{filtro}', [ProductosController::class, 'index']);
 Route::post('api/addProductos', [ProductosController::class, 'create']);
 Route::put('api/updateProductos', [ProductosController::class, 'update']);
+Route::get('api/showProducto/{id}', [ProductosController::class, 'show'])->name('showProducto');
 Route::delete('api/deleteProductos/{id}', [ProductosController::class, 'delete']);
+Route::delete('api/deleteCaract/{id}', [ProductosController::class, 'deleteCaract']);
+Route::get('api/generateCodBarra', [ProductosController::class, 'generateCodBarra']);
+Route::get('api/generateCodSat', [ProductosController::class, 'generateCodSat']);
+Route::get('api/downloadPlantillaProducto', [ProductosController::class, 'downloadPlantilla'])->name('downloadPlantillaProducto');
+Route::post('api/uploadProducto', [ProductosController::class, 'uploadProducto']);
+Route::get('api/exportarPdfProducto', [ProductosController::class, 'exportarPDF']);
+Route::get('api/exportarExcelProducto', [ProductosController::class, 'exportarExcel']);
 //apis direcciones de entrega
 Route::post('api/addDireccionesEntrega', [DireccionesEntregasController::class, 'create']);
 Route::post('api/addDireccionesEntregaTable', [DireccionesEntregasController::class, 'createTable']);
+//apis características
+Route::post('api/addCaracteristicas', [CaracteristicasController::class, 'create']);
+Route::post('api/addCaracteristicasTable', [CaracteristicasController::class, 'createTable']);
 
 // Route::group(['middleware' => 'auth'], function () {
 //     //apis roles

@@ -112,7 +112,7 @@ function getClientes(tipo, filtro){
                 row += `
                     <tr class="${elimnado}">
                         <td>${valor.nombres} ${valor.app} ${valor.apm}</td>
-                        <td>${valor.tipo_cliente == null ? '' : valor.tipo_cliente.tipo_cliente}</td>
+                        <td>${valor.tipo_cliente.tipo_cliente}</td>
                         <td>${valor.email}</td>
                         <td>${valor.telefono}</td>
                         <td>
@@ -135,25 +135,23 @@ function getClientes(tipo, filtro){
     })
 }
 function onChange(id, tipo_cliente_id, nombres, app, apm, email, telefono, rfc, empresa, ciudad, estado, municipio, cp, colonia, calle, n_exterior, n_interior, direcciones){
-    getTipoClientes(()=>{
-        $('#tipo_cliente_id').val(tipo_cliente_id);
-    });
+    $.when(getTipoClientes()).then($('#tipo_cliente_id').val(tipo_cliente_id));
     $('#id').val(id);
     $('#nombres').val(nombres);
     $('#app').val(app);
     $('#apm').val(apm);
     $('#email').val(email);
     $('#telefono').val(telefono);
-    $('#rfc').val(rfc);
-    $('#empresa').val(empresa == null ? '' : empresa == null);
+    $('#rfc').val(rfc == 'null' ? '': empresa);
+    $('#empresa').val(empresa == 'null' ? '' : empresa);
     $('#ciudad').val(ciudad);
     $('#estado').val(estado);
     $('#municipio').val(municipio);
     $('#cp').val(cp);
     $('#colonia').val(colonia);
     $('#calle').val(calle);
-    $('#n_exterior').val(n_exterior == null ? 0 : n_exterior);
-    $('#n_interior').val(n_interior == null ? 0 : n_interior);
+    $('#n_exterior').val(n_exterior);
+    $('#n_interior').val(n_interior);
     openModal('modal-cliente', 'clientes', 1);
     
     //llenamos la tabla con los permisos

@@ -67,7 +67,7 @@ function confirmDelete(id, info, api, modulo, prefijo){
                             case 'cliente':
                                 getClientes(2, '');
                                 break;
-                            case 'cliente':
+                            case 'producto':
                                 getProductos(2, '');
                                 break;
                         }

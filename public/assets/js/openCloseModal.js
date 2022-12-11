@@ -67,11 +67,11 @@ function openModal(id_modal, modulo, tipo){
             if(tipo == 0){
                 $('#modal-title').html('Agregar cliente');
                 $(".cliente_id").hide();//ocultamos la columna ID de la tabla, esto porque necesitamos el id para enviarlo al servidor
-                $('#table-clientes-direcciones tbody').empty();
+                $('#table-direcciones tbody').empty();
             }else if(tipo == 1){
                 $('#modal-title').html('Editar cliente');
                 $(".cliente_id").hide();//ocultamos la columna ID de la tabla, esto porque necesitamos el id para enviarlo al servidor
-                $('#table-clientes-direcciones tbody').empty();
+                $('#table-direcciones tbody').empty();
             }
             break;
         case 'productos':
@@ -79,10 +79,18 @@ function openModal(id_modal, modulo, tipo){
                 $('#modal-title').html('Agregar producto');
                 $(".caracteristica_id").hide();//ocultamos la columna ID de la tabla, esto porque necesitamos el id para enviarlo al servidor
                 $('#table-caracteristicas tbody').empty();
+                $('#categorias').empty();
+                $('#preview-img1').addClass('d-none');
+                $('#preview-img2').addClass('d-none');
+                $('#preview-img3').addClass('d-none');
             }else if(tipo == 1){
                 $('#modal-title').html('Editar producto');
-                (".caracteristica_id").hide();//ocultamos la columna ID de la tabla, esto porque necesitamos el id para enviarlo al servidor
+                $(".caracteristica_id").hide();//ocultamos la columna ID de la tabla, esto porque necesitamos el id para enviarlo al servidor
                 $('#table-caracteristicas tbody').empty();
+                $('#categorias').empty();
+                $('#preview-img1').addClass('d-none');
+                $('#preview-img2').addClass('d-none');
+                $('#preview-img3').addClass('d-none');
             }
             break;
     }

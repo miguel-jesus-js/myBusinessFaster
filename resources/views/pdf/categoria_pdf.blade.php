@@ -8,7 +8,7 @@
     <style>
         table { 
             border-collapse: collapse; 
-            font-size: 1em; 
+            font-size: 0.8em; 
             font-family: sans-serif; 
             min-width: 100%; 
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.15); 

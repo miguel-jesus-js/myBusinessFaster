@@ -132,9 +132,9 @@ table-modulos tr.noSearch td {
 .detalles label{
     font-weight: bold;
 }
-#table-clientes-direcciones .input-table{
-    background-color: transparent;
-    border: none;
+.input-table{
+    background-color: transparent !important;
+    border: none !important;
 }
 .remover{
     width: 10px !important;
@@ -152,4 +152,7 @@ table-modulos tr.noSearch td {
 }
 .table-responsive{
     overflow-y: hidden !important;
+}
+.label-filter{
+    font-size: 12px;
 }

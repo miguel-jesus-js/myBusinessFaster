@@ -31,9 +31,6 @@ class MarcasController extends Controller
     }
     public function create(MarcasRequest $request)
     {
-        $request->validate([
-            'marca'       => 'required',
-        ]);
         $data = $request->all();
         try {
             Marca::create($data);

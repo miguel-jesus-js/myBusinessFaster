@@ -44,24 +44,28 @@ class ClientesController extends Controller
         try {
             DB::beginTransaction();
             $newCliente = Cliente::create($data);
-            for($i = 0; $i < sizeof($data['d-ciudad']); $i++)
+            if(isset($data['d-ciudad']))
             {
-                $dataDirecc = [
-                    'd-cliente_id'      => $newCliente->id, 
-                    'd-ciudad'          => $data['d-ciudad'][$i],
-                    'd-estado'          => $data['d-estado'][$i],
-                    'd-municipio'       => $data['d-municipio'][$i],
-                    'd-cp'              => $data['d-cp'][$i],
-                    'd-colonia'         => $data['d-colonia'][$i],
-                    'd-calle'           => $data['d-calle'][$i],
-                    'd-n_exterior'      => $data['d-n_exterior'][$i],
-                    'd-n_interior'      => $data['d-n_interior'][$i],
-                ];
-                DireccionesEntrega::create($dataDirecc);
+                for($i = 0; $i < sizeof($data['d-ciudad']); $i++)
+                {
+                    $dataDirecc = [
+                        'd-cliente_id'      => $newCliente->id, 
+                        'd-ciudad'          => $data['d-ciudad'][$i],
+                        'd-estado'          => $data['d-estado'][$i],
+                        'd-municipio'       => $data['d-municipio'][$i],
+                        'd-cp'              => $data['d-cp'][$i],
+                        'd-colonia'         => $data['d-colonia'][$i],
+                        'd-calle'           => $data['d-calle'][$i],
+                        'd-n_exterior'      => $data['d-n_exterior'][$i],
+                        'd-n_interior'      => $data['d-n_interior'][$i],
+                    ];
+                    DireccionesEntrega::create($dataDirecc);
+                }
             }
             DB::commit();
             return json_encode(['icon'  => 'success', 'title'   => 'Exitó', 'text'  => 'Cliente registrado']);
         } catch (\Exception $e) {
+            dd($e);
             DB::rollback();
             return json_encode(['icon'  => 'error', 'title'   => 'Error', 'text'  => 'Ocurrio un error, el cliente no fue registrado']);
         }
@@ -70,32 +74,31 @@ class ClientesController extends Controller
     {
         $cliente = Cliente::find($request->all()['id']);
         $data = $request->all();
-        $data['n_exterior'] = $data['n_exterior'] == null ? 0 : $data['n_exterior'];
-        $data['n_interior'] = $data['n_interior'] == null ? 0 : $data['n_interior'];
-        $data['limite_credito'] = $data['limite_credito'] == null ? 0 : $data['limite_credito'];
-        $data['dias_credito'] = $data['dias_credito'] == null ? 0 : $data['dias_credito'];
         try {
             DB::beginTransaction();
             $cliente->update($data);
-            for($i = 0; $i < sizeof($data['d-ciudad']); $i++)
+            if(isset($data['d-ciudad']))
             {
-                $dataDirecc = [
-                    'd-cliente_id'      => $cliente->id, 
-                    'd-ciudad'          => $data['d-ciudad'][$i],
-                    'd-estado'          => $data['d-estado'][$i],
-                    'd-municipio'       => $data['d-municipio'][$i],
-                    'd-cp'              => $data['d-cp'][$i],
-                    'd-colonia'         => $data['d-colonia'][$i],
-                    'd-calle'           => $data['d-calle'][$i],
-                    'd-n_exterior'      => $data['d-n_exterior'][$i] = $data['d-n_exterior'][$i] == null ? 0 : $data['d-n_exterior'][$i],
-                    'd-n_interior'      => $data['d-n_interior'][$i] = $data['d-n_interior'][$i] == null ? 0 : $data['d-n_interior'][$i],
-                ];
-                if($data['d-id'][$i] == null)
+                for($i = 0; $i < sizeof($data['d-ciudad']); $i++)
                 {
-                    DireccionesEntrega::create($dataDirecc);
-                }else{
-                    $direccion = DireccionesEntrega::find($data['d-id'][$i]);
-                    $direccion->update($dataDirecc);
+                    $dataDirecc = [
+                        'd-cliente_id'      => $cliente->id, 
+                        'd-ciudad'          => $data['d-ciudad'][$i],
+                        'd-estado'          => $data['d-estado'][$i],
+                        'd-municipio'       => $data['d-municipio'][$i],
+                        'd-cp'              => $data['d-cp'][$i],
+                        'd-colonia'         => $data['d-colonia'][$i],
+                        'd-calle'           => $data['d-calle'][$i],
+                        'd-n_exterior'      => $data['d-n_exterior'][$i] = $data['d-n_exterior'][$i] == null ? 0 : $data['d-n_exterior'][$i],
+                        'd-n_interior'      => $data['d-n_interior'][$i] = $data['d-n_interior'][$i] == null ? 0 : $data['d-n_interior'][$i],
+                    ];
+                    if($data['d-id'][$i] == null)
+                    {
+                        DireccionesEntrega::create($dataDirecc);
+                    }else{
+                        $direccion = DireccionesEntrega::find($data['d-id'][$i]);
+                        $direccion->update($dataDirecc);
+                    }
                 }
             }
             DB::commit();

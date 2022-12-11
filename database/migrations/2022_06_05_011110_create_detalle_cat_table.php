@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('detalle_cat', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('categoria_id');
             $table->unsignedBigInteger('producto_id');
             $table->timestamps();

@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('productos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('marca_id');
-            $table->unsignedBigInteger('almacene_id');
-            $table->unsignedBigInteger('unidad_medida_id');
-            $table->unsignedBigInteger('proveedore_id');
+            $table->unsignedBigInteger('marca_id')->nullable(true);
+            $table->unsignedBigInteger('almacene_id')->nullable(true);
+            $table->unsignedBigInteger('unidad_medida_id')->nullable(true);
+            $table->unsignedBigInteger('proveedore_id')->nullable(true);
             $table->unsignedBigInteger('materiale_id')->nullable(true);
             $table->char('cod_barra', 13)->unique()->nullable(false);
             $table->char('cod_sat', 8)->unique()->nullable(true);

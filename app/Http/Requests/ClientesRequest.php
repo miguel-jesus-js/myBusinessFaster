@@ -24,12 +24,14 @@ class ClientesRequest extends FormRequest
     public function rules()
     {
         return [
+            'tipo_cliente_id'      => 'required|numeric',
+            'nombres'           => 'required|min:3|max:50|regex:/^[\sA-Za-zÁÉÍÓÚáéíóúÑñ]{3,50}$/',
             'app'               => 'required|min:3|max:50|regex:/^[\sA-Za-zÁÉÍÓÚáéíóúÑñ]{3,50}$/',
             'apm'               => 'required|min:3|max:50|regex:/^[\sA-Za-zÁÉÍÓÚáéíóúÑñ]{3,50}$/',
             'email'             => 'required|min:10|max:50|email|unique:clientes,email,'.$this->id,
             'telefono'          => 'required|min:14|max:14|unique:clientes,telefono,'.$this->id,
-            'rfc'               => 'min:3|max:50|regex:/^([a-z]{3,4})(\d{2})(\d{2})(\d{2})([0-9a-z]{3})$/i|unique:clientes,rfc,'.$this->id,
-            'empresa'           => 'min:3|max:50|regex:/^[\sA-Za-zÁÉÍÓÚáéíóúÑñ]{3,50}$/',
+            'rfc'               => 'nullable|min:3|max:50|regex:/^([a-z]{3,4})(\d{2})(\d{2})(\d{2})([0-9a-z]{3})$/i|unique:clientes,rfc,'.$this->id,
+            'empresa'           => 'nullable|min:3|max:50|regex:/^[\sA-Za-zÁÉÍÓÚáéíóúÑñ]{3,50}$/',
             'ciudad'            => 'required|min:3|max:50|regex:/^[\sA-Za-zÁÉÍÓÚáéíóúÑñ]{3,50}$/',
             'estado'            => 'required|min:3|max:50|regex:/^[\sA-Za-zÁÉÍÓÚáéíóúÑñ]{3,50}$/',
             'municipio'         => 'required|min:3|max:50|regex:/^[\sA-Za-zÁÉÍÓÚáéíóúÑñ]{3,50}$/',
@@ -45,6 +47,8 @@ class ClientesRequest extends FormRequest
     public function messages()
     {
         return [
+            'tipo_cliente_id.required' => 'Seleccione un tipo de cliente',
+            'tipo_cliente_id.numeric'  => 'El tipo de cliente debe ser un número',
             'nombres.required'      => 'Escribe algún nombre',
             'nombres.min'           => 'El nombre debe tener mínimo 3 caracteres',
             'nombres.max'           => 'El nombre debe tener máximo 50 caracteres',

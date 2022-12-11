@@ -49,19 +49,19 @@
                                 <ul>
                                     <li>
                                         <label class="form-check">
-                                            <input class="form-check-input" name="filter" type="checkbox" onclick="filterGeneral('marcas', 'api/getMarcas/', 0)">
+                                            <input class="form-check-input" name="filter" type="checkbox" onclick="filterGeneral('marcas', 0)">
                                             <span class="form-check-label">Todos</span>
                                         </label>
                                     </li>
                                     <li>
                                         <label class="form-check">
-                                            <input class="form-check-input" name="filter" type="checkbox" onclick="filterGeneral('marcas', 'api/getMarcas/', 1)">
+                                            <input class="form-check-input" name="filter" type="checkbox" onclick="filterGeneral('marcas', 1)">
                                             <span class="form-check-label">Eliminados</span>
                                         </label>
                                     </li>
                                     <li>
                                         <label class="form-check">
-                                            <input class="form-check-input" name="filter" type="checkbox" checked onclick="filterGeneral('marcas', 'api/getMarcas/', 2)">
+                                            <input class="form-check-input" name="filter" type="checkbox" checked onclick="filterGeneral('marcas', 2)">
                                             <span class="form-check-label">No eliminados</span>
                                         </label>
                                     </li>

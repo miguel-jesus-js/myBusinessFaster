@@ -13,15 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('detalles', function (Blueprint $table) {
+        Schema::create('caracteristicas', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('documento_id')->nullable(false);
             $table->unsignedBigInteger('producto_id')->nullable(false);
-            $table->float('precio')->nullable(false);
-            $table->integer('cantidad')->nullable(false);
-            $table->float('importe')->nullable(false);
+            $table->string('caracteristica', 100);
             $table->timestamps();
-            $table->softdeletes();
+            $table->foreign('producto_id')->on('id')->references('productos')->onDelete('cascade');
         });
     }
 
@@ -32,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('detalles');
+        Schema::dropIfExists('caracteristicas');
     }
 };
