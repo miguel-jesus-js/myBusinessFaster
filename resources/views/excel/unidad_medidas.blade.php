@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Categorías PDF</title>
+    <title>Unidades de medida Excel</title>
     <style>
         table { 
             border-collapse: collapse; 
-            font-size: 0.8em; 
+            font-size: 0.7em; 
             font-family: sans-serif; 
             min-width: 100%; 
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.15); 
@@ -39,30 +39,20 @@
     </style>
 </head>
 <body>
-    <div class="header">
-        <img src="{{ public_path('img/logocolor.png') }}" alt="Logotipo" width="120">
-        <div class="desc">
-            <b>Teléfono: </b>919 151 34 20 <br>
-            <b>Fecha: </b>21 de Agosto de 2022 <br>
-            <b>Dirección: </b>Barrio Bonampack, Calle yachilan N° 18, CP: 29950
-        </div>
-    </div>
-    <br><br>
     <div class="container py-5">
         <table class="table table-bordered">
             <thead>
                 <tr>
                     <th>N°</th>
-                    <th>Categoría</th>
+                    <th>Unidad de medida</th>
                 </tr>
             </thead>
             <tbody>
-                @for ($i = 0; $i < sizeof($categorias); $i++)
+                @for ($i = 0; $i < sizeof($unidadMedidas); $i++)
                 <tr>
                     <td>{{ $i+1 }}</td>
-                    <td>{{ $categorias[$i]['categoria'] }}</td>
+                    <td>{{ $unidadMedidas[$i]['unidad_medida'] }}</td>
                 </tr>
-
                 @endfor
             </tbody>
         </table>

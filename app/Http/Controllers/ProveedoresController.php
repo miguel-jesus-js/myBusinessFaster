@@ -8,6 +8,7 @@ use App\Http\Requests\ProveedoresRequest;
 use App\Http\Requests\ProveedoresUploadRequest;
 use App\Models\Proveedore;
 use App\Imports\ProveedoresImport;
+use App\Exports\ProveedoresExport;
 use PDF;
 
 class ProveedoresController extends Controller
@@ -79,8 +80,11 @@ class ProveedoresController extends Controller
     public function exportarPDF()
     {
         $proveedores = Proveedore::whereNull('deleted_at')->get();
-        view()->share('pdf.proveedores_pdf',$proveedores);
         $pdf = Pdf::loadView('pdf.proveedores_pdf', ['proveedores' => $proveedores])->setPaper('a4', 'landscape');
-        return $pdf->download('proveedores.pdf');
+        return $pdf->download('Proveedores.pdf');
+    }
+    public function exportarExcel(Request $request)
+    {
+        return Excel::download(new ProveedoresExport, 'Proveedores.xlsx');
     }
 }

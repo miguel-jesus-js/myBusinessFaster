@@ -8,6 +8,7 @@ use App\Http\Requests\ClientesRequest;
 use App\Http\Requests\ClientesUploadRequest;
 use App\Models\Cliente;
 use App\Imports\ClientesImport;
+use App\Exports\ClientesExport;
 use App\Models\DireccionesEntrega;
 use Illuminate\Support\Facades\DB;
 use PDF;
@@ -137,8 +138,11 @@ class ClientesController extends Controller
     public function exportarPDF()
     {
         $clientes = Cliente::whereNull('deleted_at')->get();
-        view()->share('pdf.clientes_pdf',$clientes);
         $pdf = Pdf::loadView('pdf.clientes_pdf', ['clientes' => $clientes])->setPaper('a4', 'landscape');
-        return $pdf->download('clientes.pdf');
+        return $pdf->download('Clientes.pdf');
+    }
+    public function exportarExcel(Request $request)
+    {
+        return Excel::download(new ClientesExport, 'Clientes.xlsx');
     }
 }

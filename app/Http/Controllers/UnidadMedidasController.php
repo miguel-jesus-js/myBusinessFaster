@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\UnidadMedida;
 use App\Imports\UnidadMedidasImport;
+use App\Exports\UnidadMedidasExport;
 use App\Http\Requests\UnidadMedidasRequest;
 use App\Http\Requests\UnidadMedidasUploadRequest;
+use PDF;
 
 class UnidadMedidasController extends Controller
 {
@@ -82,9 +84,12 @@ class UnidadMedidasController extends Controller
     }
     public function exportarPDF()
     {
-        $tipo_clientes = TipoCliente::whereNull('deleted_at')->get();
-        view()->share('pdf.tipo_clientes_pdf',$tipo_clientes);
-        $pdf = Pdf::loadView('pdf.tipo_clientes_pdf', ['tipo_clientes' => $tipo_clientes]);
-        return $pdf->download('tipo_clientes.pdf');
+        $unidadMedidas = UnidadMedida::whereNull('deleted_at')->get();
+        $pdf = Pdf::loadView('pdf.unidad_medidas_pdf', ['unidadMedidas' => $unidadMedidas]);
+        return $pdf->download('Unidades de medida.pdf');
+    }
+    public function exportarExcel(Request $request)
+    {
+        return Excel::download(new UnidadMedidasExport, 'Unidades de medida.xlsx');
     }
 }

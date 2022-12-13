@@ -88,7 +88,8 @@ Route::put('api/updateMarcas', [MarcasController::class, 'update']);
 Route::delete('api/deleteMarcas/{id}', [MarcasController::class, 'delete']);
 Route::get('api/downloadPlantillaMarca', [MarcasController::class, 'downloadPlantilla'])->name('downloadPlantillaMarca');
 Route::post('api/uploadMarca', [MarcasController::class, 'uploadMarca']);
-Route::get('api/exportarPdfMarca', [MarcasController::class, 'exportarPDF'])->name('exportarPdfMarca');
+Route::get('api/exportarPdfMarca', [MarcasController::class, 'exportarPDF']);
+Route::get('api/exportarExcelMarca', [MarcasController::class, 'exportarExcel']);
 //apis materiales
 Route::get('api/getMateriales/{tipo}', [MaterialesController::class, 'index']);
 Route::post('api/addMateriales', [MaterialesController::class, 'create']);
@@ -96,7 +97,8 @@ Route::put('api/updateMateriales', [MaterialesController::class, 'update']);
 Route::delete('api/deleteMateriales/{id}', [MaterialesController::class, 'delete']);
 Route::get('api/downloadPlantillaMaterial', [MaterialesController::class, 'downloadPlantilla'])->name('downloadPlantillaMaterial');
 Route::post('api/uploadMaterial', [MaterialesController::class, 'uploadMaterial']);
-Route::get('api/exportarPdfMaterial', [MaterialesController::class, 'exportarPDF'])->name('exportarPdfMaterial');
+Route::get('api/exportarPdfMaterial', [MaterialesController::class, 'exportarPDF']);
+Route::get('api/exportarExcelMaterial', [MaterialesController::class, 'exportarExcel']);
 //apis categorias
 Route::get('api/getCategorias/{tipo}', [CategoriasController::class, 'index']);
 Route::post('api/addCategorias', [CategoriasController::class, 'create']);
@@ -104,7 +106,8 @@ Route::put('api/updateCategorias', [CategoriasController::class, 'update']);
 Route::delete('api/deleteCategorias/{id}', [CategoriasController::class, 'delete']);
 Route::get('api/downloadPlantillaCategoria', [CategoriasController::class, 'downloadPlantilla'])->name('downloadPlantillaCategoria');
 Route::post('api/uploadCategoria', [CategoriasController::class, 'uploadCategoria']);
-Route::get('api/exportarPdfCategoria', [CategoriasController::class, 'exportarPDF'])->name('exportarPdfCategoria');
+Route::get('api/exportarPdfCategoria', [CategoriasController::class, 'exportarPDF']);
+Route::get('api/exportarExcelCategoria', [CategoriasController::class, 'exportarExcel']);
 //apis tipo de clientes
 Route::get('api/getTipoClientes/{tipo}', [TipoClientesController::class, 'index']);
 Route::post('api/addTipoClientes', [TipoClientesController::class, 'create']);
@@ -112,7 +115,8 @@ Route::put('api/updateTipoClientes', [TipoClientesController::class, 'update']);
 Route::delete('api/deleteTipoClientes/{id}', [TipoClientesController::class, 'delete']);
 Route::get('api/downloadPlantillaTipoCliente', [TipoClientesController::class, 'downloadPlantilla'])->name('downloadPlantillaTipoCliente');
 Route::post('api/uploadTipoCliente', [TipoClientesController::class, 'uploadTipoCliente']);
-Route::get('api/exportarPdfTipoCliente', [TipoClientesController::class, 'exportarPDF'])->name('exportarPdfTipoCliente');
+Route::get('api/exportarPdfTipoCliente', [TipoClientesController::class, 'exportarPDF']);
+Route::get('api/exportarExcelTipoCliente', [TipoClientesController::class, 'exportarExcel']);
 //apis proveedores
 Route::get('api/getProveedores/{filtro}', [ProveedoresController::class, 'index']);
 Route::post('api/addProveedores', [ProveedoresController::class, 'create']);
@@ -120,7 +124,8 @@ Route::put('api/updateProveedores', [ProveedoresController::class, 'update']);
 Route::delete('api/deleteProveedores/{id}', [ProveedoresController::class, 'delete']);
 Route::get('api/downloadPlantillaProveedor', [ProveedoresController::class, 'downloadPlantilla'])->name('downloadPlantillaProveedor');
 Route::post('api/uploadProveedor', [ProveedoresController::class, 'uploadProveedor']);
-Route::get('api/exportarPdfProveedor', [ProveedoresController::class, 'exportarPDF'])->name('exportarPdfProveedor');
+Route::get('api/exportarPdfProveedor', [ProveedoresController::class, 'exportarPDF']);
+Route::get('api/exportarExcelProveedor', [ProveedoresController::class, 'exportarExcel']);
 //apis unida de medidas
 Route::get('api/getUnidadMedidas/{tipo}', [UnidadMedidasController::class, 'index']);
 Route::post('api/addUnidadMedidas', [UnidadMedidasController::class, 'create']);
@@ -128,7 +133,8 @@ Route::put('api/updateUnidadMedidas', [UnidadMedidasController::class, 'update']
 Route::delete('api/deleteUnidadMedidas/{id}', [UnidadMedidasController::class, 'delete']);
 Route::get('api/downloadPlantillaUnidadMedida', [UnidadMedidasController::class, 'downloadPlantilla'])->name('downloadPlantillaUnidadMedida');
 Route::post('api/uploadUnidadMedida', [UnidadMedidasController::class, 'uploadUnidadMedida']);
-Route::get('api/exportarPdfUnidadMedida', [UnidadMedidasController::class, 'exportarPDF'])->name('exportarPdfUnidadMedida');
+Route::get('api/exportarPdfUnidadMedida', [UnidadMedidasController::class, 'exportarPDF']);
+Route::get('api/exportarExcelUnidadMedida', [UnidadMedidasController::class, 'exportarExcel']);
 //apis clientes
 Route::get('api/getClientes/{tipo}', [ClientesController::class, 'index']);
 Route::post('api/addClientes', [ClientesController::class, 'create']);
@@ -136,7 +142,8 @@ Route::put('api/updateClientes', [ClientesController::class, 'update']);
 Route::delete('api/deleteClientes/{id}', [ClientesController::class, 'delete']);
 Route::get('api/downloadPlantillaCliente', [ClientesController::class, 'downloadPlantilla'])->name('downloadPlantillaCliente');
 Route::post('api/uploadCliente', [ClientesController::class, 'uploadCliente']);
-Route::get('api/exportarPdfCliente', [ClientesController::class, 'exportarPDF'])->name('exportarPdfCliente');
+Route::get('api/exportarPdfCliente', [ClientesController::class, 'exportarPDF']);
+Route::get('api/exportarExcelCliente', [ClientesController::class, 'exportarExcel']);
 //apis productos
 Route::get('api/getProductos/{filtro}', [ProductosController::class, 'index']);
 Route::post('api/addProductos', [ProductosController::class, 'create']);

@@ -52,8 +52,7 @@
                         </div>
                         <br>
                         <center>
-                            {!! DNS1D::getBarcodeHTML($producto->cod_barra, 'EAN13') !!}
-                            {{ $producto->cod_barra }}
+                            <img id="codigo"/ style="max-height: 100px;">
                         </center>
                     </div>
                     <div class="col-md-6">
@@ -168,10 +167,11 @@
 <script src="{{ asset('assets/js/productos/config.js') }}"></script>
 <script src="{{ asset('assets/js/productos/crud-producto.js') }}"></script>
 <script src="{{ asset('assets/js/shared.js') }}"></script>
+<script src="{{ asset('assets/js/jsBarcode.all.min.js') }}"></script>
 
 <script>
     $( document ).ready(function() {
-        
+        JsBarcode("#codigo", {{ $producto->cod_barra }});
     });
 </script>
 @endsection

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Categoria;
 use App\Imports\CategoriasImport;
+use App\Exports\CategoriasExport;
 use App\Http\Requests\CategoriasRequest;
 use App\Http\Requests\CategoriasUploadRequest;
 use PDF;
@@ -84,8 +85,11 @@ class CategoriasController extends Controller
     public function exportarPDF()
     {
         $categorias = Categoria::whereNull('deleted_at')->get();
-        view()->share('pdf.categoria_pdf',$categorias);
         $pdf = Pdf::loadView('pdf.categoria_pdf', ['categorias' => $categorias]);
-        return $pdf->download('categorias.pdf');
+        return $pdf->download('Categorías.pdf');
+    }
+    public function exportarExcel(Request $request)
+    {
+        return Excel::download(new CategoriasExport, 'Categorías.xlsx');
     }
 }

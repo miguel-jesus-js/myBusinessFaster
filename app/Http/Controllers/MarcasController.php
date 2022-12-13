@@ -8,6 +8,7 @@ use App\Http\Requests\MarcasRequest;
 use App\Http\Requests\MarcasUploadRequest;
 use App\Models\Marca;
 use App\Imports\MarcasImport;
+use App\Exports\MarcasExport;
 use PDF;
 
 class MarcasController extends Controller
@@ -81,8 +82,11 @@ class MarcasController extends Controller
     public function exportarPDF()
     {
         $marcas = Marca::whereNull('deleted_at')->get();
-        view()->share('pdf.marcas_pdf',$marcas);
         $pdf = Pdf::loadView('pdf.marcas_pdf', ['marcas' => $marcas]);
-        return $pdf->download('marcas.pdf');
+        return $pdf->download('Marcas.pdf');
+    }
+    public function exportarExcel(Request $request)
+    {
+        return Excel::download(new MarcasExport, 'Marcas.xlsx');
     }
 }

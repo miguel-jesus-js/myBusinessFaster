@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\TipoCliente;
 use App\Imports\TipoClientesImport;
+use App\Exports\TipoClientesExport;
 use App\Http\Requests\TipoClientesRequest;
 use App\Http\Requests\TipoClientesUploadRequest;
 use PDF;
@@ -84,8 +85,11 @@ class TipoClientesController extends Controller
     public function exportarPDF()
     {
         $tipo_clientes = TipoCliente::whereNull('deleted_at')->get();
-        view()->share('pdf.tipo_clientes_pdf',$tipo_clientes);
         $pdf = Pdf::loadView('pdf.tipo_clientes_pdf', ['tipo_clientes' => $tipo_clientes]);
-        return $pdf->download('tipo_clientes.pdf');
+        return $pdf->download('Tipo de clientes.pdf');
+    }
+    public function exportarExcel(Request $request)
+    {
+        return Excel::download(new TipoClientesExport, 'Tipo de clientes.xlsx');
     }
 }

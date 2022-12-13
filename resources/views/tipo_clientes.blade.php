@@ -38,7 +38,7 @@
                     </div>
                     <div class="col-6 col-sm-4 col-md-3">
                         <label class="form-label" id="filtro-select">Filtro: No eliminados</label>
-                        <button class="nav-link dropdown-toggle btn" data-bs-toggle="dropdown"
+                        <button class="nav-link dropdown-toggle btn p-2" data-bs-toggle="dropdown"
                             data-bs-auto-close="outside" role="button" aria-expanded="true">
                             <span class="nav-link-icon">
                                 <i class="ti ti-filter icono"></i>
@@ -78,9 +78,23 @@
                 </div><!-- row end -->
                 <br>
                 <div class="btn-group table-actions">
-                    <a href="{{ route('exportarPdfTipoCliente') }}" class="btn btn-dark btn-icon" aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Exportar PDF">
-                        <i class="ti ti-file-text icono"></i>
-                    </a>
+                    <button class="btn btn-dark btn-icon" data-bs-toggle="dropdown"
+                            data-bs-auto-close="outside" role="button" aria-expanded="true" aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Exportar PDF">
+                            <i class="ti ti-file-text icono"></i>
+                    </button>
+                    <div class="dropdown-menu" data-bs-popper="static">
+                        <span class="dropdown-header">Exportar como</span>
+                        <button class="dropdown-item">
+                            <ul>
+                                <li>
+                                    <a href="/api/exportarPdfTipoCliente" class="dropdown-item" onclick="">PDF</a>
+                                </li>
+                                <li>
+                                    <a href="/api/exportarExcelTipoCliente" class="dropdown-item" onclick="">Excel</a>
+                                </li>
+                            </ul>
+                        </button>
+                    </div>
                     <button class="btn btn-dark btn-icon" aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Importar" onclick="openModal('upload-tipo-cliente','tipo-clientes', 0)">
                         <i class="ti ti-file-upload icono"></i>
                     </button>
@@ -93,11 +107,11 @@
                 </div>
                 <br><br>
                 <div class="table-responsive">
-                    <table id="table-tipo_cliente" class="table shadow-sm bg-white">
-                        <thead>
+                    <table id="table-tipo_cliente" class="table shadow-sm bg-white table-bordered">
+                        <thead class="disable-selection">
                             <tr>
                                 <th style="width: 80%">Tipo de cliente</th>
-                                <th colspan="3">Acciones</th>
+                                <th colspan="3" class="text-center">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>

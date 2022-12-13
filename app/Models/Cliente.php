@@ -31,10 +31,6 @@ class Cliente extends Model
         'limite_credito',
         'dias_credito',
     ];
-    public function tipo_cliente(){
-        return $this->belongsTo(TipoCliente::class);
-    }
-
     public function scopeCliente($query, $cliente)
     {
         if($cliente)
@@ -47,4 +43,8 @@ class Cliente extends Model
                         ->orWhere('empresa', 'like', '%'.$cliente.'%');
         }
     }
+    public function tipo_cliente(){
+        return $this->belongsTo(TipoCliente::class)->withTrashed();
+    }
+
 }

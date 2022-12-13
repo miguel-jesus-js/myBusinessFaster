@@ -272,10 +272,10 @@ class ProductosController extends Controller
                     ->get();
         //view()->share('pdf.productos_pdf', $productos);
         $pdf = Pdf::loadView('pdf.productos_pdf', ['productos' => $productos, 'campos' => $campos, 'nombreCampos' => $nombreCampos])->setPaper('a4', 'landscape');;
-        return $pdf->download('productos.pdf');
+        return $pdf->download('Productos.pdf');
     }
     public function exportarExcel(Request $request)
     {
-        return Excel::download(new ProductosExport, 'productos.xlsx');
+        return Excel::download(new ProductosExport, 'Productos.xlsx');
     }
 }

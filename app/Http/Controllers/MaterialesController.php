@@ -8,6 +8,7 @@ use App\Models\Materiale;
 use App\Http\Requests\MaterialesRequest;
 use App\Http\Requests\MaterialesUploadRequest;
 use App\Imports\MaterialesImport;
+use App\Exports\MaterialesExport;
 use PDF;
 
 class MaterialesController extends Controller
@@ -81,8 +82,11 @@ class MaterialesController extends Controller
     public function exportarPDF()
     {
         $materiales = Materiale::whereNull('deleted_at')->get();
-        view()->share('pdf.materiales_pdf',$materiales);
         $pdf = Pdf::loadView('pdf.materiales_pdf', ['materiales' => $materiales]);
-        return $pdf->download('materiales.pdf');
+        return $pdf->download('Materiales.pdf');
+    }
+    public function exportarExcel(Request $request)
+    {
+        return Excel::download(new MaterialesExport, 'Materiales.xlsx');
     }
 }

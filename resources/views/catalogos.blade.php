@@ -5,7 +5,7 @@
         <div class="row align-items-center">
             <div class="col-md-8">
                 <div class="page-header-title">
-                    <h5 class="m-b-10">CATALOGOS</h5>
+                    <h5 class="m-b-10">CATÁLOGOS</h5>
                     <p class="m-b-0 text-white">Bienvenido</p>
                 </div>
             </div>

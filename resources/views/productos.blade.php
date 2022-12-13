@@ -101,7 +101,7 @@
                 </div>
                 <br><br>
                 <div class="table-responsive">
-                    <table id="table-producto" class="table shadow-sm bg-white">
+                    <table id="table-producto" class="table shadow-sm bg-white table-bordered">
                         <thead class="disable-selection">
                             <tr>
                                 <th>Código de barra</th>
@@ -126,7 +126,7 @@
                                 <th class="d-none oculto">Peso en KG</th>
                                 <th class="d-none oculto">Es producción</th>
                                 <th class="d-none oculto">Afecta a ventas</th>
-                                <th colspan="4">Acciones</th>
+                                <th colspan="4" class="text-center">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>

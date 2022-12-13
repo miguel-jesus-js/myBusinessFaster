@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Categorías PDF</title>
+    <title>Unidades de medida PDF</title>
     <style>
         table { 
             border-collapse: collapse; 
@@ -53,14 +53,14 @@
             <thead>
                 <tr>
                     <th>N°</th>
-                    <th>Categoría</th>
+                    <th>Unidad de medida</th>
                 </tr>
             </thead>
             <tbody>
-                @for ($i = 0; $i < sizeof($categorias); $i++)
+                @for ($i = 0; $i < sizeof($unidadMedidas); $i++)
                 <tr>
                     <td>{{ $i+1 }}</td>
-                    <td>{{ $categorias[$i]['categoria'] }}</td>
+                    <td>{{ $unidadMedidas[$i]['unidad_medida'] }}</td>
                 </tr>
 
                 @endfor
