@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
@@ -32,7 +33,7 @@ class UserSeeder extends Seeder
                 'calle'         => 'Yaxchilan',
                 'n_exterior'    => 18,
                 'nom_user'      => 'dayana pez',
-                'password'      => '$2y$10$yjizh1J7lNMYGW4mYCeqR.nTcP2B7CCA29LmFcNrsPUN6bUvEOQPO',
+                'password'      => Hash::make('SoftCode-2022'),
             ],
             [
                 'role_id'       => 1,
@@ -50,7 +51,7 @@ class UserSeeder extends Seeder
                 'calle'         => 'Yaxchilan',
                 'n_exterior'    => 18,
                 'nom_user'      => 'miguel-js',
-                'password'      => '$2y$10$yjizh1J7lNMYGW4mYCeqR.nTcP2B7CCA29LmFcNrsPUN6bUvEOQPO',
+                'password'      => Hash::make('SoftCode-2022'),
             ],
             [
                 'role_id'       => 2,
@@ -68,7 +69,7 @@ class UserSeeder extends Seeder
                 'calle'         => 'Yaxchilan',
                 'n_exterior'    => 18,
                 'nom_user'      => 'jose-js',
-                'password'      => '$2y$10$yjizh1J7lNMYGW4mYCeqR.nTcP2B7CCA29LmFcNrsPUN6bUvEOQPO',
+                'password'      => Hash::make('SoftCode-2022'),
             ],
             [
                 'role_id'       => 2,
@@ -86,7 +87,7 @@ class UserSeeder extends Seeder
                 'calle'         => 'Yaxchilan',
                 'n_exterior'    => 18,
                 'nom_user'      => 'alex 2022',
-                'password'      => '$2y$10$yjizh1J7lNMYGW4mYCeqR.nTcP2B7CCA29LmFcNrsPUN6bUvEOQPO',
+                'password'      => Hash::make('SoftCode-2022'),
             ],
             [
                 'role_id'       => 2,
@@ -104,7 +105,7 @@ class UserSeeder extends Seeder
                 'calle'         => 'Yaxchilan',
                 'n_exterior'    => 18,
                 'nom_user'      => 'esther 2022',
-                'password'      => '$2y$10$yjizh1J7lNMYGW4mYCeqR.nTcP2B7CCA29LmFcNrsPUN6bUvEOQPO',
+                'password'      => Hash::make('SoftCode-2022'),
             ],
             [
                 'role_id'       => 2,
@@ -122,7 +123,7 @@ class UserSeeder extends Seeder
                 'calle'         => 'Yaxchilan',
                 'n_exterior'    => 18,
                 'nom_user'      => 'pedro gomez',
-                'password'      => '$2y$10$yjizh1J7lNMYGW4mYCeqR.nTcP2B7CCA29LmFcNrsPUN6bUvEOQPO',
+                'password'      => Hash::make('SoftCode-2022'),
             ],
             [
                 'role_id'       => 2,
@@ -140,7 +141,7 @@ class UserSeeder extends Seeder
                 'calle'         => 'Yaxchilan',
                 'n_exterior'    => 18,
                 'nom_user'      => 'jesus lpz',
-                'password'      => '$2y$10$yjizh1J7lNMYGW4mYCeqR.nTcP2B7CCA29LmFcNrsPUN6bUvEOQPO',
+                'password'      => Hash::make('SoftCode-2022'),
             ],
 
         ];

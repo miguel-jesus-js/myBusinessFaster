@@ -148,7 +148,6 @@
                             <li>Modelo: {{ $producto->modelo }}</li>
                             <li>Meses de garantía: {{ $producto->meses_garantia }}</li>
                             <li>Peso en kg: {{ $producto->peso_kg }}</li>
-                            <li>Peso en kg: {{ $producto->peso_kg }}</li>
                             <li>Es producción: {{ $producto->es_produccion == 1 ? 'Si' : 'No' }}</li>
                             <li>Afecta a ventas: {{ $producto->afecta_ventas == 1 ? 'Si' : 'No' }}</li>
                             <div class="hr-text">Descripción</div>

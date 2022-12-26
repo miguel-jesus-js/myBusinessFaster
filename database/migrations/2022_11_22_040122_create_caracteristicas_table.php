@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('producto_id')->nullable(false);
             $table->string('caracteristica', 100);
             $table->timestamps();
-            $table->foreign('producto_id')->on('id')->references('productos')->onDelete('cascade');
+            $table->foreign('producto_id')->references('id')->on('productos')->onDelete('cascade');
         });
     }
 

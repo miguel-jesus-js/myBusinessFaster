@@ -1,3 +1,8 @@
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
 function addHtmlEfectoLoad(id){
     $('#'+id).html(`
     <div id="preloader6">

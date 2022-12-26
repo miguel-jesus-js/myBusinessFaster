@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ asset('img/logo-icono.ico') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&family=Raleway:wght@300&display=swap"
@@ -98,7 +99,7 @@
                             </div>
                         </div>
                         <a href="index.html">
-                            <h6>my Business Faster</h6>
+                            <img src="{{ asset('img/logo-horizontal.png') }}" alt="logo" width="150">
                         </a>
                         <a class="mobile-options waves-effect waves-light">
                             <i class="ti-more"></i>
@@ -167,9 +168,9 @@
                             </li>
                             <li class="user-profile header-notification">
                                 <a href="#!" class="waves-effect waves-light">
-                                    <img src="{{ asset('img/usuarios/avatar.png') }}" class="img-radius"
+                                    <img src="{{ asset('img/usuarios/'.Auth::user()->foto_perfil) }}" class="img-radius"
                                         alt="User-Profile-Image">
-                                    <span>Miguel-JS</span>
+                                    <span>{{ Auth::user()->nom_user }}</span>
                                     <i class="ti ti-chevron-down"></i>
                                 </a>
                                 <ul class="show-notification profile-notification">
@@ -215,10 +216,10 @@
                         <div class="pcoded-inner-navbar main-menu">
                             <div class="">
                                 <div class="main-menu-header">
-                                    <img class="img-80 img-radius" src="{{ asset('img/usuarios/avatar.png') }}"
+                                    <img class="img-80 img-radius" src="{{ asset('img/usuarios/'.Auth::user()->foto_perfil) }}"
                                         alt="User-Profile-Image">
                                     <div class="user-details">
-                                        <span id="more-details">Miguel-JS<i class="ti ti-chevron-down"></i></span>
+                                        <span id="more-details">{{ Auth::user()->nom_user }}<i class="ti ti-chevron-down"></i></span>
                                     </div>
                                 </div>
                                 <div class="main-menu-content">

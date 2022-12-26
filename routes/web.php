@@ -15,6 +15,7 @@ use App\Http\Controllers\ProductosController;
 use App\Http\Controllers\DireccionesEntregasController;
 use App\Http\Controllers\AlmacenesController;
 use App\Http\Controllers\CaracteristicasController;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -164,6 +165,7 @@ Route::post('api/addDireccionesEntregaTable', [DireccionesEntregasController::cl
 Route::post('api/addCaracteristicas', [CaracteristicasController::class, 'create']);
 Route::post('api/addCaracteristicasTable', [CaracteristicasController::class, 'createTable']);
 
+Route::post('api/session', [LoginController::class, 'session']);
 // Route::group(['middleware' => 'auth'], function () {
 //     //apis roles
     
