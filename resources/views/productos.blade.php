@@ -14,8 +14,8 @@
             </div>
             <div class="col-md-4">
                 <ol class="breadcrumb breadcrumb-arrows" aria-label="breadcrumbs">
-                    <li class="breadcrumb-item"><a href="/">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><a href="/productos">Productos</a></li>
+                    <li class="breadcrumb-item"><i class="ti ti-smart-home me-2"></i><a href="/dashboard">Home</a></li>
+                    <li class="breadcrumb-item active"><i class="ti ti-cookie me-2"></i><a href="/productos">Productos</a></li>
                 </ol>
             </div>
         </div>
@@ -41,7 +41,7 @@
                     </div>
                     <div class="col-6 col-sm-4 col-md-3">
                         <label class="form-label" id="filtro-select">Filtro: No eliminados</label>
-                        <button class="nav-link dropdown-toggle btn" data-bs-toggle="dropdown"
+                        <button class="nav-link dropdown-toggle btn p-2" data-bs-toggle="dropdown"
                             data-bs-auto-close="outside" role="button" aria-expanded="true">
                             <span class="nav-link-icon">
                                 <i class="ti ti-filter icono"></i>

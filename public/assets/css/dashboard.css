@@ -22,6 +22,10 @@ File: style.css
       Custom css start
 ==========================  **/
 
+.ti-chevron-down{
+	float: right;
+	margin-top: 8px;
+}
 body {
 	background-color: #f3f3f3;
 	font-size: 0.875em;
@@ -5532,14 +5536,6 @@ select.form-control:not([size]):not([multiple]) {
 
 .pcoded[theme-layout="vertical"] .pcoded-navbar .pcoded-item li.pcoded-hasmenu.pcoded-trigger[dropdown-icon="style2"]>a:after {
 	content: "\e663";
-}
-
-.pcoded[theme-layout="vertical"] .pcoded-navbar .pcoded-item li.pcoded-hasmenu[dropdown-icon="style3"]>a:after {
-	content: '\e61a';
-}
-
-.pcoded[theme-layout="vertical"] .pcoded-navbar .pcoded-item li.pcoded-hasmenu.pcoded-trigger[dropdown-icon="style3"]>a:after {
-	content: '\e622';
 }
 
 .pcoded[theme-layout="vertical"] .pcoded-navbar[pcoded-navbar-position="relative"] {

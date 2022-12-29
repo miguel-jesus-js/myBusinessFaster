@@ -3,16 +3,16 @@
 <div class="page-header">
     <div class="page-block">
         <div class="row align-items-center">
-            <div class="col-md-8">
+            <div class="col-md-7">
                 <div class="page-header-title">
                     <h5 class="m-b-10">UNIDAD DE MEDIDAS</h5>
                     <p class="m-b-0 text-white">Bienvenido</p>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-5">
                 <ol class="breadcrumb breadcrumb-arrows" aria-label="breadcrumbs">
-                    <li class="breadcrumb-item"><a href="/">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><a href="/tipo_clientes">Unidad de medidas</a></li>
+                    <li class="breadcrumb-item"><i class="ti ti-smart-home me-2"></i><a href="/dashboard">Home</a></li>
+                    <li class="breadcrumb-item active"><i class="ti ti-ruler-2 me-2"></i><a href="/unidad_medidas">Unidad de medidas</a></li>
                 </ol>
             </div>
         </div>

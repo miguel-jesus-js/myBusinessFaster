@@ -121,58 +121,62 @@ function getProductos(tipo, filtro){
             var row = '';
             var caract = '';
             var cat = '';
-            $.each(data, function(index, valor){
-                caract = JSON.stringify(valor.caracteristicas);//hacemos la conversion para enviar el json
-                var regex = new RegExp("\"", "g");
-                var caracteristicas = caract.replace(regex, "'");//quitamos las comillas "" por '', de otro modo da error al pasarlo como parametro
-                cat = JSON.stringify(valor.categorias);//hacemos la conversion para enviar el json
-                var categorias = cat.replace(regex, "'");//quitamos las comillas "" por '', de otro modo da error al pasarlo como parametro
-                if(valor.deleted_at != null){ //validación para que los registros elimnados sean de color rojo
-                    elimnado = 'table-danger';
-                }else{
-                    elimnado = '';
-                }
-                row += `
-                    <tr class="${elimnado}">
-                        <td>${valor.cod_barra}</td>
-                        <td>${valor.producto}</td>
-                        <td>${valor.marcas == null ? '' : valor.marcas.marca}</td>
-                        <td>${valor.almacenes == null ? '' : valor.almacenes.nombre}</td>
-                        <td>${valor.unidad_medidas  == null ? '' : valor.unidad_medidas.unidad_medida}</td>
-                        <td>${valor.proveedores == null ? '' : valor.proveedores.nombres + ' ('+valor.proveedores.empresa+')'}</td>
-                        <td>${valor.materiales == null ? '' : valor.materiales.material}</td>
-                        <td>${formatter.format(valor.pre_compra)}</td>
-                        <td>${formatter.format(valor.pre_venta)}</td>
-                        <td class="d-none oculto">${formatter.format(valor.pre_mayoreo)}</td>
-                        <td>${valor.stock}</td>
-                        <td class="d-none oculto">${valor.stock_min}</td>
-                        <td class="d-none oculto">${formatter.format(valor.utilidad)}</td>
-                        <td class="d-none oculto">${valor.cod_sat == null ? '' : valor.cod_sat}</td>
-                        <td class="d-none oculto">${valor.caducidad == null ? '' : valor.caducidad}</td>
-                        <td class="d-none oculto">${valor.color == null ? '' : valor.color}</td>
-                        <td class="d-none oculto">${valor.talla == null ? '' : valor.talla}</td>
-                        <td class="d-none oculto">${valor.modelo == null ? '' : valor.modelo}</td>
-                        <td class="d-none oculto">${valor.peso_kg == null ? '' : valor.peso_kg}</td>
-                        <td class="d-none oculto">${valor.meses_garantia == null ? '' : valor.meses_garantia}</td>
-                        <td class="d-none oculto">${valor.es_produccion == 1 ? 'Si' : 'No'}</td>
-                        <td class="d-none oculto">${valor.afecta_ventas == 1 ? 'Si' : 'No'}</td>
-                        <td>
-                            <button type="button" class="btn p-0 border-0" onclick="onChange(${valor.id}, ${valor.marca_id}, ${valor.almacene_id}, ${valor.unidad_medida_id}, ${valor.proveedore_id}, ${valor.materiale_id}, '${valor.cod_barra}', ${valor.cod_sat}, '${valor.producto}', '${valor.pre_compra}', '${valor.pre_venta}', '${valor.pre_mayoreo}', ${valor.stock_min}, ${valor.stock}, '${valor.img1}', '${valor.img2}', '${valor.img3}', '${valor.caducidad}', '${valor.color}', '${valor.talla}', '${valor.modelo}', ${valor.meses_garantia}, '${valor.peso_kg}', '${valor.desc_detallada}', ${valor.es_produccion}, ${valor.afecta_ventas}, ${caracteristicas}, ${categorias});"><i class="ti ti-edit icono text-primary"></i></button>
-                            <button type="button" class="btn p-0 border-0" onclick="confirmDelete(${valor.id}, '${valor.producto}', 'api/deleteProductos/', 'producto', 'el');"><i class="ti ti-trash icono text-danger"></i></button>
-                            <button type="button" class="btn p-0 border-0 ver_mas" onclick=""><i class="ti ti-eye icono text-success"></i></button>
-                            <a href="/api/showProducto/${valor.id}" class="btn p-0 border-0"><i class="ti ti-list-details icono text-dark"></i></a>
-                        </td>
-           
-
-                    </tr>
-                `;
-            });
-            $('#table-producto tbody').html(row);
-            $("#table-producto").paginationTdA({
-                elemPerPage: 5
-            });
-            let pag = $('.paginationClick').parent()[0];
-            pag.classList.add('active');
+            if(data.length > 0){
+                $.each(data, function(index, valor){
+                    caract = JSON.stringify(valor.caracteristicas);//hacemos la conversion para enviar el json
+                    var regex = new RegExp("\"", "g");
+                    var caracteristicas = caract.replace(regex, "'");//quitamos las comillas "" por '', de otro modo da error al pasarlo como parametro
+                    cat = JSON.stringify(valor.categorias);//hacemos la conversion para enviar el json
+                    var categorias = cat.replace(regex, "'");//quitamos las comillas "" por '', de otro modo da error al pasarlo como parametro
+                    if(valor.deleted_at != null){ //validación para que los registros elimnados sean de color rojo
+                        elimnado = 'table-danger';
+                    }else{
+                        elimnado = '';
+                    }
+                    row += `
+                        <tr class="${elimnado}">
+                            <td>${valor.cod_barra}</td>
+                            <td>${valor.producto}</td>
+                            <td>${valor.marcas == null ? '' : valor.marcas.marca}</td>
+                            <td>${valor.almacenes == null ? '' : valor.almacenes.nombre}</td>
+                            <td>${valor.unidad_medidas  == null ? '' : valor.unidad_medidas.unidad_medida}</td>
+                            <td>${valor.proveedores == null ? '' : valor.proveedores.nombres + ' ('+valor.proveedores.empresa+')'}</td>
+                            <td>${valor.materiales == null ? '' : valor.materiales.material}</td>
+                            <td>${formatter.format(valor.pre_compra)}</td>
+                            <td>${formatter.format(valor.pre_venta)}</td>
+                            <td class="d-none oculto">${formatter.format(valor.pre_mayoreo)}</td>
+                            <td>${valor.stock}</td>
+                            <td class="d-none oculto">${valor.stock_min}</td>
+                            <td class="d-none oculto">${formatter.format(valor.utilidad)}</td>
+                            <td class="d-none oculto">${valor.cod_sat == null ? '' : valor.cod_sat}</td>
+                            <td class="d-none oculto">${valor.caducidad == null ? '' : valor.caducidad}</td>
+                            <td class="d-none oculto">${valor.color == null ? '' : valor.color}</td>
+                            <td class="d-none oculto">${valor.talla == null ? '' : valor.talla}</td>
+                            <td class="d-none oculto">${valor.modelo == null ? '' : valor.modelo}</td>
+                            <td class="d-none oculto">${valor.peso_kg == null ? '' : valor.peso_kg}</td>
+                            <td class="d-none oculto">${valor.meses_garantia == null ? '' : valor.meses_garantia}</td>
+                            <td class="d-none oculto">${valor.es_produccion == 1 ? 'Si' : 'No'}</td>
+                            <td class="d-none oculto">${valor.afecta_ventas == 1 ? 'Si' : 'No'}</td>
+                            <td>
+                                <button type="button" class="btn p-0 border-0" onclick="onChange(${valor.id}, ${valor.marca_id}, ${valor.almacene_id}, ${valor.unidad_medida_id}, ${valor.proveedore_id}, ${valor.materiale_id}, '${valor.cod_barra}', ${valor.cod_sat}, '${valor.producto}', '${valor.pre_compra}', '${valor.pre_venta}', '${valor.pre_mayoreo}', ${valor.stock_min}, ${valor.stock}, '${valor.img1}', '${valor.img2}', '${valor.img3}', '${valor.caducidad}', '${valor.color}', '${valor.talla}', '${valor.modelo}', ${valor.meses_garantia}, '${valor.peso_kg}', '${valor.desc_detallada}', ${valor.es_produccion}, ${valor.afecta_ventas}, ${caracteristicas}, ${categorias});"><i class="ti ti-edit icono text-primary"></i></button>
+                                <button type="button" class="btn p-0 border-0" onclick="confirmDelete(${valor.id}, '${valor.producto}', 'api/deleteProductos/', 'producto', 'el');"><i class="ti ti-trash icono text-danger"></i></button>
+                                <button type="button" class="btn p-0 border-0 ver_mas" onclick=""><i class="ti ti-eye icono text-success"></i></button>
+                                <a href="/api/showProducto/${valor.id}" class="btn p-0 border-0"><i class="ti ti-list-details icono text-dark"></i></a>
+                            </td>
+               
+    
+                        </tr>
+                    `;
+                });
+                $('#table-producto tbody').html(row);
+                $("#table-producto").paginationTdA({
+                    elemPerPage: 5
+                });
+                let pag = $('.paginationClick').parent()[0];
+                pag.classList.add('active');
+            }else{
+                $('#table-producto tbody').html('<tr><td colspan="14" class="text-center">No hay registros</td></tr>');
+            }
         },
         error: function (request, status, error) {
             if(request.status == 0){

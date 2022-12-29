@@ -11,7 +11,8 @@
             </div>
             <div class="col-md-4">
                 <ol class="breadcrumb breadcrumb-arrows" aria-label="breadcrumbs">
-                    <li class="breadcrumb-item"><i class="ti ti-user me-2"></i><a href="#">Usuarios</a></li>
+                    <li class="breadcrumb-item"><i class="ti ti-smart-home me-2"></i><a href="/dashboard">Home</a></li>
+                    <li class="breadcrumb-item active"><i class="ti ti-users me-2"></i><a href="/usuarios">Usuarios</a></li>
                 </ol>
             </div>
         </div>

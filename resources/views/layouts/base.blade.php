@@ -175,30 +175,20 @@
                                 </a>
                                 <ul class="show-notification profile-notification">
                                     <li class="waves-effect waves-light">
-                                        <a href="#!">
-                                            <i class="ti-settings"></i> Settings
-                                        </a>
-                                    </li>
-                                    <li class="waves-effect waves-light">
                                         <a href="user-profile.html">
-                                            <i class="ti-user"></i> Profile
+                                            <i class="ti ti-user"></i> Perfil
                                         </a>
                                     </li>
                                     <li class="waves-effect waves-light">
-                                        <a href="email-inbox.html">
-                                            <i class="ti-email"></i> My Messages
-                                        </a>
-                                    </li>
-                                    <li class="waves-effect waves-light">
-                                        <a href="auth-lock-screen.html">
-                                            <i class="ti-lock"></i> Lock Screen
+                                        <a href="#!">
+                                            <i class="ti ti-settings"></i> Configuraciones
                                         </a>
                                     </li>
                                     <li class="waves-effect waves-light">
                                         <form action="api/logout" method="POST">
                                             @csrf
                                             <a href="#" onclick="this.closest('form').submit()">
-                                                <i class="ti-layout-sidebar-left"></i> Cerrar sesión
+                                                <i class="ti ti-logout"></i> Cerrar sesión
                                             </a>
                                         </form>
                                     </li>
@@ -225,53 +215,62 @@
                                 <div class="main-menu-content">
                                     <ul>
                                         <li class="more-details">
-                                            <a href="user-profile.html"><i class="ti-user"></i>View Profile</a>
-                                            <a href="#!"><i class="ti-settings"></i>Settings</a>
-                                            <a href="auth-normal-sign-in.html"><i
-                                                    class="ti-layout-sidebar-left"></i>Logout</a>
+                                            <a href="user-profile.html">
+                                                <i class="ti ti-user"></i> Perfil
+                                            </a>
+                                            <a href="#!">
+                                                <i class="ti ti-settings"></i> Configuraciones
+                                            </a>
+                                            <form action="api/logout" method="POST">
+                                                @csrf
+                                                <a href="#" onclick="this.closest('form').submit()">
+                                                    <i class="ti ti-logout"></i> Cerrar sesión
+                                                </a>
+                                            </form>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                             <ul class="pcoded-item pcoded-left-item pt-2">
                                 <li class="{{ (request()->is('dashboard')) ? 'active' : '' }}">
-                                    <a href="index.html" class="waves-effect waves-dark">
-                                        <span class="pcoded-micon"><i class="ti ti-smart-home"></i></span>
+                                    <a href="/dashboard" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti ti-smart-home icono"></i></span>
                                         <span class="pcoded-mtext">Dashboard</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
                             </ul>
                             <div class="pcoded-navigation-label">MODULOS</div>
+                            
                             <ul class="pcoded-item pcoded-left-item">
-                                <!-- <li class="pcoded-hasmenu">
+                                <li class="{{ (request()->is('catalogos')) ? 'active' : '' }}">
+                                    <a href="/catalogos" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti ti-briefcase icono"></i></span>
+                                        <span class="pcoded-mtext">Catálogos</span>
+                                    </a>
+                                </li>
+                                <li class="pcoded-hasmenu">
                                     <a href="javascript:void(0)" class="waves-effect waves-dark">
-                                        <span class="pcoded-micon"><i class="ti ti-plus"></i></span>
-                                        <span class="pcoded-mtext">Basic</span>
-                                        <span class="ti ti-plus"></span>
+                                        <span class="pcoded-micon"><i class="ti ti-shopping-cart icono"></i></span>
+                                        <span class="pcoded-mtext">Ventas</span>
+                                        <span class="ti ti-chevron-down"></span>
                                     </a>
                                     <ul class="pcoded-submenu">
                                         <li class=" ">
                                             <a href="breadcrumb.html" class="waves-effect waves-dark">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext">Breadcrumbs</span>
+                                                <span class="pcoded-mtext">Punto de venta</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class=" ">
                                             <a href="button.html" class="waves-effect waves-dark">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext">Button</span>
+                                                <span class="pcoded-mtext">Hisorial</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                     </ul>
-                                </li> -->
-                                <li class="{{ (request()->is('catalogos')) ? 'active' : '' }}">
-                                    <a href="/catalogos" class="waves-effect waves-dark">
-                                        <span class="pcoded-micon"><i class="ti ti-briefcase h2"></i><b>C</b></span>
-                                        <span class="pcoded-mtext">Catálogos</span>
-                                    </a>
                                 </li>
                             </ul>
                         </div>

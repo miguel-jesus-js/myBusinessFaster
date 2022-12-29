@@ -97,34 +97,38 @@ function getTipoClientes(tipo, filtro){
             var data = JSON.parse(response);
             var elimnado = '';
             var row = '';
-            $.each(data, function(index, valor){
-                if(valor.deleted_at != null){ //validación para que los registros elimnados sean de color rojo
-                    elimnado = 'table-danger';
-                }else{
-                    elimnado = '';
-                }
-                row += `
-                    <tr class="${elimnado}">
-                        <td>${valor.tipo_cliente}</td>
-                        <td>
-                            <button type="button" class="btn p-0 border-0"  aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Detalles" onclick="details('${valor.tipo_cliente}', '${valor.created_at}', '${valor.updated_at}', '${valor.deleted_at}');"><i class="ti ti-eye icono text-success"></i></button>
-                        </td>
-                        <td>
-                            <button type="button" class="btn p-0 border-0" onclick="onChange(${valor.id}, '${valor.tipo_cliente}');"><i class="ti ti-edit icono text-primary"></i></button>
-                        </td>
-                        <td>
-                            <button type="button" class="btn p-0 border-0" onclick="confirmDelete(${valor.id}, '${valor.tipo_cliente}', 'api/deleteTipoClientes/', 'tipo de cliente', 'el');"><i class="ti ti-trash icono text-danger"></i></button>
-                        </td>
-
-                    </tr>
-                `;
-            });
-            $('#table-tipo_cliente tbody').html(row);
-            $("#table-tipo_cliente").paginationTdA({
-                elemPerPage: 5
-            });
-            let pag = $('.paginationClick').parent()[0];
-            pag.classList.add('active');
+            if(data.length > 0){
+                $.each(data, function(index, valor){
+                    if(valor.deleted_at != null){ //validación para que los registros elimnados sean de color rojo
+                        elimnado = 'table-danger';
+                    }else{
+                        elimnado = '';
+                    }
+                    row += `
+                        <tr class="${elimnado}">
+                            <td>${valor.tipo_cliente}</td>
+                            <td>
+                                <button type="button" class="btn p-0 border-0"  aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Detalles" onclick="details('${valor.tipo_cliente}', '${valor.created_at}', '${valor.updated_at}', '${valor.deleted_at}');"><i class="ti ti-eye icono text-success"></i></button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn p-0 border-0" onclick="onChange(${valor.id}, '${valor.tipo_cliente}');"><i class="ti ti-edit icono text-primary"></i></button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn p-0 border-0" onclick="confirmDelete(${valor.id}, '${valor.tipo_cliente}', 'api/deleteTipoClientes/', 'tipo de cliente', 'el');"><i class="ti ti-trash icono text-danger"></i></button>
+                            </td>
+    
+                        </tr>
+                    `;
+                });
+                $('#table-tipo_cliente tbody').html(row);
+                $("#table-tipo_cliente").paginationTdA({
+                    elemPerPage: 5
+                });
+                let pag = $('.paginationClick').parent()[0];
+                pag.classList.add('active');
+            }else{
+                $('#table-tipo_cliente tbody').html('<tr><td colspan="4" class="text-center">No hay registros</td></tr>');
+            }
         }
     })
 }

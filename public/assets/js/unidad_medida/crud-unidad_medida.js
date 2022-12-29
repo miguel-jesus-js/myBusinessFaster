@@ -98,34 +98,38 @@ function getUnidadMedidas(tipo, filtro){
             var data = JSON.parse(response);
             var elimnado = '';
             var row = '';
-            $.each(data, function(index, valor){
-                if(valor.deleted_at != null){ //validación para que los registros elimnados sean de color rojo
-                    elimnado = 'table-danger';
-                }else{
-                    elimnado = '';
-                }
-                row += `
-                    <tr class="${elimnado}">
-                        <td>${valor.unidad_medida}</td>
-                        <td>
-                            <button type="button" class="btn p-0 border-0"  aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Detalles" onclick="details('${valor.unidad_medida}', '${valor.created_at}', '${valor.updated_at}', '${valor.deleted_at}');"><i class="ti ti-eye icono text-success"></i></button>
-                        </td>
-                        <td>
-                            <button type="button" class="btn p-0 border-0" onclick="onChange(${valor.id}, '${valor.unidad_medida}');"><i class="ti ti-edit icono text-primary"></i></button>
-                        </td>
-                        <td>
-                            <button type="button" class="btn p-0 border-0" onclick="confirmDelete(${valor.id}, '${valor.unidad_medida}', 'api/deleteUnidadMedidas/', 'unidad de medida', 'la');"><i class="ti ti-trash icono text-danger"></i></button>
-                        </td>
-
-                    </tr>
-                `;
-            });
-            $('#table-unidad_medida tbody').html(row);
-            $("#table-unidad_medida").paginationTdA({
-                elemPerPage: 5
-            });
-            let pag = $('.paginationClick').parent()[0];
-            pag.classList.add('active');
+            if(data.length > 0){
+                $.each(data, function(index, valor){
+                    if(valor.deleted_at != null){ //validación para que los registros elimnados sean de color rojo
+                        elimnado = 'table-danger';
+                    }else{
+                        elimnado = '';
+                    }
+                    row += `
+                        <tr class="${elimnado}">
+                            <td>${valor.unidad_medida}</td>
+                            <td>
+                                <button type="button" class="btn p-0 border-0"  aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Detalles" onclick="details('${valor.unidad_medida}', '${valor.created_at}', '${valor.updated_at}', '${valor.deleted_at}');"><i class="ti ti-eye icono text-success"></i></button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn p-0 border-0" onclick="onChange(${valor.id}, '${valor.unidad_medida}');"><i class="ti ti-edit icono text-primary"></i></button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn p-0 border-0" onclick="confirmDelete(${valor.id}, '${valor.unidad_medida}', 'api/deleteUnidadMedidas/', 'unidad de medida', 'la');"><i class="ti ti-trash icono text-danger"></i></button>
+                            </td>
+    
+                        </tr>
+                    `;
+                });
+                $('#table-unidad_medida tbody').html(row);
+                $("#table-unidad_medida").paginationTdA({
+                    elemPerPage: 5
+                });
+                let pag = $('.paginationClick').parent()[0];
+                pag.classList.add('active');
+            }else{
+                $('#table-unidad_medida tbody').html('<tr><td colspan="4" class="text-center">No hay registros</td></tr>');
+            }
         }
     })
 }

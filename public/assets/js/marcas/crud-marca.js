@@ -99,34 +99,38 @@ function getMarcas(tipo, filtro){
             var data = JSON.parse(response);
             var elimnado = '';
             var row = '';
-            $.each(data, function(index, valor){
-                if(valor.deleted_at != null){ //validación para que los registros elimnados sean de color rojo
-                    elimnado = 'table-danger';
-                }else{
-                    elimnado = '';
-                }
-                row += `
-                    <tr class="${elimnado}">
-                        <td>${valor.marca}</td>
-                        <td>
-                            <button type="button" class="btn p-0 border-0"  aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Detalles" onclick="details('${valor.marca}', '${valor.created_at}', '${valor.updated_at}', '${valor.deleted_at}');"><i class="ti ti-eye icono text-success"></i></button>
-                        </td>
-                        <td>
-                            <button type="button" class="btn p-0 border-0"  aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Editar" onclick="onChange(${valor.id}, '${valor.marca}');"><i class="ti ti-edit icono text-primary"></i></button>
-                        </td>
-                        <td>
-                            <button type="button" class="btn p-0 border-0"  aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Eliminar" onclick="confirmDelete(${valor.id}, '${valor.marca}', 'api/deleteMarcas/', 'marca', 'la');"><i class="ti ti-trash icono text-danger"></i></button>
-                        </td>
-
-                    </tr>
-                `;
-            });
-            $('#table-marca tbody').html(row);
-            $("#table-marca").paginationTdA({
-                elemPerPage: 5
-            });
-            let pag = $('.paginationClick').parent()[0];
-            pag.classList.add('active');
+            if(data.length > 0){
+                $.each(data, function(index, valor){
+                    if(valor.deleted_at != null){ //validación para que los registros elimnados sean de color rojo
+                        elimnado = 'table-danger';
+                    }else{
+                        elimnado = '';
+                    }
+                    row += `
+                        <tr class="${elimnado}">
+                            <td>${valor.marca}</td>
+                            <td>
+                                <button type="button" class="btn p-0 border-0"  aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Detalles" onclick="details('${valor.marca}', '${valor.created_at}', '${valor.updated_at}', '${valor.deleted_at}');"><i class="ti ti-eye icono text-success"></i></button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn p-0 border-0"  aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Editar" onclick="onChange(${valor.id}, '${valor.marca}');"><i class="ti ti-edit icono text-primary"></i></button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn p-0 border-0"  aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Eliminar" onclick="confirmDelete(${valor.id}, '${valor.marca}', 'api/deleteMarcas/', 'marca', 'la');"><i class="ti ti-trash icono text-danger"></i></button>
+                            </td>
+    
+                        </tr>
+                    `;
+                });
+                $('#table-marca tbody').html(row);
+                $("#table-marca").paginationTdA({
+                    elemPerPage: 5
+                });
+                let pag = $('.paginationClick').parent()[0];
+                pag.classList.add('active');
+            }else{
+                $('#table-marca tbody').html('<tr><td colspan="4" class="text-center">No hay registros</td></tr>');
+            }
         }
     })
 }

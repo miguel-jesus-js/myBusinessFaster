@@ -100,38 +100,42 @@ function getProveedores(tipo, filtro){
             var elimnado = '';
             var acceso = '';
             var row = '';
-            $.each(data, function(index, valor){
-                if(valor.deleted_at != null){ //validación para que los registros elimnados sean de color rojo
-                    elimnado = 'table-danger';
-                }else{
-                    elimnado = '';
-                }
-                row += `
-                    <tr class="${elimnado}">
-                        <td>${valor.clave}</td>
-                        <td>${valor.nombres} ${valor.app} ${valor.apm}</td>
-                        <td>${valor.empresa == null ? '' : valor.empresa}</td>
-                        <td>${valor.email}</td>
-                        <td>${valor.telefono}</td>
-                        <td>
-                            <button type="button" class="btn p-0 border-0" onclick="details('${valor.clave}', '${valor.nombres}', '${valor.app}', '${valor.apm}', '${valor.email}', '${valor.telefono}', '${valor.rfc}', '${valor.empresa}', '${valor.ciudad}', '${valor.estado}', '${valor.municipio}', ${valor.cp}, '${valor.colonia}', '${valor.calle}', ${valor.n_exterior}, ${valor.n_interior}, '${valor.created_at}', '${valor.updated_at}', '${valor.deleted_at}');"><i class="ti ti-eye icono text-success"></i></button>
-                        </td>
-                        <td>
-                            <button type="button" class="btn p-0 border-0" onclick="onChange(${valor.id}, '${valor.clave}', '${valor.nombres}', '${valor.app}', '${valor.apm}', '${valor.email}', '${valor.telefono}', '${valor.rfc}', '${valor.empresa}', '${valor.ciudad}', '${valor.estado}', '${valor.municipio}', ${valor.cp}, '${valor.colonia}', '${valor.calle}', ${valor.n_exterior}, ${valor.n_interior});"><i class="ti ti-edit icono text-primary"></i></button>
-                        </td>
-                        <td>
-                            <button type="button" class="btn p-0 border-0" onclick="confirmDelete(${valor.id}, '${valor.nombres}', 'api/deleteProveedores/', 'proveedor', 'el');"><i class="ti ti-trash icono text-danger"></i></button>
-                        </td>
-
-                    </tr>
-                `;
-            });
-            $('#table-proveedor tbody').html(row);
-            $("#table-proveedor").paginationTdA({
-                elemPerPage: 5
-            });
-            let pag = $('.paginationClick').parent()[0];
-            pag.classList.add('active');
+            if(data.length > 0){
+                $.each(data, function(index, valor){
+                    if(valor.deleted_at != null){ //validación para que los registros elimnados sean de color rojo
+                        elimnado = 'table-danger';
+                    }else{
+                        elimnado = '';
+                    }
+                    row += `
+                        <tr class="${elimnado}">
+                            <td>${valor.clave}</td>
+                            <td>${valor.nombres} ${valor.app} ${valor.apm}</td>
+                            <td>${valor.empresa == null ? '' : valor.empresa}</td>
+                            <td>${valor.email}</td>
+                            <td>${valor.telefono}</td>
+                            <td>
+                                <button type="button" class="btn p-0 border-0" onclick="details('${valor.clave}', '${valor.nombres}', '${valor.app}', '${valor.apm}', '${valor.email}', '${valor.telefono}', '${valor.rfc}', '${valor.empresa}', '${valor.ciudad}', '${valor.estado}', '${valor.municipio}', ${valor.cp}, '${valor.colonia}', '${valor.calle}', ${valor.n_exterior}, ${valor.n_interior}, '${valor.created_at}', '${valor.updated_at}', '${valor.deleted_at}');"><i class="ti ti-eye icono text-success"></i></button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn p-0 border-0" onclick="onChange(${valor.id}, '${valor.clave}', '${valor.nombres}', '${valor.app}', '${valor.apm}', '${valor.email}', '${valor.telefono}', '${valor.rfc}', '${valor.empresa}', '${valor.ciudad}', '${valor.estado}', '${valor.municipio}', ${valor.cp}, '${valor.colonia}', '${valor.calle}', ${valor.n_exterior}, ${valor.n_interior});"><i class="ti ti-edit icono text-primary"></i></button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn p-0 border-0" onclick="confirmDelete(${valor.id}, '${valor.nombres}', 'api/deleteProveedores/', 'proveedor', 'el');"><i class="ti ti-trash icono text-danger"></i></button>
+                            </td>
+    
+                        </tr>
+                    `;
+                });
+                $('#table-proveedor tbody').html(row);
+                $("#table-proveedor").paginationTdA({
+                    elemPerPage: 5
+                });
+                let pag = $('.paginationClick').parent()[0];
+                pag.classList.add('active');
+            }else{
+                $('#table-proveedor tbody').html('<tr><td colspan="8" class="text-center">No hay registros</td></tr>');
+            }
         }
     })
 }

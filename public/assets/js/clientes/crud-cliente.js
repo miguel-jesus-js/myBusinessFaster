@@ -99,38 +99,42 @@ function getClientes(tipo, filtro){
             var elimnado = '';
             var direcciones = '';
             var row = '';
-            $.each(data, function(index, valor){
-                direcciones = JSON.stringify(valor.direcciones);//hacemos la conversion para enviar el json
-                var regex = new RegExp("\"", "g");
-                var direccionesString = direcciones.replace(regex, "'");//quitamos las comillas "" por '', de otro modo da error al pasarlo como parametro
-                if(valor.deleted_at != null){ //validación para que los registros elimnados sean de color rojo
-                    elimnado = 'table-danger';
-                }else{
-                    elimnado = '';
-                }
-
-                row += `
-                    <tr class="${elimnado}">
-                        <td>${valor.nombres} ${valor.app} ${valor.apm}</td>
-                        <td>${valor.tipo_cliente.tipo_cliente}</td>
-                        <td>${valor.email}</td>
-                        <td>${valor.telefono}</td>
-                        <td>
-                            <button type="button" class="btn p-0 border-0" onclick="onChange(${valor.id}, ${valor.tipo_cliente_id}, '${valor.nombres}', '${valor.app}', '${valor.apm}', '${valor.email}', '${valor.telefono}', '${valor.rfc}', '${valor.empresa}', '${valor.ciudad}', '${valor.estado}', '${valor.municipio}', ${valor.cp}, '${valor.colonia}', '${valor.calle}', ${valor.n_exterior}, ${valor.n_interior}, ${direccionesString});"><i class="ti ti-edit icono text-primary"></i></button>
-                        </td>
-                        <td>
-                            <button type="button" class="btn p-0 border-0" onclick="confirmDelete(${valor.id}, '${valor.nombres}', 'api/deleteClientes/', 'cliente', 'el');"><i class="ti ti-trash icono text-danger"></i></button>
-                        </td>
-
-                    </tr>
-                `;
-            });
-            $('#table-cliente tbody').html(row);
-            $("#table-cliente").paginationTdA({
-                elemPerPage: 5
-            });
-            let pag = $('.paginationClick').parent()[0];
-            pag.classList.add('active');
+            if(data.length > 0){
+                $.each(data, function(index, valor){
+                    direcciones = JSON.stringify(valor.direcciones);//hacemos la conversion para enviar el json
+                    var regex = new RegExp("\"", "g");
+                    var direccionesString = direcciones.replace(regex, "'");//quitamos las comillas "" por '', de otro modo da error al pasarlo como parametro
+                    if(valor.deleted_at != null){ //validación para que los registros elimnados sean de color rojo
+                        elimnado = 'table-danger';
+                    }else{
+                        elimnado = '';
+                    }
+    
+                    row += `
+                        <tr class="${elimnado}">
+                            <td>${valor.nombres} ${valor.app} ${valor.apm}</td>
+                            <td>${valor.tipo_cliente.tipo_cliente}</td>
+                            <td>${valor.email}</td>
+                            <td>${valor.telefono}</td>
+                            <td>
+                                <button type="button" class="btn p-0 border-0" onclick="onChange(${valor.id}, ${valor.tipo_cliente_id}, '${valor.nombres}', '${valor.app}', '${valor.apm}', '${valor.email}', '${valor.telefono}', '${valor.rfc}', '${valor.empresa}', '${valor.ciudad}', '${valor.estado}', '${valor.municipio}', ${valor.cp}, '${valor.colonia}', '${valor.calle}', ${valor.n_exterior}, ${valor.n_interior}, ${direccionesString});"><i class="ti ti-edit icono text-primary"></i></button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn p-0 border-0" onclick="confirmDelete(${valor.id}, '${valor.nombres}', 'api/deleteClientes/', 'cliente', 'el');"><i class="ti ti-trash icono text-danger"></i></button>
+                            </td>
+    
+                        </tr>
+                    `;
+                });
+                $('#table-cliente tbody').html(row);
+                $("#table-cliente").paginationTdA({
+                    elemPerPage: 5
+                });
+                let pag = $('.paginationClick').parent()[0];
+                pag.classList.add('active');
+            }else{
+                $('#table-cliente tbody').html('<tr><td colspan="7" class="text-center">No hay registros</td></tr>');
+            }
         }
     })
 }
