@@ -79,7 +79,7 @@
     <div id="pcoded" class="pcoded">
         <div class="pcoded-overlay-box"></div>
         <div class="pcoded-container navbar-wrapper">
-            <nav class="navbar header-navbar pcoded-header">
+            <nav class="navbar header-navbar pcoded-header" id="navbar">
                 <div class="navbar-wrapper">
                     <div class="navbar-logo">
                         <a class="mobile-menu waves-effect waves-light" id="mobile-collapse" href="#!">
@@ -166,6 +166,11 @@
                                     </li>
                                 </ul>
                             </li>
+                            <li class="">
+                                <a href="#offcanvasConfig" role="button" aria-controls="offcanvasConfig" class="waves-effect waves-light" data-bs-toggle="offcanvas" data-bs-placement="bottom" title="Paleta de colores">
+                                    <i class="ti ti-palette h2"></i>
+                                </a>
+                            </li>
                             <li class="user-profile header-notification">
                                 <a href="#!" class="waves-effect waves-light">
                                     <img src="{{ asset('img/usuarios/'.Auth::user()->foto_perfil) }}" class="img-radius"
@@ -204,7 +209,7 @@
                     <nav class="pcoded-navbar">
                         <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
                         <div class="pcoded-inner-navbar main-menu">
-                            <div class="">
+                            <div class="" id="page-header-menu">
                                 <div class="main-menu-header">
                                     <img class="img-80 img-radius" src="{{ asset('img/usuarios/'.Auth::user()->foto_perfil) }}"
                                         alt="User-Profile-Image">
@@ -232,7 +237,7 @@
                                 </div>
                             </div>
                             <ul class="pcoded-item pcoded-left-item pt-2">
-                                <li class="{{ (request()->is('dashboard')) ? 'active' : '' }}">
+                                <li class="{{ (request()->is('dashboard')) ? 'active' : '' }} data-item-color">
                                     <a href="/dashboard" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti ti-smart-home icono"></i></span>
                                         <span class="pcoded-mtext">Dashboard</span>
@@ -243,17 +248,17 @@
                             <div class="pcoded-navigation-label">MODULOS</div>
                             
                             <ul class="pcoded-item pcoded-left-item">
-                                <li class="{{ (request()->is('catalogos')) ? 'active' : '' }}">
+                                <li class="{{ (request()->is('catalogos')) ? 'active' : '' }} data-item-color">
                                     <a href="/catalogos" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti ti-briefcase icono"></i></span>
                                         <span class="pcoded-mtext">Catálogos</span>
                                     </a>
                                 </li>
-                                <li class="pcoded-hasmenu">
+                                <li class="pcoded-hasmenu data-item-color">
                                     <a href="javascript:void(0)" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti ti-shopping-cart icono"></i></span>
                                         <span class="pcoded-mtext">Ventas</span>
-                                        <span class="ti ti-chevron-down"></span>
+                                        <span class="ti ti-chevron-down acordeon"></span>
                                     </a>
                                     <ul class="pcoded-submenu">
                                         <li class=" ">
@@ -266,7 +271,7 @@
                                         <li class=" ">
                                             <a href="button.html" class="waves-effect waves-dark">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext">Hisorial</span>
+                                                <span class="pcoded-mtext">Historial</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
@@ -282,6 +287,149 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <!-- Offcanvas configuraciones -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasConfig" aria-labelledby="offcanvasConfigLabel">
+        <div class="offcanvas-header">
+        <h2 class="offcanvas-title" id="offcanvasConfigLabel"> <i class="ti ti-palette"></i> Paleta de colores</h2>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+        <form id="form-settings" action="">
+            <div class="mb-3">
+                <label class="form-label">Colores disponibles</label>
+                <div class="row g-2">
+                  <div class="col-auto">
+                    <label class="form-colorinput">
+                      <input name="color" type="radio" value="#1d273b" class="form-colorinput-input">
+                      <span class="form-colorinput-color bg-dark rounded-circle"></span>
+                    </label>
+                  </div>
+                  <div class="col-auto">
+                    <label class="form-colorinput form-colorinput-light">
+                      <input name="color" type="radio" value="#ffffff" class="form-colorinput-input">
+                      <span class="form-colorinput-color bg-white rounded-circle"></span>
+                    </label>
+                  </div>
+                  <div class="col-auto">
+                    <label class="form-colorinput">
+                      <input name="color" type="radio" value="#206bc4" class="form-colorinput-input">
+                      <span class="form-colorinput-color bg-blue rounded-circle"></span>
+                    </label>
+                  </div>
+                  <div class="col-auto">
+                    <label class="form-colorinput">
+                      <input name="color" type="radio" value="#4299e1" class="form-colorinput-input">
+                      <span class="form-colorinput-color bg-azure rounded-circle"></span>
+                    </label>
+                  </div>
+                  <div class="col-auto">
+                    <label class="form-colorinput">
+                      <input name="color" type="radio" value="#4263eb" class="form-colorinput-input">
+                      <span class="form-colorinput-color bg-indigo rounded-circle"></span>
+                    </label>
+                  </div>
+                  <div class="col-auto">
+                    <label class="form-colorinput">
+                      <input name="color" type="radio" value="#ae3ec9" class="form-colorinput-input">
+                      <span class="form-colorinput-color bg-purple rounded-circle"></span>
+                    </label>
+                  </div>
+                  <div class="col-auto">
+                    <label class="form-colorinput">
+                      <input name="color" type="radio" value="#d6336c" class="form-colorinput-input">
+                      <span class="form-colorinput-color bg-pink rounded-circle"></span>
+                    </label>
+                  </div>
+                  <div class="col-auto">
+                    <label class="form-colorinput">
+                      <input name="color" type="radio" value="#d63939" class="form-colorinput-input">
+                      <span class="form-colorinput-color bg-red rounded-circle"></span>
+                    </label>
+                  </div>
+                  <div class="col-auto">
+                    <label class="form-colorinput">
+                      <input name="color" type="radio" value="#f76707" class="form-colorinput-input">
+                      <span class="form-colorinput-color bg-orange rounded-circle"></span>
+                    </label>
+                  </div>
+                  <div class="col-auto">
+                    <label class="form-colorinput">
+                      <input name="color" type="radio" value="#f59f00" class="form-colorinput-input">
+                      <span class="form-colorinput-color bg-yellow rounded-circle"></span>
+                    </label>
+                  </div>
+                  <div class="col-auto">
+                    <label class="form-colorinput">
+                      <input name="color" type="radio" value="#74b816" class="form-colorinput-input">
+                      <span class="form-colorinput-color bg-lime rounded-circle"></span>
+                    </label>
+                  </div>
+                  <div class="col-auto">
+                    <label class="form-colorinput">
+                      <input name="color" type="radio" value="#2fb344" class="form-colorinput-input">
+                      <span class="form-colorinput-color bg-green rounded-circle"></span>
+                    </label>
+                  </div>
+                  <div class="col-auto">
+                    <label class="form-colorinput">
+                      <input name="color" type="radio" value="#0ca678" class="form-colorinput-input">
+                      <span class="form-colorinput-color bg-teal rounded-circle"></span>
+                    </label>
+                  </div>
+                  <div class="col-auto">
+                    <label class="form-colorinput">
+                      <input name="color" type="radio" value="#17a2b8" class="form-colorinput-input">
+                      <span class="form-colorinput-color bg-cyan rounded-circle"></span>
+                    </label>
+                  </div>
+                  <div class="col-auto">
+                    <a href="">Perzonalizado</a>
+                  </div>
+                </div>
+            </div>
+            <br>
+            <div class="divide-y">
+                <div>
+                  <label class="row">
+                    <span class="col">Mostrar menu</span>
+                    <span class="col-auto">
+                      <label class="form-check form-check-single form-switch">
+                        <input class="form-check-input" type="checkbox" name="mostrar_sidebar" id="mostrar_sidebar" value="true">
+                      </label>
+                    </span>
+                  </label>
+                </div>
+                <div>
+                  <label class="row">
+                    <span class="col">Mostrar banner</span>
+                    <span class="col-auto">
+                      <label class="form-check form-check-single form-switch">
+                        <input class="form-check-input" type="checkbox" name="mostrar_banner" id="mostrar_banner" value="true">
+                      </label>
+                    </span>
+                  </label>
+                </div>
+                <div>
+                    <label class="row">
+                      <span class="col">Mostrar avatar</span>
+                      <span class="col-auto">
+                        <label class="form-check form-check-single form-switch">
+                          <input class="form-check-input" type="checkbox" name="mostrar_foto" id="mostrar_foto" value="true">
+                        </label>
+                      </span>
+                    </label>
+                </div>
+            </div>
+            <br><br>
+            <button class="btn btn-secondary" type="button" data-bs-dismiss="offcanvas" id="closeCanvas">
+                <i class="ti ti-x icono"></i> Cancelar
+            </button>
+            <button class="btn btn-success" type="submit">
+                <i class="ti ti-device-floppy icono"></i> Guardar
+            </button>
+        </form>
         </div>
     </div>
 
@@ -302,7 +450,11 @@
     <script src="{{ asset('assets/js/filter.js') }}"></script>
     <script src="{{ asset('assets/js/openCloseModal.js') }}"></script>
     <script src="{{ asset('assets/js/showHidePassword.js') }}"></script>
+    <script src="{{ asset('assets/js/settings/settings.js') }}"></script>
     <script type="text/javascript">
+        $(document).ready(function(){
+            getLocalSettings(); 
+        });
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

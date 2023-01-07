@@ -16,6 +16,7 @@ use App\Http\Controllers\DireccionesEntregasController;
 use App\Http\Controllers\AlmacenesController;
 use App\Http\Controllers\CaracteristicasController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ConfiguracionesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,11 +32,11 @@ use App\Http\Controllers\LoginController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/catalogos', function () {
-    return view('catalogos');
-});
 Route::get('/dashboard', function () {
     return view('dashboard');
+});
+Route::get('/catalogos', function () {
+    return view('catalogos');
 });
 Route::get('/usuarios', function () {
     return view('usuarios');
@@ -164,8 +165,12 @@ Route::post('api/addDireccionesEntregaTable', [DireccionesEntregasController::cl
 //apis características
 Route::post('api/addCaracteristicas', [CaracteristicasController::class, 'create']);
 Route::post('api/addCaracteristicasTable', [CaracteristicasController::class, 'createTable']);
+//apis settings
+Route::get('api/settings', [ConfiguracionesController::class, 'settings']);
+Route::put('api/updateSettings', [ConfiguracionesController::class, 'update']);
 
 Route::post('api/session', [LoginController::class, 'session']);
+
 // Route::group(['middleware' => 'auth'], function () {
 //     //apis roles
     

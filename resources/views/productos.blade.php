@@ -785,7 +785,7 @@
            Close offcanvas
         </button>
     </div>
-  </div>
+</div>
 @endsection
 @section('script')
 <script src="{{ asset('assets/js/productos/config.js') }}"></script>

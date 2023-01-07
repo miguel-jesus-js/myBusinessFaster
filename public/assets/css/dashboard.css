@@ -22,7 +22,7 @@ File: style.css
       Custom css start
 ==========================  **/
 
-.ti-chevron-down{
+.acordeon{
 	float: right;
 	margin-top: 8px;
 }
@@ -6407,18 +6407,9 @@ body[themebg-pattern="theme1"] {
 	position: static;
 }
 
-.pcoded .pcoded-header[header-theme="theme1"] {
-	background: #448aff;
-}
-
 .pcoded .pcoded-header[header-theme="theme1"] .input-group-addon,
 .pcoded .pcoded-header[header-theme="theme1"] a {
 	color: #fff;
-}
-
-.pcoded[fream-type="theme1"] .main-menu .main-menu-header:before,
-.pcoded[fream-type="theme1"] .page-header:before {
-	background: rgba(68, 138, 255, 0.5);
 }
 
 body .pcoded[pcoded-device-type="phone"][vertical-nav-type="expanded"] .pcoded-navbar,

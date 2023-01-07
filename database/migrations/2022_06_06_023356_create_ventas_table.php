@@ -15,23 +15,21 @@ return new class extends Migration
     {
         Schema::create('documentos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('tipo_documento_id')->nullable(false);
             $table->unsignedBigInteger('user_id')->nullable(true);
             $table->unsignedBigInteger('cliente_id')->nullable(true);
-            $table->unsignedBigInteger('proveedore_id')->nullable(true);
             $table->bigInteger('folio')->nullable(false);
             $table->datetime('fecha')->nullable(false);
-            $table->float('importe')->nullable(false);
-            $table->float('iva')->nullable(false);
-            $table->float('total')->nullable(false);
-            $table->string('tipo_pago', 40)->nullable(false);
-            $table->string('desc', 200)->nullable(true);
+            $table->decimal('importe', 8, 2)->nullable(false);
+            $table->decimal('iva', 8, 2)->nullable(false);
+            $table->decimal('descuento', 8, 2)->nullable(false);
+            $table->decimal('total', 8, 2)->nullable(false);
+            $table->decimal('pago_con', 8, 2)->nullable(false);
+            $table->string('tipo_pago', 20)->nullable(false);
             $table->boolean('estado')->nullable(false);
             $table->timestamps();
-            $table->foreign('tipo_documento_id')->references('id')->on('tipo_documentos')->onDelete('cascade');
+            $table->softdeletes();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade');
-            $table->foreign('proveedore_id')->references('id')->on('proveedores')->onDelete('cascade');
         });
     }
 

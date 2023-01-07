@@ -31,7 +31,7 @@ class ProveedoresRequest extends FormRequest
             'apm'       => 'required|min:3|max:50|regex:/^[\sA-Za-zÁÉÍÓÚáéíóúÑñ]{3,50}$/',
             'email'     => 'required|min:10|max:50|email|unique:proveedores,email,'.$this->id,
             'telefono'  => 'required|min:14|max:14|unique:proveedores,telefono,'.$this->id,
-            'rfc'       => 'nullable|min:3|max:50|regex:/^([a-z]{3,4})(\d{2})(\d{2})(\d{2})([0-9a-z]{3})$/i|unique:proveedores,rfc,'.$this->id,
+            'rfc'       => 'nullable|min:12|max:13|regex:/^([a-z]{3,4})(\d{2})(\d{2})(\d{2})([0-9a-z]{3})$/i|unique:proveedores,rfc,'.$this->id,
             'empresa'   => 'nullable|min:3|max:50|regex:/^[\sA-Za-zÁÉÍÓÚáéíóúÑñ]{3,50}$/',
             'ciudad'    => 'required|min:3|max:50|regex:/^[\sA-Za-zÁÉÍÓÚáéíóúÑñ]{3,50}$/',
             'estado'    => 'required|min:3|max:50|regex:/^[\sA-Za-zÁÉÍÓÚáéíóúÑñ]{3,50}$/',
