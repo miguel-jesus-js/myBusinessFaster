@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\User;
 use App\Imports\UsersImport;
+use App\Exports\UsersExport;
 use App\Http\Requests\UsersRequest;
 use App\Http\Requests\UploadRequest;
 use Illuminate\Support\Facades\DB;
+use PDF;
 
 class UsersController extends Controller
 {
@@ -79,12 +81,12 @@ class UsersController extends Controller
     }
     public function exportarPDF()
     {
-        $empleados = User::whereNull('deleted_at')->get();
-        $pdf = Pdf::loadView('pdf.empleados_pdf', ['empleados' => $empleados])->setPaper('a4', 'landscape');
+        $empleados = User::with('roles')->get();
+        $pdf = Pdf::loadView('pdf.empleados_pdf', ['empleados' => $empleados, 'esExcel' => false])->setPaper('a4', 'landscape');
         return $pdf->download('Empleados.pdf');
     }
     public function exportarExcel(Request $request)
     {
-        return Excel::download(new UsersExport, 'Proveedores.xlsx');
+        return Excel::download(new UsersExport, 'Empleados.xlsx');
     }
 }

@@ -87,10 +87,10 @@
                         <button class="dropdown-item">
                             <ul>
                                 <li>
-                                    <a href="/api/exportarPdfUser" class="dropdown-item" onclick="">PDF</a>
+                                    <a href="/api/exportarPdfUsuario?esExcel=true" class="dropdown-item" onclick="">PDF</a>
                                 </li>
                                 <li>
-                                    <a href="/api/exportarExcelUser" class="dropdown-item" onclick="">Excel</a>
+                                    <a href="/api/exportarExcelUsuario" class="dropdown-item" onclick="">Excel</a>
                                 </li>
                             </ul>
                         </button>
