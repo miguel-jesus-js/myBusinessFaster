@@ -12,6 +12,7 @@ class Configuracione extends Model
         'logotipo',
         'razon_social',
         'telefono',
+        'correo',
         'rfc',
         'direccion',
         'color',

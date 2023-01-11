@@ -388,7 +388,7 @@
             <div class="modal-body">
                 <form id="form-upload-cliente">
                     <div class="tab-content">
-                        <div id="load-form1" class="efecto-cargando d-none">
+                        <div id="load-form1" class="efecto-cargando">
                             
                         </div>
                         <div class="row">

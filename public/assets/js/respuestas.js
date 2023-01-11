@@ -44,7 +44,7 @@ function confirmDelete(id, info, api, modulo, prefijo){
                     if(jsonData.icon == 'success'){
                         switch(modulo){
                             case 'usuario':
-                                getUsuarios('api/getUsuarios/', 2);
+                                getUsuarios(2, '');
                                 break;
                             case 'marca':
                                 getMarcas(2, '');

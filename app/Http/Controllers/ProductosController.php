@@ -12,28 +12,12 @@ use App\Models\DetalleCat;
 use App\Models\Caracteristica;
 use App\Imports\ProductosImport;
 use App\Exports\ProductosExport;
-use File;
+use App\Traits\ImagesTrait;
 use PDF;
-
 
 class ProductosController extends Controller
 {
-    public function uploadImagen($imagen, $numImagen)
-    {
-        if($imagen != null)
-        {
-            $ruta = 'img/productos/';
-            $nomImg = date('YmdHis'). '-'.$numImagen.'.' . $imagen->getClientOriginalExtension();//asignamos el nombre a la imagen
-            $imagen->move($ruta, $nomImg);//hace la subida de la imagen al servidor
-            return $nomImg;
-        }
-        return null;
-    }
-    public function deleteImagen($nameImagen)
-    {
-        $path = public_path('img/productos'.$nameImagen);
-        File::delete($path);
-    }
+    use ImagesTrait;
     public function index(Request $request, $tipo)
     {
         // 0 todo - 1 eliminados - 2 no eliminados
@@ -76,9 +60,9 @@ class ProductosController extends Controller
         $data['utilidad'] = $data['pre_venta'] - $data['pre_compra'];
         try {
             DB::beginTransaction();
-            $data['img1'] = $this->uploadImagen($request->file('img1'), 'img1');
-            $data['img2'] = $this->uploadImagen($request->file('img2'), 'img2');
-            $data['img3'] = $this->uploadImagen($request->file('img3'), 'img3');
+            $data['img1'] = $this->uploadImagen($request->file('img1'), 'img1', 'img/productos/');
+            $data['img2'] = $this->uploadImagen($request->file('img2'), 'img2', 'img/productos/');
+            $data['img3'] = $this->uploadImagen($request->file('img3'), 'img3', 'img/productos/');
             $newProducto = Producto::create($data);
             $producto_id = $newProducto->id;
             if(isset($data['categoria_id']))
@@ -111,27 +95,27 @@ class ProductosController extends Controller
         $producto = Producto::find($data['id']);
         try {
             DB::beginTransaction();            
-            $data['img1'] = $this->uploadImagen($request->file('img1'), 'img1');
-            $data['img2'] = $this->uploadImagen($request->file('img2'), 'img2');
-            $data['img3'] = $this->uploadImagen($request->file('img3'), 'img3');
+            $data['img1'] = $this->uploadImagen($request->file('img1'), 'img1', 'img/productos/');
+            $data['img2'] = $this->uploadImagen($request->file('img2'), 'img2', 'img/productos/');
+            $data['img3'] = $this->uploadImagen($request->file('img3'), 'img3', 'img/productos/');
             
             if($data['img1'] == null)
             {
                 unset($data['img1']);
             }else{
-                $this->deleteImagen($producto->img1);
+                $this->deleteImagen('img/productos', $producto->img1);
             }
             if($data['img2'] == null)
             {
                 unset($data['img2']);
             }else{
-                $this->deleteImagen($producto->img2);
+                $this->deleteImagen('img/productos', $producto->img2);
             }
             if($data['img3'] == null)
             {
                 unset($data['img3']);
             }else{
-                $this->deleteImagen($producto->img3);
+                $this->deleteImagen('img/productos', $producto->img3);
             }
             $producto->update($data);
             $producto_id = $producto->id;

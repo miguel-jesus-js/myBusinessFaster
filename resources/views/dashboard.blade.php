@@ -404,4 +404,37 @@
         <div id="styleSelector"> </div>
     </div>
 </div>
+<div class="modal modal-blur fade" id="modal-information" tabindex="-1" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Advertencia</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="empty">
+                    <div class="empty-img"><img src="{{ asset('img/settings.jpg') }}" height="128" alt="">
+                    </div>
+                    <p class="empty-title">Empresa no configurada</p>
+                    <p class="empty-subtitle text-muted">
+                      Dirigite a la opción de configuraciones para agregar la información de tu empresa
+                    </p>
+                    <div class="empty-action">
+                      <a href="/settings" class="btn btn-primary">
+                        <i class="ti ti-settings"></i>
+                        Ir a configuración
+                      </a>
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+@section('script')
+<script>
+    $(document).ready(function(){
+        $('#modal-information').modal('show')
+    })
+</script>
 @endsection

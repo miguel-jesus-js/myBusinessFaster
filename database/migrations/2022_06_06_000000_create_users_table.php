@@ -28,7 +28,7 @@ return new class extends Migration
             $table->integer('cp')->nullable(true);
             $table->string('colonia', 50)->nullable(false);
             $table->string('calle', 50)->nullable(false);
-            $table->integer('n_exterior')->nullable(false);
+            $table->integer('n_exterior')->nullable(true)->default(0);
             $table->integer('n_interior')->nullable(true)->default(0);
             $table->string('nom_user', 20)->unique()->nullable(true);
             $table->timestamp('email_verified_at')->nullable();

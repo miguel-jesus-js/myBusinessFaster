@@ -18,7 +18,8 @@
 
 .efecto-cargando b {
     position: relative;
-    left: -16px;
+    left: -5px;
+    color: #000;
 }
 
 #preloader6 {

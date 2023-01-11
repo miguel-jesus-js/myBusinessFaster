@@ -135,7 +135,7 @@
             <div class="modal-body">
                 <form id="form-add-categoria">
                     <div class="tab-content">
-                        <div id="load-form" class="efecto-cargando d-none">
+                        <div id="load-form" class="efecto-cargando">
                         </div>
                         <div class="row">
                             <div class="col-md-12 mb-3">
@@ -169,7 +169,7 @@
             <div class="modal-body">
                 <form id="form-upload-categoria">
                     <div class="tab-content">
-                        <div id="load-form1" class="efecto-cargando d-none">
+                        <div id="load-form1" class="efecto-cargando">
                             
                         </div>
                         <div class="row">

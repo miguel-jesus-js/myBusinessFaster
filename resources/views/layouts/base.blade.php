@@ -185,7 +185,7 @@
                                         </a>
                                     </li>
                                     <li class="waves-effect waves-light">
-                                        <a href="#!">
+                                        <a href="/settings">
                                             <i class="ti ti-settings"></i> Configuraciones
                                         </a>
                                     </li>

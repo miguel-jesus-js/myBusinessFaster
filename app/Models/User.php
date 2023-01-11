@@ -58,6 +58,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function scopeUser($query, $user)
+    {
+        if($user)
+        {
+            return $query->where('nombres', 'like', '%'.$user.'%')
+                        ->orWhere('app', 'like', '%'.$user.'%')
+                        ->orWhere('apm', 'like', '%'.$user.'%')
+                        ->orWhere('telefono', 'like', '%'.$user.'%')
+                        ->orWhere('email', 'like', '%'.$user.'%')
+                        ->orWhere('nom_user', 'like', '%'.$user.'%');
+        }
+    }
+
     public function role()
     {
         return $this->belongsTo(Role::class);

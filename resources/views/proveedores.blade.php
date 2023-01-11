@@ -98,7 +98,7 @@
                     <button class="btn btn-dark btn-icon" aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Importar" onclick="openModal('upload-proveedor','proveedores', 0)">
                         <i class="ti ti-file-upload icono"></i>
                     </button>
-                    <a href="{{ route('downloadPlantillaProveedor') }}" target="_blank" class="btn btn-dark btn-icon" aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Descargar plantilla" onclick="downloadPlantilla()">
+                    <a href="{{ route('downloadPlantillaProveedor') }}" target="_blank" class="btn btn-dark btn-icon" aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Descargar plantilla">
                         <i class="ti ti-file-download icono"></i>
                     </a>
                     <button class="btn btn-dark btn-icon" aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Recargar" onclick="getProveedores(2, '');">
@@ -269,7 +269,7 @@
             <div class="modal-body">
                 <form id="form-upload-proveedor">
                     <div class="tab-content">
-                        <div id="load-form1" class="efecto-cargando d-none">
+                        <div id="load-form1" class="efecto-cargando">
                             
                         </div>
                         <div class="row">
@@ -384,8 +384,8 @@
 </div>
 @endsection
 @section('script')
-<script src="{{ asset('assets/js/proveedores/crud-proveedor.js') }}"></script>
 <script src="{{ asset('assets/js/shared.js') }}"></script>
+<script src="{{ asset('assets/js/proveedores/crud-proveedor.js') }}"></script>
 <script>
     $( document ).ready(function() {
         getProveedores(2, '');

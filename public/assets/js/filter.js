@@ -18,7 +18,7 @@ function filterGeneral(modulo, tipo){
     $('#filtro-select').html('Filtro: '+textFiltro);
     switch (modulo){
         case 'usuarios':
-            getUsuarios(api, filtro);
+            getUsuarios(tipoFiltro, '');
             break;
         case 'marcas':
             getMarcas(tipoFiltro, '');
@@ -50,11 +50,8 @@ $("#search").keyup(function() {
     var modulo = $('#modulo').val();
     switch(modulo){
         case 'usuarios':
-            if($(this).val() == ''){
-                getUsuarios('api/getUsuarios/', 2);
-            }else{
-                getUsuarios('api/getUsuarios/', $(this).val());
-            }
+            getUsuarios(tipoFiltro, $(this).val());
+            break; 
             break; 
         case 'marcas':
             getMarcas(tipoFiltro, $(this).val());

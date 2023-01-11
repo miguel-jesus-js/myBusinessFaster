@@ -35,10 +35,13 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 });
+Route::get('/settings', function () {
+    return view('settings');
+});
 Route::get('/catalogos', function () {
     return view('catalogos');
 });
-Route::get('/usuarios', function () {
+Route::get('/empleados', function () {
     return view('usuarios');
 });
 Route::get('/marcas', function () {
@@ -71,10 +74,14 @@ Route::get('api/getRoles', [RolesController::class, 'index']);
 Route::get('api/getModulos', [ModulosController::class, 'index']);
 
 //apis usuarios
-Route::get('api/getUsuarios/{filtro}', [UsersController::class, 'index']);
+Route::get('api/getUsuarios/{tipo}', [UsersController::class, 'index']);
 Route::post('api/addUsuarios', [UsersController::class, 'create']);
 Route::put('api/updateUsuarios', [UsersController::class, 'update']);
 Route::delete('api/deleteUsuarios/{id}', [UsersController::class, 'delete']);
+Route::get('api/downloadPlantillaUsuario', [UsersController::class, 'downloadPlantilla'])->name('downloadPlantillaUsuario');
+Route::post('api/uploadUsuario', [UsersController::class, 'uploadUsuario']);
+Route::get('api/exportarPdfUsuario', [UsersController::class, 'exportarPDF']);
+Route::get('api/exportarExcelUsuario', [UsersController::class, 'exportarExcel']);
 //apis almacenes
 Route::get('api/getAlmacenes/{tipo}', [AlmacenesController::class, 'index']);
 Route::post('api/addAlmacenes', [AlmacenesController::class, 'create']);

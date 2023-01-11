@@ -6,7 +6,7 @@ $('#form-settings').submit(function(e){
         'url': 'api/updateSettings',
         'data': data,
         beforeSend: function(){
-
+            
         },
         success: function(response){
             let respuesta = JSON.parse(response);
@@ -22,8 +22,42 @@ $('#form-settings').submit(function(e){
         error: function(request, status, error){
 
         }
-    })
+    });
 });
+$('#form-general-settings').submit(function(e){
+    e.preventDefault();
+    let data = new FormData(this);
+    data.append('_method', 'PUT');
+    $.ajax({
+        'type': 'POST',
+        'url': 'api/updateSettings',
+        'data': data,
+        enctype: 'multipart/form-data',
+        contentType: false,
+        cache: false,
+        processData:false,
+        beforeSend: function(){
+            addHtmlEfectoLoad('load-form');
+            addClassBtnEfectoLoad('load-button', 'btn-modal');
+        },
+        success: function(response){
+            let respuesta = JSON.parse(response);
+            removeClassBtnEfectoLoad('load-form','load-button', 'btn-modal');
+            Toast.fire({
+                icon: respuesta.icon,
+                title: respuesta.title,
+                text: respuesta.text
+            });
+            if(respuesta.icon == 'success'){
+                getSettings();
+            }
+        },
+        error: function(request, status, error){
+
+        }
+    });
+});
+
 function getSettings(){
     $.ajax({
         'type': 'GET',
@@ -35,6 +69,17 @@ function getSettings(){
             localStorage.setItem('mostrar_banner', data[0].mostrar_banner);
             localStorage.setItem('mostrar_foto', data[0].mostrar_foto);
             getLocalSettings();
+            $('#show-logotipo').attr('src', '../img/'+data[0].logotipo);
+            $('#razon_social').val(data[0].razon_social);
+            $('#telefono').val(data[0].telefono);
+            $('#correo').val(data[0].correo);
+            $('#rfc').val(data[0].rfc);
+            $('#direccion').val(data[0].direccion);
+            $('#facebook').val(data[0].facebook);
+            $('#twitter').val(data[0].twitter);
+            $('#instagram').val(data[0].instagram);
+            $('#tiktok').val(data[0].tiktok);
+            $('#whatsapp').val(data[0].whatsapp);
         }
     })
 }
@@ -94,3 +139,11 @@ function hexToRgb(hex) {
       b: parseInt(result[3], 16)
     } : null;
 }
+$('#whatsapp').keyup(function(){
+    if($(this).val() != ''){
+        $('#div-mensaje').removeClass('d-none');
+    }else{
+        $('#div-mensaje').addClass('d-none');
+
+    }
+});

@@ -11,7 +11,7 @@ function addHtmlEfectoLoad(id){
         <span></span>
         <span></span>
     </div>
-    <b class="h3">Cargando</b>
+    <b class="h5">Cargando</b>
 `);
 }
 function addClassBtnEfectoLoad(boton, botonModal){
@@ -37,8 +37,8 @@ function removeClass(id){
 }
 
 function readCatalogos(){
-    const catalogos = ['Marcas', 'Usuarios', 'Categorias', 'Tipo de clientes', 'Unidad de medidas', 'Proveedores', 'Clientes', 'Productos', 'Materiales'];
-    const rutas = ['marcas', 'usuarios', 'categorias', 'tipo_clientes', 'unidad_medidas', 'proveedores', 'clientes', 'productos', 'materiales'];
+    const catalogos = ['Marcas', 'Empleados', 'Categorias', 'Tipo de clientes', 'Unidad de medidas', 'Proveedores', 'Clientes', 'Productos', 'Materiales'];
+    const rutas = ['marcas', 'empleados', 'categorias', 'tipo_clientes', 'unidad_medidas', 'proveedores', 'clientes', 'productos', 'materiales'];
     const iconos = ['ti ti-circles', 'ti ti-users', 'ti ti-award', 'ti ti-briefcase', 'ti ti-ruler-2', 'ti ti-truck', 'ti ti-friends', 'ti ti-cookie', 'ti ti-hammer'];
     var row = '';
     for(var i = 0; i < catalogos.length; i++)

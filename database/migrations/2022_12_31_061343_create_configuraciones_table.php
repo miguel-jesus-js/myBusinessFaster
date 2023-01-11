@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('logotipo', 100)->nullable(true);
             $table->string('razon_social', 50)->nullable(true);
             $table->char('telefono', 14)->nullable(true);
+            $table->char('correo', 100)->nullable(true);
             $table->string('rfc', 13)->nullable(true);
             $table->string('direccion', 200)->nullable(true);
             $table->char('color', 7)->nullable(true);
