@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Proveedores Excel</title>
+    <title>Sucursales PDF</title>
     <style>
         table { 
             border-collapse: collapse; 
-            font-size: 0.7em; 
+            font-size: 0.8em; 
             font-family: sans-serif; 
             min-width: 100%; 
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.15); 
@@ -39,32 +39,42 @@
     </style>
 </head>
 <body>
+    @if(!$esExcel)
+    <div class="header">
+        <img src="{{ public_path('img/logocolor.png') }}" alt="Logotipo" width="120">
+        <div class="desc">
+            <b>Teléfono: </b>919 151 34 20 <br>
+            <b>Fecha: </b>21 de Agosto de 2022 <br>
+            <b>Dirección: </b>Barrio Bonampack, Calle yachilan N° 18, CP: 29950
+        </div>
+    </div>
+    <br><br>
+    @endif
     <div class="container py-5">
         <table class="table table-bordered">
             <thead>
                 <tr>
                     <th>N°</th>
-                    <th>Clave</th>
                     <th>Nombre</th>
+                    <th>Responsable</th>
                     <th>Correo</th>
                     <th>Teléfono</th>
                     <th>RFC</th>
-                    <th>Empresa</th>
                     <th>Dirección</th>
                 </tr>
             </thead>
             <tbody>
-                @for ($i = 0; $i < sizeof($proveedores); $i++)
+                @for ($i = 0; $i < sizeof($sucursales); $i++)
                 <tr>
                     <td>{{ $i+1 }}</td>
-                    <td>{{ $proveedores[$i]['clave'] }}</td>
-                    <td>{{ $proveedores[$i]['nombres'].' '.$proveedores[$i]['app'].' '.$proveedores[$i]['apm'] }}</td>
-                    <td>{{ $proveedores[$i]['email'] }}</td>
-                    <td>{{ $proveedores[$i]['telefono'] }}</td>
-                    <td>{{ $proveedores[$i]['rfc'] }}</td>
-                    <td>{{ $proveedores[$i]['empresa'] }}</td>
-                    <td>{{ $proveedores[$i]['calle'].' '.($proveedores[$i]['n_exterior'] == 0 ? '' : $proveedores[$i]['n_exterior']).', '.$proveedores[$i]['colonia'].', '.$proveedores[$i]['cp'].', '.$proveedores[$i]['municipio'].', '.$proveedores[$i]['estado'].', '.$proveedores[$i]['ciudad'] }}</td>
+                    <td>{{ $sucursales[$i]['nombre'] }}</td>
+                    <td>{{ $sucursales[$i]['responsable'] == null ? '' : $sucursales[$i]['responsable']['nombres'].' '.$sucursales[$i]['responsable']['app'].' '.$sucursales[$i]['responsable']['apm']}}</td>
+                    <td>{{ $sucursales[$i]['correo'] }}</td>
+                    <td>{{ $sucursales[$i]['telefono'] }}</td>
+                    <td>{{ $sucursales[$i]['rfc'] }}</td>
+                    <td>{{ $sucursales[$i]['calle'].' '.($sucursales[$i]['n_exterior'] == 0 ? '' : $sucursales[$i]['n_exterior']).', '.$sucursales[$i]['colonia'].', '.$sucursales[$i]['cp'].', '.$sucursales[$i]['municipio'].', '.$sucursales[$i]['estado'].', '.$sucursales[$i]['ciudad'] }}</td>
                 </tr>
+
                 @endfor
             </tbody>
         </table>

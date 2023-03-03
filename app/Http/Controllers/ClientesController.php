@@ -138,10 +138,10 @@ class ClientesController extends Controller
     public function exportarPDF()
     {
         $clientes = Cliente::whereNull('deleted_at')->get();
-        $pdf = Pdf::loadView('pdf.clientes_pdf', ['clientes' => $clientes])->setPaper('a4', 'landscape');
+        $pdf = Pdf::loadView('pdf.clientes_pdf', ['clientes' => $clientes, 'esExcel' => false])->setPaper('a4', 'landscape');
         return $pdf->download('Clientes.pdf');
     }
-    public function exportarExcel(Request $request)
+    public function exportarExcel()
     {
         return Excel::download(new ClientesExport, 'Clientes.xlsx');
     }

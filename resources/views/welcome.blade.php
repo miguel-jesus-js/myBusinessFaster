@@ -41,7 +41,7 @@
                                 <span class="input-group-text border-end" id="icono-email">
                                     <i class="ti ti-mail"></i>
                                 </span>
-                                <input type="email" class="form-control border-end" name="email" id="email" placeholder="Correo" required autocomplete="off">
+                                <input type="email" class="form-control border-end" name="email" id="email" placeholder="Correo" required autocomplete="off" value="winalllpz@gmail.com">
                                 <div class="invalid-feedback" id="error-email"></div>
                             </div>
                             <br>
@@ -50,7 +50,7 @@
                                 <span class="input-group-text" id="icono-password">
                                     <i class="ti ti-key"></i>
                                 </span>
-                                <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña" autocomplete="off">
+                                <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña" autocomplete="off" value="SoftCode-2022">
                                 <span class="input-group-text" id="icono-showHide">
                                   <a href="#showHide" class="input-group-link" onclick="showHidePassword('icono')"><i class="ti ti-eye" id="icono"></i></a>
                                 </span>

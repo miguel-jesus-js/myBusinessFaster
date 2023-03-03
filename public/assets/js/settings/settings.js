@@ -3,7 +3,7 @@ $('#form-settings').submit(function(e){
     let data = $(this).serialize();
     $.ajax({
         'type': 'PUT',
-        'url': 'api/updateSettings',
+        'url': 'api/updateSettingsUser',
         'data': data,
         beforeSend: function(){
             
@@ -64,22 +64,23 @@ function getSettings(){
         'url': '/api/settings',
         success: function(response){
             let data = JSON.parse(response);
-            localStorage.setItem('navbar_color', data[0].color);
-            localStorage.setItem('mostrar_sidebar', data[0].mostrar_sidebar);
-            localStorage.setItem('mostrar_banner', data[0].mostrar_banner);
-            localStorage.setItem('mostrar_foto', data[0].mostrar_foto);
+            localStorage.setItem('navbar_color', data.settings.color);
+            localStorage.setItem('mostrar_sidebar', data.info.mostrar_sidebar);
+            localStorage.setItem('mostrar_banner', data.info.mostrar_banner);
+            localStorage.setItem('mostrar_foto', data.info.mostrar_foto);
             getLocalSettings();
-            $('#show-logotipo').attr('src', '../img/'+data[0].logotipo);
-            $('#razon_social').val(data[0].razon_social);
-            $('#telefono').val(data[0].telefono);
-            $('#correo').val(data[0].correo);
-            $('#rfc').val(data[0].rfc);
-            $('#direccion').val(data[0].direccion);
-            $('#facebook').val(data[0].facebook);
-            $('#twitter').val(data[0].twitter);
-            $('#instagram').val(data[0].instagram);
-            $('#tiktok').val(data[0].tiktok);
-            $('#whatsapp').val(data[0].whatsapp);
+            $('#show-logotipo').attr('src', '../img/'+data.settings.logotipo);
+            $('#razon_social').val(data.settings.razon_social);
+            $('#nombre').val(data.sucursal.nombre);
+            $('#telefono').val(data.sucursal.telefono);
+            $('#correo').val(data.sucursal.correo);
+            $('#rfc').val(data.sucursal.rfc);
+            $('#direccion').val(data.sucursal.direccion);
+            $('#facebook').val(data.sucursal.facebook);
+            $('#twitter').val(data.sucursal.twitter);
+            $('#instagram').val(data.sucursal.instagram);
+            $('#tiktok').val(data.sucursal.tiktok);
+            $('#whatsapp').val(data.sucursal.whatsapp);
         }
     })
 }

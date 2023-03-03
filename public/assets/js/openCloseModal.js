@@ -93,6 +93,35 @@ function openModal(id_modal, modulo, tipo){
                 $('#preview-img3').addClass('d-none');
             }
             break;
+        case 'almacenes':
+            if(tipo == 0){
+                $('#modal-title').html('Agregar almacén');
+            }else if(tipo == 1){
+                $('#modal-title').html('Editar almacén');
+            }
+            break;
+        case 'turnos':
+            if(tipo == 0){
+                $('#modal-title').html('Agregar turno');
+            }else if(tipo == 1){
+                $('#modal-title').html('Editar turno');
+            }
+            break;
+        case 'sucursales':
+            if(tipo == 0){
+                $('#modal-title').html('Agregar sucursal');
+            }else if(tipo == 1){
+                $('#modal-title').html('Editar sucursal');
+            }
+            break;
+        case 'productos_sucursal':
+            $('#table-productos tbody').empty();
+            if(tipo == 0){
+                $('#modal-title').html('Agregar productos a sucursal');
+            }else if(tipo == 1){
+                $('#modal-title').html('Editar producto de sucursal');
+            }
+            break;
     }
     $('#'+id_modal).modal({backdrop: 'static', keyboard: false});
     if(tipo == 3){

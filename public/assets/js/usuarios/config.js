@@ -187,3 +187,6 @@ $("input:checkbox").on('click', function() {
     $box.prop("checked", false);
   }
 });
+$('#sucursale_id1').change(function(){
+    getUsuarios(2, '');
+})

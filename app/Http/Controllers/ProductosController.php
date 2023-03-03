@@ -13,6 +13,7 @@ use App\Models\Caracteristica;
 use App\Imports\ProductosImport;
 use App\Exports\ProductosExport;
 use App\Traits\ImagesTrait;
+use Illuminate\Support\Facades\Auth;
 use PDF;
 
 class ProductosController extends Controller
@@ -185,6 +186,15 @@ class ProductosController extends Controller
             return json_encode(['icon'  => 'error', 'title'   => 'Error', 'text'  => 'Ocurrio un error la característica no fue eliminada']);
         }
     }
+    public function searchProductForSale(Request $request)
+    {
+        $data = $request->all();
+        $sucursalId = Auth::user()->sucursal->id;
+        $producto = Producto::whereHas('sucursales', function($query) use ($sucursalId){
+            $query->where('sucursale_id', $sucursalId);
+        })->with('sucursales')->where('cod_barra', $data['cod_barra_search'])->first();
+        return json_encode($producto);
+    }
     public function generateCodBarra()
     {   
         $existe = true;
@@ -221,7 +231,7 @@ class ProductosController extends Controller
             return json_encode(['icon'  => 'error', 'title'   => 'Error', 'text'  => 'Ocurrio un error, los productos no fueron registrados']);
         }
     }
-    public function exportarPDF(Request $request)
+    public function exportarPDF()
     {
         $nombreCampos = ['marca_id' => 'Marcas', 'almacene_id' => 'Almacén', 'unidad_medida_id' => 'Unidad de medida', 'proveedore_id' => 'Proveedor', 'materiale_id' => 'Material', 'cod_barra' => 'Código de barra', 'cod_sat' => 'Código del sat', 'producto' => 'Producto', 'pre_compra' => 'Precio de compra', 'pre_venta' => 'Precio de venta', 'pre_mayoreo' => 'Precio de mayoreo', 'utilidad' => 'Utilidad', 'stock_min' => 'Stock mínimo', 'stock' => 'Stock', 'caducidad' => 'Caduidad', 'color' => 'Color', 'talla' => 'Talla', 'modelo' => 'Modelo', 'meses_garantia' => 'Meses de garantía', 'peso_kg' => 'Peso en KG'];
         $marca          = $request->get('f-marca_id');
@@ -255,10 +265,10 @@ class ProductosController extends Controller
                     ->producto($producto)
                     ->get();
         //view()->share('pdf.productos_pdf', $productos);
-        $pdf = Pdf::loadView('pdf.productos_pdf', ['productos' => $productos, 'campos' => $campos, 'nombreCampos' => $nombreCampos])->setPaper('a4', 'landscape');;
+        $pdf = Pdf::loadView('pdf.productos_pdf', ['productos' => $productos, 'campos' => $campos, 'nombreCampos' => $nombreCampos, 'esExcel' => false])->setPaper('a4', 'landscape');;
         return $pdf->download('Productos.pdf');
     }
-    public function exportarExcel(Request $request)
+    public function exportarExcel()
     {
         return Excel::download(new ProductosExport, 'Productos.xlsx');
     }

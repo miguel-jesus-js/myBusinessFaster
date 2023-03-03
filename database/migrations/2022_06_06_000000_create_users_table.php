@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('sucursale_id')->nullable(false);
             $table->unsignedBigInteger('role_id')->nullable(false);
             $table->string('nombres', 50)->nullable(false);
             $table->string('app', 50)->nullable(false);
@@ -33,11 +34,16 @@ return new class extends Migration
             $table->string('nom_user', 20)->unique()->nullable(true);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('foto_perfil')->default('avatar.png')->nullable(false);
+            $table->string('foto_perfil')->nullable(false)->default('avatar.png');
             $table->boolean('estatus')->nullable(false)->default(true);
+            $table->boolean('mostrar_sidebar')->nullable(true)->default(true);
+            $table->boolean('mostrar_banner')->nullable(true)->default(true);
+            $table->boolean('mostrar_foto')->nullable(true)->default(true);
+            $table->boolean('isAdmin')->nullable(false)->default(false);
             $table->rememberToken();
             $table->timestamps();
             $table->softdeletes();
+            $table->foreign('sucursale_id')->references('id')->on('sucursales')->onDelete('cascade');
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
         });
     }

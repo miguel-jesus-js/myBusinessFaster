@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('detalles', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('ventas_id')->nullable(false);
+            $table->unsignedBigInteger('venta_id')->nullable(false);
             $table->unsignedBigInteger('producto_id')->nullable(false);
             $table->decimal('precio', 8, 2)->nullable(false);
             $table->integer('cantidad')->nullable(false);

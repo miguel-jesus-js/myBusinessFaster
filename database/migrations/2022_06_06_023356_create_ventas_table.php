@@ -23,9 +23,9 @@ return new class extends Migration
             $table->decimal('iva', 8, 2)->nullable(false);
             $table->decimal('descuento', 8, 2)->nullable(false);
             $table->decimal('total', 8, 2)->nullable(false);
-            $table->decimal('pago_con', 8, 2)->nullable(false);
-            $table->string('tipo_pago', 20)->nullable(false);
-            $table->boolean('estado')->nullable(false);
+            $table->decimal('paga_con', 8, 2)->nullable(false);
+            $table->enum('tipo_pago', ['Efectivo', 'Tarjeta'])->nullable(false);
+            $table->enum('estado', ['Pagado', 'Pendiente'])->nullable(false);
             $table->timestamps();
             $table->softdeletes();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

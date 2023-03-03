@@ -39,6 +39,7 @@
     </style>
 </head>
 <body>
+    @if(!$esExcel)
     <div class="header">
         <img src="{{ public_path('img/logocolor.png') }}" alt="Logotipo" width="120">
         <div class="desc">
@@ -48,6 +49,7 @@
         </div>
     </div>
     <br><br>
+    @endif
     <div class="container py-5">
         <table class="table table-bordered">
             <thead>

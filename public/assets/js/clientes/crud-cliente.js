@@ -94,7 +94,6 @@ function getClientes(tipo, filtro){
             $('#table-cliente tbody').html('<tr id="load-clientes"><td colspan="8"><center><h1>Cargando<span class="animated-dots"></span></h1></center></td></tr>');
         },
         success: function(response){
-            $('#load-clientes').addClass('d-none');
             var data = JSON.parse(response);
             var elimnado = '';
             var direcciones = '';

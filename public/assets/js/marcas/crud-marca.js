@@ -95,7 +95,6 @@ function getMarcas(tipo, filtro){
             $('#table-marca tbody').html('<tr id="load-marcas"><td colspan="8"><center><h1>Cargando<span class="animated-dots"></span></h1></center></td></tr>');
         },
         success: function(response){
-            $('#load-marcas').addClass('d-none');
             var data = JSON.parse(response);
             var elimnado = '';
             var row = '';

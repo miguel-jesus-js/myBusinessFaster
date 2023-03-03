@@ -15,7 +15,8 @@ class UnidadMedidasExport implements FromView
     {
         $unidadMedidas = UnidadMedida::all();
         return view('excel.unidad_medidas', [
-            'unidadMedidas' => $unidadMedidas
+            'unidadMedidas' => $unidadMedidas,
+            'esExcel' => true,s
         ]);
     }
 }

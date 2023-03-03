@@ -94,7 +94,6 @@ function getUnidadMedidas(tipo, filtro){
             $('#table-unidad_medida tbody').html('<tr id="load-unidad_medidas"><td colspan="8"><center><h1>Cargando<span class="animated-dots"></span></h1></center></td></tr>');
         },
         success: function(response){
-            $('#load-unidad_medidas').addClass('d-none');
             var data = JSON.parse(response);
             var elimnado = '';
             var row = '';

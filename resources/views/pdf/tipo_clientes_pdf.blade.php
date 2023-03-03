@@ -39,6 +39,7 @@
     </style>
 </head>
 <body>
+    @if(!$esExcel)
     <div class="header">
         <img src="{{ public_path('img/logocolor.png') }}" alt="Logotipo" width="120">
         <div class="desc">
@@ -47,7 +48,8 @@
             <b>Dirección: </b>Barrio Bonampack, Calle yachilan N° 18, CP: 29950
         </div>
     </div>
-    <br><br>
+    <br><br>s
+    @endif
     <div class="container py-5">
         <table class="table table-bordered">
             <thead>

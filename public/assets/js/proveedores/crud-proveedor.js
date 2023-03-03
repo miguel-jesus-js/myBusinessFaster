@@ -95,7 +95,6 @@ function getProveedores(tipo, filtro){
             $('#table-proveedor tbody').html('<tr id="load-proveedores"><td colspan="8"><center><h1>Cargando<span class="animated-dots"></span></h1></center></td></tr>');
         },
         success: function(response){
-            $('#load-proveedores').addClass('d-none');
             var data = JSON.parse(response);
             var elimnado = '';
             var acceso = '';

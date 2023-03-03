@@ -42,10 +42,6 @@ class MaterialesController extends Controller
     }
     public function update(MaterialesRequest $request)
     {
-        $request->validate([
-            'id'          => 'required',
-            'material'       => 'required',
-        ]);
         $material = Materiale::find($request->all()['id']);
         $data = $request->all();
         try {
@@ -82,10 +78,10 @@ class MaterialesController extends Controller
     public function exportarPDF()
     {
         $materiales = Materiale::whereNull('deleted_at')->get();
-        $pdf = Pdf::loadView('pdf.materiales_pdf', ['materiales' => $materiales]);
+        $pdf = Pdf::loadView('pdf.materiales_pdf', ['materiales' => $materiales, 'esExcel' => false]);
         return $pdf->download('Materiales.pdf');
     }
-    public function exportarExcel(Request $request)
+    public function exportarExcel()
     {
         return Excel::download(new MaterialesExport, 'Materiales.xlsx');
     }

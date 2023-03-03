@@ -254,6 +254,12 @@
                                         <span class="pcoded-mtext">Catálogos</span>
                                     </a>
                                 </li>
+                                <li class="{{ (request()->is('asignar_productos')) ? 'active' : '' }} data-item-color">
+                                    <a href="/asignar_productos" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti ti-git-branch icono"></i></span>
+                                        <span class="pcoded-mtext">Asignar productos</span>
+                                    </a>
+                                </li>
                                 <li class="pcoded-hasmenu data-item-color">
                                     <a href="javascript:void(0)" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti ti-shopping-cart icono"></i></span>
@@ -262,14 +268,14 @@
                                     </a>
                                     <ul class="pcoded-submenu">
                                         <li class=" ">
-                                            <a href="breadcrumb.html" class="waves-effect waves-dark">
+                                            <a href="/punto-de-venta" target="_blank" class="waves-effect waves-dark">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext">Punto de venta</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class=" ">
-                                            <a href="button.html" class="waves-effect waves-dark">
+                                            <a href="/historial" class="waves-effect waves-dark">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext">Historial</span>
                                                 <span class="pcoded-mcaret"></span>

@@ -80,10 +80,10 @@ class ProveedoresController extends Controller
     public function exportarPDF()
     {
         $proveedores = Proveedore::whereNull('deleted_at')->get();
-        $pdf = Pdf::loadView('pdf.proveedores_pdf', ['proveedores' => $proveedores])->setPaper('a4', 'landscape');
+        $pdf = Pdf::loadView('pdf.proveedores_pdf', ['proveedores' => $proveedores, 'esExcel' => false])->setPaper('a4', 'landscape');
         return $pdf->download('Proveedores.pdf');
     }
-    public function exportarExcel(Request $request)
+    public function exportarExcel()
     {
         return Excel::download(new ProveedoresExport, 'Proveedores.xlsx');
     }

@@ -1,6 +1,6 @@
 @extends('layouts.base')
 @section('contenido')
-<div class="page-header">
+<div class="page-header" id="page-header">
     <div class="page-block">
         <div class="row align-items-center">
             <div class="col-md-8">
@@ -180,6 +180,10 @@
                                                         <input type="text" class="form-control" name="razon_social" id="razon_social" required placeholder="Razón social" autocomplete="off" minlength="3" maxlength="100">
                                                     </div>
                                                     <div class="col-sm-6 col-md-4">
+                                                        <label for="" class="form-label required">Nombre</label>
+                                                        <input type="text" class="form-control" name="nombre" id="nombre" required placeholder="Nombre" autocomplete="off" minlength="3" maxlength="100">
+                                                    </div>
+                                                    <div class="col-sm-6 col-md-4">
                                                         <label for="" class="form-label required">Télefono</label>
                                                         <input type="text" name="telefono" id="telefono" class="form-control" data-mask="(00) 0000-0000" data-mask-visible="true" placeholder="(00) 0000-0000" required autocomplete="off">
                                                     </div>
@@ -191,8 +195,48 @@
                                                 <label for="" class="form-label required">Correo</label>
                                                 <input type="email" class="form-control" name="correo" id="correo" required placeholder="Correo" autocomplete="off" minlength="7" maxlength="100">
                                                 <br>
-                                                <label for="" class="form-label required">Dirección</label>
-                                                <textarea class="form-control" name="direccion" id="direccion" required placeholder="Dirección" autocomplete="off" rows="3" minlength="10" maxlength="200"></textarea>
+                                                <div class="row">
+                                                    <div class="col-sm-6 col-md-4 mb-3">
+                                                        <label class="form-label required">Ciudad</label>
+                                                        <input type="text" class="form-control" name="ciudad" id="ciudad" placeholder="Ciudad" required autocomplete="off" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,50}" maxlength="50" minlength="5">
+                                                        <div class="invalid-feedback" id="error-ciudad"></div>
+                                                    </div>
+                                                    <div class="col-sm-6 col-md-4 mb-3">
+                                                        <label class="form-label required">Estado</label>
+                                                        <input type="text" class="form-control" name="estado" id="estado" placeholder="Estado" required autocomplete="off" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,50}" maxlength="50" minlength="5">
+                                                        <div class="invalid-feedback" id="error-estado"></div>
+                                                    </div>
+                                                    <div class="col-sm-6 col-md-4 mb-3">
+                                                        <label class="form-label required">Municipio</label>
+                                                        <input type="text" class="form-control" name="municipio" id="municipio" placeholder="Municipio" required autocomplete="off" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,50}" maxlength="50" minlength="5">
+                                                        <div class="invalid-feedback" id="error-municipio"></div>
+                                                    </div>
+                                                    <div class="col-sm-6 col-md-4 mb-3">
+                                                        <label class="form-label required">Código postal</label>
+                                                        <input type="number" class="form-control" name="cp" id="cp" placeholder="Código postal" required autocomplete="off" maxlength="5" minlength="5">
+                                                        <div class="invalid-feedback" id="error-cp"></div>
+                                                    </div>
+                                                    <div class="col-sm-6 col-md-4 mb-3">
+                                                        <label class="form-label required">Colonia</label>
+                                                        <input type="text" class="form-control" name="colonia" id="colonia" placeholder="Colonia" required autocomplete="off" maxlength="50" minlength="5">
+                                                        <div class="invalid-feedback" id="error-colonia"></div>
+                                                    </div>
+                                                    <div class="col-sm-6 col-md-4 mb-3">
+                                                        <label class="form-label required">Calle</label>
+                                                        <input type="text" class="form-control" name="calle" id="calle" placeholder="Calle" required autocomplete="off">
+                                                        <div class="invalid-feedback" id="error-calle"></div>
+                                                    </div>
+                                                    <div class="col-sm-6 col-md-4 mb-3">
+                                                        <label class="form-label">N° Exterior </label>
+                                                        <input type="number" class="form-control" name="n_exterior" id="n_exterior" placeholder="N° Exterior" autocomplete="off" min="0" max="200">
+                                                        <div class="invalid-feedback" id="error-n_exterior"></div>
+                                                    </div>
+                                                    <div class="col-sm-6 col-md-4 mb-3">
+                                                        <label class="form-label">N° Interior</label>
+                                                        <input type="number" class="form-control" name="n_interior" id="n_interior" placeholder="N° Interior" autocomplete="off" min="0" max="200">
+                                                        <div class="invalid-feedback" id="error-n_interior"></div>
+                                                    </div>
+                                                </div>
                                                 <div class="row my-3">
                                                     <div class="col-sm-6 mb-3">
                                                         <label for="" class="form-label">URL de facebook</label>

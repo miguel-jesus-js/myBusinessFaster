@@ -12,7 +12,7 @@
             <div class="col-md-4">
                 <ol class="breadcrumb breadcrumb-arrows" aria-label="breadcrumbs">
                     <li class="breadcrumb-item"><i class="ti ti-smart-home me-2"></i><a href="/dashboard">Home</a></li>
-                    <li class="breadcrumb-item active"><i class="ti ti-circles me-2"></i><a href="#">Catalogos</a></li>
+                    <li class="breadcrumb-item active"><i class="ti brand-tidal me-2"></i><a href="#">Catalogos</a></li>
                 </ol>
             </div>
         </div>
@@ -25,6 +25,18 @@
         <div class="page-wrapper">
             <!-- Page-body start -->
             <div class="page-body">
+                <div class="row">
+                    <div class="col-sm-6 col-md-6">
+                        <label class="form-label">Buscar</label>
+                        <div class="input-icon mb-3">
+                            <input type="search" id="search-catalog" class="form-control" placeholder="Buscar..." autocomplete="off">
+                            <span class="input-icon-addon">
+                                <i class="ti ti-search"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <br>
                 <div class="row" id="lista-catalogos">
                     
                 </div><!-- End row -->

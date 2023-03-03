@@ -24,7 +24,7 @@ class ClientesRequest extends FormRequest
     public function rules()
     {
         return [
-            'tipo_cliente_id'      => 'required|numeric',
+            'tipo_cliente_id'   => 'required|numeric',
             'nombres'           => 'required|min:3|max:50|regex:/^[\sA-Za-zÁÉÍÓÚáéíóúÑñ]{3,50}$/',
             'app'               => 'required|min:3|max:50|regex:/^[\sA-Za-zÁÉÍÓÚáéíóúÑñ]{3,50}$/',
             'apm'               => 'required|min:3|max:50|regex:/^[\sA-Za-zÁÉÍÓÚáéíóúÑñ]{3,50}$/',

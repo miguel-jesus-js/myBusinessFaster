@@ -16,7 +16,8 @@ class CategoriasExport implements FromView
     {
         $categorias = Categoria::all();
         return view('excel.categorias', [
-            'categorias' => $categorias
+            'categorias' => $categorias,
+            'esExcel' => true,
         ]);
     }
 }

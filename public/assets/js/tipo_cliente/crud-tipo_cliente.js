@@ -93,7 +93,6 @@ function getTipoClientes(tipo, filtro){
             $('#table-tipo_cliente tbody').html('<tr id="load-tipo_clientes"><td colspan="8"><center><h1>Cargando<span class="animated-dots"></span></h1></center></td></tr>');
         },
         success: function(response){
-            $('#load-tipo_clientes').addClass('d-none');
             var data = JSON.parse(response);
             var elimnado = '';
             var row = '';

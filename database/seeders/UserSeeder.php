@@ -18,6 +18,7 @@ class UserSeeder extends Seeder
     {
         $data = [
             [
+                'sucursale_id'  => 1,
                 'role_id'       => 1,
                 'nombres'       => 'Diana berenice',
                 'app'           => 'Rodriguez',
@@ -34,8 +35,10 @@ class UserSeeder extends Seeder
                 'n_exterior'    => 18,
                 'nom_user'      => 'dayana pez',
                 'password'      => Hash::make('SoftCode-2022'),
+                'isAdmin'       => true,
             ],
             [
+                'sucursale_id'  => 1,
                 'role_id'       => 1,
                 'nombres'       => 'Miguel de Jesús',
                 'app'           => 'López',
@@ -52,8 +55,10 @@ class UserSeeder extends Seeder
                 'n_exterior'    => 18,
                 'nom_user'      => 'miguel-js',
                 'password'      => Hash::make('SoftCode-2022'),
+                'isAdmin'       => true,
             ],
             [
+                'sucursale_id'  => 1,
                 'role_id'       => 2,
                 'nombres'       => 'Jose Enrique',
                 'app'           => 'López',
@@ -70,8 +75,10 @@ class UserSeeder extends Seeder
                 'n_exterior'    => 18,
                 'nom_user'      => 'jose-js',
                 'password'      => Hash::make('SoftCode-2022'),
+                'isAdmin'       => false,
             ],
             [
+                'sucursale_id'  => 1,
                 'role_id'       => 2,
                 'nombres'       => 'Pedro alejandro',
                 'app'           => 'López',
@@ -88,8 +95,10 @@ class UserSeeder extends Seeder
                 'n_exterior'    => 18,
                 'nom_user'      => 'alex 2022',
                 'password'      => Hash::make('SoftCode-2022'),
+                'isAdmin'       => false,
             ],
             [
+                'sucursale_id'  => 1,
                 'role_id'       => 2,
                 'nombres'       => 'Esther',
                 'app'           => 'López',
@@ -106,8 +115,10 @@ class UserSeeder extends Seeder
                 'n_exterior'    => 18,
                 'nom_user'      => 'esther 2022',
                 'password'      => Hash::make('SoftCode-2022'),
+                'isAdmin'       => false,
             ],
             [
+                'sucursale_id'  => 1,
                 'role_id'       => 2,
                 'nombres'       => 'Pedro',
                 'app'           => 'López',
@@ -124,8 +135,10 @@ class UserSeeder extends Seeder
                 'n_exterior'    => 18,
                 'nom_user'      => 'pedro gomez',
                 'password'      => Hash::make('SoftCode-2022'),
+                'isAdmin'       => false,
             ],
             [
+                'sucursale_id'  => 1,
                 'role_id'       => 2,
                 'nombres'       => 'Jesus',
                 'app'           => 'López',
@@ -142,9 +155,11 @@ class UserSeeder extends Seeder
                 'n_exterior'    => 18,
                 'nom_user'      => 'jesus lpz',
                 'password'      => Hash::make('SoftCode-2022'),
+                'isAdmin'       => false,
             ],
 
         ];
         DB::table('users')->insert($data);
+        DB::table('sucursales')->where('id', 1)->update(['user_id' => 1]);
     }
 }

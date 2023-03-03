@@ -32,9 +32,6 @@ class CategoriasController extends Controller
     }
     public function create(CategoriasRequest $request)
     {
-        $request->validate([
-            'categoria'       => 'required',
-        ]);
         $data = $request->all();
         try {
             Categoria::create($data);
@@ -45,10 +42,6 @@ class CategoriasController extends Controller
     }
     public function update(CategoriasRequest $request)
     {
-        $request->validate([
-            'id'          => 'required',
-            'categoria'       => 'required',
-        ]);
         $categorias = Categoria::find($request->all()['id']);
         $data = $request->all();
         try {
@@ -85,10 +78,10 @@ class CategoriasController extends Controller
     public function exportarPDF()
     {
         $categorias = Categoria::whereNull('deleted_at')->get();
-        $pdf = Pdf::loadView('pdf.categoria_pdf', ['categorias' => $categorias]);
+        $pdf = Pdf::loadView('pdf.categoria_pdf', ['categorias' => $categorias, 'esExcel' => false]);
         return $pdf->download('Categorías.pdf');
     }
-    public function exportarExcel(Request $request)
+    public function exportarExcel()
     {
         return Excel::download(new CategoriasExport, 'Categorías.xlsx');
     }

@@ -24,17 +24,17 @@ class CaracteristicasTableRequest extends FormRequest
     public function rules()
     {
         return [
-            'caracteristica'            => 'required|array|min:1',
-            'caracteristica.*'          => 'required|min:5|max:100|regex:/^[a-zA-ZÁÉÍÓÚáéíóúÑñ0-9,.!? ]*$/',
+            'caracteristica'    => 'required|array|min:1',
+            'caracteristica.*'  => 'required|min:5|max:100|regex:/^[a-zA-ZÁÉÍÓÚáéíóúÑñ0-9,.!? ]*$/',
         ];
     }
     public function messages()
     {
         return [
-            'caracteristica.required'       => 'Escribe alguna característica',
-            'caracteristica.*.min'          => 'La característica debe tener mínimo 5 caracteres',
-            'caracteristica.*.max'          => 'La característica debe tener máximo 100 caracteres',
-            'caracteristica.*.regex'        => 'La característica debe ser letras sin caracteres especiales',
+            'caracteristica.required'   => 'Escribe alguna característica',
+            'caracteristica.*.min'      => 'La característica debe tener mínimo 5 caracteres',
+            'caracteristica.*.max'      => 'La característica debe tener máximo 100 caracteres',
+            'caracteristica.*.regex'    => 'La característica debe ser letras sin caracteres especiales',
         ];
     }
 }

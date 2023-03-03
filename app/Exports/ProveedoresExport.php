@@ -16,7 +16,8 @@ class ProveedoresExport implements FromView
     {
         $proveedores = Proveedore::all();
         return view('excel.proveedores', [
-            'proveedores' => $proveedores
+            'proveedores' => $proveedores,
+            'esExcel' => true,
         ]);
     }
 }

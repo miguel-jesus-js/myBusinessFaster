@@ -1,6 +1,6 @@
 @extends('layouts.base')
 @section('contenido')
-<div class="page-header">
+<div class="page-header" id="page-header">
     <div class="page-block">
         <div class="row align-items-center">
             <div class="col-md-8">
@@ -12,6 +12,7 @@
             <div class="col-md-4">
                 <ol class="breadcrumb breadcrumb-arrows" aria-label="breadcrumbs">
                     <li class="breadcrumb-item"><i class="ti ti-smart-home me-2"></i><a href="/dashboard">Home</a></li>
+                    <li class="breadcrumb-item"><i class="ti ti-brand-tidal me-2"></i><a href="/dashboard">Catalogos</a></li>
                     <li class="breadcrumb-item active"><i class="ti ti-truck me-2"></i><a href="/proveedores">Proveedores</a></li>
                 </ol>
             </div>
@@ -98,7 +99,7 @@
                     <button class="btn btn-dark btn-icon" aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Importar" onclick="openModal('upload-proveedor','proveedores', 0)">
                         <i class="ti ti-file-upload icono"></i>
                     </button>
-                    <a href="{{ route('downloadPlantillaProveedor') }}" target="_blank" class="btn btn-dark btn-icon" aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Descargar plantilla">
+                    <a href="{{ route('downloadPlantillaProveedor') }}" target="_blank" class="btn btn-dark btn-icon" aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Descargar plantilla" download="Excel proveedores">
                         <i class="ti ti-file-download icono"></i>
                     </a>
                     <button class="btn btn-dark btn-icon" aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Recargar" onclick="getProveedores(2, '');">

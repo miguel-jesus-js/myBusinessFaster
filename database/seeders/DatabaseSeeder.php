@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(ModuloSeeder::class);
         $this->call(RoleSeeder::class);
+        $this->call(SucursalesSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(ProveedoresSeeder::class);
         $this->call(CategoriasSeeder::class);
@@ -26,6 +27,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ClientesSeeder::class);
         $this->call(DireccionesEntregasSeeder::class);
         $this->call(ConfiguracionesSeeder::class);
+        $this->call(AlmacenesSeeder::class);
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([

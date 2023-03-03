@@ -1,6 +1,6 @@
 @extends('layouts.base')
 @section('contenido')
-<div class="page-header">
+<div class="page-header" id="page-header">
     <div class="page-block">
         <div class="row align-items-center">
             <div class="col-md-8">
@@ -12,6 +12,7 @@
             <div class="col-md-4">
                 <ol class="breadcrumb breadcrumb-arrows" aria-label="breadcrumbs">
                     <li class="breadcrumb-item"><i class="ti ti-smart-home me-2"></i><a href="/dashboard">Home</a></li>
+                    <li class="breadcrumb-item"><i class="ti ti-brand-tidal me-2"></i><a href="/dashboard">Catalogos</a></li>
                     <li class="breadcrumb-item active"><i class="ti ti-users me-2"></i><a href="/usuarios">Empleados</a></li>
                 </ol>
             </div>
@@ -65,6 +66,14 @@
                                             <span class="form-check-label">No eliminados</span>
                                         </label>
                                     </li>
+                                    @if(Auth::user()->isAdmin)    
+                                    <label class="form-label">Sucursal</label>
+                                    <li>
+                                        <select class="form-select" name="sucursale_id1" id="sucursale_id1" onclick="getSucursales()" required>
+                                            <option value="" id="load-select1" disabled selected>Elige una opción</option>
+                                        </select>
+                                    </li>
+                                    @endif
                                 </ul>
                             </button>
                         </div>
@@ -98,7 +107,7 @@
                     <button class="btn btn-dark btn-icon" aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Importar" onclick="openModal('upload-usuario','usuarios', 0)">
                         <i class="ti ti-file-upload icono"></i>
                     </button>
-                    <a href="{{ route('downloadPlantillaUsuario') }}" target="_blank" class="btn btn-dark btn-icon" aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Descargar plantilla">
+                    <a href="{{ route('downloadPlantillaUsuario') }}" target="_blank" class="btn btn-dark btn-icon" aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Descargar plantilla" download="Excel empleados">
                         <i class="ti ti-file-download icono"></i>
                     </a>
                     <button class="btn btn-dark btn-icon" aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Recargar" onclick="getUsuarios(2, '');">
@@ -107,10 +116,11 @@
                 </div>
                 <br><br>
                 <div class="table-responsive">
-                    <table id="table-user" class="table shadow-sm bg-white">
+                    <table id="table-user" class="table shadow-sm bg-white table-bordered">
                         <thead>
                             <tr>
                                 <th colspan="2">Nombre</th>
+                                <th>Sucursal</th>
                                 <th>Usuario</th>
                                 <th>Tipo</th>
                                 <th>Correo</th>
@@ -163,6 +173,15 @@
                         </div>
                         <div class="tab-pane active show" id="tab-datos-pers">
                             <div class="row">
+                                @if(Auth::user()->isAdmin) 
+                                <div class="col-sm-6 col-md-4 mb-3">
+                                    <label class="form-label required">Sucursal</label>
+                                    <select class="form-select" name="sucursale_id" id="sucursale_id" onclick="getSucursales()" required>
+                                        <option value="" id="load-select" disabled selected>Elige una opción</option>
+                                    </select>
+                                    <div class="invalid-feedback" id="error-sucursale_id"></div>
+                                </div>
+                                @endif
                                 <div class="col-sm-6 col-md-4 mb-3">
                                     <input type="number" class="d-none" id="id" name="id">
                                     <label class="form-label required">Nombre(s)</label>
@@ -383,6 +402,7 @@
 @section('script')
 <script src="{{ asset('assets/js/shared.js') }}"></script>
 <script src="{{ asset('assets/js/usuarios/config.js') }}"></script>
+<script src="{{ asset('assets/js/almacenes/config.js') }}"></script>
 <script src="{{ asset('assets/js/usuarios/crud-user.js') }}"></script>
 <script>
     $( document ).ready(function() {

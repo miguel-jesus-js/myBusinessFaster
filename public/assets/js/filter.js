@@ -44,6 +44,18 @@ function filterGeneral(modulo, tipo){
         case 'productos':
             getProductos(tipoFiltro, '&producto=');
             break;
+        case 'almacenes':
+            getAlmacenes(tipoFiltro, '');
+            break;
+        case 'turnos':
+            getTurnos(tipoFiltro, '');
+            break;
+        case 'sucursales':
+            getSucursales(tipoFiltro, '');
+            break;
+        case 'productos_sucursal':
+            getProductosSucursal(tipoFiltro, '');
+            break;
     }
 }
 $("#search").keyup(function() {
@@ -76,6 +88,18 @@ $("#search").keyup(function() {
             break;
         case 'productos':
             getProductos(tipoFiltro, '&producto='+$(this).val());
+            break;
+        case 'almacenes':
+            getAlmacenes(tipoFiltro, $(this).val());
+            break;
+        case 'turnos':
+            getTurnos(tipoFiltro, $(this).val());
+            break;
+        case 'sucursales':
+            getSucursales(tipoFiltro, $(this).val());
+            break;
+        case 'productos_sucursal':
+            getProductosSucursal(tipoFiltro, $(this).val());
             break;
     }
 });

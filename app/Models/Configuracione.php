@@ -11,20 +11,6 @@ class Configuracione extends Model
     protected $fillable = [
         'logotipo',
         'razon_social',
-        'telefono',
-        'correo',
-        'rfc',
-        'direccion',
         'color',
-        'mostrar_sidebar',
-        'mostrar_banner',
-        'mostrar_foto',
-        'facebook',
-        'twitter',
-        'instagram',
-        'tiktok',
-        'whatsapp',
-        'mensaje',
-        'esta_configurado',
     ];
 }

@@ -32,9 +32,6 @@ class UnidadMedidasController extends Controller
     }
     public function create(UnidadMedidasRequest $request)
     {
-        $request->validate([
-            'unidad_medida'       => 'required',
-        ]);
         $data = $request->all();
         try {
             UnidadMedida::create($data);
@@ -45,10 +42,6 @@ class UnidadMedidasController extends Controller
     }
     public function update(UnidadMedidasRequest $request)
     {
-        $request->validate([
-            'id'                    => 'required',
-            'unidad_medida'         => 'required',
-        ]);
         $unidad_medidas = UnidadMedida::find($request->all()['id']);
         $data = $request->all();
         try {
@@ -85,10 +78,10 @@ class UnidadMedidasController extends Controller
     public function exportarPDF()
     {
         $unidadMedidas = UnidadMedida::whereNull('deleted_at')->get();
-        $pdf = Pdf::loadView('pdf.unidad_medidas_pdf', ['unidadMedidas' => $unidadMedidas]);
+        $pdf = Pdf::loadView('pdf.unidad_medidas_pdf', ['unidadMedidas' => $unidadMedidas, 'esExcel' => false]);
         return $pdf->download('Unidades de medida.pdf');
     }
-    public function exportarExcel(Request $request)
+    public function exportarExcel()
     {
         return Excel::download(new UnidadMedidasExport, 'Unidades de medida.xlsx');
     }

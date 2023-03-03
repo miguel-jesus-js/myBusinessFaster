@@ -1,3 +1,4 @@
+var idSucursal = 0;
 $('#form-add-user').submit(function(e){
     e.preventDefault();
     removeClass('form-add-user');
@@ -89,13 +90,12 @@ $('#form-upload-usuario').submit(function(e){
 function getUsuarios(tipo, filtro){
     $.ajax({
         'type': 'get',
-        'url': '/api/getUsuarios/'+tipo+'?filtro='+filtro,
+        'url': '/api/getUsuarios/'+tipo+'?filtro='+filtro+'&sucursal='+$('#sucursale_id1').val(),
         beforeSend: function(){
             $('#table-user tbody').empty();
             $('#table-user tbody').html('<tr id="load-users"><td colspan="8"><center><h1>Cargando<span class="animated-dots"></span></h1></center></td></tr>');
         },
         success: function(response){
-            $('#load-users').addClass('d-none');
             var data = JSON.parse(response);
             var elimnado = '';
             var row = '';
@@ -109,12 +109,13 @@ function getUsuarios(tipo, filtro){
                     <tr class="${elimnado}">
                         <td><span class="avatar avatar-sm avatar-rounded" style="background-image: url(img/usuarios/${valor.foto_perfil})"></span></td>
                         <td>${valor.nombres} ${valor.app} ${valor.apm}</td>
+                        <td>${valor.sucursal.nombre}</td>
                         <td>${valor.nom_user}</td>
                         <td></td>
                         <td>${valor.email}</td>
                         <td>${valor.telefono}</td>
                         <td>
-                            <button type="button" class="btn p-0 border-0" onclick="onChange(${valor.id}, ${valor.role_id}, '${valor.nombres}', '${valor.app}', '${valor.apm}', '${valor.email}', '${valor.telefono}', '${valor.rfc}', '${valor.ciudad}', '${valor.estado}', '${valor.municipio}', ${valor.cp}, '${valor.colonia}', '${valor.calle}', ${valor.n_exterior}, ${valor.n_interior}, '${valor.nom_user}');"><i class="ti ti-edit icono text-primary"></i></button>
+                            <button type="button" class="btn p-0 border-0" onclick="onChange(${valor.id}, ${valor.role_id}, ${valor.sucursale_id}, '${valor.nombres}', '${valor.app}', '${valor.apm}', '${valor.email}', '${valor.telefono}', '${valor.rfc}', '${valor.ciudad}', '${valor.estado}', '${valor.municipio}', ${valor.cp}, '${valor.colonia}', '${valor.calle}', ${valor.n_exterior}, ${valor.n_interior}, '${valor.nom_user}');"><i class="ti ti-edit icono text-primary"></i></button>
                         </td>
                         <td>
                             <button type="button" class="btn p-0 border-0" onclick="confirmDelete(${valor.id}, '${valor.nombres}', 'api/deleteUsuarios/', 'usuario', 'el');"><i class="ti ti-trash icono text-danger"></i></button>
@@ -132,9 +133,12 @@ function getUsuarios(tipo, filtro){
         }
     })
 }
-function onChange(id, role_id, nombres, app, apm, email, telefono, rfc, ciudad, estado, municipio, cp, colonia, calle, n_exterior, n_interior, nom_user){
-    getRoles();
+function onChange(id, role_id, sucursale_id, nombres, app, apm, email, telefono, rfc, ciudad, estado, municipio, cp, colonia, calle, n_exterior, n_interior, nom_user){
+    idSucursal = sucursale_id;
+    debugger;
     $('#id').val(id);
+    $('#role_id').val(role_id);
+    $('#sucursale_id').val(sucursale_id);
     $('#nombres').val(nombres);
     $('#app').val(app);
     $('#apm').val(apm);
@@ -150,6 +154,7 @@ function onChange(id, role_id, nombres, app, apm, email, telefono, rfc, ciudad, 
     $('#n_exterior').val(n_exterior);
     $('#n_interior').val(n_interior);
     $('#nom_user').val(nom_user);
+    getRoles();
+    getSucursales();
     openModal('modal-user', 'usuarios', 1);
-    $('#role_id').val(role_id);
 }

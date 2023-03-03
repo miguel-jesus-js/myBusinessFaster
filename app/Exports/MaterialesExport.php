@@ -15,7 +15,8 @@ class MaterialesExport implements FromView
     {
         $materiales = Materiale::all();
         return view('excel.materiales', [
-            'materiales' => $materiales
+            'materiales' => $materiales,
+            'esExcel' => true,
         ]);
     }
 }

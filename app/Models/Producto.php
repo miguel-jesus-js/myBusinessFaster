@@ -23,7 +23,6 @@ class Producto extends Model
         'pre_mayoreo',
         'utilidad',
         'stock_min',
-        'stock',
         'img1',
         'img2',
         'img3',
@@ -168,5 +167,17 @@ class Producto extends Model
     public function caracteristicas()
     {
         return $this->hasMany(Caracteristica::class, 'producto_id', 'id');
+    }
+    public function sucursales()
+    {
+        return $this->belongsToMany(Sucursale::class, 'productos_sucursal', 'producto_id', 'sucursale_id')->withPivot('stock');
+    }
+    public function productosSucursal()
+    {
+        return $this->belongsTo(ProductosSucursal::class, 'id', 'producto_id');
+    }
+    public function ventas()
+    {
+        return $this->belongsToMany(Venta::class, 'detalles', 'producto_id', 'venta_id')->withPivot('precio', 'cantidad', 'importe');
     }
 }

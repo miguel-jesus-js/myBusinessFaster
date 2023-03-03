@@ -145,7 +145,6 @@ function getProductos(tipo, filtro){
                             <td>${formatter.format(valor.pre_compra)}</td>
                             <td>${formatter.format(valor.pre_venta)}</td>
                             <td class="d-none oculto">${formatter.format(valor.pre_mayoreo)}</td>
-                            <td>${valor.stock}</td>
                             <td class="d-none oculto">${valor.stock_min}</td>
                             <td class="d-none oculto">${formatter.format(valor.utilidad)}</td>
                             <td class="d-none oculto">${valor.cod_sat == null ? '' : valor.cod_sat}</td>

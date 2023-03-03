@@ -23,7 +23,7 @@ class UsersRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'nombres'   => 'required|min:3|max:50|regex:/^[\sA-Za-zÁÉÍÓÚáéíóúÑñ]{3,50}$/',
             'app'       => 'required|min:3|max:50|regex:/^[\sA-Za-zÁÉÍÓÚáéíóúÑñ]{3,50}$/',
             'apm'       => 'required|min:3|max:50|regex:/^[\sA-Za-zÁÉÍÓÚáéíóúÑñ]{3,50}$/',
@@ -41,10 +41,18 @@ class UsersRequest extends FormRequest
             'n_exterior'=> 'nullable|min:0|max:2000|numeric',
             'n_interior'=> 'nullable|min:0|max:2000|numeric',
         ];
+        if($this->user()->isAdmin)
+        {
+            $rules['sucursale_id']  = 'required|numeric|exists:sucursales,id';
+        }
+        return $rules;
     }
     public function messages()
     {
         return [
+            'sucursale_id.required' => 'Seleccione una sucursal',
+            'sucursale_id.numeric'  => 'La sucursal debe ser un número',
+            'sucursale_id.exists'   => 'La sucursal no coincide con las sucursales de la base de datos',
             'nombres.required'      => 'Escribe algún nombre',
             'nombres.min'           => 'El nombre debe tener mínimo 3 caracteres',
             'nombres.max'           => 'El nombre debe tener máximo 50 caracteres',

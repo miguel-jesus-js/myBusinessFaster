@@ -10,12 +10,21 @@ const Toast = Swal.mixin({
     }
 })
 
-function msjInfo(icon, title, text){
+function msjInfo(icon, title, html, showCancelButton, textBtnConfirm, nameFunction, data){
     Swal.fire({
         icon: icon,
         title: title,
-        text: text,
-      })
+        html: html,
+        showCancelButton: showCancelButton,
+        confirmButtonText: textBtnConfirm,
+        cancelButtonText: `Cancelar`,
+      }).then((result) => {
+            if (result.isConfirmed) {
+                nameFunction(data);
+            }else{
+                return false;
+            }
+        })
 }
 
 function confirmDelete(id, info, api, modulo, prefijo){
@@ -69,6 +78,18 @@ function confirmDelete(id, info, api, modulo, prefijo){
                                 break;
                             case 'producto':
                                 getProductos(2, '');
+                                break;
+                            case 'almacen':
+                                getAlmacenes(2, '');
+                                break;
+                            case 'turnos':
+                                getTurnos(2, '');
+                                break;
+                            case 'sucursal':
+                                getSucursales(2, '');
+                                break;
+                            case 'articulo':
+                                getProductosSucursal(2, '');
                                 break;
                         }
                     }

@@ -95,7 +95,6 @@ function getMateriales(tipo, filtro){
             $('#table-material tbody').html('<tr id="load-materiales"><td colspan="8"><center><h1>Cargando<span class="animated-dots"></span></h1></center></td></tr>');
         },
         success: function(response){
-            $('#load-materiales').addClass('d-none');
             var data = JSON.parse(response);
             var elimnado = '';
             var row = '';

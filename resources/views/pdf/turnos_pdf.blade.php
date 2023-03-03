@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Clientes Excel</title>
+    <title>Turnos PDF</title>
     <style>
         table { 
             border-collapse: collapse; 
-            font-size: 0.7em; 
+            font-size: 0.8em; 
             font-family: sans-serif; 
             min-width: 100%; 
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.15); 
@@ -39,33 +39,32 @@
     </style>
 </head>
 <body>
+    @if(!$esExcel)
+    <div class="header">
+        <img src="{{ public_path('img/logocolor.png') }}" alt="Logotipo" width="120">
+        <div class="desc">
+            <b>Teléfono: </b>919 151 34 20 <br>
+            <b>Fecha: </b>21 de Agosto de 2022 <br>
+            <b>Dirección: </b>Barrio Bonampack, Calle yachilan N° 18, CP: 29950
+        </div>
+    </div>
+    <br><br>
+    @endif
     <div class="container py-5">
         <table class="table table-bordered">
             <thead>
                 <tr>
                     <th>N°</th>
-                    <th>Nombre</th>
-                    <th>Correo</th>
-                    <th>Teléfono</th>
-                    <th>RFC</th>
-                    <th>Empresa</th>
-                    <th>Dirección</th>
-                    <th>Límite de crédito</th>
-                    <th>Dias de crédito</th>
+                    <th>Turno</th>
+                    <th>Horario</th>
                 </tr>
             </thead>
             <tbody>
-                @for ($i = 0; $i < sizeof($clientes); $i++)
+                @for ($i = 0; $i < sizeof($turnos); $i++)
                 <tr>
                     <td>{{ $i+1 }}</td>
-                    <td>{{ $clientes[$i]['nombres'].' '.$clientes[$i]['app'].' '.$clientes[$i]['apm'] }}</td>
-                    <td>{{ $clientes[$i]['email'] }}</td>
-                    <td>{{ $clientes[$i]['telefono'] }}</td>
-                    <td>{{ $clientes[$i]['rfc'] }}</td>
-                    <td>{{ $clientes[$i]['empresa'] }}</td>
-                    <td>{{ $clientes[$i]['calle'].' '.($clientes[$i]['n_exterior'] == 0 ? '' : $clientes[$i]['n_exterior']).', '.$clientes[$i]['colonia'].', '.$clientes[$i]['cp'].', '.$clientes[$i]['municipio'].', '.$clientes[$i]['estado'].', '.$clientes[$i]['ciudad'] }}</td>
-                    <td>${{ $clientes[$i]['limite_credito'] }}</td>
-                    <td>{{ $clientes[$i]['dias_credito'] }}</td>
+                    <td>{{ $turnos[$i]['turno'] }}</td>
+                    <td>{{ $turnos[$i]['hora'] }}</td>
                 </tr>
 
                 @endfor

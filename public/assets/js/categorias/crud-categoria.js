@@ -94,7 +94,6 @@ function getCategorias(tipo, filtro){
             $('#table-categoria tbody').html('<tr id="load-categorias"><td colspan="8"><center><h1>Cargando<span class="animated-dots"></span></h1></center></td></tr>');
         },
         success: function(response){
-            $('#load-categorias').addClass('d-none');
             var data = JSON.parse(response);
             var elimnado = '';
             var row = '';

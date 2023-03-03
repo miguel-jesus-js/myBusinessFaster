@@ -3,7 +3,7 @@
 
 @endsection
 @section('contenido')
-<div class="page-header">
+<div class="page-header" id="page-header">
     <div class="page-block">
         <div class="row align-items-center">
             <div class="col-md-8">
@@ -15,6 +15,7 @@
             <div class="col-md-4">
                 <ol class="breadcrumb breadcrumb-arrows" aria-label="breadcrumbs">
                     <li class="breadcrumb-item"><i class="ti ti-smart-home me-2"></i><a href="/dashboard">Home</a></li>
+                    <li class="breadcrumb-item"><i class="ti ti-brand-tidal me-2"></i><a href="/dashboard">Catalogos</a></li>
                     <li class="breadcrumb-item active"><i class="ti ti-cookie me-2"></i><a href="/productos">Productos</a></li>
                 </ol>
             </div>
@@ -114,7 +115,6 @@
                                 <th>P.de compra</th>
                                 <th>P.de venta</th>
                                 <th class="d-none oculto">Precio de mayoreo</th>
-                                <th>Stock</th>
                                 <th class="d-none oculto">Stock mínimo</th>
                                 <th class="d-none oculto">Utilidad</th>
                                 <th class="d-none oculto">Código del SAT</th>
@@ -254,11 +254,6 @@
                                     <label class="form-label required">Stock minimo</label>
                                     <input type="number" class="form-control" name="stock_min" id="stock_min" placeholder="Stock minimo" autocomplete="off" required min="1" max="100000" minlength="1" maxlength="7" value="2">
                                     <div class="invalid-feedback" id="error-stock_min"></div>
-                                </div>
-                                <div class="col-sm-6 col-md-4 mb-2">
-                                    <label class="form-label required">Stock</label>
-                                    <input type="number" class="form-control" name="stock" id="stock" placeholder="Stock" autocomplete="off" required min="1" max="100000" minlength="1" maxlength="7" value="10">
-                                    <div class="invalid-feedback" id="error-stock"></div>
                                 </div>
                                 <div class="col-sm-6 col-md-4 mb-2">
                                     <div class="form-label required">Inventario</div>

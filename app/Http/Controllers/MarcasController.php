@@ -82,10 +82,10 @@ class MarcasController extends Controller
     public function exportarPDF()
     {
         $marcas = Marca::whereNull('deleted_at')->get();
-        $pdf = Pdf::loadView('pdf.marcas_pdf', ['marcas' => $marcas]);
+        $pdf = Pdf::loadView('pdf.marcas_pdf', ['marcas' => $marcas, 'esExcel' => false]);
         return $pdf->download('Marcas.pdf');
     }
-    public function exportarExcel(Request $request)
+    public function exportarExcel()
     {
         return Excel::download(new MarcasExport, 'Marcas.xlsx');
     }

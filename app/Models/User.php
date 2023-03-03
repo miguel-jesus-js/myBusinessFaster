@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Role;
 use App\Models\Acceso;
 
@@ -21,6 +22,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'sucursale_id',
         'role_id',
         'nombres',
         'app',
@@ -38,6 +40,9 @@ class User extends Authenticatable
         'n_interior',
         'nom_user',
         'password',
+        'mostrar_sidebar',
+        'mostrar_banner',
+        'mostrar_foto',
     ];
 
     /**
@@ -70,7 +75,20 @@ class User extends Authenticatable
                         ->orWhere('nom_user', 'like', '%'.$user.'%');
         }
     }
-
+    public function scopeIsAdmin($query, $isAdmin)
+    {
+        if(!$isAdmin)
+        {
+            return $query->where('sucursale_id', Auth::user()->sucursal->id);
+        }
+    }
+    public function scopeSucursal($query, $sucursal)
+    {
+        if($sucursal && is_numeric($sucursal))
+        {
+            return $query->where('sucursale_id', $sucursal);
+        }
+    }
     public function roles()
     {
         return $this->belongsTo(Role::class, 'role_id', 'id');
@@ -78,5 +96,9 @@ class User extends Authenticatable
     public function acceso()
     {
         return $this->hasMany(Acceso::class);
+    }
+    public function sucursal()
+    {
+        return $this->belongsTo(Sucursale::class, 'sucursale_id', 'id');
     }
 }

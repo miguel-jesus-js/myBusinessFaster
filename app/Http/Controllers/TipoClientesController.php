@@ -32,9 +32,6 @@ class TipoClientesController extends Controller
     }
     public function create(TipoClientesRequest $request)
     {
-        $request->validate([
-            'tipo_cliente'       => 'required',
-        ]);
         $data = $request->all();
         try {
             TipoCliente::create($data);
@@ -45,10 +42,6 @@ class TipoClientesController extends Controller
     }
     public function update(TipoClientesRequest $request)
     {
-        $request->validate([
-            'id'          => 'required',
-            'tipo_cliente'       => 'required',
-        ]);
         $tipo_clientes = TipoCliente::find($request->all()['id']);
         $data = $request->all();
         try {
@@ -85,10 +78,10 @@ class TipoClientesController extends Controller
     public function exportarPDF()
     {
         $tipo_clientes = TipoCliente::whereNull('deleted_at')->get();
-        $pdf = Pdf::loadView('pdf.tipo_clientes_pdf', ['tipo_clientes' => $tipo_clientes]);
+        $pdf = Pdf::loadView('pdf.tipo_clientes_pdf', ['tipo_clientes' => $tipo_clientes, 'esExcel' => false]);
         return $pdf->download('Tipo de clientes.pdf');
     }
-    public function exportarExcel(Request $request)
+    public function exportarExcel()
     {
         return Excel::download(new TipoClientesExport, 'Tipo de clientes.xlsx');
     }
