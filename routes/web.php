@@ -38,9 +38,6 @@ Route::get('/', function () {
 })->name('login');
 
 Route::group(['middleware' => 'auth'], function(){
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    });
     Route::get('/settings', function () {
         return view('settings');
     });
@@ -88,6 +85,9 @@ Route::group(['middleware' => 'auth'], function(){
     });
     Route::get('/asignar_productos', function () {
         return view('asignar_productos');
+    });
+    Route::get('/historial', function () {
+        return view('historial');
     });
 
     Route::get('api/getRoles', [RolesController::class, 'index']);
@@ -211,19 +211,10 @@ Route::group(['middleware' => 'auth'], function(){
     Route::put('api/updateProductosSucursal', [ProductosSucursalController::class, 'update']);
     Route::delete('api/deleteProductosSucursal/{id}', [ProductosSucursalController::class, 'delete']);
     Route::get('api/getProductosSucursalExist/{sucursal_id}', [ProductosSucursalController::class, 'getProductos']);
-    Route::get('api/downloadPlantillaSucursal', [ProductosSucursalController::class, 'downloadPlantilla']);
-    Route::post('api/uploadSucursal', [ProductosSucursalController::class, 'uploadSucursal']);
-    Route::get('api/exportarPdfSucursal', [ProductosSucursalController::class, 'exportarPDF']);
-    Route::get('api/exportarExcelSucursal', [ProductosSucursalController::class, 'exportarExcel']);
-    //apis historial
-    Route::get('api/getSucursales/{tipo}', [SucursalesController::class, 'index']);
-    Route::post('api/addSucursales', [SucursalesController::class, 'create']);
-    Route::put('api/updateSucursales', [SucursalesController::class, 'update']);
-    Route::delete('api/deleteSucursales/{id}', [SucursalesController::class, 'delete']);
-    Route::get('api/downloadPlantillaSucursal', [SucursalesController::class, 'downloadPlantilla']);
-    Route::post('api/uploadSucursal', [SucursalesController::class, 'uploadSucursal']);
-    Route::get('api/exportarPdfSucursal', [SucursalesController::class, 'exportarPDF']);
-    Route::get('api/exportarExcelSucursal', [SucursalesController::class, 'exportarExcel']);
+    Route::get('api/downloadPlantillaProductosSucursal', [ProductosSucursalController::class, 'downloadPlantilla']);
+    Route::post('api/uploadProductosSucursal', [ProductosSucursalController::class, 'uploadProductosSucursal']);
+    Route::get('api/exportarPdfProductosSucursal', [ProductosSucursalController::class, 'exportarPDF']);
+    Route::get('api/exportarExcelProductosSucursal', [ProductosSucursalController::class, 'exportarExcel']);
     //apis direcciones de entrega
     Route::post('api/addDireccionesEntrega', [DireccionesEntregasController::class, 'create']);
     Route::post('api/addDireccionesEntregaTable', [DireccionesEntregasController::class, 'createTable']);
@@ -235,9 +226,14 @@ Route::group(['middleware' => 'auth'], function(){
     Route::put('api/updateSettings', [ConfiguracionesController::class, 'update']);
     Route::put('api/updateSettingsUser', [ConfiguracionesController::class, 'updateSettingsUser']);
     //apis punto de venta
+    Route::get('/dashboard', [VentasController::class, 'dashboard']);
     Route::post('api/addVenta', [VentasController::class, 'create']);
+    Route::get('api/getVentas/{tipo}', [VentasController::class, 'index']);
+    Route::get('api/detalle_venta/{id}', [VentasController::class, 'show']);
+    Route::get('api/print/{id}', [VentasController::class, 'print']);
     
 });
+Route::get('api/saleByEmployees/{id}', [VentasController::class, 'saleByEmployees']);
 
 Route::post('api/session', [LoginController::class, 'session']);
 // Route::group(['middleware' => 'auth'], function () {

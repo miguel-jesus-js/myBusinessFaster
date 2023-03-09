@@ -96,10 +96,10 @@
                         <button class="dropdown-item">
                             <ul>
                                 <li>
-                                    <a href="/api/exportarPdfAlmacen" class="dropdown-item" onclick="">PDF</a>
+                                    <a href="/api/exportarPdfProductosSucursal" class="dropdown-item" onclick="">PDF</a>
                                 </li>
                                 <li>
-                                    <a href="/api/exportarExcelAlmacen" class="dropdown-item" onclick="">Excel</a>
+                                    <a href="/api/exportarExcelProductosSucursal" class="dropdown-item" onclick="">Excel</a>
                                 </li>
                             </ul>
                         </button>
@@ -107,7 +107,7 @@
                     <button class="btn btn-dark btn-icon" aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Importar" onclick="openModal('upload-producto_sucursal','productos_sucursal', 0)">
                         <i class="ti ti-file-upload icono"></i>
                     </button>
-                    <a href="/api/downloadPlantillaAlmacen" target="_blank" class="btn btn-dark btn-icon" aria-label="Button" data-bs-toggle="tooltip" download="Excel productos_sucursal" data-bs-placement="bottom" title="Descargar plantilla">
+                    <a href="/api/downloadPlantillaProductosSucursal" target="_blank" class="btn btn-dark btn-icon" aria-label="Button" data-bs-toggle="tooltip" download="Excel productos sucursal" data-bs-placement="bottom" title="Descargar plantilla">
                         <i class="ti ti-file-download icono"></i>
                     </a>
                     <button class="btn btn-dark btn-icon" aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Recargar" onclick="getProductosSucursal(2, '');">

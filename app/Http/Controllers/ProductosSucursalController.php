@@ -3,11 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\ProductosSucursalRequest;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\UploadRequest;
 use App\Models\Producto;
 use App\Models\ProductosSucursal;
+use App\Imports\ProductosSucursalImport;
+use App\Exports\ProductosSucursalExport;
+use PDF;
 
 class ProductosSucursalController extends Controller
 {
@@ -89,27 +94,28 @@ class ProductosSucursalController extends Controller
     }
     public function downloadPlantilla()
     {
-        $file = public_path('assets/plantillas/plantilla_almacenes.xlsx');
+        $file = public_path('assets/plantillas/plantilla_productos_sucursal.xlsx');
         return response()->file($file);
     }
-    public function uploadAlmacen(UploadRequest $request)
+    public function uploadProductosSucursal(UploadRequest $request)
     {
         try {
             $file = $request->file('archivo');
-            Excel::import(new AlmacenesImport, $file);
-            return json_encode(['icon' => 'success', 'title' => 'Exitó', 'text' => 'Almacenes registrados']);
+            Excel::import(new ProductosSucursalImport, $file);
+            return json_encode(['icon' => 'success', 'title' => 'Exitó', 'text' => 'Productos asignados']);
         } catch (\Exception $e) {
-            return json_encode(['icon' => 'error', 'title' => 'Error', 'text' => 'Ocurrio un error, los almacenes no fueron registrados']);
+            return json_encode(['icon' => 'error', 'title' => 'Error', 'text' => 'Ocurrio un error, los productos no fueron asignados']);
         }
     }
     public function exportarPDF()
     {
-        $almacenes = Almacene::all();
-        $pdf = Pdf::loadView('pdf.almacenes_pdf', ['almacenes' => $almacenes, 'esExcel' => false]);
-        return $pdf->download('Almacenes.pdf');
+        $isAdmin = Auth::user()->isAdmin;
+        $productos = ProductosSucursal::with(['sucursales', 'productos'])->isAdmin($isAdmin)->get();
+        $pdf = Pdf::loadView('pdf.productos_sucursal_pdf', ['productos' => $productos, 'esExcel' => false])->setPaper('a4', 'landscape');
+        return $pdf->download('Productos sucursal.pdf');
     }
     public function exportarExcel()
     {
-        return Excel::download(new AlmacenesExport, 'Almacenes.xlsx');
+        return Excel::download(new ProductosSucursalExport, 'Productos sucursal.xlsx');
     }
 }

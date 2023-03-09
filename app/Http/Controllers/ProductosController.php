@@ -231,7 +231,7 @@ class ProductosController extends Controller
             return json_encode(['icon'  => 'error', 'title'   => 'Error', 'text'  => 'Ocurrio un error, los productos no fueron registrados']);
         }
     }
-    public function exportarPDF()
+    public function exportarPDF(Request $request)
     {
         $nombreCampos = ['marca_id' => 'Marcas', 'almacene_id' => 'Almacén', 'unidad_medida_id' => 'Unidad de medida', 'proveedore_id' => 'Proveedor', 'materiale_id' => 'Material', 'cod_barra' => 'Código de barra', 'cod_sat' => 'Código del sat', 'producto' => 'Producto', 'pre_compra' => 'Precio de compra', 'pre_venta' => 'Precio de venta', 'pre_mayoreo' => 'Precio de mayoreo', 'utilidad' => 'Utilidad', 'stock_min' => 'Stock mínimo', 'stock' => 'Stock', 'caducidad' => 'Caduidad', 'color' => 'Color', 'talla' => 'Talla', 'modelo' => 'Modelo', 'meses_garantia' => 'Meses de garantía', 'peso_kg' => 'Peso en KG'];
         $marca          = $request->get('f-marca_id');
@@ -265,7 +265,7 @@ class ProductosController extends Controller
                     ->producto($producto)
                     ->get();
         //view()->share('pdf.productos_pdf', $productos);
-        $pdf = Pdf::loadView('pdf.productos_pdf', ['productos' => $productos, 'campos' => $campos, 'nombreCampos' => $nombreCampos, 'esExcel' => false])->setPaper('a4', 'landscape');;
+        $pdf = Pdf::loadView('pdf.productos_pdf', ['productos' => $productos, 'campos' => $campos, 'nombreCampos' => $nombreCampos, 'esExcel' => false])->setPaper('a4', 'landscape');
         return $pdf->download('Productos.pdf');
     }
     public function exportarExcel()

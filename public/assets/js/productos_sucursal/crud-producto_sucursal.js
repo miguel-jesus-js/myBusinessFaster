@@ -67,12 +67,12 @@ $('#form-add-producto_sucursal').submit(function(e){
         }
     });
 })
-$('#form-upload-almacen').submit(function(e){
+$('#form-upload-producto_sucursal').submit(function(e){
     e.preventDefault();
-    removeClass('form-upload-almacen');
+    removeClass('form-upload-producto_sucursal');
     $.ajax({
         'type': 'POST',
-        'url': 'api/uploadAlmacen',
+        'url': 'api/uploadProductosSucursal',
         'data': new FormData(this),
         'contentType': false,
         'cache': false,
@@ -90,8 +90,8 @@ $('#form-upload-almacen').submit(function(e){
                 text: respuesta.text
             });
             if(respuesta.icon == 'success'){
-                getAlmacenes(2, '');
-                closeModal('upload-almacen', 'form-upload-almacen');
+                getProductosSucursal(2, '');
+                closeModal('upload-producto_sucursal', 'form-upload-producto_sucursal');
             }
         },
         error: function(request, status, error){

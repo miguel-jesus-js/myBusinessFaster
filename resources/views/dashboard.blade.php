@@ -176,7 +176,7 @@
                     <div class="col-xl-6 col-md-12">
                         <div class="card table-card">
                             <div class="card-header">
-                                <h5>Member’s performance</h5>
+                                <h5>Rendimiento de los vendedores</h5>
                                 <div class="card-header-right">
                                     <ul class="list-unstyled card-option">
                                         <li><i class="fa fa fa-wrench open-card-option"></i>
@@ -282,22 +282,22 @@
                             <div class="col-md-6">
                                 <div class="card text-center order-visitor-card">
                                     <div class="card-block">
-                                        <h6 class="m-b-0">Total Subscription</h6>
+                                        <h6 class="m-b-0">Ventas totales</h6>
                                         <h4 class="m-t-15 m-b-15"><i
-                                                class="fa fa-arrow-down m-r-15 text-c-red"></i>7652
+                                                class="fa fa-arrow-down m-r-15 text-c-red"></i>${{$ventas_totales}}
                                         </h4>
-                                        <p class="m-b-0">48% From Last 24 Hours</p>
+                                        <p class="m-b-0">En las ultimas 24 horas</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="card text-center order-visitor-card">
                                     <div class="card-block">
-                                        <h6 class="m-b-0">Order Status</h6>
+                                        <h6 class="m-b-0">Ventas de mi sucursal</h6>
                                         <h4 class="m-t-15 m-b-15"><i
-                                                class="fa fa-arrow-up m-r-15 text-c-green"></i>6325
+                                                class="fa fa-arrow-up m-r-15 text-c-green"></i>${{$mis_ventas_t}}
                                         </h4>
-                                        <p class="m-b-0">36% From Last 6 Months</p>
+                                        <p class="m-b-0">En las ultimas 24 horas</p>
                                     </div>
                                 </div>
                             </div>
