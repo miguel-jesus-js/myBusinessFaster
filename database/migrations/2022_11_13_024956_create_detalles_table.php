@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('cantidad')->nullable(false);
             $table->decimal('importe', 8, 2)->nullable(false);
             $table->timestamps();
-            $table->foreign('ventas_id')->references('id')->on('ventas')->onDelete('cascade');
+            $table->foreign('venta_id')->references('id')->on('ventas')->onDelete('cascade');
             $table->foreign('producto_id')->references('id')->on('productos')->onDelete('cascade');
         });
     }

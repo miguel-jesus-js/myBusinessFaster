@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('sucursale_id')->nullable(false);
             $table->unsignedBigInteger('role_id')->nullable(false);
             $table->string('nombres', 50)->nullable(false);
             $table->string('app', 50)->nullable(false);
@@ -43,7 +42,6 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->softdeletes();
-            $table->foreign('sucursale_id')->references('id')->on('sucursales')->onDelete('cascade');
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
         });
     }
