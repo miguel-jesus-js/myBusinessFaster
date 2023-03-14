@@ -82,7 +82,7 @@ class User extends Authenticatable
             return $query->where('sucursale_id', Auth::user()->sucursal->id);
         }
     }
-    public function scopeSucursal($query, $sucursal)
+    public static function scopeUserSucursal($query, $sucursal)
     {
         if($sucursal && is_numeric($sucursal))
         {
@@ -100,5 +100,9 @@ class User extends Authenticatable
     public function sucursal()
     {
         return $this->belongsTo(Sucursale::class, 'sucursale_id', 'id');
+    }
+    public function ventas()
+    {
+        return $this->belongsTo(Venta::class, 'id', 'user_id');
     }
 }

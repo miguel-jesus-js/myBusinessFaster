@@ -34,7 +34,7 @@
                           <img src="{{ asset('img/'.$setting->logotipo) }}" class="logo logo-icons logo-suffix" alt="Logotipo">
                         </div>
                         <div class="col-md-2 d-flex justify-content-end">
-                          <a href="/api/print/{{$venta->id}}" target="_blank" class="btn btn-outline-success" id="imprimir"><i class="ti ti-printer h1"></i></a>
+                          <a href="/api/print/{{$venta->id}}" target="_blank" class="btn btn-outline-success" id="imprimir"><i class="ti ti-download h1"></i></a>
                         </div>
                       </div>
                       <br>

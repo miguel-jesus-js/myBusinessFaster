@@ -7,6 +7,8 @@ use App\Models\Venta;
 use App\Models\Detalle;
 use App\Models\Configuracione;
 use App\Models\ProductosSucursal;
+use App\Models\User;
+use App\Models\Cliente;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -36,7 +38,14 @@ class VentasController extends Controller
                             ->offset($offset)
                             ->limit($limit)
                             ->get();
-        $cantidad       = Venta::count();
+        $cantidad       = Venta::with(['empleado.sucursal', 'cliente'])
+                            ->folio($folio)
+                            ->sucursal($sucursale_id)
+                            ->empleado($user_id)
+                            ->cliente($cliente_id)
+                            ->fechaIni($fecha_ini)
+                            ->fechaFin($fecha_fin)
+                            ->count();
         return json_encode([$ventas, $cantidad]);
     }
     public function create(Request $request)
@@ -48,11 +57,12 @@ class VentasController extends Controller
             $fecha = Carbon::now()->format('Y-m-d H:i:s');
             $carrito = json_decode($data['carrito']);
             $datos_venta = [
-                'user_id'       => Auth::user()->id, 
-                'cliente_id'    => $data['cliente_id'], 
-                'folio'         => $folio == null ? 1 : $folio->folio + 1, 
-                'fecha'         => $fecha, 
-                'importe'       => floatval($data['subtotal']), 
+                'user_id'       => Auth::user()->id,
+                'cliente_id'    => $data['cliente_id'],
+                'sucursale_id'  => Auth::user()->sucursal->id,
+                'folio'         => $folio == null ? 1 : $folio->folio + 1,
+                'fecha'         => $fecha,
+                'importe'       => floatval($data['subtotal']),
                 'iva'           => floatval($data['iva']),
                 'descuento'     => floatval($data['descuento']),
                 'total'         => (floatval($data['subtotal']) + floatval($data['iva'])) - floatval($data['descuento']),
@@ -66,7 +76,9 @@ class VentasController extends Controller
                 $datos_detalle = [
                     'precio'    => floatval($producto->precio),
                     'cantidad'  => intval($producto->cantidad),
-                    'importe'   => floatval($producto->precio) * intval($producto->cantidad)
+                    'importe'   => floatval($producto->precio) * intval($producto->cantidad),
+                    'created_at'=> $fecha,
+                    'updated_at'=> $fecha,
                 ];
                 $venta->productos()->attach($producto->producto_id, $datos_detalle);
                 $cantidadActual = ProductosSucursal::where([['sucursale_id', Auth::user()->sucursal->id], ['producto_id', $producto->producto_id]])->first();
@@ -83,17 +95,69 @@ class VentasController extends Controller
     }
     public function dashboard()
     {
-        $sucursal = Auth::user()->sucursal->id;
+        $sucursal           = Auth::user()->sucursal->id;
         $fecha = Carbon::now()->format('Y-m-d');
-        $ventas_totales = Venta::whereBetween('fecha', [$fecha.' 00:00:00', $fecha.' 23:59:59'])->sum('total');
-        $mis_ventas_t = Venta::whereBetween('fecha', [$fecha.' 00:00:00', $fecha.' 23:59:59'])->sucursal($sucursal)->sum('total');
-        return view('dashboard', ['ventas_totales' => $ventas_totales, 'mis_ventas_t' => $mis_ventas_t]);
+        $ventas_totales     = Venta::betwwenDate()->sum('total');
+        $productos_v_t      = Detalle::whereBetween('created_at', [$fecha.' 00:00:00', $fecha.' 23:59:59'])->count();
+        //obtener la cantidad de ventas, productos, empleados y clientes por sucursal y en general
+        $ventas_t           = Venta::betwwenDate()->count();
+        $ventas_s_t         = Venta::betwwenDate()->sucursal($sucursal)->count();
+        $productos_t_v      = Producto::count();
+        $productos_s_t      = ProductosSucursal::sucursal($sucursal)->count();
+        $empleados_t        = User::count();
+        $empleados_s_t      = User::userSucursal($sucursal)->count();
+        $clientes_t         = Cliente::count();
+        //obtener los productos vendidos
+        $productos_t        = Detalle::with('producto')
+                                        ->whereBetween('created_at', [$fecha.' 00:00:00', $fecha.' 23:59:59'])
+                                        ->selectRaw('producto_id, precio, sum(cantidad) as total_cantidad')
+                                        ->groupBy('producto_id', 'precio')
+                                        ->get();
+        //obtener ventas por sucursal
+        $fecha_ayer = Carbon::now()->subDay()->format('Y-m-d');
+        $ventas_by_sucursal = Venta::leftJoin('sucursales', 'ventas.sucursale_id', '=', 'sucursales.id')
+                                    ->selectRaw('sum(case when fecha BETWEEN ? AND ? then total end) as total_ayer, 
+                                    sum(case when fecha BETWEEN ? AND ? then total end) as total_hoy, 
+                                    sucursales.nombre')
+                                    ->groupBy('sucursale_id')
+                                    ->setBindings([$fecha_ayer.' 00:00:00', $fecha_ayer.' 23:59:59', $fecha.' 00:00:00', $fecha.' 23:59:59'])
+                                    ->get();
+
+        return view('dashboard', [
+            'ventas_totales'    => $ventas_totales, 
+            'productos_v_t'     => $productos_v_t,
+            'productos_t'       => $productos_t,
+            'ventas_by_sucursal'=> $ventas_by_sucursal,
+            'totales'           => [
+                $ventas_t,
+                $ventas_s_t,
+                $productos_t_v,
+                $productos_s_t,
+                $empleados_t,
+                $empleados_s_t,
+                $clientes_t
+            ],
+        ]);
     }
-    public function saleByEmployees($sucursal)
+    public function saleByEmployees(Request $request)
     {
-        $fecha = Carbon::now()->format('Y-m-d');
-        $saleByEmployees_t = Venta::whereBetween('fecha', [$fecha.' 00:00:00', $fecha.' 23:59:59'])->sucursal($sucursal)->groupBy('user_id')->sum('total');
-        return json_encode($saleByEmployees_t);
+        $sucursal_id    = $request->get('sucursale_id');
+        $fecha          = Carbon::now()->format('Y-m-d');
+        $fecha_ini      = $fecha.' 00:00:00';
+        $fecha_fin      = $fecha.' 23:59:59';
+        $saleByEmployees_t = User::with('sucursal')->selectRaw('*, (select sum(ventas.total) from ventas where users.id = ventas.user_id and ventas.fecha between ? and ?) as ventas_sum_total', [$fecha_ini, $fecha_fin])
+                                    ->whereHas('ventas', function($query) use ($fecha_ini, $fecha_fin){
+                                        $query->whereBetween('fecha', [$fecha_ini, $fecha_fin]);
+                                    })
+                                    ->userSucursal($sucursal_id)
+                                    ->get();
+        $ammount = User::with('sucursal')->selectRaw('*, (select sum(ventas.total) from ventas where users.id = ventas.user_id and ventas.fecha between ? and ?) as ventas_sum_total', [$fecha_ini, $fecha_fin])
+                                    ->whereHas('ventas', function($query) use ($fecha_ini, $fecha_fin){
+                                        $query->whereBetween('fecha', [$fecha_ini, $fecha_fin]);
+                                    })
+                                    ->userSucursal($sucursal_id)
+                                    ->count();
+        return json_encode([$saleByEmployees_t, $ammount]);
     }
     public function show($id)
     {
@@ -106,7 +170,7 @@ class VentasController extends Controller
         $venta = Venta::with(['productos','empleado.sucursal', 'cliente'])->find($id);
         $setting = Configuracione::find(1);
         $pdf = Pdf::loadView('print.detalle', ['venta' => $venta, 'setting' => $setting]);
-        return $pdf->output();
+        return $pdf->download('Detalle de venta');
     }
     public function delete($id)
     {

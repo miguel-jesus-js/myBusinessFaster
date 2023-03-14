@@ -174,3 +174,14 @@ table-modulos tr.noSearch td {
 #reporte {
     display: block;
 }
+.icon-dashboard{
+    font-size: 25px;
+}
+.card-table{
+    max-height: 350px;
+    overflow-y: scroll;
+}
+.card-table-pro{
+    max-height: 280px;
+    overflow-y: scroll !important;
+}

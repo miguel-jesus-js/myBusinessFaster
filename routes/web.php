@@ -230,10 +230,9 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('api/addVenta', [VentasController::class, 'create']);
     Route::get('api/getVentas/{tipo}', [VentasController::class, 'index']);
     Route::get('api/detalle_venta/{id}', [VentasController::class, 'show']);
-    Route::get('api/print/{id}', [VentasController::class, 'print']);
-    
+    Route::get('api/print/{id}', [VentasController::class, 'print']);    
+    Route::get('api/saleByEmployees', [VentasController::class, 'saleByEmployees']);
 });
-Route::get('api/saleByEmployees/{id}', [VentasController::class, 'saleByEmployees']);
 
 Route::post('api/session', [LoginController::class, 'session']);
 // Route::group(['middleware' => 'auth'], function () {

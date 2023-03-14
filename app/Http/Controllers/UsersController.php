@@ -23,13 +23,13 @@ class UsersController extends Controller
         // 0 todo - 1 eliminados - 2 no eliminados
         switch ($tipo){
             case 0:
-                $usuarios = User::with('sucursal')->withTrashed()->user($filtro)->isAdmin($isAdmin)->sucursal($sucursal)->get();
+                $usuarios = User::with('sucursal')->withTrashed()->user($filtro)->isAdmin($isAdmin)->userSucursal($sucursal)->get();
                 break;
             case 1:
-                $usuarios = User::with('sucursal')->onlyTrashed()->user($filtro)->isAdmin($isAdmin)->sucursal($sucursal)->get();
+                $usuarios = User::with('sucursal')->onlyTrashed()->user($filtro)->isAdmin($isAdmin)->userSucursal($sucursal)->get();
                 break;
             case 2:
-                $usuarios = User::with('sucursal')->whereNull('deleted_at')->user($filtro)->isAdmin($isAdmin)->sucursal($sucursal)->get();
+                $usuarios = User::with('sucursal')->whereNull('deleted_at')->user($filtro)->isAdmin($isAdmin)->userSucursal($sucursal)->get();
                 break;
         }
         return json_encode($usuarios);

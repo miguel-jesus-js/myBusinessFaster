@@ -50,11 +50,11 @@ function getHistorial(tipo, offset, limit, filtro){
                 $('#table-historial tbody').html(row);
                 let cantidad = Math.ceil(data[1] / 5);
                 offset = offset < 0 ? 0 : offset;
-                let paginacion = `<li class='page-item'><a class='page-link paginationInit' href='#' tabindex='-1' aria-disabled='true' onclick="getHistorial(2, ${ offset - cantidad}, ${cantidad}, '')">Anterior</a></li>`;
+                let paginacion = `<li class='page-item'><a class='page-link paginationInit ${offset == 0 ? 'disabled' : '' }' href='#' tabindex='-1' aria-disabled='true' onclick="getHistorial(2, ${offset - 5}, ${5}, '')">Anterior</a></li>`;
                 for(let i = 0; i < cantidad; i++){
-                    paginacion += `<li class='page-item'><button class='page-link paginationClick ${cantidad * i == offset ? 'active' : '' }' type="button" onclick="getHistorial(2, ${cantidad * i}, ${cantidad}, '')">${i+1}</button></li>`;
+                    paginacion += `<li class='page-item'><button class='page-link paginationClick ${5 * i == offset ? 'active' : '' }' type="button" onclick="getHistorial(2, ${5 * i}, ${5}, '')">${i+1}</button></li>`;
                 }
-                paginacion += `<li class='page-item'><a class='page-link paginationEnd' href='#' tabindex='-1' aria-disabled='true' onclick="getHistorial(2, ${offset >= cantidad * (cantidad -1) ? cantidad * (cantidad -1) : offset + cantidad}, ${cantidad}, '')">Siguiente</a></li>`;
+                paginacion += `<li class='page-item'><a class='page-link paginationEnd ${offset >= (cantidad * cantidad -1) ? 'disabled' : ''}' href='#' tabindex='-1' aria-disabled='true' onclick="getHistorial(2, ${offset >= (cantidad * cantidad -1) ? offset : offset + 5}, ${5}, '')">Siguiente</a></li>`;
                 $('#paginacion').html(paginacion);
             }else{
                 $('#table-historial tbody').html('<tr><td colspan="15" class="text-center">No hay registros</td></tr>');

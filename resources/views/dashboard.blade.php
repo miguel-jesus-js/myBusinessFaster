@@ -25,9 +25,94 @@
         <div class="page-wrapper">
             <!-- Page-body start -->
             <div class="page-body">
+                <div class="row row-cards">
+                    <div class="col-sm-6 col-lg-6 col-xl-3">
+                      <div class="card card-sm">
+                        <div class="card-body">
+                          <div class="row align-items-center">
+                            <div class="col-auto">
+                              <span class="bg-primary text-white avatar"><!-- Download SVG icon from http://tabler-icons.io/i/currency-dollar -->
+                                <i class="ti ti-currency-dollar icon-dashboard"></i>
+                              </span>
+                            </div>
+                            <div class="col">
+                              <div class="font-weight-medium">
+                               <b class="count">{{ $totales[0] }}</b> Ventas totales (hoy)
+                              </div>
+                              <div class="text-muted">
+                                <b class="count">{{ $totales[1] }}</b> Mi sucursal
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-6 col-xl-3">
+                      <div class="card card-sm">
+                        <div class="card-body">
+                          <div class="row align-items-center">
+                            <div class="col-auto">
+                              <span class="bg-green text-white avatar"><!-- Download SVG icon from http://tabler-icons.io/i/shopping-cart -->
+                                <i class="ti ti-cookie icon-dashboard"></i>
+                              </span>
+                            </div>
+                            <div class="col">
+                              <div class="font-weight-medium">
+                                {{ $totales[2] }} Productos totales
+                              </div>
+                              <div class="text-muted">
+                                {{ $totales[3] }} Mi sucursal
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-6 col-xl-3">
+                      <div class="card card-sm">
+                        <div class="card-body">
+                          <div class="row align-items-center">
+                            <div class="col-auto">
+                              <span class="bg-twitter text-white avatar"><!-- Download SVG icon from http://tabler-icons.io/i/brand-twitter -->
+                                <i class="ti ti-users icon-dashboard"></i>
+                            </div>
+                            <div class="col">
+                              <div class="font-weight-medium">
+                                {{ $totales[4] }} Empleados totales
+                              </div>
+                              <div class="text-muted">
+                                {{ $totales[5] }} Mi sucursal
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-6 col-xl-3">
+                      <div class="card card-sm">
+                        <div class="card-body">
+                          <div class="row align-items-center">
+                            <div class="col-auto">
+                              <span class="bg-facebook text-white avatar"><!-- Download SVG icon from http://tabler-icons.io/i/brand-facebook -->
+                                <i class="ti ti-friends icon-dashboard"></i>
+                              </span>
+                            </div>
+                            <div class="col">
+                              <div class="font-weight-medium">
+                                {{ $totales[5] }} Clientes totales
+                              </div>
+                              {{-- <div class="text-muted">
+                                21 Mi sucursal
+                              </div> --}}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 <div class="row">
                     <!-- Material statustic card start -->
-                    <div class="col-xl-4 col-md-12">
+                    {{-- <div class="col-xl-4 col-md-12">
                         <div class="card mat-stat-card">
                             <div class="card-block">
                                 <div class="row align-items-center b-b-default">
@@ -165,7 +250,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <!-- Material statustic card end -->
                     <!-- order-visitor start -->
 
@@ -176,99 +261,33 @@
                     <div class="col-xl-6 col-md-12">
                         <div class="card table-card">
                             <div class="card-header">
-                                <h5>Rendimiento de los vendedores</h5>
-                                <div class="card-header-right">
-                                    <ul class="list-unstyled card-option">
-                                        <li><i class="fa fa fa-wrench open-card-option"></i>
-                                        </li>
-                                        <li><i class="fa fa-window-maximize full-card"></i></li>
-                                        <li><i class="fa fa-minus minimize-card"></i></li>
-                                        <li><i class="fa fa-refresh reload-card"></i></li>
-                                        <li><i class="fa fa-trash close-card"></i></li>
-                                    </ul>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h5>Rendimiento de los vendedores (Hoy)</h5>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <select class="form-select" name="sucursale_id" id="sucursale_id" onclick="getSucursales()">
+                                            <option value="" id="load-select" disabled selected>Elige una sucursal</option>
+                                        </select>
+                                    </div>
                                 </div>
+                                
                             </div>
-                            <div class="card-block">
+                            <div class="card-block card-table">
                                 <div class="table-responsive">
-                                    <table class="table table-hover m-b-0 without-header">
+                                    <table class="table table-hover m-b-0 without-header" id="table-saleByEmployees">
                                         <tbody>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-inline-block align-middle">
-                                                        <img src="assets/images/avatar-4.jpg"
-                                                            alt="user image"
-                                                            class="img-radius img-40 align-top m-r-15">
-                                                        <div class="d-inline-block">
-                                                            <h6>Shirley Hoe</h6>
-                                                            <p class="text-muted m-b-0">Sales
-                                                                executive , NY</p>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="text-right">
-                                                    <h6 class="f-w-700">$78.001<i
-                                                            class="fas fa-level-down-alt text-c-red m-l-10"></i>
-                                                    </h6>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-inline-block align-middle">
-                                                        <img src="assets/images/avatar-2.jpg"
-                                                            alt="user image"
-                                                            class="img-radius img-40 align-top m-r-15">
-                                                        <div class="d-inline-block">
-                                                            <h6>James Alexander</h6>
-                                                            <p class="text-muted m-b-0">Sales
-                                                                executive , EL</p>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="text-right">
-                                                    <h6 class="f-w-700">$89.051<i
-                                                            class="fas fa-level-up-alt text-c-green m-l-10"></i>
-                                                    </h6>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-inline-block align-middle">
-                                                        <img src="assets/images/avatar-4.jpg"
-                                                            alt="user image"
-                                                            class="img-radius img-40 align-top m-r-15">
-                                                        <div class="d-inline-block">
-                                                            <h6>Shirley Hoe</h6>
-                                                            <p class="text-muted m-b-0">Sales
-                                                                executive , NY</p>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="text-right">
-                                                    <h6 class="f-w-700">$89.051<i
-                                                            class="fas fa-level-up-alt text-c-green m-l-10"></i>
-                                                    </h6>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-inline-block align-middle">
-                                                        <img src="assets/images/avatar-2.jpg"
-                                                            alt="user image"
-                                                            class="img-radius img-40 align-top m-r-15">
-                                                        <div class="d-inline-block">
-                                                            <h6>Nick Xander</h6>
-                                                            <p class="text-muted m-b-0">Sales
-                                                                executive , EL</p>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="text-right">
-                                                    <h6 class="f-w-700">$89.051<i
-                                                            class="fas fa-level-up-alt text-c-green m-l-10"></i>
-                                                    </h6>
-                                                </td>
-                                            </tr>
+                                            
                                         </tbody>
+                                        {{-- <tfoot>
+                                            <tr>
+                                                <td colspan='15'>
+                                                    <ul class='pagination d-flex justify-content-end' id="paginacion">
+                                                        
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                        </tfoot> --}}
                                     </table>
 
                                 </div>
@@ -278,30 +297,53 @@
                     <div class="col-xl-6 col-md-12">
                         <div class="row">
                             <!-- sale card start -->
-
+                            <div class="col-md-6">
+                                <div class="card text-center order-visitor-card">
+                                    <div class="card-block">
+                                        <h6 class="m-b-0">Productos vendidos</h6>
+                                        <h4 class="m-t-15 m-b-15">
+                                            <b class="count">{{$productos_v_t}}</b>
+                                        </h4>
+                                        <p class="m-b-0">En las ultimas 24 horas</p>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-md-6">
                                 <div class="card text-center order-visitor-card">
                                     <div class="card-block">
                                         <h6 class="m-b-0">Ventas totales</h6>
-                                        <h4 class="m-t-15 m-b-15"><i
-                                                class="fa fa-arrow-down m-r-15 text-c-red"></i>${{$ventas_totales}}
+                                        <h4 class="m-t-15 m-b-15 count">
+                                            $<b class="count">{{$ventas_totales}}</b>
                                         </h4>
                                         <p class="m-b-0">En las ultimas 24 horas</p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="card text-center order-visitor-card">
-                                    <div class="card-block">
-                                        <h6 class="m-b-0">Ventas de mi sucursal</h6>
-                                        <h4 class="m-t-15 m-b-15"><i
-                                                class="fa fa-arrow-up m-r-15 text-c-green"></i>${{$mis_ventas_t}}
-                                        </h4>
-                                        <p class="m-b-0">En las ultimas 24 horas</p>
-                                    </div>
+                            <div class="col-md-12">
+                                <div class="table-responsive card-table-pro">
+                                    <table class="table bg-white shadow-sm table-bordered table-hover w-100">
+                                        <thead>
+                                          <tr>
+                                            <th>Producto</th>
+                                            <th>Precio</th>
+                                            <th>Cantidad</th>
+                                            <th>importe</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($productos_t as $item)
+                                                <tr>
+                                                    <td>{{ $item->producto->producto }}</td>
+                                                    <td>${{ $item->precio }}</td>
+                                                    <td>{{ $item->total_cantidad }}</td>
+                                                    <td>${{ $item->precio * $item->total_cantidad }}</td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
+                              </div>
+                            {{-- <div class="col-md-6">
                                 <div class="card bg-c-red total-card">
                                     <div class="card-block">
                                         <div class="text-left">
@@ -344,7 +386,7 @@
                                         <p class="m-b-0">36% From Last 6 Months</p>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                             <!-- sale card end -->
                         </div>
                     </div>
@@ -352,48 +394,36 @@
                     <!--  sale analytics end -->
 
                     <!-- Project statustic start -->
-                    <div class="col-xl-12">
-                        <div class="card proj-progress-card">
-                            <div class="card-block">
-                                <div class="row">
-                                    <div class="col-xl-3 col-md-6">
-                                        <h6>Published Project</h6>
-                                        <h5 class="m-b-30 f-w-700">532<span
-                                                class="text-c-green m-l-10">+1.69%</span></h5>
-                                        <div class="progress">
-                                            <div class="progress-bar bg-c-red"
-                                                style="width:25%"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-3 col-md-6">
-                                        <h6>Completed Task</h6>
-                                        <h5 class="m-b-30 f-w-700">4,569<span
-                                                class="text-c-red m-l-10">-0.5%</span></h5>
-                                        <div class="progress">
-                                            <div class="progress-bar bg-c-blue"
-                                                style="width:65%"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-3 col-md-6">
-                                        <h6>Successfull Task</h6>
-                                        <h5 class="m-b-30 f-w-700">89%<span
-                                                class="text-c-green m-l-10">+0.99%</span></h5>
-                                        <div class="progress">
-                                            <div class="progress-bar bg-c-green"
-                                                style="width:85%"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-3 col-md-6">
-                                        <h6>Ongoing Project</h6>
-                                        <h5 class="m-b-30 f-w-700">365<span
-                                                class="text-c-green m-l-10">+0.35%</span></h5>
-                                        <div class="progress">
-                                            <div class="progress-bar bg-c-yellow"
-                                                style="width:45%"></div>
+                    <div class="col-xl-12 mt-4">
+                        <div class="row">
+                            @foreach ($ventas_by_sucursal as $item)    
+                            <div class="col-md-4">
+                                <div class="card proj-progress-card">
+                                    <div class="card-block">
+                                        <div class="row">
+                                            <h6>{{ $item->nombre }}</h6>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label for="">Ayer</label>
+                                                    <h5 class="m-b-30 f-w-700">${{ $item->total_ayer }} </h5>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label for="">Hoy</label>
+                                                    <h5 class="m-b-30 f-w-700">${{ $item->total_hoy }}</h5>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="invisible" for="">%</label>
+                                                    <h5 class="m-b-30 f-w-700"><span class="text-c-green m-l-10">+1.69%</span></h5>
+                                                </div>
+                                            </div>
+                                            <div class="progress progress-xs">
+                                                <div class="progress-bar bg-primary" style="width: 71.0%"></div>
+                                              </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            @endforeach
                         </div>
                     </div>
                     <!-- Project statustic end -->
@@ -432,9 +462,13 @@
 </div>
 @endsection
 @section('script')
+<script src="{{ asset('assets/js/dashboard/dashboard-info.js') }}"></script>
+<script src="{{ asset('assets/js/almacenes/config.js') }}"></script>
+<script src="{{ asset('assets/js/counter.js') }}"></script>
 <script>
     $(document).ready(function(){
-        $('#modal-information').modal('show')
+        //$('#modal-information').modal('show')
+        getSaleByEmployees(1, 0, 5);
     })
 </script>
 @endsection

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Venta extends Model
 {
@@ -63,6 +64,11 @@ class Venta extends Model
             return $query->whereDate('fecha', '<=', $fecha_fin.' 23:59:59');
         }
     }
+    public function scopeBetwwenDate($query)
+    {
+        $fecha = Carbon::now()->format('Y-m-d');
+        return $query->whereBetween('fecha', [$fecha.' 00:00:00', $fecha.' 23:59:59']);
+    }
     public function productos()
     {
         return $this->belongsToMany(Producto::class, 'detalles', 'venta_id', 'producto_id')->withPivot('precio', 'cantidad', 'importe');
@@ -74,5 +80,9 @@ class Venta extends Model
     public function cliente()
     {
         return $this->belongsTo(Cliente::class, 'cliente_id', 'id');
+    }
+    public function sucursal()
+    {
+        return $this->belongsTo(Sucursale::class, 'sucursale_id', 'id');
     }
 }

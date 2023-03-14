@@ -2317,13 +2317,6 @@ img.comment-img {
 	width: 100%;
 }
 
-.progress {
-	height: 1rem;
-}
-
-.progress .progress-bar {
-	height: 100% !important;
-}
 
 .pcoded .mCSB_container_wrapper {
 	margin-right: 0;
@@ -9707,60 +9700,6 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>th:first-child:before {
 	background-color: #ffea4d;
 }
 
-.proj-progress-card .progress {
-	height: 6px;
-	overflow: visible;
-	margin-bottom: 10px;
-}
-
-.proj-progress-card .progress .progress-bar {
-	position: relative;
-}
-
-.proj-progress-card .progress .progress-bar:after {
-	content: "";
-	background: #fff;
-	position: absolute;
-	right: -6px;
-	top: -4px;
-	border-radius: 50%;
-	width: 15px;
-	height: 15px;
-}
-
-.proj-progress-card .progress .progress-bar.bg-c-red:after {
-	border: 3px solid #ff5252;
-	-webkit-box-shadow: 0 0 0 5px rgba(255, 82, 82, 0.5), 0 10px 7px 0 rgba(62, 57, 107, 0.18);
-	box-shadow: 0 0 0 5px rgba(255, 82, 82, 0.5), 0 10px 7px 0 rgba(62, 57, 107, 0.18);
-}
-
-.proj-progress-card .progress .progress-bar.bg-c-blue:after {
-	border: 3px solid #448aff;
-	-webkit-box-shadow: 0 0 0 5px rgba(68, 138, 255, 0.5), 0 10px 7px 0 rgba(62, 57, 107, 0.18);
-	box-shadow: 0 0 0 5px rgba(68, 138, 255, 0.5), 0 10px 7px 0 rgba(62, 57, 107, 0.18);
-}
-
-.proj-progress-card .progress .progress-bar.bg-c-green:after {
-	border: 3px solid #11c15b;
-	-webkit-box-shadow: 0 0 0 5px rgba(17, 193, 91, 0.5), 0 10px 7px 0 rgba(62, 57, 107, 0.18);
-	box-shadow: 0 0 0 5px rgba(17, 193, 91, 0.5), 0 10px 7px 0 rgba(62, 57, 107, 0.18);
-}
-
-.proj-progress-card .progress .progress-bar.bg-c-yellow:after {
-	border: 3px solid #ffe100;
-	-webkit-box-shadow: 0 0 0 5px rgba(255, 225, 0, 0.5), 0 10px 7px 0 rgba(62, 57, 107, 0.18);
-	box-shadow: 0 0 0 5px rgba(255, 225, 0, 0.5), 0 10px 7px 0 rgba(62, 57, 107, 0.18);
-}
-
-@media only screen and (max-width: 992px) {
-	.proj-progress-card h6 {
-		margin-top: 15px;
-	}
-	.proj-progress-card .progress {
-		margin-bottom: 30px;
-	}
-}
-
 .prod-p-card i {
 	color: #fff;
 	width: 40px;
@@ -9952,22 +9891,8 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>th:first-child:before {
 	padding: 10px 0;
 }
 
-.statustic-progress-card h6 {
-	position: relative;
-}
-
-.statustic-progress-card h6:after {
-	content: "";
-	background-color: #448aff;
-	position: absolute;
-	left: -20px;
-	top: 0;
-	width: 4px;
-	height: 20px;
-}
-
-.statustic-progress-card .progress {
-	height: 4px;
+.progress-xs{
+	padding: 0px !important;
 }
 
 .order-visitor-card {
@@ -10098,34 +10023,6 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>th:first-child:before {
 
 .user-card-full .social-link li a i.youtube:hover {
 	color: #E0291D;
-}
-
-.office-card .progress {
-	height: 4px;
-}
-
-.trafic-card .progress {
-	height: 7px;
-}
-
-.trafic-card .progress.blue {
-	background-color: rgba(68, 138, 255, 0.5);
-}
-
-.trafic-card .progress.green {
-	background-color: rgba(17, 193, 91, 0.5);
-}
-
-.trafic-card .progress.red {
-	background-color: rgba(255, 82, 82, 0.5);
-}
-
-.trafic-card .progress.purple {
-	background-color: rgba(83, 109, 254, 0.5);
-}
-
-.trafic-card .progress.yellow {
-	background-color: rgba(255, 225, 0, 0.5);
 }
 
 .table-card .card-block {
@@ -13648,80 +13545,6 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>th:first-child:before {
 #address-search .input-group {
 	margin-bottom: 0;
 }
-
-
-/**  =====================
-      Progress-bar css start
-==========================  **/
-
-.progress-xl {
-	height: 30px;
-}
-
-.progress-lg {
-	height: 24px;
-}
-
-.progres-md {
-	height: 18px;
-}
-
-.progress-sm {
-	height: 12px;
-}
-
-.progress-xs {
-	height: 6px;
-}
-
-.progress-bar-page .progress {
-	margin-bottom: 2rem;
-}
-
-.progress-bar-default {
-	background-color: #d6d6d6;
-}
-
-.progress-bar-primary {
-	background-color: #448aff;
-}
-
-.progress-bar-success {
-	background-color: #11c15b;
-}
-
-.progress-bar-info {
-	background-color: #00bcd4;
-}
-
-.progress-bar-warning {
-	background-color: #ffe100;
-}
-
-.progress-bar-danger {
-	background-color: #ff5252;
-}
-
-.progress-bar-pink {
-	background-color: #ff7aa3;
-}
-
-.progress-bar-purple {
-	background-color: #9261c6;
-}
-
-.progress-bar-orange {
-	background-color: #e67e22;
-}
-
-.progress-bar-yellow {
-	background-color: #f1c40f;
-}
-
-.progress-bar-emrald {
-	background-color: #2ecc71;
-}
-
 
 /**====== Progress-bar css end ======**/
 

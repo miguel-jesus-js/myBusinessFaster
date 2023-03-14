@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
         $this->call(DireccionesEntregasSeeder::class);
         $this->call(ConfiguracionesSeeder::class);
         $this->call(AlmacenesSeeder::class);
+        $this->call(ProductosSeeder::class);
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([

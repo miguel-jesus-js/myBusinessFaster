@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable(true);
             $table->unsignedBigInteger('cliente_id')->nullable(true);
+            $table->unsignedBigInteger('sucursale_id')->nullable(true);
             $table->bigInteger('folio')->nullable(false);
             $table->datetime('fecha')->nullable(false);
             $table->decimal('importe', 8, 2)->nullable(false);
@@ -30,6 +31,7 @@ return new class extends Migration
             $table->softdeletes();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade');
+            $table->foreign('sucursale_id')->references('id')->on('sucursales')->onDelete('cascade');
         });
     }
 
