@@ -254,12 +254,6 @@
                                         <span class="pcoded-mtext">Catálogos</span>
                                     </a>
                                 </li>
-                                <li class="{{ (request()->is('asignar_productos')) ? 'active' : '' }} data-item-color">
-                                    <a href="/asignar_productos" class="waves-effect waves-dark">
-                                        <span class="pcoded-micon"><i class="ti ti-git-branch icono"></i></span>
-                                        <span class="pcoded-mtext">Asignar productos</span>
-                                    </a>
-                                </li>
                                 <li class="pcoded-hasmenu data-item-color">
                                     <a href="javascript:void(0)" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti ti-shopping-cart icono"></i></span>
@@ -282,6 +276,18 @@
                                             </a>
                                         </li>
                                     </ul>
+                                </li>
+                                <li class="{{ (request()->is('asignar_productos')) ? 'active' : '' }} data-item-color">
+                                    <a href="/asignar_productos" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti ti-git-branch icono"></i></span>
+                                        <span class="pcoded-mtext">Asignar productos</span>
+                                    </a>
+                                </li>
+                                <li class="{{ (request()->is('gastos')) ? 'active' : '' }} data-item-color">
+                                    <a href="/gastos" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti ti-currency-dollar-off icono"></i></span>
+                                        <span class="pcoded-mtext">Gastos</span>
+                                    </a>
                                 </li>
                             </ul>
                         </div>

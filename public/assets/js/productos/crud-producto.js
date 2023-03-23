@@ -10,15 +10,12 @@ $('#form-add-producto').submit(function(e){
         data.append('_method', 'PUT');
         url = 'api/updateProductos';
         var arrTodo = new Array();
-        /*Agrupamos todos los input con name=cbxEstudiante*/
         $('input[name="categoria_id[]"]').each(function(element) {
             let item = {};
             item.id = this.value;
             item.status = this.checked;
             arrTodo.push(item);
         });
-
-        /*Creamos un objeto para enviarlo al servidor*/
         var toPost = JSON.stringify(arrTodo);
         data.append('categorias', toPost);
     }

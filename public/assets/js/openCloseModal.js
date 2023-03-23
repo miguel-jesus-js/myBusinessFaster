@@ -122,6 +122,21 @@ function openModal(id_modal, modulo, tipo){
                 $('#modal-title').html('Editar producto de sucursal');
             }
             break;
+        case 'tipo_gastos':
+            if(tipo == 0){
+                $('#modal-title').html('Agregar tipo de gasto');
+            }else if(tipo == 1){
+                $('#modal-title').html('Editar tipo de gasto');
+            }
+            break;
+        case 'gastos':
+            if(tipo == 0){
+                $('#modal-title').html('Agregar gasto');
+                $('#preview-comprobante').addClass('d-none');
+            }else if(tipo == 1){
+                $('#modal-title').html('Editar gasto');
+            }
+            break;
     }
     $('#'+id_modal).modal({backdrop: 'static', keyboard: false});
     if(tipo == 3){

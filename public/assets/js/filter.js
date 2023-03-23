@@ -56,6 +56,12 @@ function filterGeneral(modulo, tipo){
         case 'productos_sucursal':
             getProductosSucursal(tipoFiltro, '');
             break;
+        case 'tipo_gastos':
+            getTipoGastos(tipoFiltro, '');
+            break;
+        case 'gastos':
+            getGastos(tipoFiltro, '');
+            break;
     }
 }
 $("#search").keyup(function() {
@@ -100,6 +106,12 @@ $("#search").keyup(function() {
             break;
         case 'productos_sucursal':
             getProductosSucursal(tipoFiltro, $(this).val());
+            break;
+        case 'tipo_gastos':
+            getTipoGastos(tipoFiltro, $(this).val());
+            break;
+        case 'gastos':
+            getGastos(tipoFiltro, $(this).val());
             break;
     }
 });

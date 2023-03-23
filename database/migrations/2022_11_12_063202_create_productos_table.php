@@ -37,7 +37,7 @@ return new class extends Migration
             $table->string('modelo', 30)->nullable(true);
             $table->integer('meses_garantia')->nullable(true)->default(0);
             $table->decimal('peso_kg', 4,2)->nullable(true)->default(0);
-            $table->string('desc_detallada', 200)->nullable(true);
+            $table->string('desc_detallada', 1000)->nullable(true);
             $table->boolean('es_produccion')->nullable(false)->default(false);
             $table->boolean('afecta_ventas')->nullable(false)->default(true);
             $table->timestamps();

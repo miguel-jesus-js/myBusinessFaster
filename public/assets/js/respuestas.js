@@ -91,6 +91,12 @@ function confirmDelete(id, info, api, modulo, prefijo){
                             case 'articulo':
                                 getProductosSucursal(2, '');
                                 break;
+                            case 'tipo de gasto':
+                                getTipoGastos(2, '');
+                                break;
+                            case 'gasto':
+                                getGastos(2, '');
+                                break;
                         }
                     }
                 }

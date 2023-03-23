@@ -37,9 +37,9 @@ function removeClass(id){
 }
 
 function readCatalogos(){
-    const catalogos = ['Marcas', 'Empleados', 'Categorias', 'Tipo de clientes', 'Unidad de medidas', 'Proveedores', 'Clientes', 'Productos', 'Materiales', 'Almacenes', 'Turnos', 'Sucursales'];
-    const rutas = ['marcas', 'empleados', 'categorias', 'tipo_clientes', 'unidad_medidas', 'proveedores', 'clientes', 'productos', 'materiales', 'almacenes', 'turnos', 'sucursales'];
-    const iconos = ['ti ti-circles', 'ti ti-users', 'ti ti-award', 'ti ti-briefcase', 'ti ti-ruler-2', 'ti ti-truck', 'ti ti-friends', 'ti ti-cookie', 'ti ti-hammer', 'ti ti-package', 'ti ti-clock', 'ti ti ti-building'];
+    const catalogos = ['Marcas', 'Empleados', 'Categorias', 'Tipo de clientes', 'Unidad de medidas', 'Proveedores', 'Clientes', 'Productos', 'Materiales', 'Almacenes', 'Turnos', 'Sucursales', 'Tipo de gastos'];
+    const rutas = ['marcas', 'empleados', 'categorias', 'tipo_clientes', 'unidad_medidas', 'proveedores', 'clientes', 'productos', 'materiales', 'almacenes', 'turnos', 'sucursales', 'tipo_gastos'];
+    const iconos = ['ti ti-circles', 'ti ti-users', 'ti ti-award', 'ti ti-briefcase', 'ti ti-ruler-2', 'ti ti-truck', 'ti ti-friends', 'ti ti-cookie', 'ti ti-hammer', 'ti ti-package', 'ti ti-clock', 'ti ti ti-building', 'ti ti-cash'];
     var row = '';
     for(var i = 0; i < catalogos.length; i++)
     {
@@ -161,6 +161,9 @@ $(document).ajaxComplete(function(event, xhr, settings) {
             break;
         case 'api/getSucursales/2':
             $('#sucursale_id').val(idSucursal);
+            break;
+        case 'api/getTipoGastos/2':
+            $('#tipo_gasto_id').val(tipoGastoId);
             break;
     }
 

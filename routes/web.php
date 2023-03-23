@@ -21,6 +21,8 @@ use App\Http\Controllers\VentasController;
 use App\Http\Controllers\TurnosController;
 use App\Http\Controllers\SucursalesController;
 use App\Http\Controllers\ProductosSucursalController;
+use App\Http\Controllers\TipoGastosController;
+use App\Http\Controllers\GastosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -88,6 +90,12 @@ Route::group(['middleware' => 'auth'], function(){
     });
     Route::get('/historial', function () {
         return view('historial');
+    });
+    Route::get('/tipo_gastos', function () {
+        return view('tipo_gastos');
+    });
+    Route::get('/gastos', function () {
+        return view('gastos');
     });
 
     Route::get('api/getRoles', [RolesController::class, 'index']);
@@ -232,6 +240,24 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('api/detalle_venta/{id}', [VentasController::class, 'show']);
     Route::get('api/print/{id}', [VentasController::class, 'print']);    
     Route::get('api/saleByEmployees', [VentasController::class, 'saleByEmployees']);
+    //apis tipo de gastos
+    Route::get('api/getTipoGastos/{tipo}', [TipoGastosController::class, 'index']);
+    Route::post('api/addTipoGastos', [TipoGastosController::class, 'create']);
+    Route::put('api/updateTipoGastos', [TipoGastosController::class, 'update']);
+    Route::delete('api/deleteTipoGastos/{id}', [TipoGastosController::class, 'delete']);
+    Route::get('api/downloadPlantillaTipoGastos', [TipoGastosController::class, 'downloadPlantilla']);
+    Route::post('api/uploadTipoGastos', [TipoGastosController::class, 'uploadTipoGastos']);
+    Route::get('api/exportarPdfTipoGastos', [TipoGastosController::class, 'exportarPDF']);
+    Route::get('api/exportarExcelTipoGastos', [TipoGastosController::class, 'exportarExcel']);
+    //apis tipo de gastos
+    Route::get('api/getGastos/{tipo}', [GastosController::class, 'index']);
+    Route::post('api/addGastos', [GastosController::class, 'create']);
+    Route::put('api/updateGastos', [GastosController::class, 'update']);
+    Route::get('api/detalle_gasto/{id}', [GastosController::class, 'show']);
+    Route::delete('api/deleteGastos/{id}', [GastosController::class, 'delete']);
+    Route::get('api/exportarPdfGastos', [GastosController::class, 'exportarPDF']);
+    Route::get('api/exportarExcelGastos', [GastosController::class, 'exportarExcel']);
+
 });
 
 Route::post('api/session', [LoginController::class, 'session']);
