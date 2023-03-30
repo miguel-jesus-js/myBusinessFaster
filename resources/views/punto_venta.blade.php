@@ -201,6 +201,9 @@
             <!-- Page-body end -->
         </div>
     </div>
+    <div id="impresion">
+
+    </div>
     <!-- Required Jquery -->
     <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/js/tabler.min.js') }}"></script>

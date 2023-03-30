@@ -14,7 +14,7 @@ class MaterialesExport implements FromView
     public function view() : View
     {
         $materiales = Materiale::all();
-        return view('excel.materiales', [
+        return view('pdf.materiales_pdf', [
             'materiales' => $materiales,
             'esExcel' => true,
         ]);

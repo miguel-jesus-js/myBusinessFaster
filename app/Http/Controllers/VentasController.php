@@ -86,7 +86,14 @@ class VentasController extends Controller
                 $cantidadActual->update(['stock' => $newCantidad]);
             }
             DB::commit();
-            return json_encode(['icon'  => 'success', 'title'   => 'Exitó', 'text'  => 'Venta Realizada']);
+            // $venta_detalle = Venta::with(['productos','empleado.sucursal', 'cliente'])->find($venta->id);
+            // $setting = Configuracione::find(1);
+            return json_encode([
+                'icon'          => 'success', 
+                'title'         => 'Exitó', 
+                'text'          => 'Venta Realizada', 
+                'venta_id'      => $venta->id,
+            ]);
         }catch(\Exception $e){
             DB::rollback();
             dd($e);
@@ -169,8 +176,9 @@ class VentasController extends Controller
     {
         $venta = Venta::with(['productos','empleado.sucursal', 'cliente'])->find($id);
         $setting = Configuracione::find(1);
-        $pdf = Pdf::loadView('print.detalle', ['venta' => $venta, 'setting' => $setting]);
-        return $pdf->download('Detalle de venta');
+        return view('print.detalle', ['venta' => $venta, 'setting' => $setting, 'isTicket' => true]);
+        // $pdf = Pdf::loadView('print.detalle', ['venta' => $venta, 'setting' => $setting]);
+        // return $pdf->download('Detalle de venta');
     }
     public function delete($id)
     {

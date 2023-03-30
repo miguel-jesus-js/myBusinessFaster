@@ -172,7 +172,7 @@
                             </div>
                             <div class="col-sm-12 mb-3">
                                 <label class="form-label required">Descripción</label>
-                                <textarea class="form-control" name="desc" id="desc" placeholder="Descripción" required rows="5"></textarea>
+                                <textarea class="form-control" name="desc" id="desc" placeholder="Descripción" required rows="5" minlength="5" maxlength="500"></textarea>
                                 <div class="invalid-feedback" id="error-desc"></div>
                             </div>
                         </div>
@@ -205,8 +205,8 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12 mb-3">
-                                <label class="form-label required">Archivo</label>
-                                <input type="file" class="form-control" name="archivo" id="archivo" accept=".xlsx, .xls, .csv"  required autocomplete="off">
+                                <label class="form-label">Archivo</label>
+                                <input type="file" class="form-control" name="archivo" id="archivo" accept="image/jpeg,image/jpg,image/png" autocomplete="off">
                                 <div class="invalid-feedback" id="error-archivo">Invalid feedback</div>
                             </div>
                         </div>

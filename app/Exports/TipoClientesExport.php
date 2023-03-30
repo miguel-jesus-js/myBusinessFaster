@@ -14,7 +14,7 @@ class TipoClientesExport implements FromView
     public function view() : View
     {
         $tipoClientes = TipoCliente::all();
-        return view('excel.tipo_clientes', [
+        return view('pdf.tipo_clientes_pdf', [
             'tipoClientes' => $tipoClientes,
             'esExcel' => true,
         ]);

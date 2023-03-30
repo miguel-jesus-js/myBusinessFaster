@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('gastos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('tipo_gasto_id');
-            $table->date('fecha_hora');
-            $table->decimal('monto', 8, 2);
-            $table->string('desc', 500);
-            $table->string('comprobante', 100);
+            $table->unsignedBigInteger('user_id')->nullable(false);
+            $table->unsignedBigInteger('tipo_gasto_id')->nullable(false);
+            $table->datetime('fecha_hora')->nullable(false);
+            $table->decimal('monto', 8, 2)->nullable(false);
+            $table->string('desc', 500)->nullable(false);
+            $table->string('comprobante', 100)->nullable(true);
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

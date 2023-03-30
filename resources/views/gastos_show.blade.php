@@ -71,6 +71,19 @@
                         </div>
                     </div>
                   </div>
+                  <div class="empty">
+                    <div class="empty-img">
+                      <img src="{{ asset('img/comprobantes/'.$gasto->comprobante) }}" height="128" alt="">
+                    </div>
+                    @if ($gasto->comprobante != null)    
+                      <div class="empty-action">
+                        <a href="{{ asset('img/comprobantes/'.$gasto->comprobante) }}" class="btn btn-primary" download="Comprobante">
+                          <i class=" ti ti-download icono"></i>
+                          Descargar
+                        </a>
+                      </div>
+                    @endif
+                  </div>
                 </div>
               </div>
             <!-- Page-body end -->

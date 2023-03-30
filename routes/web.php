@@ -23,6 +23,7 @@ use App\Http\Controllers\SucursalesController;
 use App\Http\Controllers\ProductosSucursalController;
 use App\Http\Controllers\TipoGastosController;
 use App\Http\Controllers\GastosController;
+use App\Http\Controllers\CortesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -257,6 +258,9 @@ Route::group(['middleware' => 'auth'], function(){
     Route::delete('api/deleteGastos/{id}', [GastosController::class, 'delete']);
     Route::get('api/exportarPdfGastos', [GastosController::class, 'exportarPDF']);
     Route::get('api/exportarExcelGastos', [GastosController::class, 'exportarExcel']);
+    //apis corte de caja
+    Route::get('corte_caja', [CortesController::class, 'index']);
+    Route::get('printCorteCaja', [CortesController::class, 'print']);
 
 });
 

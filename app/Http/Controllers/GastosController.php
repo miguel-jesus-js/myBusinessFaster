@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Requests\GastosRequest;
 use App\Models\Gasto;
 use App\Exports\GastosExport;
 Use App\Traits\ImagesTrait;
@@ -31,7 +32,7 @@ class GastosController extends Controller
         }
         return json_encode($gastos);
     }
-    public function create(Request $request)
+    public function create(GastosRequest $request)
     {
 
         $data = $request->all();
@@ -46,11 +47,10 @@ class GastosController extends Controller
             Gasto::create($data);
             return json_encode(['icon'  => 'success', 'title'   => 'Exitó', 'text'  => 'Gasto registrado']);
         } catch (\Exception $e) {
-            dd($e);
             return json_encode(['icon'  => 'error', 'title'   => 'Error', 'text'  => 'Ocurrio un error, el gasto no fue registrado']);
         }
     }
-    public function update(Request $request)
+    public function update(GastosRequest $request)
     {
         $gastos = Gasto::find($request->all()['id']);
         $data['comprobante'] = $this->uploadImagen($request->file('comprobante'), 'comprobante', 'img/comprobantes/');

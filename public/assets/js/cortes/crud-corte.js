@@ -153,3 +153,17 @@ function onChange(id, tipo_gasto_id, monto, desc, comprobante){
     }
     openModal('modal-gasto', 'gastos', 1);
 }
+function details(marca, created_at, updated_at, deleted_at){
+    const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+    $('#nom-marca').html(marca);
+    let creacion = new Date(created_at);
+    let actualizacion = new Date(updated_at);
+    let eliminacion = new Date(deleted_at);
+    $('#creacion').html(creacion.getDate()+' de '+meses[creacion.getMonth()]+' de '+creacion.getFullYear());
+    $('#actualizacion').html(actualizacion.getDate()+' de '+meses[actualizacion.getMonth()]+' de '+actualizacion.getFullYear());
+    if(eliminacion.getDate().toString() != 'NaN'){
+    $('#eliminacion').html(eliminacion.getDate()+' de '+meses[eliminacion.getMonth()]+' de '+eliminacion.getFullYear());
+    }
+    openModal('modal-detalle-marca', 'marcas', '2');
+
+}

@@ -289,6 +289,12 @@
                                         <span class="pcoded-mtext">Gastos</span>
                                     </a>
                                 </li>
+                                <li class="{{ (request()->is('corte_caja')) ? 'active' : '' }} data-item-color">
+                                    <a href="/corte_caja" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti ti-device-laptop icono"></i></span>
+                                        <span class="pcoded-mtext">Corte de caja</span>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </nav>

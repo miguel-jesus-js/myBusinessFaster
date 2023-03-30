@@ -412,8 +412,15 @@
                                                     <h5 class="m-b-30 f-w-700">${{ $item->total_hoy }}</h5>
                                                 </div>
                                                 <div class="col-md-4">
+                                                    @php
+                                                        $residuo = $item->total_hoy - $item->total_ayer;
+                                                        $porcentaje = 0;
+                                                        if($item->total_hoy != 0){
+                                                            $porcentaje = ($residuo / $item->total_hoy) * 100;
+                                                        }
+                                                    @endphp
                                                     <label class="invisible" for="">%</label>
-                                                    <h5 class="m-b-30 f-w-700"><span class="text-c-green m-l-10">+1.69%</span></h5>
+                                                    <h6 class="m-b-30 f-w-700"><span class="{{$porcentaje > 0 ? 'text-c-green' : 'text-c-red'}} m-l-10">{{$porcentaje}}%</span></h6>
                                                 </div>
                                             </div>
                                             <div class="progress progress-xs">

@@ -185,3 +185,17 @@ table-modulos tr.noSearch td {
     max-height: 280px;
     overflow-y: scroll !important;
 }
+body.ticket{
+    font-size: 10px;
+}
+body.ticket strong{
+    font-size: 8px;
+}
+body.ticket th{
+    font-size: 8px;
+    width: fit-content;
+}
+body.ticket td{
+    font-size: 8px;
+    width: fit-content;
+}

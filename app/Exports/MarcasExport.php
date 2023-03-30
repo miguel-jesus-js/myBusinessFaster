@@ -14,7 +14,7 @@ class MarcasExport implements FromView
     public function view() : View
     {
         $marcas = Marca::all();
-        return view('excel.marcas', [
+        return view('pdf.marcas_pdf', [
             'marcas' => $marcas,
             'esExcel' => true,
         ]);

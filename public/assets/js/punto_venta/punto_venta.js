@@ -32,7 +32,6 @@ $('#form-search-producto').submit(function(e){
             let respuesta = JSON.parse(response);
             let cantidad = parseInt($('#cantidad_pro').val());
             if(respuesta != null){
-                debugger;
                 if(cantidad > respuesta.sucursales[0].pivot.stock){
                     msjInfo('warning', 'STOCK INSUFICIENTE', '<p>¿Desa agregar el producto, esto puede causar problemas de inventario?</p> <p>Disponible: '+respuesta.sucursales[0].pivot.stock+'</p>', true, 'Aceptar', addProducto, respuesta);
                 }else{
@@ -44,6 +43,7 @@ $('#form-search-producto').submit(function(e){
                     title: 'Error',
                     text: 'Producto no encontrado'
                 });
+                $('#form-search-producto').trigger('reset');
             }
         },
         error: function(){
@@ -88,9 +88,13 @@ $('#form-add-venta').submit(function(e){
         },
         success: function(response){
             let respuesta = JSON.parse(response);
+
             if(respuesta.icon == 'success'){
                 let cambio = pagaCon - total;
                 msjInfo('success', 'VENTA EXITOSA', '<p><h3>¡¡¡ Felicidades !!!</h3></p> <p>Sigue incrementanto tus ventas</p> <h1>CAMBIO</h1> <h1>$'+cambio.toFixed(2)+'</h1>', false, 'Aceptar', resetForm, '');
+                let url = window.location;
+                window.open(url.origin+'/api/print/'+respuesta.venta_id,'_blank')
+                //generateTicket(respuesta);
             }else{
                 Toast.fire({
                     icon: respuesta.icon,
@@ -261,3 +265,72 @@ function resetForm(){
         $('#cod_barra_search').focus();
     }, 500);
 }
+// function generateTicket(data){
+//     //hacer vista de impresión
+//     var tbody = '';
+//     $.each(data.venta_detalle.productos, function(index, item){
+//         tbody += `
+//                 <tr>
+//                     <td>
+//                         ${item.producto} | $${item.pivot.precio} | ${item.pivot.cantidad} | $${item.pivot.importe}
+//                     </td>
+//                 </tr>`;
+//     });
+//     var html = `
+//                 <center>
+//                     <img style="max-width: 150px; min-width: 150px" src="../../img/${data.setting.logotipo}" class="logo logo-icons logo-suffix" alt="Logotipo">
+//                 </center>
+//                 <hr>
+//                 <center>
+//                     <p>${data.venta_detalle.empleado.sucursal.calle}, ${data.venta_detalle.empleado.sucursal.n_exterior}, ${data.venta_detalle.empleado.sucursal.colonia}, ${data.venta_detalle.empleado.sucursal.cp}, ${data.venta_detalle.empleado.sucursal.municipio}, ${data.venta_detalle.empleado.sucursal.estado}, ${data.venta_detalle.empleado.sucursal.ciudad}</p>
+//                 </center>
+//                 <hr>
+//                 <small>Sucursal: ${data.venta_detalle.empleado.sucursal.nombre}</small>
+//                 <br>
+//                 <small>Télefono: ${data.venta_detalle.empleado.sucursal.telefono}</small>
+//                 <br>
+//                 <small>Fecha y hora: ${data.venta_detalle.fecha}</small>
+//                 <br>
+//                 <small>Folio: ${data.venta_detalle.folio}</small>
+//                 <br>
+//                 <hr>
+//                 <small>Cliente: ${data.venta_detalle.cliente.nombres+' '+data.venta_detalle.cliente.app+' '+data.venta_detalle.cliente.apm}</small>
+//                 <br>
+//                 <hr>
+//                 <small>Vendedor: ${data.venta_detalle.empleado.nombres+' '+data.venta_detalle.empleado.app+' '+data.venta_detalle.empleado.apm}</small>
+//                 <hr>
+//                 <br>
+//                 <table>
+//                     <thead>
+//                         <tr>
+//                             <th>
+//                                 Producto | Precio | Cantidad | Importe
+//                             </th>
+//                         </tr>
+//                     </thead>
+//                     <tbody>
+//                     ${tbody}
+//                     </tbody>
+//                 </table>
+//                 <br>
+//                 <small>Subtotal: $${data.venta_detalle.subtotal}</small>
+//                 <br>
+//                 <small>Iva: $${data.venta_detalle.iva}</small>
+//                 <br>
+//                 <small>Descuento: $${data.venta_detalle.descuento}</small>
+//                 <br>
+//                 <small>Total: $${data.venta_detalle.total}</small>
+//                 <br>
+//                 <small>Efectivo: $${data.venta_detalle.paga_con}</small>
+//                 <br>
+//                 <small>Cambio: $${data.venta_detalle.paga_con - data.venta_detalle.total}</small>
+//                 <br>
+//                 <p>Muchas gracias por hacer negocios con nosotros. ¡Esperamos trabajar con usted nuevamente!</p>
+//     `;
+//     var nuevaVentana = window.open('', '', 'width=800,height=600');
+//     nuevaVentana.document.write('<html><head><title>Contenido del div</title></head><body>' + html + '</body></html>');
+//     nuevaVentana.document.close();
+//     nuevaVentana.focus();
+//     nuevaVentana.print();
+//     nuevaVentana.close();
+// }

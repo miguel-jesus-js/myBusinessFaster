@@ -45,7 +45,7 @@ class ProductosExport implements FromView
                     ->esProduccion($esProduccion)
                     ->producto($producto)
                     ->get();
-        return view('excel.productos', [
+        return view('pdf.productos_pdf', [
             'productos'     => $productos, 
             'campos'        => $campos, 
             'nombreCampos'  => $nombreCampos,
