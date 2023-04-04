@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Support\Facades\DB;
-use App\Http\Requests\ProductosSucursalRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UploadRequest;
 use App\Models\Producto;
@@ -46,6 +44,7 @@ class ProductosSucursalController extends Controller
             foreach(json_decode($data['productos']) as $producto)
             {
                 $producto->sucursale_id = $data['sucursale_id'];
+                $producto->utilidad = 0;
                 ProductosSucursal::create(get_object_vars($producto));
             }
             return json_encode(['icon'  => 'success', 'title'   => 'Exitó', 'text'  => 'Productos asignados']);
@@ -64,7 +63,13 @@ class ProductosSucursalController extends Controller
         $prosductoSucursal = ProductosSucursal::find($data['id']);
         try{
             $producto = json_decode($data['productos']);
-            $fila = ['sucursale_id' => $data['sucursale_id'], 'stock' => $producto[0]->stock];
+            $fila = [
+                'sucursale_id'  => $data['sucursale_id'], 
+                'stock'         => $producto[0]->stock, 
+                'pre_compra'    => $producto[0]->pre_compra, 
+                'pre_venta'     => $producto[0]->pre_venta,
+                'pre_mayoreo'   => $producto[0]->pre_mayoreo,
+            ];
             $prosductoSucursal->update($fila);
             return json_encode(['icon'  => 'success', 'title'   => 'Exitó', 'text'  => 'Datos actualizados']);
         } catch(\Exception $e){

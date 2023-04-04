@@ -139,11 +139,7 @@ function getProductos(tipo, filtro){
                             <td>${valor.unidad_medidas  == null ? '' : valor.unidad_medidas.unidad_medida}</td>
                             <td>${valor.proveedores == null ? '' : valor.proveedores.nombres + ' ('+valor.proveedores.empresa+')'}</td>
                             <td>${valor.materiales == null ? '' : valor.materiales.material}</td>
-                            <td>${formatter.format(valor.pre_compra)}</td>
-                            <td>${formatter.format(valor.pre_venta)}</td>
-                            <td class="d-none oculto">${formatter.format(valor.pre_mayoreo)}</td>
                             <td class="d-none oculto">${valor.stock_min}</td>
-                            <td class="d-none oculto">${formatter.format(valor.utilidad)}</td>
                             <td class="d-none oculto">${valor.cod_sat == null ? '' : valor.cod_sat}</td>
                             <td class="d-none oculto">${valor.caducidad == null ? '' : valor.caducidad}</td>
                             <td class="d-none oculto">${valor.color == null ? '' : valor.color}</td>
@@ -154,7 +150,7 @@ function getProductos(tipo, filtro){
                             <td class="d-none oculto">${valor.es_produccion == 1 ? 'Si' : 'No'}</td>
                             <td class="d-none oculto">${valor.afecta_ventas == 1 ? 'Si' : 'No'}</td>
                             <td>
-                                <button type="button" class="btn p-0 border-0" onclick="onChange(${valor.id}, ${valor.marca_id}, ${valor.almacene_id}, ${valor.unidad_medida_id}, ${valor.proveedore_id}, ${valor.materiale_id}, '${valor.cod_barra}', ${valor.cod_sat}, '${valor.producto}', '${valor.pre_compra}', '${valor.pre_venta}', '${valor.pre_mayoreo}', ${valor.stock_min}, ${valor.stock}, '${valor.img1}', '${valor.img2}', '${valor.img3}', '${valor.caducidad}', '${valor.color}', '${valor.talla}', '${valor.modelo}', ${valor.meses_garantia}, '${valor.peso_kg}', '${valor.desc_detallada}', ${valor.es_produccion}, ${valor.afecta_ventas}, ${caracteristicas}, ${categorias});"><i class="ti ti-edit icono text-primary"></i></button>
+                                <button type="button" class="btn p-0 border-0" onclick="onChange(${valor.id}, ${valor.marca_id}, ${valor.almacene_id}, ${valor.unidad_medida_id}, ${valor.proveedore_id}, ${valor.materiale_id}, '${valor.cod_barra}', ${valor.cod_sat}, '${valor.producto}', ${valor.stock_min}, '${valor.img1}', '${valor.img2}', '${valor.img3}', '${valor.caducidad}', '${valor.color}', '${valor.talla}', '${valor.modelo}', ${valor.meses_garantia}, '${valor.peso_kg}', '${valor.desc_detallada}', ${valor.es_produccion}, ${valor.afecta_ventas}, ${caracteristicas}, ${categorias});"><i class="ti ti-edit icono text-primary"></i></button>
                                 <button type="button" class="btn p-0 border-0" onclick="confirmDelete(${valor.id}, '${valor.producto}', 'api/deleteProductos/', 'producto', 'el');"><i class="ti ti-trash icono text-danger"></i></button>
                                 <button type="button" class="btn p-0 border-0 ver_mas" onclick=""><i class="ti ti-eye icono text-success"></i></button>
                                 <a href="/api/showProducto/${valor.id}" class="btn p-0 border-0"><i class="ti ti-list-details icono text-dark"></i></a>
@@ -183,16 +179,12 @@ function getProductos(tipo, filtro){
         }
     })
 }
-function onChange(id, marca_id, almacene_id, unidad_medida_id, proveedore_id, materiale_id, cod_barra, cod_sat, producto, pre_compra, pre_venta, pre_mayoreo, stock_min, stock, img1, img2, img3, caducidad, color, talla, modelo, meses_garantia, peso_kg, desc_detallada, es_produccion, afecta_ventas, caracteristicas, categorias){
+function onChange(id, marca_id, almacene_id, unidad_medida_id, proveedore_id, materiale_id, cod_barra, cod_sat, producto, stock_min, img1, img2, img3, caducidad, color, talla, modelo, meses_garantia, peso_kg, desc_detallada, es_produccion, afecta_ventas, caracteristicas, categorias){
     $('#id').val(id);
     $('#cod_barra').val(cod_barra);
     $('#cod_sat').val(cod_sat);
     $('#producto').val(producto);
-    $('#pre_compra').val(pre_compra);
-    $('#pre_venta').val(pre_venta);
-    $('#pre_mayoreo').val(pre_mayoreo);
     $('#stock_min').val(stock_min);
-    $('#stock').val(stock);
     $('#caducidad').val(caducidad);
     $('#color').val(color == 'null' ? '' : color);
     $('#talla').val(talla == 'null' ? '' : talla);

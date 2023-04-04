@@ -18,10 +18,6 @@ class Producto extends Model
         'cod_barra',
         'cod_sat',
         'producto',
-        'pre_compra',
-        'pre_venta',
-        'pre_mayoreo',
-        'utilidad',
         'stock_min',
         'img1',
         'img2',
@@ -170,7 +166,7 @@ class Producto extends Model
     }
     public function sucursales()
     {
-        return $this->belongsToMany(Sucursale::class, 'productos_sucursal', 'producto_id', 'sucursale_id')->withPivot('stock');
+        return $this->belongsToMany(Sucursale::class, 'productos_sucursal', 'producto_id', 'sucursale_id')->withPivot('stock', 'pre_venta');
     }
     public function productosSucursal()
     {

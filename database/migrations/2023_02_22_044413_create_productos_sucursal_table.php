@@ -18,6 +18,10 @@ return new class extends Migration
             $table->unsignedBigInteger('sucursale_id')->nullable(false);
             $table->unsignedBigInteger('producto_id')->nullable(false);
             $table->integer('stock')->nullable(false);
+            $table->float('pre_compra')->nullable(false);
+            $table->float('pre_venta')->nullable(false);
+            $table->float('pre_mayoreo')->nullable(false);
+            $table->float('utilidad')->nullable(false);
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('sucursale_id')->references('id')->on('sucursales')->onDelete('cascade');

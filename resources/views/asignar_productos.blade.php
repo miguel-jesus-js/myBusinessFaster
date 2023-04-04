@@ -121,6 +121,9 @@
                             <tr>
                                 <th>Sucursal</th>
                                 <th>Producto</th>
+                                <th>P. venta</th>
+                                <th>P. compra</th>
+                                <th>P. mayoreo</th>
                                 <th>Stock</th>
                                 <th colspan="3" class="text-center">Acciones</th>
                             </tr>
@@ -182,6 +185,7 @@
                                             <th>Material</th>
                                             <th>P.de compra</th>
                                             <th>P.de venta</th>
+                                            <th>P.de mayoreo</th>
                                             <th>Stock</th>
                                         </tr>
                                     </thead>
@@ -251,6 +255,12 @@
                 <p id="nom-sucursal"></p>
                 <label class="form-label">Producto:</label>
                 <p id="nom-producto"></p>
+                <label class="form-label">Precio de compra:</label>
+                <p id="nom-pre_compra"></p>
+                <label class="form-label">Precio de venta:</label>
+                <p id="nom-pre_venta"></p>
+                <label class="form-label">Precio de mayoreo:</label>
+                <p id="nom-pre_mayoreo"></p>
                 <label class="form-label">Stock:</label>
                 <p id="nom-stock"></p>
                 <label class="form-label">Fecha de creación:</label>

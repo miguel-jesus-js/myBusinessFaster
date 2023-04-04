@@ -23,10 +23,6 @@ return new class extends Migration
             $table->char('cod_barra', 13)->unique()->nullable(false);
             $table->char('cod_sat', 8)->unique()->nullable(true);
             $table->string('producto', 50)->nullable(false);
-            $table->float('pre_compra')->nullable(false);
-            $table->float('pre_venta')->nullable(false);
-            $table->float('pre_mayoreo')->nullable(false);
-            $table->float('utilidad')->nullable(false);
             $table->integer('stock_min')->nullable(false);
             $table->string('img1', 100)->nullable(true);
             $table->string('img2', 100)->nullable(true);

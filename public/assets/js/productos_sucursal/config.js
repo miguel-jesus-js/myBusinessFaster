@@ -65,9 +65,16 @@ function getProductos(sucursal_id){
                             <td>${valor.unidad_medidas  == null ? '' : valor.unidad_medidas.unidad_medida}</td>
                             <td>${valor.proveedores == null ? '' : valor.proveedores.nombres + ' ('+valor.proveedores.empresa+')'}</td>
                             <td>${valor.materiales == null ? '' : valor.materiales.material}</td>
-                            <td>${formatter.format(valor.pre_compra)}</td>
-                            <td>${formatter.format(valor.pre_venta)}</td>
-                            <td><input type="number" class="form-control" name="stock=[]" placeholder="Stock" autocomplete="off" min="1" max="100000" minlength="1" maxlength="7">
+                            <td>
+                                <input type="number" class="form-control" name="pre_compra[]" placeholder="Precio de compra" autocomplete="off" required min="1" max="100000" minlength="1" maxlength="7" step=0.01>
+                            </td>
+                            <td>
+                                <input type="number" class="form-control" name="pre_venta[]" placeholder="Precio de venta" autocomplete="off" required min="1" max="100000" minlength="1" maxlength="7" step=0.01>
+                            </td>
+                            <td>
+                                <input type="number" class="form-control" name="pre_mayoreo[]" placeholder="Precio por mayoreo" autocomplete="off" required min="1" max="100000" minlength="1" maxlength="7" step=0.01>
+                            </td>
+                            <td><input type="number" class="form-control" name="stock=[]" placeholder="Stock" autocomplete="off" min="1" max="100000" minlength="1" maxlength="7"></td>
                         </tr>
                     `;
                 });

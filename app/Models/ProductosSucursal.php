@@ -15,6 +15,10 @@ class ProductosSucursal extends Model
         'sucursale_id',
         'producto_id',
         'stock',
+        'pre_compra',
+        'pre_venta',
+        'pre_mayoreo',
+        'utilidad',
     ];
 
     public function scopeProducto($query, $producto)

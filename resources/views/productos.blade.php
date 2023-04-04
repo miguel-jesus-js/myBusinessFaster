@@ -112,11 +112,7 @@
                                 <th>Medida</th>
                                 <th>Proveedor</th>
                                 <th>Material</th>
-                                <th>P.de compra</th>
-                                <th>P.de venta</th>
-                                <th class="d-none oculto">Precio de mayoreo</th>
                                 <th class="d-none oculto">Stock mínimo</th>
-                                <th class="d-none oculto">Utilidad</th>
                                 <th class="d-none oculto">Código del SAT</th>
                                 <th class="d-none oculto">Caducidad</th>
                                 <th class="d-none oculto">Color</th>
@@ -235,7 +231,7 @@
                                     </select>
                                     <div class="invalid-feedback" id="error-materiale_id"></div>
                                 </div>
-                                <div class="col-sm-6 col-md-4 mb-2">
+                                {{-- <div class="col-sm-6 col-md-4 mb-2">
                                     <label class="form-label required">Precio de compra</label>
                                     <input type="number" class="form-control" name="pre_compra" id="pre_compra" placeholder="Precio de compra" autocomplete="off" required min="1" max="100000" minlength="1" maxlength="7" step=0.01>
                                     <div class="invalid-feedback" id="error-pre_compra"></div>
@@ -249,7 +245,7 @@
                                     <label class="form-label required">Precio por mayoreo</label>
                                     <input type="number" class="form-control" name="pre_mayoreo" id="pre_mayoreo" placeholder="Precio por mayoreo" autocomplete="off" required min="1" max="100000" minlength="1" maxlength="7" step=0.01>
                                     <div class="invalid-feedback" id="error-pre_mayoreo"></div>
-                                </div>
+                                </div> --}}
                                 <div class="col-sm-6 col-md-4 mb-2">
                                     <label class="form-label required">Stock minimo</label>
                                     <input type="number" class="form-control" name="stock_min" id="stock_min" placeholder="Stock minimo" autocomplete="off" required min="1" max="100000" minlength="1" maxlength="7">

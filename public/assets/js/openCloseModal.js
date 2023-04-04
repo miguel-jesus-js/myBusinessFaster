@@ -115,11 +115,12 @@ function openModal(id_modal, modulo, tipo){
             }
             break;
         case 'productos_sucursal':
-            $('#table-productos tbody').empty();
             if(tipo == 0){
                 $('#modal-title').html('Agregar productos a sucursal');
+                $('#table-productos tbody').empty();
             }else if(tipo == 1){
                 $('#modal-title').html('Editar producto de sucursal');
+                //$('#table-productos tbody').empty();
             }
             break;
         case 'tipo_gastos':

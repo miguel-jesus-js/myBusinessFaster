@@ -110,7 +110,8 @@ $('#form-add-venta').submit(function(e){
 })
 function addProducto(data){
     var cantidad = parseInt($('#cantidad_pro').val());
-    var importe = cantidad * parseFloat(data.pre_venta);
+    var importe = cantidad * parseFloat(data.sucursales[0].pivot.pre_venta
+);
     var cod_barra = $('#cod_barra_search').val();
     var existeProducto = false
     $('#form-search-producto').trigger('reset');
@@ -124,7 +125,8 @@ function addProducto(data){
             function addAmount(){
                 let importeActual = $(columnas[5]).find('input');
                 let nuevaCantidad = parseInt(cantidadActual.val()) + parseInt(cantidad);
-                importeActual.val(nuevaCantidad * parseFloat(data.pre_venta));
+                importeActual.val(nuevaCantidad * parseFloat(data.sucursales[0].pivot.pre_venta
+));
                 cantidadActual.val(nuevaCantidad);
                 calculateTotals();
                 return false;
@@ -140,14 +142,15 @@ function addProducto(data){
         let row = ` <tr>
                         <td class="d-none"><input type="number" class="form-control form-control-sm input-table" name="producto_id[]" value="${data.id}" readonly></td>
                         <td class="d-none"><input type="number" class="form-control form-control-sm input-table" name="cod_barra[]" value="${data.cod_barra}" readonly></td>
-                        <td class="d-none"><input type="number" class="form-control form-control-sm input-table" name="disponible[]" value="${data.stock}" readonly></td>
+                        <td class="d-none"><input type="number" class="form-control form-control-sm input-table" name="disponible[]" value="${data.sucursales[0].pivot.stock}" readonly></td>
                         <td><b>${data.producto}</b></td>
                         <td>
                             <div class="input-icon">
                                 <span class="input-icon-addon">
                                     <i class="ti ti-currency-dollar"></i>
                                 </span>
-                                <input type="text" class="form-control form-control-sm input-table" name="pre_venta[]" value="${data.pre_venta}" readonly>
+                                <input type="text" class="form-control form-control-sm input-table" name="pre_venta[]" value="${data.sucursales[0].pivot.pre_venta
+}" readonly>
                             </div>
                         </td>
                         <td>
@@ -198,7 +201,7 @@ function calculateTotals(){
     $('input[name="importe_pro[]"]').each(function(){
         importe += parseFloat($(this).val());
     });
-    iva = importe * 0.16;
+    //iva = importe * 0.16;
     let totalPagar = parseFloat(importe) + parseFloat(iva);
     $('#iva').val(iva.toFixed(2));
     $('#subtotal').val(importe);
@@ -265,72 +268,3 @@ function resetForm(){
         $('#cod_barra_search').focus();
     }, 500);
 }
-// function generateTicket(data){
-//     //hacer vista de impresión
-//     var tbody = '';
-//     $.each(data.venta_detalle.productos, function(index, item){
-//         tbody += `
-//                 <tr>
-//                     <td>
-//                         ${item.producto} | $${item.pivot.precio} | ${item.pivot.cantidad} | $${item.pivot.importe}
-//                     </td>
-//                 </tr>`;
-//     });
-//     var html = `
-//                 <center>
-//                     <img style="max-width: 150px; min-width: 150px" src="../../img/${data.setting.logotipo}" class="logo logo-icons logo-suffix" alt="Logotipo">
-//                 </center>
-//                 <hr>
-//                 <center>
-//                     <p>${data.venta_detalle.empleado.sucursal.calle}, ${data.venta_detalle.empleado.sucursal.n_exterior}, ${data.venta_detalle.empleado.sucursal.colonia}, ${data.venta_detalle.empleado.sucursal.cp}, ${data.venta_detalle.empleado.sucursal.municipio}, ${data.venta_detalle.empleado.sucursal.estado}, ${data.venta_detalle.empleado.sucursal.ciudad}</p>
-//                 </center>
-//                 <hr>
-//                 <small>Sucursal: ${data.venta_detalle.empleado.sucursal.nombre}</small>
-//                 <br>
-//                 <small>Télefono: ${data.venta_detalle.empleado.sucursal.telefono}</small>
-//                 <br>
-//                 <small>Fecha y hora: ${data.venta_detalle.fecha}</small>
-//                 <br>
-//                 <small>Folio: ${data.venta_detalle.folio}</small>
-//                 <br>
-//                 <hr>
-//                 <small>Cliente: ${data.venta_detalle.cliente.nombres+' '+data.venta_detalle.cliente.app+' '+data.venta_detalle.cliente.apm}</small>
-//                 <br>
-//                 <hr>
-//                 <small>Vendedor: ${data.venta_detalle.empleado.nombres+' '+data.venta_detalle.empleado.app+' '+data.venta_detalle.empleado.apm}</small>
-//                 <hr>
-//                 <br>
-//                 <table>
-//                     <thead>
-//                         <tr>
-//                             <th>
-//                                 Producto | Precio | Cantidad | Importe
-//                             </th>
-//                         </tr>
-//                     </thead>
-//                     <tbody>
-//                     ${tbody}
-//                     </tbody>
-//                 </table>
-//                 <br>
-//                 <small>Subtotal: $${data.venta_detalle.subtotal}</small>
-//                 <br>
-//                 <small>Iva: $${data.venta_detalle.iva}</small>
-//                 <br>
-//                 <small>Descuento: $${data.venta_detalle.descuento}</small>
-//                 <br>
-//                 <small>Total: $${data.venta_detalle.total}</small>
-//                 <br>
-//                 <small>Efectivo: $${data.venta_detalle.paga_con}</small>
-//                 <br>
-//                 <small>Cambio: $${data.venta_detalle.paga_con - data.venta_detalle.total}</small>
-//                 <br>
-//                 <p>Muchas gracias por hacer negocios con nosotros. ¡Esperamos trabajar con usted nuevamente!</p>
-//     `;
-//     var nuevaVentana = window.open('', '', 'width=800,height=600');
-//     nuevaVentana.document.write('<html><head><title>Contenido del div</title></head><body>' + html + '</body></html>');
-//     nuevaVentana.document.close();
-//     nuevaVentana.focus();
-//     nuevaVentana.print();
-//     nuevaVentana.close();
-// }
