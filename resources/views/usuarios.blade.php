@@ -185,27 +185,22 @@
                                 <div class="col-sm-6 col-md-4 mb-3">
                                     <input type="number" class="d-none" id="id" name="id">
                                     <label class="form-label required">Nombre(s)</label>
-                                    <input type="text" class="form-control" name="nombres" id="nombres" placeholder="Nombre(s)" required autocomplete="off" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,50}" value="Miguel de Jesús">
+                                    <input type="text" class="form-control" name="nombres" id="nombres" placeholder="Nombre(s)" required autocomplete="off" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,50}">
                                     <div class="invalid-feedback" id="error-nombres"></div>
                                 </div>
                                 <div class="col-sm-6 col-md-4 mb-3">
                                     <label class="form-label required">Apellido P</label>
-                                    <input type="text" class="form-control" name="app" id="app" placeholder="Apellido paterno" required autocomplete="off" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,50}" value="López">
+                                    <input type="text" class="form-control" name="app" id="app" placeholder="Apellido paterno" required autocomplete="off" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,50}">
                                     <div class="invalid-feedback" id="error-app"></div>
                                 </div>
                                 <div class="col-sm-6 col-md-4 mb-3">
                                     <label class="form-label required">Apellido M</label>
-                                    <input type="text" class="form-control" name="apm" id="apm" placeholder="Apellido materno" required autocomplete="off" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,50}" value="López">
+                                    <input type="text" class="form-control" name="apm" id="apm" placeholder="Apellido materno" required autocomplete="off" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,50}">
                                     <div class="invalid-feedback" id="error-apm"></div>
-                                </div>
-                                <div class="col-sm-6 col-md-4 mb-3">
-                                    <label class="form-label required">Clave</label>
-                                    <input type="text" class="form-control" name="clave" id="clave" placeholder="Clave" required autocomplete="off" maxlength="10" minlength="3" value="LPZ006">
-                                    <div class="invalid-feedback" id="error-clave"></div>
                                 </div>
                                 <div class="col-sm-6 col-md-4 mb-2">
                                     <label class="form-label">RFC</label>
-                                    <input type="text" class="form-control" name="rfc" id="rfc" placeholder="RFC" autocomplete="off" pattern="^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1]))([A-Z\d]{3})?$" value="QUMA470929F37">
+                                    <input type="text" class="form-control" name="rfc" id="rfc" placeholder="RFC" autocomplete="off" pattern="^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1]))([A-Z\d]{3})?$">
                                     <div class="invalid-feedback" id="error-rfc"></div>
                                 </div>
                                 <div class="col-sm-6 col-md-4 mb-2">
@@ -225,32 +220,32 @@
                                 </div>
                                 <div class="col-sm-6 col-md-4 mb-3">
                                     <label class="form-label required">Ciudad</label>
-                                    <input type="text" class="form-control" name="ciudad" id="ciudad" placeholder="Ciudad" required autocomplete="off" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,50}" maxlength="50" minlength="5" value="Ocosingo">
+                                    <input type="text" class="form-control" name="ciudad" id="ciudad" placeholder="Ciudad" required autocomplete="off" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,50}" maxlength="50" minlength="5">
                                     <div class="invalid-feedback" id="error-ciudad"></div>
                                 </div>
                                 <div class="col-sm-6 col-md-4 mb-3">
                                     <label class="form-label required">Estado</label>
-                                    <input type="text" class="form-control" name="estado" id="estado" placeholder="Estado" required autocomplete="off" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,50}" maxlength="50" minlength="5" value="Chiapas">
+                                    <input type="text" class="form-control" name="estado" id="estado" placeholder="Estado" required autocomplete="off" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,50}" maxlength="50" minlength="5">
                                     <div class="invalid-feedback" id="error-estado"></div>
                                 </div>
                                 <div class="col-sm-6 col-md-4 mb-3">
                                     <label class="form-label required">Municipio</label>
-                                    <input type="text" class="form-control" name="municipio" id="municipio" placeholder="Municipio" required autocomplete="off" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,50}" maxlength="50" minlength="5" value="Ocosingo">
+                                    <input type="text" class="form-control" name="municipio" id="municipio" placeholder="Municipio" required autocomplete="off" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,50}" maxlength="50" minlength="5">
                                     <div class="invalid-feedback" id="error-municipio"></div>
                                 </div>
                                 <div class="col-sm-6 col-md-4 mb-3">
                                     <label class="form-label required">Código postal</label>
-                                    <input type="number" class="form-control" name="cp" id="cp" placeholder="Código postal" required autocomplete="off" maxlength="5" minlength="5" value="29950">
+                                    <input type="number" class="form-control" name="cp" id="cp" placeholder="Código postal" required autocomplete="off" maxlength="5" minlength="5">
                                     <div class="invalid-feedback" id="error-cp"></div>
                                 </div>
                                 <div class="col-sm-6 col-md-4 mb-3">
                                     <label class="form-label required">Colonia</label>
-                                    <input type="text" class="form-control" name="colonia" id="colonia" placeholder="Colonia" required autocomplete="off" maxlength="50" minlength="5" value="Bonampack">
+                                    <input type="text" class="form-control" name="colonia" id="colonia" placeholder="Colonia" required autocomplete="off" maxlength="50" minlength="5">
                                     <div class="invalid-feedback" id="error-colonia"></div>
                                 </div>
                                 <div class="col-sm-6 col-md-4 mb-3">
                                     <label class="form-label required">Calle</label>
-                                    <input type="text" class="form-control" name="calle" id="calle" placeholder="Calle" required autocomplete="off" value="Yaxchilán">
+                                    <input type="text" class="form-control" name="calle" id="calle" placeholder="Calle" required autocomplete="off">
                                     <div class="invalid-feedback" id="error-calle"></div>
                                 </div>
                                 <div class="col-sm-6 col-md-4 mb-3">
@@ -274,7 +269,7 @@
                                 </div>
                                 <div class="col-sm-6 mb-3">
                                     <label class="form-label required">Correo</label>
-                                    <input type="email" class="form-control" name="email" id="email" placeholder="Correo" required autocomplete="off" pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}" value="winalllpz@gmail.com">
+                                    <input type="email" class="form-control" name="email" id="email" placeholder="Correo" required autocomplete="off" pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}">
                                     <div class="invalid-feedback" id="error-email"></div>
                                 </div>
                             </div>

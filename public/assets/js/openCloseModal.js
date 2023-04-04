@@ -137,6 +137,11 @@ function openModal(id_modal, modulo, tipo){
                 $('#modal-title').html('Editar gasto');
             }
             break;
+        case 'perfil':
+            if(tipo == 1){
+                $('#modal-title').html('Editar perfil');
+            }
+            break;
     }
     $('#'+id_modal).modal({backdrop: 'static', keyboard: false});
     if(tipo == 3){

@@ -182,7 +182,7 @@
                                     <input type="number" class="d-none" id="id" name="id">
                                     <label class="form-label required">Código de barra</label>
                                     <div class="input-group mb-2">
-                                        <input type="text" class="form-control" name="cod_barra" id="cod_barra" placeholder="Código de barra" required autocomplete="off" min="0" minlength="13" maxlength="13" value="1234567890123">
+                                        <input type="text" class="form-control" name="cod_barra" id="cod_barra" placeholder="Código de barra" required autocomplete="off" min="0" minlength="13" maxlength="13">
                                         <button class="btn" type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Generar" onclick="getCodBarraOrSat(0)"><i class="ti ti-reload"></i></button>
                                         <div class="invalid-feedback" id="error-cod_barra"></div>
                                     </div>
@@ -190,14 +190,14 @@
                                 <div class="col-sm-6 col-md-4 mb-3">
                                     <label class="form-label">Código del SAT</label>
                                     <div class="input-group mb-2">
-                                        <input type="number" class="form-control" name="cod_sat" id="cod_sat" placeholder="Código del SAT" autocomplete="off" min="0" minlength="8" maxlength="8" value="12345678">
+                                        <input type="number" class="form-control" name="cod_sat" id="cod_sat" placeholder="Código del SAT" autocomplete="off" min="0" minlength="8" maxlength="8">
                                         <button class="btn" type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Generar" onclick="getCodBarraOrSat(1)"><i class="ti ti-reload"></i></button>
                                         <div class="invalid-feedback" id="error-cod_sat"></div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-md-4 mb-3">
                                     <label class="form-label required">Producto</label>
-                                    <input type="text" class="form-control" name="producto" id="producto" placeholder="Producto" required autocomplete="off" minlength="3" maxlength="50" value="Takis">
+                                    <input type="text" class="form-control" name="producto" id="producto" placeholder="Producto" required autocomplete="off" minlength="3" maxlength="50">
                                     <div class="invalid-feedback" id="error-producto"></div>
                                 </div>
                                 <div class="col-sm-6 col-md-4 mb-3">
@@ -237,22 +237,22 @@
                                 </div>
                                 <div class="col-sm-6 col-md-4 mb-2">
                                     <label class="form-label required">Precio de compra</label>
-                                    <input type="number" class="form-control" name="pre_compra" id="pre_compra" placeholder="Precio de compra" autocomplete="off" required min="1" max="100000" minlength="1" maxlength="7" step=0.01 value="10">
+                                    <input type="number" class="form-control" name="pre_compra" id="pre_compra" placeholder="Precio de compra" autocomplete="off" required min="1" max="100000" minlength="1" maxlength="7" step=0.01>
                                     <div class="invalid-feedback" id="error-pre_compra"></div>
                                 </div>
                                 <div class="col-sm-6 col-md-4 mb-2">
                                     <label class="form-label required">Precio de venta</label>
-                                    <input type="number" class="form-control" name="pre_venta" id="pre_venta" placeholder="Precio de venta" autocomplete="off" required min="1" max="100000" minlength="1" maxlength="7" step=0.01 value="14">
+                                    <input type="number" class="form-control" name="pre_venta" id="pre_venta" placeholder="Precio de venta" autocomplete="off" required min="1" max="100000" minlength="1" maxlength="7" step=0.01>
                                     <div class="invalid-feedback" id="error-pre_venta"></div>
                                 </div>
                                 <div class="col-sm-6 col-md-4 mb-2">
                                     <label class="form-label required">Precio por mayoreo</label>
-                                    <input type="number" class="form-control" name="pre_mayoreo" id="pre_mayoreo" placeholder="Precio por mayoreo" autocomplete="off" required min="1" max="100000" minlength="1" maxlength="7" step=0.01 value="12">
+                                    <input type="number" class="form-control" name="pre_mayoreo" id="pre_mayoreo" placeholder="Precio por mayoreo" autocomplete="off" required min="1" max="100000" minlength="1" maxlength="7" step=0.01>
                                     <div class="invalid-feedback" id="error-pre_mayoreo"></div>
                                 </div>
                                 <div class="col-sm-6 col-md-4 mb-2">
                                     <label class="form-label required">Stock minimo</label>
-                                    <input type="number" class="form-control" name="stock_min" id="stock_min" placeholder="Stock minimo" autocomplete="off" required min="1" max="100000" minlength="1" maxlength="7" value="2">
+                                    <input type="number" class="form-control" name="stock_min" id="stock_min" placeholder="Stock minimo" autocomplete="off" required min="1" max="100000" minlength="1" maxlength="7">
                                     <div class="invalid-feedback" id="error-stock_min"></div>
                                 </div>
                                 <div class="col-sm-6 col-md-4 mb-2">

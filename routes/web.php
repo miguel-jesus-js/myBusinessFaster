@@ -36,9 +36,13 @@ use App\Http\Controllers\CortesController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('login');
+Route::group(['middleware' => 'guest'], function(){
+    //app/Http/Middleware/RedirectIfAuthenticated.php
+    Route::get('/', function () {
+        return view('welcome');
+    })->name('login');
+    Route::post('api/session', [LoginController::class, 'session']);
+});
 
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/settings', function () {
@@ -261,10 +265,15 @@ Route::group(['middleware' => 'auth'], function(){
     //apis corte de caja
     Route::get('corte_caja', [CortesController::class, 'index']);
     Route::get('printCorteCaja', [CortesController::class, 'print']);
-
+    //api cerrar sessión
+    Route::post('api/logout', [LoginController::class, 'logout']);
 });
 
-Route::post('api/session', [LoginController::class, 'session']);
+// Route::group(['middleware' => 'auth'], function () {
+//     //apis roles
+    
+// });
+
 // Route::group(['middleware' => 'auth'], function () {
 //     //apis roles
     

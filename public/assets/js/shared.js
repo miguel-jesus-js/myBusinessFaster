@@ -178,3 +178,61 @@ $('#search-catalog').keyup(function(){
         return $(this).text().toLowerCase().indexOf(filter) !== -1;
     }).closest('div .col-lg-3').show();
 })
+$('#form-perfil').submit(function(e){
+    e.preventDefault();
+    removeClass('form-perfil');
+    if($('#password').val() != $('#password-repeat').val()){
+        Toast.fire({
+            icon: 'warning',
+            title: 'Advertencia',
+            text: 'Las contraseñas no coinciden'
+        });
+        return false;
+    }
+    var data = new FormData(this);
+    data.append('_method', 'PUT');
+    $.ajax({
+        'type': 'POST',
+        'url': '/api/updateUsuarios',
+        'data': data,
+        enctype: 'multipart/form-data',
+        contentType: false,
+        cache: false,
+        processData:false,
+        beforeSend: function(){
+            addHtmlEfectoLoad('load-form');
+            addClassBtnEfectoLoad('load-button', 'btn-modal');
+        },
+        success: function(response){
+            let respuesta = JSON.parse(response);
+            removeClassBtnEfectoLoad('load-form','load-button', 'btn-modal');
+            Toast.fire({
+                icon: respuesta.icon,
+                title: respuesta.title,
+                text: respuesta.text
+            });
+            if(respuesta.icon == 'success'){
+                location.reload();
+            }
+        },
+        error: function(request, status, error){
+            switch (request.status) {
+                case 422:
+                    addValidacion(request.responseJSON.errors);
+                    break;
+                default:
+                    msjInfo('error', 'Error', 'Se perdio la conexión con el servidor, intente nuevamente');
+                    break;
+            }
+            removeClassBtnEfectoLoad('load-form1','load-button1', 'btn-modal1');
+        }
+    });
+});
+$('#password').keyup(function(){
+    if($(this).val() != ''){
+        $('#password-repeat').prop('required', true);
+    }else{
+        $('#password-repeat').prop('required', false);
+
+    }
+})

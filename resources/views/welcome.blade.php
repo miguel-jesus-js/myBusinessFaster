@@ -41,7 +41,7 @@
                                 <span class="input-group-text border-end" id="icono-email">
                                     <i class="ti ti-mail"></i>
                                 </span>
-                                <input type="email" class="form-control border-end" name="email" id="email" placeholder="Correo" required autocomplete="off" value="prueba@softcode.com.mx">
+                                <input type="email" class="form-control border-end" name="email" id="email" placeholder="Correo" required autocomplete="off">
                                 <div class="invalid-feedback" id="error-email"></div>
                             </div>
                             <br>
@@ -50,17 +50,13 @@
                                 <span class="input-group-text" id="icono-password">
                                     <i class="ti ti-key"></i>
                                 </span>
-                                <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña" autocomplete="off" value="SoftCode-2023">
+                                <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña" autocomplete="off">
                                 <span class="input-group-text" id="icono-showHide">
                                   <a href="#showHide" class="input-group-link" onclick="showHidePassword('icono')"><i class="ti ti-eye" id="icono"></i></a>
                                 </span>
                                 <div class="invalid-feedback" id="error-password"></div>
                             </div>
-                            <br>
-                            <label class="form-check">
-                                <input type="checkbox" class="form-check-input" name="remember" value="true">
-                                <span class="form-check-label">Mantener sesisón iniciada</span>
-                            </label>
+
                             <br>
                             <button type="submit" class="btn btn-info w-100" id="btn-enviar">ACCEDER</button>
                         </form>

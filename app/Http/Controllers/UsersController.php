@@ -11,10 +11,12 @@ use App\Exports\UsersExport;
 use App\Http\Requests\UsersRequest;
 use App\Http\Requests\UploadRequest;
 use Illuminate\Support\Facades\DB;
+use App\Traits\ImagesTrait;
 use PDF;
 
 class UsersController extends Controller
 {
+    use ImagesTrait;
     public function index(Request $request, $tipo)
     {
         $filtro = $request->get('filtro');
@@ -53,6 +55,22 @@ class UsersController extends Controller
     {
         $usuarios = User::find($request->all()['id']);
         $data = $request->all();
+        $data['foto_perfil'] = $this->uploadImagen($request->file('foto_perfil'), '0', 'img/usuarios/');
+        if($data['foto_perfil'] == null)
+        {
+            unset($data['foto_perfil']);
+        }else{
+            $usuarios->foto_perfil = $data['foto_perfil'];
+            if($usuarios->foto_perfil != 'avatar.png'){
+
+                $this->deleteImagen('img/usuarios/', $usuarios->foto_perfil);
+            }
+        }
+        if($data['password'] != '' || $data['password'] != null){
+            $data['password'] = bcrypt($data['password']);//encriptamos la contraseña
+        }else{
+            unset($data['password']);
+        }
         try {
             $usuarios->update($data);
             return json_encode(['icon'  => 'success', 'title'   => 'Exitó', 'text'  => 'Datos actualizados']);

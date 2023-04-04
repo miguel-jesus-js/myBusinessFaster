@@ -47,47 +47,6 @@ $('#form-add-gasto').submit(function(e){
         }
     });
 });
-$('#form-upload-marca').submit(function(e){
-    e.preventDefault();
-    removeClass('form-upload-marca');
-    let data = $(this).serialize();
-    $.ajax({
-        'type': 'POST',
-        'url': 'api/uploadMarca',
-        'data': new FormData(this),
-        'contentType': false,
-        'cache': false,
-        'processData': false,
-        beforeSend: function(){
-            addHtmlEfectoLoad('load-form1');
-            addClassBtnEfectoLoad('load-button1', 'btn-modal1');
-        },
-        success: function(response){
-            let respuesta = JSON.parse(response);
-            removeClassBtnEfectoLoad('load-form1','load-button1', 'btn-modal1');
-            Toast.fire({
-                icon: respuesta.icon,
-                title: respuesta.title,
-                text: respuesta.text
-            });
-            if(respuesta.icon == 'success'){
-                getMarcas(2, '');
-                closeModal('upload-marca', 'form-upload-marca');
-            }
-        },
-        error: function(request, status, error){
-            switch (request.status) {
-                case 422:
-                    addValidacion(request.responseJSON.errors);
-                    break;
-                default:
-                    msjInfo('error', 'Error', 'Se perdio la conexión con el servidor, intente nuevamente');
-                    break;
-            }
-            removeClassBtnEfectoLoad('load-form1','load-button1', 'btn-modal1');
-        }
-    });
-})
 function getGastos(tipo, filtro){
     $.ajax({
         'type': 'get',

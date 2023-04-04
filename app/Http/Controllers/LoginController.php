@@ -13,8 +13,16 @@ class LoginController extends Controller
         $data = $request->all();
         if(Auth::attempt($data, $request->filled('remember')))
         {
+            $request->session()->regenerate();
             return json_encode(['icon'  => 'success', 'title'   => 'Exitó', 'text'  => 'Bienvenido']);
         }
         return json_encode(['icon'  => 'error', 'title'   => 'Error', 'text'  => 'Credenciales invalidas']);
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->regenerate();
+        return \redirect('/');
     }
 }
