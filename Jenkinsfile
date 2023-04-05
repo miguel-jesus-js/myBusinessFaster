@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('build') {
       steps {
-        echo 'Canalización de minutos Jenkis'
+        echo 'prueba jeej'
       }
     }
 
