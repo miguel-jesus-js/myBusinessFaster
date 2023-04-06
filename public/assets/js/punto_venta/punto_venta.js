@@ -112,7 +112,7 @@ function addProducto(data){
     var cantidad = parseInt($('#cantidad_pro').val());
     var importe = cantidad * parseFloat(data.sucursales[0].pivot.pre_venta
 );
-    var cod_barra = $('#cod_barra_search').val();
+    var cod_barra = $('#cod_barra_search').val().replace(/\s/g, '');
     var existeProducto = false
     $('#form-search-producto').trigger('reset');
     $('input[name="cod_barra[]"]').each(function(){

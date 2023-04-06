@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/punto_venta.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/iconfont/tabler-icons.min.css') }}">
     @yield('css')
-    <title>GEDO</title>
+    <title>SOFTCODE</title>
 </head>
 
 <body>

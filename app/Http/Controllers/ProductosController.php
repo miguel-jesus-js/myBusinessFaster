@@ -58,7 +58,6 @@ class ProductosController extends Controller
     {
         
         $data = $request->all();
-        $data['utilidad'] = $data['pre_venta'] - $data['pre_compra'];
         try {
             DB::beginTransaction();
             $data['img1'] = $this->uploadImagen($request->file('img1'), 'img1', 'img/productos/');
@@ -92,7 +91,6 @@ class ProductosController extends Controller
     public function update(ProductosRequest $request)
     {
         $data = $request->all();
-        $data['utilidad'] = $data['pre_venta'] - $data['pre_compra'];
         $producto = Producto::find($data['id']);
         try {
             DB::beginTransaction();            

@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="{{ asset('assets/iconfont/tabler-icons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/dashboard.css') }}">
     @yield('css')
-    <title>GEDO</title>
+    <title>SOFTCODE</title>
 </head>
 
 <body>
@@ -98,8 +98,8 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="index.html">
-                            <img src="{{ asset('img/logo-horizontal.png') }}" alt="logo" width="150">
+                        <a href="/dashboard">
+                            <img src="{{ asset('img/logo-horizontal.png') }}" alt="logo" width="100">
                         </a>
                         <a class="mobile-options waves-effect waves-light">
                             <i class="ti-more"></i>

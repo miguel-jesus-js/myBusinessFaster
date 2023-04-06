@@ -26,7 +26,7 @@
                 <div class="row">
                     <div class="col-md-6 centrado">
                         <h1 class="text-white">POWERED BY</h1>
-                        <img src="{{ asset('img/logo-horizontal.png') }}" alt="logo">
+                        <img src="{{ asset('img/logo-horizontal.png') }}" alt="logo" class="w-80">
                         <br>
                         <br>
                         <br>
