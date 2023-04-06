@@ -26,7 +26,7 @@
                 <div class="row">
                     <div class="col-md-6 centrado">
                         <h1 class="text-white">POWERED BY</h1>
-                        <img src="{{ asset('img/logo-horizontal.png') }}" alt="logo" class="w-80" width="300">
+                        <img src="{{ asset('img/logo-horizontal.png') }}" alt="logo" class="w-80" width="200">
                         <br>
                         <br>
                         <br>
@@ -34,8 +34,8 @@
                     </div>
                     <div class="col-md-6">
                         <form id="form-login" class="bg-white shadow-sm rounded p-4">
-                            <span class="avatar avatar-xl mb-3 avatar-rounded" style="background-image: url({{ asset('img/user-bg.jpg') }})"></span>
-                            <center><h1 class="text-dark">INICIO DE SESIÓN</h1></center>
+                            <img src="{{ asset('img/nimbora-logo.png') }}" alt="logo" class="w-80" width="200" class="mb-3">
+                            <center><h1 class="text-dark mt-4">INICIO DE SESIÓN</h1></center>
                             <label class="form-label required text-dark">Correo</label>
                             <div class="input-group input-group-flat">
                                 <span class="input-group-text border-end" id="icono-email">
