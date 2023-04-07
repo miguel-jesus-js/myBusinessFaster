@@ -35,7 +35,7 @@
                     <div class="col-md-6">
                         <form id="form-login" class="bg-white shadow-sm rounded p-4">
                             <img src="{{ asset('img/nimbora-logo.png') }}" alt="logo" class="w-80" width="200" class="mb-3">
-                            <center><h1 class="text-dark mt-4">INICIO DE SESIÓN develop</h1></center>
+                            <center><h1 class="text-dark mt-4">INICIO DE SESIÓN develop jej</h1></center>
                             <label class="form-label required text-dark">Correo</label>
                             <div class="input-group input-group-flat">
                                 <span class="input-group-text border-end" id="icono-email">
