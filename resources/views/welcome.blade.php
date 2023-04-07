@@ -30,7 +30,8 @@
                         <br>
                         <br>
                         <br>
-                        <p class="text-white">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nesciunt dolorem voluptatibus, maiores pariatur culpa aperiam! Tempore nobis adipisci ullam nam, facilis cum aliquid fugiat repellendus, iste iusto vero consectetur nisi.</p>
+                        <p class="text-white text-justify" style="text-align: justify">¡Hola! Somos una empresa especializada en el desarrollo de aplicaciones web y móviles personalizadas. Nuestro equipo de expertos en tecnología trabaja para crear soluciones digitales innovadoras que ayuden a nuestros clientes a cumplir sus objetivos empresariales y mejorar la experiencia de sus usuarios.
+                        </p>
                     </div>
                     <div class="col-md-6">
                         <form id="form-login" class="bg-white shadow-sm rounded p-4">
