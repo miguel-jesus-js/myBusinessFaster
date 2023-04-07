@@ -10,7 +10,7 @@ use App\Imports\UsersImport;
 use App\Exports\UsersExport;
 use App\Http\Requests\UsersRequest;
 use App\Http\Requests\UploadRequest;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use App\Traits\ImagesTrait;
 use PDF;
 
@@ -43,7 +43,7 @@ class UsersController extends Controller
         {
             $data = array_merge($data, ['sucursale_id' => Auth::user()->sucursal->id]);
         }
-        $data['password'] = bcrypt($data['password']);//encriptamos la contraseña
+        $data['password'] = Hash::make($data['password']);//encriptamos la contraseña
         try {
             $newUser = User::create($data);
             return json_encode(['icon'  => 'success', 'title'   => 'Exitó', 'text'  => 'Usuarios registrado']);
@@ -67,7 +67,7 @@ class UsersController extends Controller
             }
         }
         if($data['password'] != '' || $data['password'] != null){
-            $data['password'] = bcrypt($data['password']);//encriptamos la contraseña
+            $data['password'] = Hash::make($data['password']);//encriptamos la contraseña
         }else{
             unset($data['password']);
         }
