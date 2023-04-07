@@ -99,7 +99,7 @@
                             </div>
                         </div>
                         <a href="/dashboard">
-                            <img src="{{ asset('img/logo-horizontal.png') }}" alt="logo" width="130">
+                            <img src="{{ asset('img/logo-horizontal-white.png') }}" alt="logo" width="130">
                         </a>
                         <a class="mobile-options waves-effect waves-light">
                             <i class="ti-more"></i>
