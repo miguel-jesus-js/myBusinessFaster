@@ -27,6 +27,14 @@ function msjInfo(icon, title, html, showCancelButton, textBtnConfirm, nameFuncti
         })
 }
 
+function msjError(icon, title, text){
+    Swal.fire({
+        icon: icon,
+        title: title,
+        text: text,
+      })
+}
+
 function confirmDelete(id, info, api, modulo, prefijo){
     Swal.fire({
         title: '¿Esta seguro de eliminar '+prefijo+' '+modulo+' '+info+'?',

@@ -35,13 +35,13 @@ $('#form-add-marca').submit(function(e){
         error: function(request, status, error){
             switch (request.status) {
                 case 422:
-                    addValidacion(request.responseJSON.errors);
+                    addValidacion(request.responseJSON.errors, false);
                     break;
-                default:
-                    msjInfo('error', 'Error', 'Se perdio la conexión con el servidor, intente nuevamente');
+                case 0:
+                    msjError('error', 'Error', 'Se perdio la conexión con el servidor, intente nuevamente');
                     break;
             }
-            removeClassBtnEfectoLoad('load-form1','load-button1', 'btn-modal1');
+            removeClassBtnEfectoLoad('load-form','load-button', 'btn-modal');
         }
     });
 });
@@ -76,10 +76,10 @@ $('#form-upload-marca').submit(function(e){
         error: function(request, status, error){
             switch (request.status) {
                 case 422:
-                    addValidacion(request.responseJSON.errors);
+                    addValidacion(request.responseJSON.errors, false);
                     break;
                 default:
-                    msjInfo('error', 'Error', 'Se perdio la conexión con el servidor, intente nuevamente');
+                    msjError('error', 'Error', 'Se perdio la conexión con el servidor, intente nuevamente');
                     break;
             }
             removeClassBtnEfectoLoad('load-form1','load-button1', 'btn-modal1');

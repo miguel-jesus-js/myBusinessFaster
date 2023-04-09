@@ -88,13 +88,6 @@ function getProductos(sucursal_id){
                 $('#table-productos tbody').html('<tr><td colspan="14" class="text-center">No hay registros</td></tr>');
             }
         },
-        error: function (request, status, error) {
-            if(request.status == 0){
-                msjInfo('error', 'Error', 'Se perdio la conexión con el servidor, intente nuevamente');
-            }else{
-                msjInfo('error', 'Error de servidor interno', 'No se puede establecer una conexión a la base de datos ya que el equipo de destino denegó expresamente dicha conexión');
-            }
-        }
     })
 }
 $('#search-productos').keyup(function(){

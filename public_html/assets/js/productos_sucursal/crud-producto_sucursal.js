@@ -63,9 +63,14 @@ $('#form-add-producto_sucursal').submit(function(e){
             switch (request.status) {
                 case 422:
                     addValidacion(request.responseJSON.errors);
+                    Toast.fire({
+                        icon: 'warning',
+                        title: 'Error de validaciones',
+                        text: 'Algunos campos tienen errores'
+                    });
                     break;
-                default:
-                    msjInfo('error', 'Error', 'Se perdio la conexión con el servidor, intente nuevamente');
+                case 0:
+                    msjError('error', 'Error', 'Se perdio la conexión con el servidor, intente nuevamente');
                     break;
             }
             removeClassBtnEfectoLoad('load-form','load-button', 'btn-modal');
@@ -104,8 +109,8 @@ $('#form-upload-producto_sucursal').submit(function(e){
                 case 422:
                     addValidacion(request.responseJSON.errors);
                     break;
-                default:
-                    msjInfo('error', 'Error', 'Se perdio la conexión con el servidor, intente nuevamente');
+                case 0:
+                    msjError('error', 'Error', 'Se perdio la conexión con el servidor, intente nuevamente');
                     break;
             }
             removeClassBtnEfectoLoad('load-form1','load-button1', 'btn-modal1');

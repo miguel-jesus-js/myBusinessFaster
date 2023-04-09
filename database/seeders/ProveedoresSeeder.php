@@ -17,23 +17,6 @@ class ProveedoresSeeder extends Seeder
     {
         $data = [
             [
-                'clave'         => 1,
-                'nombres'       => 'Diana berenice',
-                'app'           => 'Rodriguez',
-                'apm'           => 'Aguilar',
-                'email'         => 'dianaaguilarjunio@gmail.com',
-                'telefono'      => '(91) 9159-5287',
-                'rfc'           => 'QUMA470929F30',
-                'empresa'       => 'Bimbo',
-                'ciudad'        => 'México',
-                'estado'        => 'Chiapas',
-                'municipio'     => 'Ocosingo',
-                'cp'            => 29950,
-                'colonia'       => 'Bonampack',
-                'calle'         => 'Yaxchilan',
-                'n_exterior'    => 18
-            ],
-            [
                 'clave'         => 2,
                 'nombres'       => 'Miguel de Jesús',
                 'app'           => 'López',

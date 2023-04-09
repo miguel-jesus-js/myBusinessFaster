@@ -17,24 +17,6 @@ class ClientesSeeder extends Seeder
     {
         $data = [
             [
-                'tipo_cliente_id'   => 3,
-                'nombres'           => 'Diana berenice',
-                'app'               => 'Rodriguez',
-                'apm'               => 'Aguilar',
-                'email'             => 'dianaaguilarjunio@gmail.com',
-                'telefono'          => '(91) 9159-5287',
-                'rfc'               => 'QUMA470929F30',
-                'empresa'           => 'jsjsjjs',
-                'ciudad'            => 'México',
-                'estado'            => 'Chiapas',
-                'municipio'         => 'Ocosingo',
-                'cp'                => 29950,
-                'colonia'           => 'Bonampack',
-                'calle'             => 'Yaxchilan',
-                'n_exterior'        => 18,
-                'password'          =>'$2y$10$yjizh1J7lNMYGW4mYCeqR.nTcP2B7CCA29LmFcNrsPUN6bUvEOQPO'
-            ],
-            [
                 'tipo_cliente_id'   => 1,
                 'nombres'           => 'Miguel de Jesús',
                 'app'               => 'López',
@@ -50,7 +32,7 @@ class ClientesSeeder extends Seeder
                 'colonia'           => 'Bonampack',
                 'calle'             => 'Yaxchilan',
                 'n_exterior'        => 18,
-                'password'          =>'$2y$10$yjizh1J7lNMYGW4mYCeqR.nTcP2B7CCA29LmFcNrsPUN6bUvEOQPO'
+                'password'          =>'winalllpz@gmail.com'
             ]
         ];
         DB::table('clientes')->insert($data);

@@ -47,10 +47,10 @@ $('#form-add-producto').submit(function(e){
         error: function(request, status, error){
             switch (request.status) {
                 case 422:
-                    addValidacion(request.responseJSON.errors);
+                    addValidacion(request.responseJSON.errors, true);
                     break;
-                default:
-                    msjInfo('error', 'Error', 'Se perdio la conexión con el servidor, intente nuevamente');
+                case 0:
+                    msjError('error', 'Error', 'Se perdio la conexión con el servidor, intente nuevamente');
                     break;
             }
             removeClassBtnEfectoLoad('load-form','load-button', 'btn-modal');
@@ -88,10 +88,10 @@ $('#form-upload-producto').submit(function(e){
         error: function(request, status, error){
             switch (request.status) {
                 case 422:
-                    addValidacion(request.responseJSON.errors);
+                    addValidacion(request.responseJSON.errors, false);
                     break;
-                default:
-                    msjInfo('error', 'Error', 'Se perdio la conexión con el servidor, intente nuevamente');
+                case 0:
+                    msjError('error', 'Error', 'Se perdio la conexión con el servidor, intente nuevamente');
                     break;
             }
             removeClassBtnEfectoLoad('load-form2','load-button2', 'btn-modal2');
@@ -170,13 +170,6 @@ function getProductos(tipo, filtro){
                 $('#table-producto tbody').html('<tr><td colspan="14" class="text-center">No hay registros</td></tr>');
             }
         },
-        error: function (request, status, error) {
-            if(request.status == 0){
-                msjInfo('error', 'Error', 'Se perdio la conexión con el servidor, intente nuevamente');
-            }else{
-                msjInfo('error', 'Error de servidor interno', 'No se puede establecer una conexión a la base de datos ya que el equipo de destino denegó expresamente dicha conexión');
-            }
-        }
     })
 }
 function onChange(id, marca_id, almacene_id, unidad_medida_id, proveedore_id, materiale_id, cod_barra, cod_sat, producto, stock_min, img1, img2, img3, caducidad, color, talla, modelo, meses_garantia, peso_kg, desc_detallada, es_produccion, afecta_ventas, caracteristicas, categorias){

@@ -35,7 +35,7 @@ $('#form-add-tipo_cliente').submit(function(e){
         error: function(request, status, error){
             switch (request.status) {
                 case 422:
-                    addValidacion(Object.keys(request.responseJSON.errors), request.responseJSON.message);
+                    addValidacion(request.responseJSON.message, false);
                     break;
             
                 default:
@@ -75,7 +75,7 @@ $('#form-upload-tipo-cliente').submit(function(e){
         error: function(request, status, error){
             switch (request.status) {
                 case 422:
-                    addValidacion(Object.keys(request.responseJSON.errors), request.responseJSON.message);
+                    addValidacion(request.responseJSON.errors, false);
                     break;
                 default:
                     break;

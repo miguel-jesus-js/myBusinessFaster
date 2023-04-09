@@ -145,7 +145,7 @@
             </div>
             <div class="modal-body">
             <form id="form-add-producto">
-                    <ul class="nav nav-pills" data-bs-toggle="tabs">
+                    <ul class="nav nav-pills" data-bs-toggle="tabs" id="list-tab">
                         <li class="nav-item active">
                             <a href="#tab-datos-gen" class="nav-link active btn-tab" data-bs-toggle="tab">
                                 <i class="ti ti-notes icono me-1"></i>

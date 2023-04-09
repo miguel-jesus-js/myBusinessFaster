@@ -23,11 +23,33 @@ function removeClassBtnEfectoLoad(load,boton, botonModal){
     $('#'+boton).addClass('d-none');
     $('#'+botonModal).html('Agregar');
 }
-function addValidacion(datos){
+function addValidacion(datos, hasTab){
     $.each(datos, function(index, value){
         //debugger;
         $('#'+index).addClass('is-invalid');
         $('#error-'+index).html(value);
+        if(hasTab){
+            var errorCampo = $('#'+index);
+            errorCampo.closest('div .tab-pane').removeClass('active');
+            errorCampo.closest('div .tab-pane').removeClass('show');
+            $('.tab-content').children().each(function(index, value){
+                if($(this).hasClass('active')){
+                    $(this).removeClass('active show');
+                    return false;
+                }
+            })
+            $('#list-tab').children().each(function(index, value){
+                let href = $(this).children().prop('href').split('#');
+                if(href[1] == errorCampo.closest('div .tab-pane').prop('id')){
+                    $(this).children().addClass('active');
+                    $(this).children().attr('aria-selected', true);
+                    errorCampo.closest('div .tab-pane').addClass('active show');
+                }else{
+                    $(this).children().removeClass('active');
+                    $(this).children().attr('aria-selected', false);
+                }
+            });
+        }
     });
 }
 function removeClass(id){
@@ -220,11 +242,11 @@ $('#form-perfil').submit(function(e){
                 case 422:
                     addValidacion(request.responseJSON.errors);
                     break;
-                default:
-                    msjInfo('error', 'Error', 'Se perdio la conexión con el servidor, intente nuevamente');
+                case 0:
+                    msjError('error', 'Error', 'Se perdio la conexión con el servidor, intente nuevamente');
                     break;
             }
-            removeClassBtnEfectoLoad('load-form1','load-button1', 'btn-modal1');
+            removeClassBtnEfectoLoad('load-form','load-button', 'btn-modal');
         }
     });
 });
