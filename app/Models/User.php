@@ -22,24 +22,12 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'persona_id',
         'sucursale_id',
         'role_id',
-        'nombres',
-        'app',
-        'apm',
-        'email',
-        'telefono',
-        'rfc',
-        'ciudad',
-        'estado',
-        'municipio',
-        'cp',
-        'colonia',
-        'calle',
-        'n_exterior',
-        'n_interior',
         'nom_user',
         'password',
+        'api_token',
         'mostrar_sidebar',
         'mostrar_banner',
         'mostrar_foto',
@@ -53,6 +41,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'api_token',
     ];
 
     /**

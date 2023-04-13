@@ -161,7 +161,7 @@
                         </div>
                         <div class="row">
                             <input type="number" class="d-none" id="id" name="id">
-                            <div class="col-sm-6 col-md-6">
+                            {{-- <div class="col-sm-6 col-md-6">
                                 <label class="form-label">Buscar</label>
                                 <div class="input-icon mb-3">
                                     <input type="search" id="search-productos" class="form-control" placeholder="Buscar..." autocomplete="off">
@@ -169,7 +169,7 @@
                                         <i class="ti ti-search"></i>
                                     </span>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="table-responsive">
                                 <table id="table-productos" class="table shadow-sm bg-white table-bordered">
                                     <thead class="disable-selection">

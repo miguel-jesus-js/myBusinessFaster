@@ -87,9 +87,6 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/sucursales', function () {
         return view('sucursales');
     });
-    Route::get('/punto-de-venta', function () {
-        return view('punto_venta');
-    });
     Route::get('/asignar_productos', function () {
         return view('asignar_productos');
     });
@@ -239,6 +236,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::put('api/updateSettings', [ConfiguracionesController::class, 'update']);
     Route::put('api/updateSettingsUser', [ConfiguracionesController::class, 'updateSettingsUser']);
     //apis punto de venta
+    Route::get('/punto-de-venta', [VentasController::class, 'puntoVenta']);
     Route::get('/dashboard', [VentasController::class, 'dashboard']);
     Route::post('api/addVenta', [VentasController::class, 'create']);
     Route::get('api/getVentas/{tipo}', [VentasController::class, 'index']);

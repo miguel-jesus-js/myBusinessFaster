@@ -12,5 +12,6 @@ class Configuracione extends Model
         'logotipo',
         'razon_social',
         'color',
+        'iva',
     ];
 }

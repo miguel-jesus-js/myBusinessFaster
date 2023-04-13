@@ -36,7 +36,7 @@ $('#form-add-user').submit(function(e){
         error: function(request, status, error){
             switch (request.status) {
                 case 422:
-                    addValidacion(request.responseJSON.errors, false);
+                    addValidacion(request.responseJSON.errors, true);
                     break;
                 case 0:
                     msjError('error', 'Error', 'Se perdio la conexión con el servidor, intente nuevamente');

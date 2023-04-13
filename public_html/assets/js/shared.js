@@ -240,7 +240,7 @@ $('#form-perfil').submit(function(e){
         error: function(request, status, error){
             switch (request.status) {
                 case 422:
-                    addValidacion(request.responseJSON.errors);
+                    addValidacion(request.responseJSON.errors, false);
                     break;
                 case 0:
                     msjError('error', 'Error', 'Se perdio la conexión con el servidor, intente nuevamente');

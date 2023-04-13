@@ -6,12 +6,13 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\ClientesRequest;
 use App\Http\Requests\ClientesUploadRequest;
+use App\Models\Persona;
 use App\Models\Cliente;
 use App\Imports\ClientesImport;
 use App\Exports\ClientesExport;
 use App\Models\DireccionesEntrega;
 use Illuminate\Support\Facades\DB;
-use PDF;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ClientesController extends Controller
 {
@@ -21,20 +22,14 @@ class ClientesController extends Controller
         // 0 todo - 1 eliminados - 2 no eliminados
         switch ($tipo){
             case 0:
-                $clientes = Cliente::with('tipo_cliente')->withTrashed()->cliente($filtro)->get();
+                $clientes = Cliente::with(['tipo_cliente', 'persona', 'persona.direcciones'])->withTrashed()->cliente($filtro)->get();
                 break;
             case 1:
-                $clientes = Cliente::with('tipo_cliente')->onlyTrashed()->cliente($filtro)->get();
+                $clientes = Cliente::with(['tipo_cliente', 'persona', 'persona.direcciones'])->onlyTrashed()->cliente($filtro)->get();
                 break;
             case 2:
-                $clientes = Cliente::with('tipo_cliente')->whereNull('deleted_at')->cliente($filtro)->get();
+                $clientes = Cliente::with(['tipo_cliente', 'persona', 'persona.direcciones'])->whereNull('clientes.deleted_at')->cliente($filtro)->get();
                 break;
-        }
-        for($i=0; $i<count($clientes); $i++){
-            $direcciones = DireccionesEntrega::leftJoin('clientes', 'direcciones_entregas.d-cliente_id', '=', 'clientes.id')
-                ->select('direcciones_entregas.*')->where('direcciones_entregas.d-cliente_id', $clientes[$i]->id)
-                ->get();
-            $clientes[$i]->direcciones = $direcciones;
         }
         return json_encode($clientes);
     }
@@ -44,21 +39,23 @@ class ClientesController extends Controller
         $data['password'] = bcrypt($data['email']);
         try {
             DB::beginTransaction();
-            $newCliente = Cliente::create($data);
-            if(isset($data['d-ciudad']))
+            $persona = Persona::create($data);
+            $data = array_merge($data, ['persona_id' => $persona->id]);
+            $cliente = Cliente::create($data);
+            if(isset($data['ciudad']))
             {
-                for($i = 0; $i < sizeof($data['d-ciudad']); $i++)
+                for($i = 0; $i < sizeof($data['ciudad']); $i++)
                 {
                     $dataDirecc = [
-                        'd-cliente_id'      => $newCliente->id, 
-                        'd-ciudad'          => $data['d-ciudad'][$i],
-                        'd-estado'          => $data['d-estado'][$i],
-                        'd-municipio'       => $data['d-municipio'][$i],
-                        'd-cp'              => $data['d-cp'][$i],
-                        'd-colonia'         => $data['d-colonia'][$i],
-                        'd-calle'           => $data['d-calle'][$i],
-                        'd-n_exterior'      => $data['d-n_exterior'][$i],
-                        'd-n_interior'      => $data['d-n_interior'][$i],
+                        'persona_id'      => $persona->id, 
+                        'ciudad'          => $data['ciudad'][$i],
+                        'estado'          => $data['estado'][$i],
+                        'municipio'       => $data['municipio'][$i],
+                        'cp'              => $data['cp'][$i],
+                        'colonia'         => $data['colonia'][$i],
+                        'calle'           => $data['calle'][$i],
+                        'n_exterior'      => $data['n_exterior'][$i],
+                        'n_interior'      => $data['n_interior'][$i],
                     ];
                     DireccionesEntrega::create($dataDirecc);
                 }
@@ -73,25 +70,27 @@ class ClientesController extends Controller
     }
     public function update(ClientesRequest $request)
     {
-        $cliente = Cliente::find($request->all()['id']);
         $data = $request->all();
+        $cliente = Cliente::find($data['id'])->first();
+        $persona = Persona::find($cliente->persona_id);
         try {
             DB::beginTransaction();
             $cliente->update($data);
-            if(isset($data['d-ciudad']))
+            $persona->update($data);
+            if(isset($data['ciudad']))
             {
-                for($i = 0; $i < sizeof($data['d-ciudad']); $i++)
+                for($i = 0; $i < sizeof($data['ciudad']); $i++)
                 {
                     $dataDirecc = [
-                        'd-cliente_id'      => $cliente->id, 
-                        'd-ciudad'          => $data['d-ciudad'][$i],
-                        'd-estado'          => $data['d-estado'][$i],
-                        'd-municipio'       => $data['d-municipio'][$i],
-                        'd-cp'              => $data['d-cp'][$i],
-                        'd-colonia'         => $data['d-colonia'][$i],
-                        'd-calle'           => $data['d-calle'][$i],
-                        'd-n_exterior'      => $data['d-n_exterior'][$i] = $data['d-n_exterior'][$i] == null ? 0 : $data['d-n_exterior'][$i],
-                        'd-n_interior'      => $data['d-n_interior'][$i] = $data['d-n_interior'][$i] == null ? 0 : $data['d-n_interior'][$i],
+                        'persona_id'      => $cliente->persona_id, 
+                        'ciudad'          => $data['ciudad'][$i],
+                        'estado'          => $data['estado'][$i],
+                        'municipio'       => $data['municipio'][$i],
+                        'cp'              => $data['cp'][$i],
+                        'colonia'         => $data['colonia'][$i],
+                        'calle'           => $data['calle'][$i],
+                        'n_exterior'      => $data['n_exterior'][$i] == null ? 0 : $data['n_exterior'][$i],
+                        'n_interior'      => $data['n_interior'][$i] == null ? 0 : $data['n_interior'][$i],
                     ];
                     if($data['d-id'][$i] == null)
                     {
@@ -137,7 +136,7 @@ class ClientesController extends Controller
     }
     public function exportarPDF()
     {
-        $clientes = Cliente::whereNull('deleted_at')->get();
+        $clientes = Cliente::with(['tipo_cliente', 'persona'])->whereNull('clientes.deleted_at')->get();
         $pdf = Pdf::loadView('pdf.clientes_pdf', ['clientes' => $clientes, 'esExcel' => false])->setPaper('a4', 'landscape');
         return $pdf->download('Clientes.pdf');
     }

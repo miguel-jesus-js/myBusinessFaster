@@ -100,6 +100,10 @@ class VentasController extends Controller
             return json_encode(['icon'  => 'error', 'title'   => 'Error', 'text'  => 'Ocurrio un error, la venta no fue registrada']);
         }
     }
+    public function puntoVenta(){
+        $settings = Configuracione::find(1);
+        return view('punto_venta', ['settings' => $settings]);
+    }
     public function dashboard()
     {
         $sucursal           = Auth::user()->sucursal->id;

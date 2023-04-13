@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         //$this->call(ModuloSeeder::class);
         $this->call(RoleSeeder::class);
         $this->call(SucursalesSeeder::class);
+        $this->call(PersonasSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(ProveedoresSeeder::class);
         $this->call(CategoriasSeeder::class);
@@ -29,7 +30,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ConfiguracionesSeeder::class);
         $this->call(AlmacenesSeeder::class);
         //$this->call(ProductosSeeder::class);
-        \App\Models\User::factory(10)->create();
+        //\App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

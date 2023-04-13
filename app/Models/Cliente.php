@@ -11,22 +11,9 @@ class Cliente extends Model
 {
     use HasFactory, softDeletes;
     protected $fillable = [
+        'persona_id',
         'tipo_cliente_id',
-        'nombres',
-        'app',
-        'apm',
-        'email',
-        'telefono',
-        'rfc',
         'empresa',
-        'ciudad',
-        'estado',
-        'municipio',
-        'cp',
-        'colonia',
-        'calle',
-        'n_exterior',
-        'n_interior',
         'password',
         'limite_credito',
         'dias_credito',
@@ -35,13 +22,14 @@ class Cliente extends Model
     {
         if($cliente)
         {
-            return $query->where('nombres', 'like', '%'.$cliente.'%')
-                        ->orWhere('app', 'like', '%'.$cliente.'%')
-                        ->orWhere('apm', 'like', '%'.$cliente.'%')
+            return $query->leftJoin('personas', 'clientes.persona_id', '=', 'personas.id')->where('nombres', 'like', '%'.$cliente.'%')
                         ->orWhere('telefono', 'like', '%'.$cliente.'%')
                         ->orWhere('email', 'like', '%'.$cliente.'%')
                         ->orWhere('empresa', 'like', '%'.$cliente.'%');
         }
+    }
+    public function persona(){
+        return $this->hasOne(Persona::class, 'id', 'persona_id')->withTrashed();
     }
     public function tipo_cliente(){
         return $this->belongsTo(TipoCliente::class)->withTrashed();

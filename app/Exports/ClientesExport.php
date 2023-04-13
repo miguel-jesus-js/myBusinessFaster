@@ -13,7 +13,7 @@ class ClientesExport implements FromView
     */
     public function view() : View
     {
-        $clientes = Cliente::all();
+        $clientes = Cliente::with(['tipo_cliente', 'persona'])->whereNull('clientes.deleted_at')->get();
         return view('pdf.clientes_pdf', [
             'clientes' => $clientes,
             'esExcel' => true,

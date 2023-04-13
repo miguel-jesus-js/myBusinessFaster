@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('logotipo', 100)->nullable(true);
             $table->string('razon_social', 50)->nullable(true);
             $table->char('color', 7)->nullable(true);
+            $table->integer('iva')->nullable(false)->default(0);
             $table->timestamps();
         });
     }

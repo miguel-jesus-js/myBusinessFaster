@@ -197,11 +197,11 @@ function addProducto(data){
 }
 function calculateTotals(){
     let importe = 0;
-    let iva = 0
+    let iva;
+    $('#check-iva').prop('checked') ? iva = importe * $('#check-iva').prop('data-iva') : iva = 0;
     $('input[name="importe_pro[]"]').each(function(){
         importe += parseFloat($(this).val());
     });
-    //iva = importe * 0.16;
     let totalPagar = parseFloat(importe) + parseFloat(iva);
     $('#iva').val(iva.toFixed(2));
     $('#subtotal').val(importe);
@@ -268,3 +268,31 @@ function resetForm(){
         $('#cod_barra_search').focus();
     }, 500);
 }
+function getClientesSelect2(){
+    $.ajax({
+        url: 'api/getClientes/2',
+        type: 'GET',
+        beforeSend: function(){
+            $('#cliente_id').html('<option value="">Cargando...</option>');
+        },
+        success: function(response) {
+            let data = JSON.parse(response);
+            // Llenar select2 con los datos recuperados
+            $('#cliente_id').empty();
+            $.each(data, function(key, value) {
+                $('#cliente_id').append('<option value="' + value.id + '">' + value.nombres + '</option>');
+            });
+            // Actualizar select2
+            $('#cliente_id').trigger('change');
+        }
+    });
+}
+$('#reload-cliente').click(function(){
+    getClientesSelect2();
+})
+$('#add-cliente').click(function(){
+    openModal('modal-cliente','clientes', 0);
+})
+$('#check-iva').click(function(){
+    calculateTotals();
+})

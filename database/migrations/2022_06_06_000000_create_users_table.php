@@ -15,33 +15,20 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('persona_id')->nullable(false);
             $table->unsignedBigInteger('role_id')->nullable(false);
-            $table->string('nombres', 50)->nullable(false);
-            $table->string('app', 50)->nullable(false);
-            $table->string('apm', 50)->nullable(false);
-            $table->string('email', 50)->unique()->nullable(false);
-            $table->char('telefono', 14)->unique()->nullable(false);
-            $table->char('rfc', 13)->unique()->nullable(true);
-            $table->string('ciudad', 30)->nullable(true);
-            $table->string('estado', 30)->nullable(true);
-            $table->string('municipio', 30)->nullable(true);
-            $table->integer('cp')->nullable(true);
-            $table->string('colonia', 50)->nullable(false);
-            $table->string('calle', 50)->nullable(false);
-            $table->integer('n_exterior')->nullable(true)->default(0);
-            $table->integer('n_interior')->nullable(true)->default(0);
-            $table->string('nom_user', 20)->unique()->nullable(true);
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->string('foto_perfil')->nullable(false)->default('avatar.png');
-            $table->boolean('estatus')->nullable(false)->default(true);
+            $table->string('nom_user', 30)->unique(true)->nullable(false);
             $table->boolean('mostrar_sidebar')->nullable(true)->default(true);
             $table->boolean('mostrar_banner')->nullable(true)->default(true);
             $table->boolean('mostrar_foto')->nullable(true)->default(true);
-            $table->boolean('isAdmin')->nullable(false)->default(false);
+            $table->string('api_token')->nullable(true);
+            $table->string('password')->nullable(false);
+            $table->boolean('is_admin')->nullable(false)->default(false);
+            $table->boolean('estatus')->nullable(false)->default(true);
             $table->rememberToken();
             $table->timestamps();
             $table->softdeletes();
+            $table->foreign('persona_id')->references('id')->on('personas')->onDelete('cascade');
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
         });
     }

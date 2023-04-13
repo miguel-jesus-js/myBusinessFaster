@@ -17,22 +17,14 @@ class ClientesSeeder extends Seeder
     {
         $data = [
             [
+                'persona_id'        => 3,
                 'tipo_cliente_id'   => 1,
-                'nombres'           => 'Miguel de Jesús',
-                'app'               => 'López',
-                'apm'               => 'López',
-                'email'             => 'winalllpz@gmail.com',
-                'telefono'          => '(91) 9151-3420',
-                'rfc'               => 'QUMA470929F31',
-                'empresa'           => 'nose',
-                'ciudad'            => 'México',
-                'estado'            => 'Chiapas',
-                'municipio'         => 'Ocosingo',
-                'cp'                => 29950,
-                'colonia'           => 'Bonampack',
-                'calle'             => 'Yaxchilan',
-                'n_exterior'        => 18,
-                'password'          =>'winalllpz@gmail.com'
+                'password'          => 'cliente@softcode.com.mx'
+            ],
+            [
+                'persona_id'        => 4,
+                'tipo_cliente_id'   => 1,
+                'password'          => 'cliente2@softcode.com.mx'
             ]
         ];
         DB::table('clientes')->insert($data);

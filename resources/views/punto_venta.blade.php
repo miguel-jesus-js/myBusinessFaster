@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/tabler.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/general.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/punto_venta.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
     <link rel="stylesheet" href="{{ asset('assets/iconfont/tabler-icons.min.css') }}">
     @yield('css')
     <title>SOFTCODE</title>
@@ -132,9 +134,12 @@
                                     <section class="informacion">
                                         <div class="mb-3">
                                             <div class="form-label">Cliente</div>
-                                            <select class="form-select" name="cliente_id" id="cliente_id" required>
-                                                <option value="1">General</option>
-                                            </select>
+                                            <div class="input-group w-100">
+                                                <select class="select2 form-select" name="cliente_id" id="cliente_id">
+                                                </select>
+                                                <button type="button" class="btn bg-secondary-lt" id="add-cliente" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar cliente"><i class="ti ti-plus"></i></button>
+                                                <button type="button" class="btn bg-secondary-lt" id="reload-cliente" data-bs-toggle="tooltip" data-bs-placement="top" title="Recargar"><i class="ti ti-refresh"></i></button>
+                                            </div>
                                         </div>
                                     </section>
                                     <section class="costos">
@@ -153,7 +158,12 @@
                                         </div>
                                         <div class="row mb-2 d-flex justify-content-end">
                                             <div class="col-auto">
-                                                <h5>IVA <b>(16%)</b>:</h5>
+                                                <h5>
+                                                    <label class="form-check">
+                                                        <input class="form-check-input" type="checkbox" id="check-iva" data-iva="{{ $settings->iva }}">
+                                                        <span class="form-check-label">IVA <b>({{ $settings->iva }}%)</b>:</span>
+                                                    </label>
+                                                </h5>
                                             </div>
                                             <div class="col-auto">
                                                 <div class="input-group">
@@ -201,22 +211,33 @@
             <!-- Page-body end -->
         </div>
     </div>
-    <div id="impresion">
-
-    </div>
+    @include('modals.modal_cliente')
     <!-- Required Jquery -->
     <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/js/tabler.min.js') }}"></script>
     <script src="{{ asset('assets/js/sweetalert2.all.min.js') }}"></script>
     <script src="{{ asset('assets/js/respuestas.js') }}"></script>
+    <script src="{{ asset('assets/js/openCloseModal.js') }}"></script>
+    <script src="{{ asset('assets/js/shared.js') }}"></script>
     <script src="{{ asset('assets/js/punto_venta/punto_venta.js') }}"></script>
+    <script src="{{ asset('assets/js/clientes/crud-cliente.js') }}"></script>
+    <script src="{{ asset('assets/js/clientes/config.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script type="text/javascript">
+        $(document).ready(function() {
+            $('#cliente_id').select2({
+                placeholder: 'Seleccionar opción',
+                theme: 'tabler',
+            });
+            getClientesSelect2();
+        });
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
     </script>
+    
 </body>
 
 </html>

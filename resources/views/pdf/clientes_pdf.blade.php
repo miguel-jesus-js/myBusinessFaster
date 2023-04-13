@@ -41,7 +41,7 @@
 <body>
     @if(!$esExcel)
     <div class="header">
-        <img src="{{ public_path('img/logocolor.png') }}" alt="Logotipo" width="120">
+      
         <div class="desc">
             <b>Teléfono: </b>919 151 34 20 <br>
             <b>Fecha: </b>21 de Agosto de 2022 <br>
@@ -55,12 +55,12 @@
             <thead>
                 <tr>
                     <th>N°</th>
+                    <th>Tipo de cliente</th>
                     <th>Nombre</th>
                     <th>Correo</th>
                     <th>Teléfono</th>
                     <th>RFC</th>
                     <th>Empresa</th>
-                    <th>Dirección</th>
                     <th>Límite de crédito</th>
                     <th>Dias de crédito</th>
                 </tr>
@@ -69,12 +69,12 @@
                 @for ($i = 0; $i < sizeof($clientes); $i++)
                 <tr>
                     <td>{{ $i+1 }}</td>
-                    <td>{{ $clientes[$i]['nombres'].' '.$clientes[$i]['app'].' '.$clientes[$i]['apm'] }}</td>
-                    <td>{{ $clientes[$i]['email'] }}</td>
-                    <td>{{ $clientes[$i]['telefono'] }}</td>
+                    <td>{{ $clientes[$i]['tipo_cliente']['tipo_cliente'] }}</td>
+                    <td>{{ $clientes[$i]['persona']['nombres'] }}</td>
+                    <td>{{ $clientes[$i]['persona']['email'] }}</td>
+                    <td>{{ $clientes[$i]['persona']['telefono'] }}</td>
                     <td>{{ $clientes[$i]['rfc'] }}</td>
                     <td>{{ $clientes[$i]['empresa'] }}</td>
-                    <td>{{ $clientes[$i]['calle'].' '.($clientes[$i]['n_exterior'] == 0 ? '' : $clientes[$i]['n_exterior']).', '.$clientes[$i]['colonia'].', '.$clientes[$i]['cp'].', '.$clientes[$i]['municipio'].', '.$clientes[$i]['estado'].', '.$clientes[$i]['ciudad'] }}</td>
                     <td>${{ $clientes[$i]['limite_credito'] }}</td>
                     <td>{{ $clientes[$i]['dias_credito'] }}</td>
                 </tr>

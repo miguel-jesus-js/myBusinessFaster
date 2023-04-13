@@ -178,7 +178,7 @@
                                     <input type="number" class="d-none" id="id" name="id">
                                     <label class="form-label required">Código de barra</label>
                                     <div class="input-group mb-2">
-                                        <input type="text" class="form-control" name="cod_barra" id="cod_barra" placeholder="Código de barra" required autocomplete="off" min="0" minlength="13" maxlength="13">
+                                        <input type="text" class="form-control" name="cod_barra" id="cod_barra" placeholder="Código de barra" required autocomplete="off" min="0" minlength="8" maxlength="13">
                                         <button class="btn" type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Generar" onclick="getCodBarraOrSat(0)"><i class="ti ti-reload"></i></button>
                                         <div class="invalid-feedback" id="error-cod_barra"></div>
                                     </div>

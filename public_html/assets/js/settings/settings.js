@@ -71,6 +71,7 @@ function getSettings(){
             getLocalSettings();
             $('#show-logotipo').attr('src', '../img/'+data.settings.logotipo);
             $('#razon_social').val(data.settings.razon_social);
+            $('#iva').val(data.settings.iva);
             $('#nombre').val(data.sucursal.nombre);
             $('#telefono').val(data.sucursal.telefono);
             $('#correo').val(data.sucursal.correo);

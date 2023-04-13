@@ -191,6 +191,15 @@
                                                         <label for="" class="form-label">RFC</label>
                                                         <input type="text" class="form-control" name="rfc" id="rfc" placeholder="RFC" autocomplete="off" minlength="12" maxlength="13">
                                                     </div>
+                                                    <div class="col-sm-6 col-md-4">
+                                                        <label for="" class="form-label">Iva</label>
+                                                        <div class="input-group mb-2">
+                                                            <span class="input-group-text">
+                                                              %
+                                                            </span>
+                                                            <input type="number" class="form-control" name="iva" id="iva" placeholder="IVA" autocomplete="off" minlength="1" maxlength="2" min="0" max="16">
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <label for="" class="form-label required">Correo</label>
                                                 <input type="email" class="form-control" name="correo" id="correo" required placeholder="Correo" autocomplete="off" minlength="7" maxlength="100">

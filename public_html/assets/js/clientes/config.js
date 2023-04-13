@@ -47,36 +47,36 @@ $('#form-add-direcciones').submit(function(e){
                     <input type="text" class="form-control input-table" readonly name="d-id[]" id="d-id[]" required autocomplete="off" maxlength="50" minlength="5">
                 </td>
                 <td>
-                    <input type="text" class="form-control input-table" readonly name="d-ciudad[]" id="d-ciudad[]" required autocomplete="off" maxlength="50" minlength="5" value="${ciudad}">
-                    <div class="invalid-feedback" id="error-d-ciudad[]"></div>
+                    <input type="text" class="form-control input-table" readonly name="ciudad[]" id="ciudad[]" required autocomplete="off" maxlength="50" minlength="5" value="${ciudad}">
+                    <div class="invalid-feedback" id="error-ciudad[]"></div>
                 </td>
                 <td>
-                    <input type="text" class="form-control input-table" readonly name="d-estado[]" id="d-estado[]" required autocomplete="off" maxlength="50" minlength="5" value="${estado}">
-                    <div class="invalid-feedback" id="error-d-estado[]"></div>
+                    <input type="text" class="form-control input-table" readonly name="estado[]" id="estado[]" required autocomplete="off" maxlength="50" minlength="5" value="${estado}">
+                    <div class="invalid-feedback" id="error-estado[]"></div>
                 </td>
                 <td>
-                    <input type="text" class="form-control input-table" readonly name="d-municipio[]" id="d-municipio[]" required autocomplete="off" maxlength="50" minlength="5" value="${municipio}">
-                    <div class="invalid-feedback" id="error-d-municipio[]"></div>
+                    <input type="text" class="form-control input-table" readonly name="municipio[]" id="municipio[]" required autocomplete="off" maxlength="50" minlength="5" value="${municipio}">
+                    <div class="invalid-feedback" id="error-municipio[]"></div>
                 </td>
                 <td>
-                    <input type="number" class="form-control input-table" readonly name="d-cp[]" id="d-cp[]" required autocomplete="off" maxlength="50" minlength="5" value="${cp}">
-                    <div class="invalid-feedback" id="error-d-cp[]"></div>
+                    <input type="number" class="form-control input-table" readonly name="cp[]" id="cp[]" required autocomplete="off" maxlength="50" minlength="5" value="${cp}">
+                    <div class="invalid-feedback" id="error-cp[]"></div>
                 </td>
                 <td>
-                    <input type="text" class="form-control input-table" readonly name="d-colonia[]" id="d-colonia[]" required autocomplete="off" maxlength="50" minlength="5" value="${colonia}">
-                    <div class="invalid-feedback" id="error-d-colonia[]"></div>
+                    <input type="text" class="form-control input-table" readonly name="colonia[]" id="colonia[]" required autocomplete="off" maxlength="50" minlength="5" value="${colonia}">
+                    <div class="invalid-feedback" id="error-colonia[]"></div>
                 </td>
                 <td>
-                    <input type="text" class="form-control input-table" readonly name="d-calle[]" id="d-calle[]" required autocomplete="off" maxlength="50" minlength="5" value="${calle}">
-                    <div class="invalid-feedback" id="error-d-calle[]"></div>
+                    <input type="text" class="form-control input-table" readonly name="calle[]" id="calle[]" required autocomplete="off" maxlength="50" minlength="5" value="${calle}">
+                    <div class="invalid-feedback" id="error-calle[]"></div>
                 </td>
                 <td>
-                    <input type="number" class="form-control input-table" readonly name="d-n_exterior[]" id="d-n_exterior[]" required autocomplete="off" maxlength="50" minlength="5" value="${n_exterior}">
-                    <div class="invalid-feedback" id="error-d-n_exterior[]"></div>
+                    <input type="number" class="form-control input-table" readonly name="n_exterior[]" id="n_exterior[]" required autocomplete="off" maxlength="50" minlength="5" value="${n_exterior}">
+                    <div class="invalid-feedback" id="error-n_exterior[]"></div>
                 </td>
                 <td>
-                    <input type="number" class="form-control input-table" readonly name="d-n_interior[]" id="d-n_interior[]" required autocomplete="off" maxlength="50" minlength="5" value="${n_interior}">
-                    <div class="invalid-feedback" id="error-d-n_interior[]"></div>
+                    <input type="number" class="form-control input-table" readonly name="n_interior[]" id="n_interior[]" required autocomplete="off" maxlength="50" minlength="5" value="${n_interior}">
+                    <div class="invalid-feedback" id="error-n_interior[]"></div>
                 </td>
                 <td>
                     <div class="" id="editar">
