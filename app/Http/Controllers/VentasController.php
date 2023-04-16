@@ -28,7 +28,7 @@ class VentasController extends Controller
         $offset         = $request->get('offset');
         $limit          = $request->get('limit');
 
-        $ventas         = Venta::with(['empleado.sucursal', 'cliente'])
+        $ventas         = Venta::with(['empleado.sucursal', 'cliente', 'empleado.persona', 'cliente.persona'])
                             ->folio($folio)
                             ->sucursal($sucursale_id)
                             ->empleado($user_id)
@@ -156,13 +156,13 @@ class VentasController extends Controller
         $fecha          = Carbon::now()->format('Y-m-d');
         $fecha_ini      = $fecha.' 00:00:00';
         $fecha_fin      = $fecha.' 23:59:59';
-        $saleByEmployees_t = User::with('sucursal')->selectRaw('*, (select sum(ventas.total) from ventas where users.id = ventas.user_id and ventas.fecha between ? and ?) as ventas_sum_total', [$fecha_ini, $fecha_fin])
+        $saleByEmployees_t = User::with(['sucursal', 'persona'])->selectRaw('*, (select sum(ventas.total) from ventas where users.id = ventas.user_id and ventas.fecha between ? and ?) as ventas_sum_total', [$fecha_ini, $fecha_fin])
                                     ->whereHas('ventas', function($query) use ($fecha_ini, $fecha_fin){
                                         $query->whereBetween('fecha', [$fecha_ini, $fecha_fin]);
                                     })
                                     ->userSucursal($sucursal_id)
                                     ->get();
-        $ammount = User::with('sucursal')->selectRaw('*, (select sum(ventas.total) from ventas where users.id = ventas.user_id and ventas.fecha between ? and ?) as ventas_sum_total', [$fecha_ini, $fecha_fin])
+        $ammount = User::with(['sucursal', 'persona'])->selectRaw('*, (select sum(ventas.total) from ventas where users.id = ventas.user_id and ventas.fecha between ? and ?) as ventas_sum_total', [$fecha_ini, $fecha_fin])
                                     ->whereHas('ventas', function($query) use ($fecha_ini, $fecha_fin){
                                         $query->whereBetween('fecha', [$fecha_ini, $fecha_fin]);
                                     })

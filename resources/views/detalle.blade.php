@@ -57,9 +57,9 @@
                           <small><strong class="datagrid-title class-name h6">Correo electrónico: </strong> {{ $venta->empleado->sucursal->correo }}</small>
                         </div>
                         <div class="col-6 text-justify">
-                          <small><strong class="datagrid-title class-name h6">Nombre o razón social: </strong> {{ $venta->cliente->nombres.' '.$venta->cliente->app.' '.$venta->cliente->apm }}</small>
+                          <small><strong class="datagrid-title class-name h6">Nombre o razón social: </strong> {{ $venta->cliente->persona->nombres }}</small>
                           <br>
-                          <small><strong class="datagrid-title class-name h6">Número de identificación fiscal: </strong> {{ $venta->cliente->rfc }}</small>
+                          <small><strong class="datagrid-title class-name h6">Número de identificación fiscal: </strong> {{ $venta->cliente->persona->rfc }}</small>
                           <br>
                           <small>
                             <address>
@@ -69,9 +69,9 @@
                               {{$venta->cliente->municipio.', '.$venta->cliente->estado.', '.$venta->cliente->ciudad}}<br>
                             </address>
                           </small>
-                          <small><strong class="datagrid-title class-name h6">Teléfono: </strong> {{ $venta->cliente->telefono }}</small>
+                          <small><strong class="datagrid-title class-name h6">Teléfono: </strong> {{ $venta->cliente->persona->telefono }}</small>
                           <br>
-                          <small><strong class="datagrid-title class-name h6">Correo electrónico: </strong> {{ $venta->cliente->email }}</small>
+                          <small><strong class="datagrid-title class-name h6">Correo electrónico: </strong> {{ $venta->cliente->persona->email }}</small>
                         </div>
                         <div class="col-12 my-3">
                           <small><strong class="datagrid-title class-name h6">Número de folio: </strong> {{ $venta->folio }}</small>

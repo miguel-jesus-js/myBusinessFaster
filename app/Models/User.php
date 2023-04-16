@@ -56,9 +56,7 @@ class User extends Authenticatable
     {
         if($user)
         {
-            return $query->where('nombres', 'like', '%'.$user.'%')
-                        ->orWhere('app', 'like', '%'.$user.'%')
-                        ->orWhere('apm', 'like', '%'.$user.'%')
+            return $query->leftJoin('personas', 'users.persona_id', '=', 'personas.id')->where('nombres', 'like', '%'.$user.'%')
                         ->orWhere('telefono', 'like', '%'.$user.'%')
                         ->orWhere('email', 'like', '%'.$user.'%')
                         ->orWhere('nom_user', 'like', '%'.$user.'%');
@@ -77,6 +75,10 @@ class User extends Authenticatable
         {
             return $query->where('sucursale_id', $sucursal);
         }
+    }
+    public function persona()
+    {
+        return $this->hasOne(Persona::class, 'id', 'persona_id');
     }
     public function roles()
     {

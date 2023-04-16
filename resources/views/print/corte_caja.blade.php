@@ -84,7 +84,7 @@
         <br>
         <center>
             <small class="text-muted text-center mt-3 border-top p-2 border-dark">
-                {{ Auth::user()->nombres.' '.Auth::user()->app.' '.Auth::user()->apm }}
+                {{ Auth::user()->persona->nombres }}
             </small>
         </center>
         <br>

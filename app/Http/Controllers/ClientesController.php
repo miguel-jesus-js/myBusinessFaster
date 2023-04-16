@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\ClientesRequest;
+use App\Http\Requests\PersonasRequest;
 use App\Http\Requests\ClientesUploadRequest;
 use App\Models\Persona;
 use App\Models\Cliente;
@@ -33,15 +35,15 @@ class ClientesController extends Controller
         }
         return json_encode($clientes);
     }
-    public function create(ClientesRequest $request)
+    public function create(PersonasRequest $personaRequest, ClientesRequest $clienteRequest)
     {
-        $data = $request->all();
-        $data['password'] = bcrypt($data['email']);
+        $data = $personaRequest->all();
+        $data['password'] = Hash::make($data['email']);
         try {
             DB::beginTransaction();
             $persona = Persona::create($data);
             $data = array_merge($data, ['persona_id' => $persona->id]);
-            $cliente = Cliente::create($data);
+            Cliente::create($data);
             if(isset($data['ciudad']))
             {
                 for($i = 0; $i < sizeof($data['ciudad']); $i++)
@@ -68,9 +70,9 @@ class ClientesController extends Controller
             return json_encode(['icon'  => 'error', 'title'   => 'Error', 'text'  => 'Ocurrio un error, el cliente no fue registrado']);
         }
     }
-    public function update(ClientesRequest $request)
+    public function update(PersonasRequest $personaRequest, ClientesRequest $clienteRequest)
     {
-        $data = $request->all();
+        $data = $personaRequest->all();
         $cliente = Cliente::find($data['id'])->first();
         $persona = Persona::find($cliente->persona_id);
         try {

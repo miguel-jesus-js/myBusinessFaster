@@ -28,7 +28,7 @@
             <div class="page-body">
                 <div class="row align-items-center">
                     <div class="col-auto">
-                    <span class="avatar avatar-md" style="background-image: url({{ asset('img/usuarios/'.Auth::user()->foto_perfil) }})"></span>
+                    <span class="avatar avatar-md" style="background-image: url({{ asset('img/usuarios/'.Auth::user()->persona->foto_perfil) }})"></span>
                     </div>
                     <div class="col">
                     <h1 class="page-title">Te atiende</h1>
@@ -36,11 +36,11 @@
                         <div class="row">
                         <div class="col-auto">
                             <i class="ti ti-user icono"></i>
-                            <label class="text-reset h2">{{ Auth::user()->nombres.' '.Auth::user()->app.' '.Auth::user()->apm }}</label>
+                            <label class="text-reset h2">{{ Auth::user()->persona->nombres}}</label>
                         </div>
                         <div class="col-auto">
                             <i class="ti ti-briefcase icono"></i>
-                            <label class="text-reset h2">{{ Auth::user()->roles->rol }}</label>
+                            <label class="text-reset h2">{{ Auth::user()->sucursal->nombre }}</label>
                         </div>
                         <div class="col-auto">
                             <i class="ti ti-device-desktop icono"></i>

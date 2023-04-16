@@ -27,8 +27,8 @@ function getHistorial(tipo, offset, limit, filtro){
                         <tr class="${elimnado}">
                             <td>${valor.folio}</td>
                             <td>${valor.empleado.sucursal.nombre}</td>
-                            <td>${valor.cliente.nombres +' '+ valor.cliente.app +' '+ valor.cliente.apm}</td>}</td>
-                            <td>${valor.empleado.nombres +' '+ valor.empleado.app +' '+ valor.empleado.apm}</td>}</td>
+                            <td>${valor.cliente.persona.nombres}</td>}</td>
+                            <td>${valor.empleado.persona.nombres}</td>}</td>
                             <td>${valor.fecha}</td>
                             <td>${formatter.format(valor.importe)}</td>
                             <td>${formatter.format(valor.iva)}</td>
@@ -97,7 +97,7 @@ function getUsers() {
                 let data = JSON.parse(response);
                 let option = '';
                 $.each(data, function (index, valor) {
-                    option += `<option value="${valor.id}">${valor.nombres +' '+valor.app +' '+ valor.apm}</option>`;
+                    option += `<option value="${valor.id}">${valor.persona.nombres}</option>`;
                 });
                 $('#user_id').append(option);
             }
@@ -118,7 +118,7 @@ function getClientes() {
                 let data = JSON.parse(response);
                 let option = '';
                 $.each(data, function (index, valor) {
-                    option += `<option value="${valor.id}">${valor.nombres +' '+valor.app +' '+ valor.apm}</option>`;
+                    option += `<option value="${valor.id}">${valor.persona.nombres}</option>`;
                 });
                 $('#cliente_id').append(option);
             }

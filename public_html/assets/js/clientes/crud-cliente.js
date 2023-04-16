@@ -2,13 +2,22 @@ $('#form-add-cliente').submit(function(e){
     e.preventDefault();
     removeClass('form-add-cliente');
     let data = $(this).serialize();
+    var modulo = $('#modulo').val();
     var url = '';
     var tipo = '';
     if($('#id').val() == ''){
-        url = 'api/addClientes';
+        if(modulo == 'usuarios'){
+            url = 'api/addUsuarios';
+        }else{
+            url = 'api/addClientes';
+        }
         tipo = 'POST';
     }else{
-        url = 'api/updateClientes';
+        if(modulo == 'usuarios'){
+            url = 'api/updateUsuarios';
+        }else{
+            url = 'api/updateClientes';
+        }
         tipo = 'PUT';
     }
     $.ajax({
@@ -28,7 +37,7 @@ $('#form-add-cliente').submit(function(e){
                 text: respuesta.text
             });
             if(respuesta.icon == 'success'){
-                getClientes(2, '');
+                modulo == 'usuarios' ? getUsuarios(2, '')  :getClientes(2, '');
                 closeModal('modal-cliente', 'form-add-cliente');
             }
         },

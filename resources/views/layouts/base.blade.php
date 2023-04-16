@@ -173,8 +173,8 @@
                             </li>
                             <li class="user-profile header-notification">
                                 <a href="#!" class="waves-effect waves-light">
-                                    <img src="{{ asset('img/usuarios/'.Auth::user()->foto_perfil) }}" class="img-radius"
-                                        alt="User-Profile-Image">
+                                    <img src="{{ asset('img/usuarios/'.Auth::user()->persona->foto_perfil) }}" class="img-radius"
+                                        alt="Foto de perfil">
                                     <span>{{ Auth::user()->nom_user }}</span>
                                     <i class="ti ti-chevron-down"></i>
                                 </a>
@@ -211,8 +211,8 @@
                         <div class="pcoded-inner-navbar main-menu">
                             <div class="" id="page-header-menu">
                                 <div class="main-menu-header">
-                                    <img class="img-80 img-radius" src="{{ asset('img/usuarios/'.Auth::user()->foto_perfil) }}"
-                                        alt="User-Profile-Image">
+                                    <img class="img-80 img-radius" src="{{ asset('img/usuarios/'.Auth::user()->persona->foto_perfil) }}"
+                                        alt="Foto de perfil">
                                     <div class="user-details">
                                         <span id="more-details">{{ Auth::user()->nom_user }}<i class="ti ti-chevron-down"></i></span>
                                     </div>

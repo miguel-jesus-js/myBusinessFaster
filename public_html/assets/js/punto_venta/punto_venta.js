@@ -198,10 +198,10 @@ function addProducto(data){
 function calculateTotals(){
     let importe = 0;
     let iva;
-    $('#check-iva').prop('checked') ? iva = importe * $('#check-iva').prop('data-iva') : iva = 0;
     $('input[name="importe_pro[]"]').each(function(){
         importe += parseFloat($(this).val());
     });
+    $('#check-iva').prop('checked') ? iva = importe * parseFloat($('#check-iva').attr('data-iva')) : iva = 0;
     let totalPagar = parseFloat(importe) + parseFloat(iva);
     $('#iva').val(iva.toFixed(2));
     $('#subtotal').val(importe);
@@ -280,7 +280,7 @@ function getClientesSelect2(){
             // Llenar select2 con los datos recuperados
             $('#cliente_id').empty();
             $.each(data, function(key, value) {
-                $('#cliente_id').append('<option value="' + value.id + '">' + value.nombres + '</option>');
+                $('#cliente_id').append('<option value="' + value.id + '">' + value.persona.nombres + '</option>');
             });
             // Actualizar select2
             $('#cliente_id').trigger('change');

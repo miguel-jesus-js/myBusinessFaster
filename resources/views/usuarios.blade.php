@@ -66,7 +66,7 @@
                                             <span class="form-check-label">No eliminados</span>
                                         </label>
                                     </li>
-                                    @if(Auth::user()->isAdmin)    
+                                    @if(Auth::user()->is_admin)    
                                     <label class="form-label">Sucursal</label>
                                     <li>
                                         <select class="form-select" name="sucursale_id1" id="sucursale_id1" onclick="getSucursales()" required>
@@ -80,7 +80,7 @@
                     </div>
                     <div class="col-6 col-sm-2 col-md-2 offset-md-1">
                         <label class="form-label invisible">add</label>
-                        <button onclick="openModal('modal-user','usuarios', 0)" class="btn btn-primary">
+                        <button onclick="openModal('modal-cliente','usuarios', 0)" class="btn btn-primary">
                             Agregar empleado
                         </button>
                     </div>
@@ -138,8 +138,8 @@
         </div>
     </div>
 </div>
-
-<div class="modal modal-blur fade" id="modal-user" tabindex="-1" style="display: none;" aria-hidden="true">
+@include('modals.modal_cliente')
+{{-- <div class="modal modal-blur fade" id="modal-user" tabindex="-1" style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -173,7 +173,7 @@
                         </div>
                         <div class="tab-pane active show" id="tab-datos-pers">
                             <div class="row">
-                                @if(Auth::user()->isAdmin) 
+                                @if(Auth::user()->is_admin) 
                                 <div class="col-sm-6 col-md-4 mb-3">
                                     <label class="form-label required">Sucursal</label>
                                     <select class="form-select" name="sucursale_id" id="sucursale_id" onclick="getSucursales()" required>
@@ -321,7 +321,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 <div class="modal modal-blur fade" id="upload-usuario" tabindex="-1" style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-sm modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
@@ -397,12 +397,14 @@
 @section('script')
 <script src="{{ asset('assets/js/shared.js') }}"></script>
 <script src="{{ asset('assets/js/usuarios/config.js') }}"></script>
+<script src="{{ asset('assets/js/clientes/config.js') }}"></script>
 <script src="{{ asset('assets/js/almacenes/config.js') }}"></script>
 <script src="{{ asset('assets/js/usuarios/crud-user.js') }}"></script>
+<script src="{{ asset('assets/js/clientes/crud-cliente.js') }}"></script>
 <script>
     $( document ).ready(function() {
         getUsuarios(2, '');
-        $("#modal-user").draggable();
+        $("#modal-cliente").draggable();
         $("#modal-modulos").draggable();
     });
 </script>

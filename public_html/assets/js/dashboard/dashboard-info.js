@@ -16,9 +16,9 @@ function getSaleByEmployees(sucursale_id, offset, limit){
                             <tr class="">
                                 <td>
                                     <div class="d-inline-block align-middle">
-                                        <img src="img/usuarios/${value.foto_perfil}" alt="user image" class="img-radius img-40 align-top m-r-15">
+                                        <img src="img/usuarios/${value.persona.foto_perfil}" alt="user image" class="img-radius img-40 align-top m-r-15">
                                     <div class="d-inline-block">
-                                        <h6>${value.nombres +' '+ value.app +' '+ value.apm}</h6>
+                                        <h6>${value.persona.nombres}</h6>
                                         <p class="text-muted m-b-0">${value.sucursal.nombre}</p>
                                     </div>
                                 </td>    

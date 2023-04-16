@@ -21,12 +21,17 @@
                         <li class="nav-item">
                             <a href="#direccionesEntrega" class="nav-link btn-tab" data-bs-toggle="tab">
                                 <i class="ti ti-lock-access icono me-1"></i>
-                                Direcciones de entrega</a>
+                                Direcciones</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="item-credito">
                             <a href="#credito" class="nav-link btn-tab" data-bs-toggle="tab">
                                 <i class="ti ti-currency-dollar icono me-1"></i>
                                 Crédito</a>
+                        </li>
+                        <li class="nav-item" id="item-permisos">
+                            <a href="#permisos" class="nav-link btn-tab" data-bs-toggle="tab">
+                                <i class="ti ti-lock-access icono me-1"></i>
+                                Permisos de acceso</a>
                         </li>
                     </ul>
                     <br>
@@ -35,6 +40,15 @@
                         </div>
                         <div class="tab-pane active show" id="tab-datos-pers">
                             <div class="row">
+                                @if(Auth::user()->is_admin) 
+                                <div class="col-sm-6 col-md-4 mb-3">
+                                    <label class="form-label required">Sucursal</label>
+                                    <select class="form-select" name="sucursale_id" id="sucursale_id" onclick="getSucursales()" required>
+                                        <option value="" id="load-select" disabled selected>Elige una opción</option>
+                                    </select>
+                                    <div class="invalid-feedback" id="error-sucursale_id"></div>
+                                </div>
+                                @endif
                                 <div class="col-sm-6 col-md-4">
                                     <label class="form-label required">Tipo</label>
                                     <select class="form-select" name="tipo_cliente_id" id="tipo_cliente_id" onclick="getTipoClientes()" required>
@@ -44,6 +58,7 @@
                                 </div>
                                 <div class="col-sm-6 col-md-4 mb-3">
                                     <input type="number" class="d-none" id="id" name="id">
+                                    <input type="number" class="d-none" id="cliente_id" name="cliente_id">
                                     <label class="form-label required">Nombre(s)</label>
                                     <input type="text" class="form-control" name="nombres" id="nombres" placeholder="Nombre(s)" required autocomplete="off" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,50}">
                                     <div class="invalid-feedback" id="error-nombres"></div>
@@ -67,6 +82,21 @@
                                     <label class="form-label">Empresa</label>
                                     <input type="text" class="form-control" name="empresa" id="empresa" placeholder="Empresa" autocomplete="off" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,50}">
                                     <div class="invalid-feedback" id="error-empresa"></div>
+                                </div>
+                                <div class="col-sm-6 col-md-4 mb-2">
+                                    <label class="form-label required">Usuario</label>
+                                    <input type="text" class="form-control" name="nom_user" id="nom_user" placeholder="Usuario" required autocomplete="off" maxlength="20" minlength="5">
+                                    <div class="invalid-feedback" id="error-nom_user"></div>
+                                </div>
+                                <div class="col-sm-6 col-md-4 mb-2">
+                                    <label class="form-label required">Contraseña</label>
+                                    <div class="input-group">
+                                        <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña" required autocomplete="off" maxlength="20" minlength="8">
+                                        <span class="input-group-text">
+                                            <a href="#" onclick="showHidePassword('password', 'eye-icon')" class="input-group-link"><i id="eye-icon" class="ti ti-eye"></i></a>
+                                        </span>
+                                        <div class="invalid-feedback" id="error-password"></div>
+                                    </div>
                                 </div>
                                 {{-- <div class="col-sm-6 col-md-4 mb-3">
                                     <label class="form-label required">Ciudad</label>
@@ -167,6 +197,41 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="tab-pane" id="permisos">
+                            <div class="d-flex bd-highlight">
+                                <div class="p-2 flex-grow-1 bd-highlight">
+                                    <div class="col-md-4">
+                                        <label class="form-label required">Rol</label>
+                                        <select class="form-select" name="role_id" id="role_id" onclick="getRoles()" required>
+                                            <option value="" id="load-select" disabled selected>Elige una opción</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="p-2 bd-highlight">
+                                    <label class="form-label required invisible">Modulos</label>
+                                    <button type="button" class="btn btn-success" onclick="openModal('modal-modulos','usuarios', 2), getModulos()">Seleccionar modulos</button>
+                                </div>
+                            </div>
+                            <br>
+                            <table class="table" id="table-user-modulos">
+                                <thead>
+                                    <tr>
+                                        <th class="role_id">ID</th>
+                                        <th>Modulo</th>
+                                        <th>Consultar</th>
+                                        <th>Registrar</th>
+                                        <th>Editar</th>
+                                        <th>Eliminar</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr id="pasar-modulos" class="d-none">
+                                        <td colspan="7"><center><h1>Cargando<span class="animated-dots"></span></h1></center></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-red btn-pill" onclick="closeModal('modal-cliente', 'form-add-cliente')">Cancelar</button>
                             <button type="submit" class="btn btn-blue btn-pill" id="btn-submit">
@@ -186,7 +251,7 @@
     <div class="modal-dialog modal-md modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content border">
             <div class="modal-header">
-                <h5 class="modal-title">Agregar direcciones de entrega</h5>
+                <h5 class="modal-title">Agregar dirección</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="closeModal('modal-direcciones', 'form-add-direcciones')"></button>
             </div>
             <div class="modal-body">

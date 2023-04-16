@@ -187,6 +187,9 @@ $(document).ajaxComplete(function(event, xhr, settings) {
         case 'api/getTipoGastos/2':
             $('#tipo_gasto_id').val(tipoGastoId);
             break;
+        case 'api/getRoles':
+            $('#role_id').val(idRol);
+            break;
     }
 
 });

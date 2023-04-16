@@ -150,7 +150,7 @@
                     <div class="tab-content">
                         <div id="load-form" class="efecto-cargando">
                         </div>
-                        <div class="row {{Auth::user()->isAdmin == 1 ? '' : 'd-none'}}">
+                        <div class="row {{Auth::user()->is_admin == 1 ? '' : 'd-none'}}">
                             <div class="col-md-4 mb-3">
                                 <label class="form-label required">Sucursal</label>
                                 <select class="form-select" name="sucursale_id" id="sucursale_id" onclick="getSucursales()" required>

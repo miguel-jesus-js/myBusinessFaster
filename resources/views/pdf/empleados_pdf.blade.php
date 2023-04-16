@@ -61,7 +61,6 @@
                     <th>Teléfono</th>
                     <th>RFC</th>
                     <th>Usuario</th>
-                    <th>Dirección</th>
                 </tr>
             </thead>
             <tbody>
@@ -69,12 +68,11 @@
                 <tr>
                     <td>{{ $i+1 }}</td>
                     <td>{{ $empleados[$i]['roles']->rol }}</td>
-                    <td>{{ $empleados[$i]['nombres'].' '.$empleados[$i]['app'].' '.$empleados[$i]['apm'] }}</td>
-                    <td>{{ $empleados[$i]['email'] }}</td>
-                    <td>{{ $empleados[$i]['telefono'] }}</td>
-                    <td>{{ $empleados[$i]['rfc'] }}</td>
+                    <td>{{ $empleados[$i]['persona']['nombres'] }}</td>
+                    <td>{{ $empleados[$i]['persona']['email'] }}</td>
+                    <td>{{ $empleados[$i]['persona']['telefono'] }}</td>
+                    <td>{{ $empleados[$i]['persona']['rfc'] }}</td>
                     <td>{{ $empleados[$i]['nom_user'] }}</td>
-                    <td>{{ $empleados[$i]['calle'].' '.($empleados[$i]['n_exterior'] == 0 ? '' : $empleados[$i]['n_exterior']).', '.$empleados[$i]['colonia'].', '.$empleados[$i]['cp'].', '.$empleados[$i]['municipio'].', '.$empleados[$i]['estado'].', '.$empleados[$i]['ciudad'] }}</td>
                 </tr>
 
                 @endfor
