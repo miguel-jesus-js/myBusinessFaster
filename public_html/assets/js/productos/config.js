@@ -318,3 +318,14 @@ $('#checkTodo').click(function () {
         $('.checar').prop('checked', false);
     }
 });
+
+$('#btn-add-imagenes').click(function(){
+    $('#input-imagenes').append(`<input type="file" class="form-control d-none" name="img[]" accept="image/jpeg,image/jpg,image/png">`);
+    let input = $('#input-imagenes input').last();
+    input.trigger('click');
+    input.change(function(){
+        preview();
+    })
+});
+
+  

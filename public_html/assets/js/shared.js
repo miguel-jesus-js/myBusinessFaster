@@ -98,28 +98,54 @@ $("input[name='filter']").on('click', function() {
     }
 });
 
-function preview(idImagen, idVista){
-    let input = $('#'+idImagen);
-    let extencion = input.val().split(".").pop().toLowerCase();
-    if( input.val() != "" ){
+function preview(){
+    let input = $('#input-imagenes input').last();
+    let extencion = $(input).val().split(".").pop().toLowerCase();
+    if( $(input).val() != "" ){
         if( extencion != "jpeg" && extencion != "png" && extencion != "jpg"){
-                input.replaceWith(input.val('').clone(true));
-                Toast.fire({
+            $(input).replaceWith($(input).val('').clone(true));
+            Toast.fire({
                 icon: "warning",
                 title: "Advertencia",
                 text: "Tipo de archivo no permitido"
-                });
+            });
         }
     }
-    let reader = new FileReader();
-    reader.onload = (e) => {
-        $("#"+idVista).attr('src', e.target.result);
-    }
-    $('#preview-'+idImagen).removeClass('d-none');
-    $('#name-'+idImagen).html(input[0].files[0].name);
-    $('#peso-'+idImagen).html(Math.round(input[0].files[0].size / 1000) +' KB');
-    reader.readAsDataURL(input[0].files[0]);
+    let html = `
+            <div class="col-md-3">
+                <button class="btn btn-danger btn-remove" type="button">
+                    <i class="ti ti-trash-x"></i>
+                </button>
+                <div class="card card-sm">
+                    <img id="view" src="" class="card-img-top img-preview" style="max-height: 200px !important;">
+                    <div class="card-body">
+                        Nombre:<small>${$(input)[0].files[0].name}</small>
+                        <br>
+                        Tamaño:<small class="text-muted">${Math.round($(input)[0].files[0].size / 1000) +' KB'}</small>
+                    </div>
+                </div>
+            </div>
+        `;
+        $('#preview-imagenes').append(html);
+        let div = $(".card-sm").last();
+        let img = div.children()[0];
+        let reader = new FileReader();
+        reader.onload = (e) => {
+            $(img).prop('src', e.target.result);
+        }
+        reader.readAsDataURL($(input)[0].files[0]);
 }
+$(document).on('click', '.btn-remove',function(){
+    let name = $(this).siblings().find('small').html();
+    $('#input-imagenes input').each(function(index, value){
+        let ruta = $(this).val().split('\\');
+        if(ruta[2] == name){
+            $(this).remove();
+        }
+    });
+    $(this).parent().remove();
+
+});
 function removeImg(idImagen){
     $('#'+idImagen).val('');
     $('#preview-'+idImagen).addClass('d-none');

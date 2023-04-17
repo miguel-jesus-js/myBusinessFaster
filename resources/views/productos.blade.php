@@ -166,6 +166,11 @@
                                 <i class="ti ti-plus icono me-1"></i>
                                 Extras</a>
                         </li>
+                        <li class="nav-item">
+                            <a href="#imagenes" class="nav-link btn-tab" data-bs-toggle="tab">
+                                <i class="ti ti-photo icono me-1"></i>
+                                Imagenes</a>
+                        </li>
                         
                     </ul>
                     <br>
@@ -338,7 +343,7 @@
                                     <input type="number" class="form-control" name="peso_kg" id="peso_kg" placeholder="Peso en KG" autocomplete="off" min="0" max="500" step=0.01>
                                     <div class="invalid-feedback" id="error-peso_kg"></div>
                                 </div>
-                                <div class="col-sm-6 col-md-4 mb-3">
+                                {{-- <div class="col-sm-6 col-md-4 mb-3">
                                     <label class="form-label">Imagen 1</label>
                                     <input type="file" class="form-control" name="img1" id="img1" accept="image/jpeg,image/jpg,image/png" onchange="preview('img1', 'view-img1')">
                                     <div class="invalid-feedback" id="error-img1"></div>
@@ -397,11 +402,27 @@
                                           <button class="ti ti-x btn btn-danger text-white rounded-circle remover" onclick="removeImg('img3')"></button>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-md-12 mb-3">
                                     <label class="form-label">Descripción detallada</label>
                                     <textarea class="form-control" name="desc_detallada" id="desc_detallada" placeholder="Descripción detallada" cols="30" rows="5" minlength="5" maxlength="200"></textarea>
                                     <div class="invalid-feedback" id="error-desc_detallada"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="imagenes">
+                            <div class="mb-3">
+                                <button type="button" class="avatar avatar-upload rounded p-4" id="btn-add-imagenes">
+                                    <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
+                                    <i class="ti ti-photo-plus icono upload-imagen"></i>
+                                    <span class="avatar-upload-text">Subir imagen</span>
+                                </button>
+                            </div>
+                            <br>
+                            <div class="row" id="div-imagenes">
+                                <div id="input-imagenes"></div>
+                                <div class="row" id="preview-imagenes">
+                                    
                                 </div>
                             </div>
                         </div>
@@ -777,6 +798,7 @@
         </button>
     </div>
 </div>
+
 @endsection
 @section('script')
 <script src="{{ asset('assets/js/productos/config.js') }}"></script>

@@ -83,6 +83,8 @@ $('#form-upload-producto').submit(function(e){
             if(respuesta.icon == 'success'){
                 getProductos(2, '');
                 closeModal('upload-producto', 'form-upload-producto');
+                $('#input-imagenes').empty();
+                $('#preview-imagenes').empty();
             }
         },
         error: function(request, status, error){
@@ -150,7 +152,7 @@ function getProductos(tipo, filtro){
                             <td class="d-none oculto">${valor.es_produccion == 1 ? 'Si' : 'No'}</td>
                             <td class="d-none oculto">${valor.afecta_ventas == 1 ? 'Si' : 'No'}</td>
                             <td>
-                                <button type="button" class="btn p-0 border-0" onclick="onChange(${valor.id}, ${valor.marca_id}, ${valor.almacene_id}, ${valor.unidad_medida_id}, ${valor.proveedore_id}, ${valor.materiale_id}, '${valor.cod_barra}', ${valor.cod_sat}, '${valor.producto}', ${valor.stock_min}, '${valor.img1}', '${valor.img2}', '${valor.img3}', '${valor.caducidad}', '${valor.color}', '${valor.talla}', '${valor.modelo}', ${valor.meses_garantia}, '${valor.peso_kg}', '${valor.desc_detallada}', ${valor.es_produccion}, ${valor.afecta_ventas}, ${caracteristicas}, ${categorias});"><i class="ti ti-edit icono text-primary"></i></button>
+                                <button type="button" class="btn p-0 border-0" onclick="onChange(${valor.id}, ${valor.marca_id}, ${valor.almacene_id}, ${valor.unidad_medida_id}, ${valor.proveedore_id}, ${valor.materiale_id}, '${valor.cod_barra}', ${valor.cod_sat}, '${valor.producto}', ${valor.stock_min}, '${valor.caducidad}', '${valor.color}', '${valor.talla}', '${valor.modelo}', ${valor.meses_garantia}, '${valor.peso_kg}', '${valor.desc_detallada}', ${valor.es_produccion}, ${valor.afecta_ventas}, ${caracteristicas}, ${categorias});"><i class="ti ti-edit icono text-primary"></i></button>
                                 <button type="button" class="btn p-0 border-0" onclick="confirmDelete(${valor.id}, '${valor.producto}', 'api/deleteProductos/', 'producto', 'el');"><i class="ti ti-trash icono text-danger"></i></button>
                                 <button type="button" class="btn p-0 border-0 ver_mas" onclick=""><i class="ti ti-eye icono text-success"></i></button>
                                 <a href="/api/showProducto/${valor.id}" class="btn p-0 border-0"><i class="ti ti-list-details icono text-dark"></i></a>
@@ -172,7 +174,7 @@ function getProductos(tipo, filtro){
         },
     })
 }
-function onChange(id, marca_id, almacene_id, unidad_medida_id, proveedore_id, materiale_id, cod_barra, cod_sat, producto, stock_min, img1, img2, img3, caducidad, color, talla, modelo, meses_garantia, peso_kg, desc_detallada, es_produccion, afecta_ventas, caracteristicas, categorias){
+function onChange(id, marca_id, almacene_id, unidad_medida_id, proveedore_id, materiale_id, cod_barra, cod_sat, producto, stock_min, caducidad, color, talla, modelo, meses_garantia, peso_kg, desc_detallada, es_produccion, afecta_ventas, caracteristicas, categorias){
     $('#id').val(id);
     $('#cod_barra').val(cod_barra);
     $('#cod_sat').val(cod_sat);
@@ -220,19 +222,4 @@ function onChange(id, marca_id, almacene_id, unidad_medida_id, proveedore_id, ma
     });
     $('#table-caracteristicas tbody').html(rowCaracteristicas);
     $('#table-caracteristicas td:nth-child(1)').hide();//ocultamos la fila ID
-    if(img1 != 'null'){
-        $("#view-img1").attr('src', '../../img/productos/'+img1);
-        $("#name-img1").html(img1);
-        $('#preview-img1').removeClass('d-none');
-    }
-    if(img2 != 'null'){
-        $("#view-img2").attr('src', '../../img/productos/'+img2);
-        $("#name-img2").html(img2);
-        $('#preview-img2').removeClass('d-none');
-    }
-    if(img3 != 'null'){
-        $("#view-img3").attr('src', '../../img/productos/'+img3);
-        $("#name-img3").html(img3);
-        $('#preview-img3').removeClass('d-none');
-    }
 }

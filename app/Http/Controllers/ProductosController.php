@@ -10,6 +10,7 @@ use App\Http\Requests\ProductosUploadRequest;
 use App\Models\Producto;
 use App\Models\DetalleCat;
 use App\Models\Caracteristica;
+use App\Models\ImagenesProducto;
 use App\Imports\ProductosImport;
 use App\Exports\ProductosExport;
 use App\Traits\ImagesTrait;
@@ -60,10 +61,16 @@ class ProductosController extends Controller
         $data = $request->all();
         try {
             DB::beginTransaction();
-            $data['img1'] = $this->uploadImagen($request->file('img1'), 'img1', 'img/productos/');
-            $data['img2'] = $this->uploadImagen($request->file('img2'), 'img2', 'img/productos/');
-            $data['img3'] = $this->uploadImagen($request->file('img3'), 'img3', 'img/productos/');
             $newProducto = Producto::create($data);
+            $imagenes = $request->file('img');
+            if(isset($imagenes)){
+                foreach($imagenes as $imagen){
+                    $nomImg = uniqid().'.'.$imagen->getClientOriginalExtension();
+                    $imagen->move('img/productos/', $nomImg);
+                    $dataImgProducto = ['producto_id' => $newProducto->id, 'imagen' => $nomImg];
+                    ImagenesProducto::create($dataImgProducto);
+                }
+            }
             $producto_id = $newProducto->id;
             if(isset($data['categoria_id']))
             {
@@ -84,6 +91,7 @@ class ProductosController extends Controller
             DB::commit();
             return json_encode(['icon'  => 'success', 'title'   => 'Exitó', 'text'  => 'Producto registrado']);
         } catch (\Exception $e) {
+            dd($e);
             DB::rollback();
             return json_encode(['icon'  => 'error', 'title'   => 'Error', 'text'  => 'Ocurrio un error, el producto no fue registrado']);
         }

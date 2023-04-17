@@ -24,7 +24,9 @@ return new class extends Migration
             $table->string('calle', 50)->nullable(false);
             $table->integer('n_exterior')->nullable(true)->default(0);
             $table->integer('n_interior')->nullable(true)->default(0);
+            $table->boolean('activo')->nullable(false)->default(false);
             $table->timestamps();
+            $table->softdeletes();
             $table->foreign('persona_id')->references('id')->on('personas')->onDelete('cascade');
         });
     }

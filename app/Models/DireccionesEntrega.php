@@ -18,6 +18,7 @@ class DireccionesEntrega extends Model
         'calle',
         'n_exterior',
         'n_interior',
+        'activo',
     ];
     public function persona()
     {

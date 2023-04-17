@@ -199,3 +199,14 @@ body.ticket td{
     font-size: 8px;
     width: fit-content;
 }
+.upload-imagen{
+    font-size: 40px;
+}
+.img-preview{
+    max-height: 200px !important;
+}
+.btn-remove{
+    position: relative;
+    bottom: -30px;
+    z-index: 1;
+}

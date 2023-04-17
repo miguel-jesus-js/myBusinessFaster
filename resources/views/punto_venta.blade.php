@@ -106,14 +106,14 @@
                                             <i class="ti ti-trash"></i>
                                         </button>
                                     </div>
-                                    <table class="table shadow-sm table-bordered table-hover" id="carrito">
+                                    <table class="table shadow-sm table-bordered table-hover table-striped" id="carrito">
                                         <thead>
                                             <tr>
                                                 <th>Producto</th>
-                                                <th>Precio</th>
-                                                <th>Cantidad</th>
-                                                <th>Importe</th>
-                                                <th>Acciones</th>
+                                                <th style="width: 15%">Precio</th>
+                                                <th style="width: 25%">Cantidad</th>
+                                                <th style="width: 15%">Importe</th>
+                                                <th style="width: 15%">Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -132,10 +132,14 @@
                             <div class="card-body">
                                 <form action="" id="form-add-venta">
                                     <section class="informacion">
-                                        <div class="mb-3">
-                                            <div class="form-label">Cliente</div>
-                                            <div class="input-group w-100">
-                                                <select class="select2 form-select" name="cliente_id" id="cliente_id">
+                                        <label class="form-check mb-3">
+                                            <input class="form-check-input" type="checkbox" id="check-cliente">
+                                            <span class="form-check-label">Aplicar cliente</span>
+                                        </label>
+                                        <div class="mb-3 d-none" id="div-cliente">
+                                            <div class="form-label required">Cliente</div>
+                                            <div class="input-group w-100" id="group-cliente">
+                                                <select class="select2 form-select" name="cliente_id" id="cliente_id" required>
                                                 </select>
                                                 <button type="button" class="btn bg-secondary-lt" id="add-cliente" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar cliente"><i class="ti ti-plus"></i></button>
                                                 <button type="button" class="btn bg-secondary-lt" id="reload-cliente" data-bs-toggle="tooltip" data-bs-placement="top" title="Recargar"><i class="ti ti-refresh"></i></button>
@@ -152,7 +156,7 @@
                                                     <span class="input-group-text">
                                                         <i class="ti ti-currency-dollar"></i>
                                                     </span>
-                                                    <input type="number" class="form-control form-control-sm" name="subtotal" id="subtotal" placeholder="0.00" required autocomplete="off" readonly min="1" step=0.01>
+                                                    <input type="number" class="form-control form-control-lg" name="subtotal" id="subtotal" placeholder="0.00" required autocomplete="off" readonly min="1" step=0.01>
                                                 </div>
                                             </div>
                                         </div>
@@ -170,7 +174,7 @@
                                                     <span class="input-group-text">
                                                         <i class="ti ti-currency-dollar"></i>
                                                     </span>
-                                                    <input type="number" class="form-control form-control-sm" name="iva" id="iva" placeholder="0.00" autocomplete="off" required readonly min="0" step=0.01> 
+                                                    <input type="number" class="form-control form-control-lg" name="iva" id="iva" placeholder="0.00" autocomplete="off" required readonly min="0" step=0.01> 
                                                 </div>
                                             </div>
                                         </div>
@@ -183,7 +187,7 @@
                                                     <span class="input-group-text">
                                                         <i class="ti ti-currency-dollar"></i>
                                                     </span>
-                                                    <input type="number" class="form-control form-control-sm" name="descuento" id="descuento" placeholder="0.00" autocomplete="off" required readonly value="0.00" min="0" step=0.01>
+                                                    <input type="number" class="form-control form-control-lg" name="descuento" id="descuento" placeholder="0.00" autocomplete="off" required readonly value="0.00" min="0" step=0.01>
                                                 </div>
                                             </div>
                                         </div>
@@ -196,7 +200,7 @@
                                                     <span class="input-group-text">
                                                         <i class="ti ti-currency-dollar"></i>
                                                     </span>
-                                                    <input type="number" class="form-control form-control-sm" name="paga_con" id="paga_con" placeholder="0.00" autocomplete="off" required min="1" step=0.01>
+                                                    <input type="number" class="form-control form-control-lg" name="paga_con" id="paga_con" placeholder="0.00" autocomplete="off" required min="1" step=0.01>
                                                 </div>
                                             </div>
                                         </div>
@@ -224,13 +228,6 @@
     <script src="{{ asset('assets/js/clientes/config.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script type="text/javascript">
-        $(document).ready(function() {
-            $('#cliente_id').select2({
-                placeholder: 'Seleccionar opción',
-                theme: 'tabler',
-            });
-            getClientesSelect2();
-        });
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

@@ -143,7 +143,7 @@ function addProducto(data){
                         <td class="d-none"><input type="number" class="form-control form-control-sm input-table" name="producto_id[]" value="${data.id}" readonly></td>
                         <td class="d-none"><input type="number" class="form-control form-control-sm input-table" name="cod_barra[]" value="${data.cod_barra}" readonly></td>
                         <td class="d-none"><input type="number" class="form-control form-control-sm input-table" name="disponible[]" value="${data.sucursales[0].pivot.stock}" readonly></td>
-                        <td><b>${data.producto}</b></td>
+                        <td>${data.producto}</td>
                         <td>
                             <div class="input-icon">
                                 <span class="input-icon-addon">
@@ -295,4 +295,18 @@ $('#add-cliente').click(function(){
 })
 $('#check-iva').click(function(){
     calculateTotals();
+})
+$('#check-cliente').click(function(){
+    if($(this).prop('checked')){
+        getClientesSelect2();
+        $('#div-cliente').removeClass('d-none');
+        $('#cliente_id').prop('disabled', false);
+        $('#cliente_id').select2({
+            placeholder: 'Seleccionar opción',
+            theme: 'tabler',
+        });
+    }else{
+        $('#div-cliente').addClass('d-none');
+        $('#cliente_id').prop('disabled', true);
+    }
 })
