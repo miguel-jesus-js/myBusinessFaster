@@ -155,7 +155,7 @@ function openModal(id_modal, modulo, tipo){
             break;
         case 'perfil':
             if(tipo == 1){
-                $('#modal-title').html('Editar perfil');
+                $('#modal-title-perfil').html('Editar perfil');
             }
             break;
     }

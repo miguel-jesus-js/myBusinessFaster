@@ -96,6 +96,9 @@ class UsersController extends Controller
         if(isset($data['password'])){
             $data['password'] = Hash::make($data['password']);//encriptamos la contraseña
         }
+        if($data['password'] == null || $data['password'] == ''){
+            unset($data['password']);
+        }
         try {
             DB::beginTransaction();
             $usuario->update($data);

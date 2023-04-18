@@ -251,12 +251,12 @@ $('#form-perfil').submit(function(e){
         cache: false,
         processData:false,
         beforeSend: function(){
-            addHtmlEfectoLoad('load-form');
-            addClassBtnEfectoLoad('load-button', 'btn-modal');
+            addHtmlEfectoLoad('load-form-perfil');
+            addClassBtnEfectoLoad('load-button-perfil', 'btn-modal-perfil');
         },
         success: function(response){
             let respuesta = JSON.parse(response);
-            removeClassBtnEfectoLoad('load-form','load-button', 'btn-modal');
+            removeClassBtnEfectoLoad('load-form-perfil','load-button-perfil', 'btn-modal-perfil');
             Toast.fire({
                 icon: respuesta.icon,
                 title: respuesta.title,
@@ -275,7 +275,7 @@ $('#form-perfil').submit(function(e){
                     msjError('error', 'Error', 'Se perdio la conexión con el servidor, intente nuevamente');
                     break;
             }
-            removeClassBtnEfectoLoad('load-form','load-button', 'btn-modal');
+            removeClassBtnEfectoLoad('load-form-perfil','load-button-perfil', 'btn-modal-perfil');
         }
     });
 });

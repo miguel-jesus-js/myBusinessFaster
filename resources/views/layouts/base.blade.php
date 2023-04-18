@@ -455,29 +455,29 @@
         <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modal-title"></h5>
+                    <h5 class="modal-title" id="modal-title-perfil"></h5>
                     <button type="button" class="btn-close" onclick="closeModal('modal-perfil', 'form-add-perfil')"></button>
                 </div>
                 <div class="modal-body">
                     <form id="form-perfil">
                         <ul class="nav nav-pills" data-bs-toggle="tabs">
                             <li class="nav-item active">
-                                <a href="#tab-datos-pers" class="nav-link active btn-tab" data-bs-toggle="tab">
+                                <a href="#tab-datos-pers-perfil" class="nav-link active btn-tab" data-bs-toggle="tab">
                                     <i class="ti ti-id icono me-1"></i>
                                     Datos personales</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#contacto" class="nav-link btn-tab" data-bs-toggle="tab">
+                                <a href="#contacto-perfil" class="nav-link btn-tab" data-bs-toggle="tab">
                                     <i class="ti ti-phone icono me-1"></i>
                                     Datos de contacto</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#foto" class="nav-link btn-tab" data-bs-toggle="tab">
+                                <a href="#foto-perfil" class="nav-link btn-tab" data-bs-toggle="tab">
                                     <i class="ti ti-photo icono me-1"></i>
                                     Subir foto</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#key" class="nav-link btn-tab" data-bs-toggle="tab">
+                                <a href="#key-perfil" class="nav-link btn-tab" data-bs-toggle="tab">
                                     <i class="ti ti-key icono me-1"></i>
                                     Cambiar contraseña</a>
                             </li>
@@ -485,101 +485,53 @@
                         </ul>
                         <br>
                         <div class="tab-content">
-                            <div id="load-form" class="efecto-cargando">
+                            <div id="load-form-perfil" class="efecto-cargando">
     
                             </div>
-                            <div class="tab-pane active show" id="tab-datos-pers">
+                            <div class="tab-pane active show" id="tab-datos-pers-perfil">
                                 <div class="row">
                                     <div class="col-sm-6 col-md-4 mb-3">
-                                        <input type="number" class="d-none" id="id" name="id" value="{{ Auth::user()->id }}">
+                                        <input type="number" class="d-none" id="id" name="id" value="{{ Auth::user()->persona->id }}">
+                                        <input type="number" class="d-none" id="cliente_id" name="cliente_id" value="{{ Auth::user()->id }}">
+                                        <input type="number" class="d-none" id="role_id" name="role_id" value="{{ Auth::user()->role_id }}">
                                         <select class="form-select d-none" name="sucursale_id" id="sucursale_id" onclick="getSucursales()" required>
                                             <option value="{{ Auth::user()->sucursale_id }}" id="load-select" ></option>
                                         </select>
                                         <label class="form-label required">Nombre(s)</label>
-                                        <input type="text" class="form-control" name="nombres" id="nombres" placeholder="Nombre(s)" required autocomplete="off" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,50}" value="{{ Auth::user()->nombres }}">
+                                        <input type="text" class="form-control" name="nombres" id="nombres" placeholder="Nombre(s)" required autocomplete="off" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,50}" value="{{ Auth::user()->persona->nombres }}">
                                         <div class="invalid-feedback" id="error-nombres"></div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4 mb-3">
-                                        <label class="form-label required">Apellido P</label>
-                                        <input type="text" class="form-control" name="app" id="app" placeholder="Apellido paterno" required autocomplete="off" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,50}" value="{{ Auth::user()->app }}">
-                                        <div class="invalid-feedback" id="error-app"></div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4 mb-3">
-                                        <label class="form-label required">Apellido M</label>
-                                        <input type="text" class="form-control" name="apm" id="apm" placeholder="Apellido materno" required autocomplete="off" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,50}" value="{{ Auth::user()->apm }}">
-                                        <div class="invalid-feedback" id="error-apm"></div>
                                     </div>
                                     <div class="col-sm-6 col-md-4 mb-2">
                                         <label class="form-label">RFC</label>
                                         <input type="text" class="form-control" name="rfc" id="rfc" placeholder="RFC" autocomplete="off" pattern="^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1]))([A-Z\d]{3})?$">
-                                        <div class="invalid-feedback" id="error-rfc" value="{{ Auth::user()->rfc }}"></div>
+                                        <div class="invalid-feedback" id="error-rfc" value="{{ Auth::user()->persona->rfc }}"></div>
                                     </div>
                                     <div class="col-sm-6 col-md-4 mb-2">
                                         <label class="form-label required">Usuario</label>
                                         <input type="text" class="form-control" name="nom_user" id="nom_user" placeholder="Usuario" required autocomplete="off" maxlength="20" minlength="5" value="{{ Auth::user()->nom_user }}">
                                         <div class="invalid-feedback" id="error-nom_user"></div>
                                     </div>
-                                    <div class="col-sm-6 col-md-4 mb-3">
-                                        <label class="form-label required">Ciudad</label>
-                                        <input type="text" class="form-control" name="ciudad" id="ciudad" placeholder="Ciudad" required autocomplete="off" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,50}" maxlength="50" minlength="5" value="{{ Auth::user()->ciudad }}">
-                                        <div class="invalid-feedback" id="error-ciudad"></div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4 mb-3">
-                                        <label class="form-label required">Estado</label>
-                                        <input type="text" class="form-control" name="estado" id="estado" placeholder="Estado" required autocomplete="off" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,50}" maxlength="50" minlength="5" value="{{ Auth::user()->estado }}">
-                                        <div class="invalid-feedback" id="error-estado"></div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4 mb-3">
-                                        <label class="form-label required">Municipio</label>
-                                        <input type="text" class="form-control" name="municipio" id="municipio" placeholder="Municipio" required autocomplete="off" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,50}" maxlength="50" minlength="5" value="{{ Auth::user()->municipio }}">
-                                        <div class="invalid-feedback" id="error-municipio"></div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4 mb-3">
-                                        <label class="form-label required">Código postal</label>
-                                        <input type="number" class="form-control" name="cp" id="cp" placeholder="Código postal" required autocomplete="off" maxlength="5" minlength="5" value="{{ Auth::user()->cp }}">
-                                        <div class="invalid-feedback" id="error-cp"></div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4 mb-3">
-                                        <label class="form-label required">Colonia</label>
-                                        <input type="text" class="form-control" name="colonia" id="colonia" placeholder="Colonia" required autocomplete="off" maxlength="50" minlength="5" value="{{ Auth::user()->colonia }}">
-                                        <div class="invalid-feedback" id="error-colonia"></div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4 mb-3">
-                                        <label class="form-label required">Calle</label>
-                                        <input type="text" class="form-control" name="calle" id="calle" placeholder="Calle" required autocomplete="off" value="{{ Auth::user()->calle }}">
-                                        <div class="invalid-feedback" id="error-calle"></div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4 mb-3">
-                                        <label class="form-label">N° Exterior</label>
-                                        <input type="number" class="form-control" name="n_exterior" id="n_exterior" placeholder="N° Exterior" autocomplete="off" min="0" max="200" value="{{ Auth::user()->n_exterior }}">
-                                        <div class="invalid-feedback" id="error-n_exterior"></div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4 mb-3">
-                                        <label class="form-label">N° Interior</label>
-                                        <input type="number" class="form-control" name="n_interior" id="n_interior" placeholder="N° Interior" autocomplete="off" min="0" max="200" value="{{ Auth::user()->n_interior }}">
-                                        <div class="invalid-feedback" id="error-n_interior"></div>
-                                    </div>
                                 </div>
                             </div>
-                            <div class="tab-pane" id="contacto">
+                            <div class="tab-pane" id="contacto-perfil">
                                 <div class="row">
                                     <div class="col-sm-6 mb-3">
                                         <label class="form-label required">Teléfono</label>
-                                        <input type="text" name="telefono" id="telefono" class="form-control" data-mask="(00) 0000-0000" data-mask-visible="true" placeholder="(00) 0000-0000" required autocomplete="off" value="{{ Auth::user()->telefono }}">
+                                        <input type="text" name="telefono" id="telefono" class="form-control" data-mask="(00) 0000-0000" data-mask-visible="true" placeholder="(00) 0000-0000" required autocomplete="off" value="{{ Auth::user()->persona->telefono }}">
                                         <div class="invalid-feedback" id="error-telefono"></div>
                                     </div>
                                     <div class="col-sm-6 mb-3">
                                         <label class="form-label required">Correo</label>
-                                        <input type="email" class="form-control" name="email" id="email" placeholder="Correo" required autocomplete="off" pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}" value="{{ Auth::user()->email }}">
+                                        <input type="email" class="form-control" name="email" id="email" placeholder="Correo" required autocomplete="off" pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}" value="{{ Auth::user()->persona->email }}">
                                         <div class="invalid-feedback" id="error-email"></div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane" id="foto">
+                            <div class="tab-pane" id="foto-perfil">
                                 <div class="row align-items-center">
                                     <div class="col-auto">
                                         <span class="avatar avatar-xl">
-                                            <img src="{{ asset('img/usuarios/'.Auth::user()->foto_perfil) }}" alt="" id="show-foto_perfil">
+                                            <img src="{{ asset('img/usuarios/'.Auth::user()->persona->foto_perfil) }}" alt="" id="show-foto_perfil">
                                         </span>
                                     </div>
                                     <div class="col-auto">
@@ -602,7 +554,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane" id="key">
+                            <div class="tab-pane" id="key-perfil">
                                 <div class="row align-items-center">
                                     <div class="col-sm-6 col-md-6 mb-2">
                                         <label class="form-label">Contraseña</label>
@@ -629,8 +581,8 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-red btn-pill" onclick="closeModal('modal-perfil', 'form-perfil')">Cancelar</button>
                                 <button type="submit" class="btn btn-blue btn-pill">
-                                    <span id="load-button" class="spinner-grow spinner-grow-sm me-1 d-none" role="status" aria-hidden="true"></span>
-                                    <b id="btn-modal"></b>
+                                    <span id="load-button-perfil" class="spinner-grow spinner-grow-sm me-1 d-none" role="status" aria-hidden="true"></span>
+                                    <b id="btn-modal-perfil">Actualizar</b>
                                 </button>
                             </div>
                         </div>
