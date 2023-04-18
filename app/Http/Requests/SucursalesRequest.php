@@ -26,9 +26,9 @@ class SucursalesRequest extends FormRequest
         return [
             'user_id'           => 'required|numeric|exists:users,id',
             'nombre'            => 'required|min:3|max:50|regex:/^[\sA-Za-zÁÉÍÓÚáéíóúÑñ]{3,50}$/',
-            'correo'            => 'required|min:10|max:50|email|unique:clientes,email,'.$this->id,
-            'telefono'          => 'required|min:14|max:14|unique:clientes,telefono,'.$this->id,
-            'rfc'               => 'nullable|min:3|max:50|regex:/^([a-z]{3,4})(\d{2})(\d{2})(\d{2})([0-9a-z]{3})$/i|unique:clientes,rfc,'.$this->id,
+            'correo'            => 'required|min:10|max:50|email|unique:sucursales,correo,'.$this->id,
+            'telefono'          => 'required|min:14|max:14|unique:sucursales,telefono,'.$this->id,
+            'rfc'               => 'nullable|min:3|max:50|regex:/^([a-z]{3,4})(\d{2})(\d{2})(\d{2})([0-9a-z]{3})$/i|unique:sucursales,rfc,'.$this->id,
             'ciudad'            => 'required|min:3|max:50|regex:/^[\sA-Za-zÁÉÍÓÚáéíóúÑñ]{3,50}$/',
             'estado'            => 'required|min:3|max:50|regex:/^[\sA-Za-zÁÉÍÓÚáéíóúÑñ]{3,50}$/',
             'municipio'         => 'required|min:3|max:50|regex:/^[\sA-Za-zÁÉÍÓÚáéíóúÑñ]{3,50}$/',

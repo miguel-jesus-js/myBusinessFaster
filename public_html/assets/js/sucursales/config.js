@@ -12,7 +12,7 @@ function getUsers() {
                 let data = JSON.parse(response);
                 let option = '';
                 $.each(data, function (index, valor) {
-                    option += `<option value="${valor.id}">${valor.nombres +' '+valor.app +' '+ valor.apm}</option>`;
+                    option += `<option value="${valor.id}">${valor.persona.nombres}</option>`;
                 });
                 $('#user_id').append(option);
             }

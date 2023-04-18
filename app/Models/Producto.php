@@ -36,7 +36,6 @@ class Producto extends Model
         {
             case 0:
                 return $query->withTrashed();
-                break;
             case 1:
                 return $query->onlyTrashed();
         }

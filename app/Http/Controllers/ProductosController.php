@@ -101,28 +101,15 @@ class ProductosController extends Controller
         $data = $request->all();
         $producto = Producto::find($data['id']);
         try {
-            DB::beginTransaction();            
-            $data['img1'] = $this->uploadImagen($request->file('img1'), 'img1', 'img/productos/');
-            $data['img2'] = $this->uploadImagen($request->file('img2'), 'img2', 'img/productos/');
-            $data['img3'] = $this->uploadImagen($request->file('img3'), 'img3', 'img/productos/');
-            
-            if($data['img1'] == null)
-            {
-                unset($data['img1']);
-            }else{
-                $this->deleteImagen('img/productos', $producto->img1);
-            }
-            if($data['img2'] == null)
-            {
-                unset($data['img2']);
-            }else{
-                $this->deleteImagen('img/productos', $producto->img2);
-            }
-            if($data['img3'] == null)
-            {
-                unset($data['img3']);
-            }else{
-                $this->deleteImagen('img/productos', $producto->img3);
+            DB::beginTransaction();  
+            $imagenes = $request->file('img');
+            if(isset($imagenes)){
+                foreach($imagenes as $imagen){
+                    $nomImg = uniqid().'.'.$imagen->getClientOriginalExtension();
+                    $imagen->move('img/productos/', $nomImg);
+                    $dataImgProducto = ['producto_id' => $producto->id, 'imagen' => $nomImg];
+                    ImagenesProducto::create($dataImgProducto);
+                }
             }
             $producto->update($data);
             $producto_id = $producto->id;
@@ -171,7 +158,7 @@ class ProductosController extends Controller
     }
     public function show(Request $request, $id)
     {
-        $producto = Producto::where('id', $id)->with(['marcas', 'almacenes', 'unidadMedidas', 'proveedores', 'materiales',  'categorias', 'caracteristicas'])->first();
+        $producto = Producto::where('id', $id)->with(['marcas', 'almacenes', 'unidadMedidas', 'proveedores', 'materiales',  'categorias', 'caracteristicas', 'sucursales'])->first();
         return view('producto_show')->with('producto', $producto);
     }   
     public function delete($id)

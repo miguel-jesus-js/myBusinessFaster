@@ -40,6 +40,8 @@ $('#form-add-producto').submit(function(e){
                 text: respuesta.text
             });
             if(respuesta.icon == 'success'){
+                $('#input-imagenes').empty();
+                $('#preview-imagenes').empty();
                 getProductos(2, '');
                 closeModal('modal-producto', 'form-add-producto');
             }
@@ -83,8 +85,6 @@ $('#form-upload-producto').submit(function(e){
             if(respuesta.icon == 'success'){
                 getProductos(2, '');
                 closeModal('upload-producto', 'form-upload-producto');
-                $('#input-imagenes').empty();
-                $('#preview-imagenes').empty();
             }
         },
         error: function(request, status, error){
@@ -152,9 +152,15 @@ function getProductos(tipo, filtro){
                             <td class="d-none oculto">${valor.es_produccion == 1 ? 'Si' : 'No'}</td>
                             <td class="d-none oculto">${valor.afecta_ventas == 1 ? 'Si' : 'No'}</td>
                             <td>
-                                <button type="button" class="btn p-0 border-0" onclick="onChange(${valor.id}, ${valor.marca_id}, ${valor.almacene_id}, ${valor.unidad_medida_id}, ${valor.proveedore_id}, ${valor.materiale_id}, '${valor.cod_barra}', ${valor.cod_sat}, '${valor.producto}', ${valor.stock_min}, '${valor.caducidad}', '${valor.color}', '${valor.talla}', '${valor.modelo}', ${valor.meses_garantia}, '${valor.peso_kg}', '${valor.desc_detallada}', ${valor.es_produccion}, ${valor.afecta_ventas}, ${caracteristicas}, ${categorias});"><i class="ti ti-edit icono text-primary"></i></button>
-                                <button type="button" class="btn p-0 border-0" onclick="confirmDelete(${valor.id}, '${valor.producto}', 'api/deleteProductos/', 'producto', 'el');"><i class="ti ti-trash icono text-danger"></i></button>
-                                <button type="button" class="btn p-0 border-0 ver_mas" onclick=""><i class="ti ti-eye icono text-success"></i></button>
+                                <button type="button" class="btn p-0 border-0" onclick="onChange(${valor.id}, ${valor.marca_id}, ${valor.almacene_id}, ${valor.unidad_medida_id}, ${valor.proveedore_id}, ${valor.materiale_id}, '${valor.cod_barra}', ${valor.cod_sat}, '${valor.producto}', ${valor.stock_min}, '${valor.caducidad}', '${valor.color}', '${valor.talla}', '${valor.modelo}', ${valor.meses_garantia}, '${valor.peso_kg}', '${valor.desc_detallada}', ${valor.es_produccion}, ${valor.afecta_ventas}, ${caracteristicas}, ${categorias});">
+                                    <i class="ti ti-edit icono text-primary"></i>
+                                </button>
+                                <button type="button" class="btn p-0 border-0" onclick="confirmDelete(${valor.id}, '${valor.producto}', 'api/deleteProductos/', 'producto', 'el');">
+                                    <i class="ti ti-trash icono text-danger"></i>
+                                </button>
+                                <button type="button" class="btn p-0 border-0 ver_mas" onclick="">
+                                    <i class="ti ti-eye icono text-success">
+                                </i></button>
                                 <a href="/api/showProducto/${valor.id}" class="btn p-0 border-0"><i class="ti ti-list-details icono text-dark"></i></a>
                             </td>
                

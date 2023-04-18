@@ -95,30 +95,18 @@
                             </div>
                         </div>
                         <br>
-                        <span class="status status-cyan">
-                            <span class="status-dot status-dot-animated"></span>
-                            Stock: {{ $producto->stock }}
-                        </span>
-                        <span class="status status-red">
-                            <span class="status-dot status-dot-animated"></span>
-                            Stock mínimo: {{ $producto->stock_min }}
-                        </span>
-                        <span class="status mb-2 status-indigo">
-                            <span class="status-dot status-dot-animated"></span>
-                            Marca: {{ $producto->marcas->marca }}
-                        </span>
-                        <span class="status mb-2 status-orange">
-                            <span class="status-dot status-dot-animated"></span>
-                            Alamcén: {{ $producto->almacenes->nombre }}
-                        </span>
-                        <span class="status mb-2 status-teal">
-                            <span class="status-dot status-dot-animated"></span>
-                            U.medida: {{ $producto->unidadMedidas->unidad_medida }}
-                        </span>
-                        <span class="status mb-2 status-pink">
-                            <span class="status-dot status-dot-animated"></span>
-                            Material: {{ $producto->materiales == null ? '' : $producto->materiales->material }}
-                        </span>
+                        <dl class="row">
+                            <dt class="col-5">Marca:</dt>
+                            <dd class="col-7">{{ $producto->marcas->marca }}</dd>
+                            <dt class="col-5">Alamcén:</dt>
+                            <dd class="col-7">{{ $producto->almacenes->nombre }}</dd>
+                            <dt class="col-5">Unidad de medida:</dt>
+                            <dd class="col-7">{{ $producto->unidadMedidas->unidad_medida }}</dd>
+                            <dt class="col-5">Material:</dt>
+                            <dd class="col-7">{{ $producto->materiales == null ? '' : $producto->materiales->material }}</dd>
+                            <dt class="col-5">Stock minimo:</dt>
+                            <dd class="col-7">{{ $producto->stock_min }}</dd>
+                        </dl>
                     </div>
                     <br>
                     <hr>
