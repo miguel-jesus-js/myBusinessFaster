@@ -27,23 +27,23 @@
             <small>
                 <address>
                     <strong class="datagrid-title class-name h6">Dirección: </strong>
-                    {{$venta->empleado->sucursal->calle.' '.$venta->empleado->sucursal->n_exterior}}<br>
-                    {{$venta->empleado->sucursal->colonia.', '.$venta->empleado->sucursal->cp}}<br>
-                    {{$venta->empleado->sucursal->municipio.', '.$venta->empleado->sucursal->estado.', '.$venta->empleado->sucursal->ciudad}}<br>
+                    {{$venta->sucursal->calle.' '.$venta->sucursal->n_exterior}}<br>
+                    {{$venta->sucursal->colonia.', '.$venta->sucursal->cp}}<br>
+                    {{$venta->sucursal->municipio.', '.$venta->sucursal->estado.', '.$venta->sucursal->ciudad}}<br>
                 </address>
             </small>
         </center>
         <small>
-            <strong class="datagrid-title class-name h6">Sucursal: </strong>{{ $venta->empleado->sucursal->nombre }}
+            <strong class="datagrid-title class-name h6">Sucursal: </strong>{{ $venta->sucursal->nombre }}
         </small>
         <br>
         <small>
-            <strong class="datagrid-title class-name h6">Teléfono: </strong>{{ $venta->empleado->sucursal->telefono }}
+            <strong class="datagrid-title class-name h6">Teléfono: </strong>{{ $venta->sucursal->telefono }}
         </small>
         <br>
         <small>
             <strong class="datagrid-title class-name h6">Correo:
-            </strong>{{ $venta->empleado->sucursal->correo }}
+            </strong>{{ $venta->sucursal->correo }}
         </small>
         <br>
         <small>
@@ -56,12 +56,12 @@
         <hr class="m-1">
         <small>
             <strong class="datagrid-title class-name h6">Vendedor:
-            </strong>{{ $venta->empleado->nombres.' '.$venta->empleado->app.' '.$venta->empleado->apm }}
+            </strong>{{ $venta->empleado->persona->nombres}}
         </small>
         <hr class="m-1">
         <small>
             <strong class="datagrid-title class-name h6">Cliente:
-            </strong>{{ $venta->cliente->nombres.' '.$venta->cliente->app.' '.$venta->cliente->apm }}
+            </strong>{{ $venta->cliente_id == null ? 'Venta al publico en general'  : $venta->cliente->persona->nombres}}
         </small>
         <hr class="m-1">
         <br>

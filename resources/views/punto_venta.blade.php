@@ -139,7 +139,7 @@
                                         <div class="mb-3 d-none" id="div-cliente">
                                             <div class="form-label required">Cliente</div>
                                             <div class="input-group w-100" id="group-cliente">
-                                                <select class="select2 form-select" name="cliente_id" id="cliente_id" required>
+                                                <select class="select2 form-select" name="cliente_id" id="cliente_id">
                                                 </select>
                                                 <button type="button" class="btn bg-secondary-lt" id="add-cliente" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar cliente"><i class="ti ti-plus"></i></button>
                                                 <button type="button" class="btn bg-secondary-lt" id="reload-cliente" data-bs-toggle="tooltip" data-bs-placement="top" title="Recargar"><i class="ti ti-refresh"></i></button>

@@ -42,20 +42,25 @@
                         <div class="col-6">
                           <small><strong class="datagrid-title class-name h6">Nombre o razón social: </strong> {{ $setting->razon_social }}</small>
                           <br>
-                          <small><strong class="datagrid-title class-name h6">Número de identificación fiscal: </strong> {{ $venta->empleado->sucursal->rfc }}</small>
+                          <small><strong class="datagrid-title class-name h6">Número de identificación fiscal: </strong> {{ $venta->sucursal->rfc }}</small>
                           <br>
                           <small>
                             <address>
                               <strong class="datagrid-title class-name h6">Dirección: </strong>
-                              {{$venta->empleado->sucursal->calle.' '.$venta->empleado->sucursal->n_exterior}}<br>
-                              {{$venta->empleado->sucursal->colonia.', '.$venta->empleado->sucursal->cp}}<br>
-                              {{$venta->empleado->sucursal->municipio.', '.$venta->empleado->sucursal->estado.', '.$venta->empleado->sucursal->ciudad}}<br>
+                              {{$venta->sucursal->calle.' '.$venta->sucursal->n_exterior}}<br>
+                              {{$venta->sucursal->colonia.', '.$venta->sucursal->cp}}<br>
+                              {{$venta->sucursal->municipio.', '.$venta->sucursal->estado.', '.$venta->sucursal->ciudad}}<br>
                             </address>
                           </small>
-                          <small><strong class="datagrid-title class-name h6">Teléfono: </strong> {{ $venta->empleado->sucursal->telefono }}</small>
+                          <small><strong class="datagrid-title class-name h6">Teléfono: </strong> {{ $venta->sucursal->telefono }}</small>
                           <br>
-                          <small><strong class="datagrid-title class-name h6">Correo electrónico: </strong> {{ $venta->empleado->sucursal->correo }}</small>
+                          <small><strong class="datagrid-title class-name h6">Correo electrónico: </strong> {{ $venta->sucursal->correo }}</small>
                         </div>
+                        @if ($venta->cliente_id == null)
+                        <div class="col-6 text-justify">
+                          <small><strong class="datagrid-title class-name h6">Venta al publico en general</strong></small>
+                        </div>
+                        @else
                         <div class="col-6 text-justify">
                           <small><strong class="datagrid-title class-name h6">Nombre o razón social: </strong> {{ $venta->cliente->persona->nombres }}</small>
                           <br>
@@ -73,6 +78,7 @@
                           <br>
                           <small><strong class="datagrid-title class-name h6">Correo electrónico: </strong> {{ $venta->cliente->persona->email }}</small>
                         </div>
+                        @endif
                         <div class="col-12 my-3">
                           <small><strong class="datagrid-title class-name h6">Número de folio: </strong> {{ $venta->folio }}</small>
                           <br>
