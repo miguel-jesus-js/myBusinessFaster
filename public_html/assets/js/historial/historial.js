@@ -26,8 +26,8 @@ function getHistorial(tipo, offset, limit, filtro){
                     row += `
                         <tr class="${elimnado}">
                             <td>${valor.folio}</td>
-                            <td>${valor.empleado.sucursal.nombre}</td>
-                            <td>${valor.cliente.persona.nombres}</td>}</td>
+                            <td>${valor.sucursal.nombre}</td>
+                            <td>${valor.cliente_id == null ? 'Publico en general' : valor.cliente.persona.nombres}</td>}</td>
                             <td>${valor.empleado.persona.nombres}</td>}</td>
                             <td>${valor.fecha}</td>
                             <td>${formatter.format(valor.importe)}</td>

@@ -18,7 +18,7 @@ class AlmacenesController extends Controller
     {
         $filtro = $request->get('filtro');
         $sucursal = $request->get('sucursal');
-        $isAdmin = Auth::user()->isAdmin;
+        $isAdmin = Auth::user()->is_admin;
         // 0 todo - 1 eliminados - 2 no eliminados
         switch ($tipo){
             case 0:

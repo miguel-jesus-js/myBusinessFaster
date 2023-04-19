@@ -66,7 +66,7 @@
                                             <span class="form-check-label">No eliminados</span>
                                         </label>
                                     </li>
-                                    @if(Auth::user()->isAdmin)    
+                                    @if(Auth::user()->is_admin)    
                                     <label class="form-label">Sucursal</label>
                                     <li>
                                         <select class="form-select" name="sucursale_id1" id="sucursale_id1" onclick="getSucursales()" required>

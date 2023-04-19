@@ -28,7 +28,7 @@ class VentasController extends Controller
         $offset         = $request->get('offset');
         $limit          = $request->get('limit');
 
-        $ventas         = Venta::with(['empleado.sucursal', 'cliente', 'empleado.persona', 'cliente.persona'])
+        $ventas         = Venta::with(['sucursal', 'cliente', 'empleado.persona', 'cliente.persona'])
                             ->folio($folio)
                             ->sucursal($sucursale_id)
                             ->empleado($user_id)
@@ -38,7 +38,7 @@ class VentasController extends Controller
                             ->offset($offset)
                             ->limit($limit)
                             ->get();
-        $cantidad       = Venta::with(['empleado.sucursal', 'cliente'])
+        $cantidad       = Venta::with(['sucursal', 'cliente'])
                             ->folio($folio)
                             ->sucursal($sucursale_id)
                             ->empleado($user_id)
@@ -58,7 +58,7 @@ class VentasController extends Controller
             $carrito = json_decode($data['carrito']);
             $datos_venta = [
                 'user_id'       => Auth::user()->id,
-                'cliente_id'    => $data['cliente_id'],
+                'cliente_id'    => isset($data['cliente_id']) ? $data['cliente_id'] : null,
                 'sucursale_id'  => Auth::user()->sucursal->id,
                 'folio'         => $folio == null ? 1 : $folio->folio + 1,
                 'fecha'         => $fecha,
@@ -172,13 +172,13 @@ class VentasController extends Controller
     }
     public function show($id)
     {
-        $venta = Venta::with(['productos','empleado.sucursal', 'cliente'])->find($id);
+        $venta = Venta::with(['productos','empleado.sucursal', 'cliente', 'sucursal'])->find($id);
         $setting = Configuracione::find(1);
         return view('detalle', ['venta' => $venta, 'setting' => $setting]);
     }
     public function print($id)
     {
-        $venta = Venta::with(['productos','empleado.sucursal', 'cliente'])->find($id);
+        $venta = Venta::with(['productos','empleado.sucursal', 'cliente', 'sucursal'])->find($id);
         $setting = Configuracione::find(1);
         return view('print.detalle', ['venta' => $venta, 'setting' => $setting, 'isTicket' => true]);
         // $pdf = Pdf::loadView('print.detalle', ['venta' => $venta, 'setting' => $setting]);
