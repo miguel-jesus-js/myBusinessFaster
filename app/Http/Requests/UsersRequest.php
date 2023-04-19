@@ -29,7 +29,7 @@ class UsersRequest extends FormRequest
             'nom_user'      => 'required|min:5|max:20|unique:users,nom_user,'.$this->cliente_id,
             'password'      => isset($this->id) ? 'nullable' : 'required'.'|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,20}$/',
         ];
-        if($this->user()->isAdmin)
+        if($this->user()->is_admin)
         {
             $rules['sucursale_id']  = 'required|numeric|exists:sucursales,id';
         }

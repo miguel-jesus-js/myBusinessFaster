@@ -210,3 +210,7 @@ body.ticket td{
     bottom: -30px;
     z-index: 1;
 }
+.img-carousel{
+    min-height: 280px;
+    max-height: 280px;
+}

@@ -17,7 +17,8 @@
                 <ol class="breadcrumb breadcrumb-arrows" aria-label="breadcrumbs">
                     <li class="breadcrumb-item"><i class="ti ti-home me-2"></i><a href="/">Home</a></li>
                     <li class="breadcrumb-item"><i class="ti ti-cookie me-2"></i><a href="/">Productos</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><i class="ti ti-list-details me-2"></i><a href="/productos">Detalles</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><i class="ti ti-list-details me-2"></i><a
+                            href="/productos">Detalles</a></li>
                 </ol>
             </div>
         </div>
@@ -32,22 +33,19 @@
             <div class="card p-4">
                 <div class="row">
                     <div class="col-md-6">
-                        <div id="carousel-indicators-thumb" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                        <div id="carousel-indicators-thumb" class="carousel slide carousel-fade"
+                            data-bs-ride="carousel">
                             <div class="carousel-indicators carousel-indicators-thumb">
-                              <button type="button" data-bs-target="#carousel-indicators-thumb" data-bs-slide-to="0" class="ratio ratio-4x3 active" style="background-image: url({{ asset('img/productos/'.$producto->img1) }})"></button>
-                              <button type="button" data-bs-target="#carousel-indicators-thumb" data-bs-slide-to="1" class="ratio ratio-4x3" style="background-image: url({{ asset('img/productos/'.$producto->img2) }})"></button>
-                              <button type="button" data-bs-target="#carousel-indicators-thumb" data-bs-slide-to="2" class="ratio ratio-4x3" style="background-image: url({{ asset('img/productos/'.$producto->img3) }})"></button>
+                                @for($i = 0; $i < sizeof($producto->imagenes); $i++)
+                                    <button type="button" data-bs-target="#carousel-indicators-thumb" data-bs-slide-to="{{$i}}" class="ratio ratio-4x3 {{$i == 0 ? 'active' : ''}}" style="background-image: url({{asset('img/productos/'.$producto->imagenes[$i]->imagen)}})"></button>
+                                @endfor
                             </div>
                             <div class="carousel-inner">
-                              <div class="carousel-item active">
-                                <img class="d-block w-100" style="max-height: 280px; min-height: 280px" alt="" src="{{ asset('img/productos/'.$producto->img1) }}">
-                              </div>
-                              <div class="carousel-item">
-                                <img class="d-block w-100" style="max-height: 280px; min-height: 280px" alt="" src="{{ asset('img/productos/'.$producto->img2) }}">
-                              </div>
-                              <div class="carousel-item">
-                                <img class="d-block w-100" style="max-height: 280px; min-height: 280px" alt="" src="{{ asset('img/productos/'.$producto->img3) }}">
-                              </div>
+                                @for($i = 0; $i < sizeof($producto->imagenes); $i++)
+                                    <div class="carousel-item {{$i == 0 ? 'active' : ''}}">
+                                        <img class="d-block w-100 img-carousel" alt="" src="{{asset('img/productos/'.$producto->imagenes[$i]->imagen)}}">
+                                    </div>
+                                @endfor
                             </div>
                         </div>
                         <br>
@@ -59,25 +57,40 @@
                         <h2>{{ $producto->producto }}</h2>
                         <br>
                         <div class="table-responsive">
-                            <table class="table shadow-sm bg-white">
-                                <center><h4>Lista de precios</h4></center>
-                                <thead>
-                                    <tr>
-                                        <th>Compra</th>
-                                        <th>Venta</th>
-                                        <th>Mayoreo</th>
-                                        <th>Utilidad</th>
-                                    </tr>
-                                </thead>
-                                <tbody> 
-                                    <tr>
-                                        <td>{{ '$'.number_format($producto->pre_compra, 2) }}</td>
-                                        <td>{{ '$'.number_format($producto->pre_venta, 2) }}</td>
-                                        <td>{{ '$'.number_format($producto->pre_mayoreo, 2) }}</td>
-                                        <td>{{ '$'.number_format($producto->utilidad, 2) }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <h5>Lista de precios</h5>
+                            <div class="accordion" id="accordion-example">
+                                @for($i = 0; $i < sizeof($producto->sucursales); $i++)
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{$i}}" aria-expanded="false">
+                                            {{$producto->sucursales[$i]->nombre}}
+                                        </button>
+                                        </h2>
+                                        <div id="collapse-{{$i}}" class="accordion-collapse collapse" data-bs-parent="#accordion-example" style="">
+                                        <div class="accordion-body pt-0">
+                                            <table class="table shadow-sm bg-white">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Compra</th>
+                                                        <th>Venta</th>
+                                                        <th>Mayoreo</th>
+                                                        <th>Utilidad</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>{{ '$'.number_format($producto->sucursales[$i]->pivot->pre_compra, 2) }}</td>
+                                                        <td>{{ '$'.number_format($producto->sucursales[$i]->pivot->pre_venta, 2) }}</td>
+                                                        <td>{{ '$'.number_format($producto->sucursales[$i]->pivot->pre_mayoreo, 2) }}</td>
+                                                        <td>{{ '$'.number_format($producto->sucursales[$i]->pivot->utilidad, 2) }}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        </div>
+                                    </div>
+                                @endfor
+                              </div>
                         </div>
                         <br>
                         <div class="row border py-2">
@@ -85,16 +98,20 @@
                                 <span class="avatar bg-primary-lt"><i class="ti ti-truck"></i></span>
                             </div>
                             <div class="col">
-                              <div class="text-truncate">
-                                <strong>{{ $producto->proveedores->nombres.' '.$producto->proveedores->app.' '.$producto->proveedores->apm}}</strong>
-                              </div>
-                              <div class="text-muted">{{ $producto->proveedores->empresa }}</div>
+                                <div class="text-truncate">
+                                    <strong>{{ $producto->proveedores->nombres.' '.$producto->proveedores->app.' '.$producto->proveedores->apm}}</strong>
+                                </div>
+                                <div class="text-muted">{{ $producto->proveedores->empresa }}</div>
                             </div>
                             <div class="col-auto align-self-center">
-                              <div class="badge bg-primary"></div>
+                                <div class="badge bg-primary"></div>
                             </div>
                         </div>
                         <br>
+                    </div>
+                    <br>
+                    <div class="col-sm-6 col-md-3 border p-4">
+                        <h4>Información principal</h4>
                         <dl class="row">
                             <dt class="col-5">Marca:</dt>
                             <dd class="col-7">{{ $producto->marcas->marca }}</dd>
@@ -103,30 +120,29 @@
                             <dt class="col-5">Unidad de medida:</dt>
                             <dd class="col-7">{{ $producto->unidadMedidas->unidad_medida }}</dd>
                             <dt class="col-5">Material:</dt>
-                            <dd class="col-7">{{ $producto->materiales == null ? '' : $producto->materiales->material }}</dd>
+                            <dd class="col-7">{{ $producto->materiales == null ? '' : $producto->materiales->material }}
+                            </dd>
                             <dt class="col-5">Stock minimo:</dt>
                             <dd class="col-7">{{ $producto->stock_min }}</dd>
                         </dl>
                     </div>
-                    <br>
-                    <hr>
-                    <div class="col-sm-6 col-md-4 p-4">
+                    <div class="col-sm-6 col-md-3 border p-4">
                         <h4>Características</h4>
                         <ul>
                             @foreach ($producto->caracteristicas as $caracteristica)
-                                <li>-{{$caracteristica->caracteristica}}</li>
+                            <li>-{{$caracteristica->caracteristica}}</li>
                             @endforeach
                         </ul>
                     </div>
-                    <div class="col-sm-6 col-md-4 p-4">
+                    <div class="col-sm-6 col-md-3 border p-4">
                         <h4>Categorias</h4>
                         <ul>
                             @foreach ($producto->categorias as $categoria)
-                                <li>-{{$categoria->categoria}}</li>
+                            <li>-{{$categoria->categoria}}</li>
                             @endforeach
                         </ul>
                     </div>
-                    <div class="col-md-4 border p-4">
+                    <div class="col-md-3 border p-4">
                         <h4>Información adicional</h4>
                         <ul>
                             <li>Código del sat: {{ $producto->cod_sat }}</li>
@@ -157,8 +173,9 @@
 <script src="{{ asset('assets/js/jsBarcode.all.min.js') }}"></script>
 
 <script>
-    $( document ).ready(function() {
-        JsBarcode("#codigo", {{ $producto->cod_barra }});
+    $(document).ready(function () {
+        JsBarcode("#codigo", {{$producto->cod_barra}});
     });
+
 </script>
 @endsection

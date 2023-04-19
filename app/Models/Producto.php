@@ -162,7 +162,7 @@ class Producto extends Model
     }
     public function sucursales()
     {
-        return $this->belongsToMany(Sucursale::class, 'productos_sucursal', 'producto_id', 'sucursale_id')->withPivot('stock', 'pre_venta');
+        return $this->belongsToMany(Sucursale::class, 'productos_sucursal', 'producto_id', 'sucursale_id')->withPivot('stock', 'pre_compra', 'pre_venta', 'pre_mayoreo', 'utilidad');
     }
     public function productosSucursal()
     {
@@ -171,5 +171,9 @@ class Producto extends Model
     public function ventas()
     {
         return $this->belongsToMany(Venta::class, 'detalles', 'producto_id', 'venta_id')->withPivot('precio', 'cantidad', 'importe');
+    }
+    public function imagenes()
+    {
+        return $this->hasMany(ImagenesProducto::class, 'producto_id', 'id');
     }
 }

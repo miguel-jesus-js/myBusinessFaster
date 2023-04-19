@@ -3,7 +3,7 @@ $('#form-settings').submit(function(e){
     let data = $(this).serialize();
     $.ajax({
         'type': 'PUT',
-        'url': 'api/updateSettingsUser',
+        'url': '/api/updateSettingsUser',
         'data': data,
         beforeSend: function(){
             

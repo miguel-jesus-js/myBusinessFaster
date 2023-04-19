@@ -80,7 +80,7 @@
                     </div>
                     <div class="col-6 col-sm-2 col-md-2 offset-md-1">
                         <label class="form-label invisible">add</label>
-                        <button onclick="openModal('modal-add-producto_sucursal','productos_sucursal', 0); {{Auth::user()->isAdmin == 1 ? '' : 'getProductos(0)'}}" class="btn btn-primary">
+                        <button onclick="openModal('modal-add-producto_sucursal','productos_sucursal', 0); {{Auth::user()->is_admin == 1 ? '' : 'getProductos(0)'}}" class="btn btn-primary">
                             Agregar productos
                         </button>
                     </div>

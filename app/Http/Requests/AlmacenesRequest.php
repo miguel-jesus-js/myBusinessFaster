@@ -27,7 +27,7 @@ class AlmacenesRequest extends FormRequest
             'nombre'        => 'required|min:5|max:20|regex:/^[a-zA-ZÁÉÍÓÚáéíóúÑñ0-9,.!? ]*$/',
             'desc'          => 'required|min:3|max:200|regex:/^[a-zA-ZÁÉÍÓÚáéíóúÑñ0-9,.!? ]*$/',
         ];
-        if($this->user()->isAdmin)
+        if($this->user()->is_admin)
         {
             $rules['sucursale_id']  = 'required|numeric|exists:sucursales,id';
         }

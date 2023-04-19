@@ -158,7 +158,7 @@ class ProductosController extends Controller
     }
     public function show(Request $request, $id)
     {
-        $producto = Producto::where('id', $id)->with(['marcas', 'almacenes', 'unidadMedidas', 'proveedores', 'materiales',  'categorias', 'caracteristicas', 'sucursales'])->first();
+        $producto = Producto::where('id', $id)->with(['marcas', 'almacenes', 'unidadMedidas', 'proveedores', 'materiales',  'categorias', 'caracteristicas', 'sucursales', 'imagenes'])->first();
         return view('producto_show')->with('producto', $producto);
     }   
     public function delete($id)

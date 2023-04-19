@@ -66,7 +66,7 @@
                                             <span class="form-check-label">No eliminados</span>
                                         </label>
                                     </li>
-                                    @if(Auth::user()->isAdmin)    
+                                    @if(Auth::user()->is_admin)    
                                     <label class="form-label">Sucursal</label>
                                     <li>
                                         <select class="form-select" name="sucursale_id1" id="sucursale_id1" onclick="getSucursales()" required>
@@ -149,7 +149,7 @@
                         <div id="load-form" class="efecto-cargando">
                         </div>
                         <div class="row">
-                            @if(Auth::user()->isAdmin) 
+                            @if(Auth::user()->is_admin) 
                             <div class="col-md-12 mb-3">
                                 <label class="form-label required">Sucursal</label>
                                 <select class="form-select" name="sucursale_id" id="sucursale_id" onclick="getSucursales()" required>

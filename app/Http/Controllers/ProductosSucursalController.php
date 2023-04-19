@@ -18,7 +18,7 @@ class ProductosSucursalController extends Controller
     {
         $filtro = $request->get('filtro');
         $sucursal = $request->get('sucursal');
-        $isAdmin = Auth::user()->isAdmin;
+        $isAdmin = Auth::user()->is_admin;
         // 0 todo - 1 eliminados - 2 no eliminados
         switch ($tipo){
             case 0:
@@ -36,7 +36,7 @@ class ProductosSucursalController extends Controller
     public function create(Request $request)
     {
         $data = $request->all();
-        if(!Auth::user()->isAdmin)
+        if(!Auth::user()->is_admin)
         {
             $data = array_merge($data, ['sucursale_id' => Auth::user()->sucursal->id]);
         }
@@ -56,7 +56,7 @@ class ProductosSucursalController extends Controller
     public function update(Request $request)
     {
         $data = $request->all();
-        if(!Auth::user()->isAdmin)
+        if(!Auth::user()->is_admin)
         {
             $data = array_merge($data, ['sucursale_id' => Auth::user()->sucursal->id]);
         }
@@ -87,7 +87,7 @@ class ProductosSucursalController extends Controller
     }
     public function getProductos($sucursal_id)
     {
-        if(!Auth::user()->isAdmin)
+        if(!Auth::user()->is_admin)
         {
             $sucursal_id = Auth::user()->sucursal->id;
         }
@@ -114,7 +114,7 @@ class ProductosSucursalController extends Controller
     }
     public function exportarPDF()
     {
-        $isAdmin = Auth::user()->isAdmin;
+        $isAdmin = Auth::user()->is_admin;
         $productos = ProductosSucursal::with(['sucursales', 'productos'])->isAdmin($isAdmin)->get();
         $pdf = Pdf::loadView('pdf.productos_sucursal_pdf', ['productos' => $productos, 'esExcel' => false])->setPaper('a4', 'landscape');
         return $pdf->download('Productos sucursal.pdf');
