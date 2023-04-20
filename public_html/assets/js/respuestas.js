@@ -47,7 +47,7 @@ function confirmDelete(id, info, api, modulo, prefijo){
         if (result.isConfirmed) {
             $.ajax({  
                 type : 'DELETE',
-                url  : api+id,
+                url  : api+id+'name='+info,
                 contentType: false,
                 cache: false,
                 processData:false,
@@ -104,6 +104,10 @@ function confirmDelete(id, info, api, modulo, prefijo){
                                 break;
                             case 'gasto':
                                 getGastos(2, '');
+                                break;
+                            case 'imagen':
+                                closeModal('modal-producto', 'form-add-producto');
+                                getProductos(2, '');
                                 break;
                         }
                     }

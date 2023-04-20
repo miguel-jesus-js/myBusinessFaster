@@ -57,7 +57,7 @@
                         <h2>{{ $producto->producto }}</h2>
                         <br>
                         <div class="table-responsive">
-                            <h5>Lista de precios</h5>
+                            <h6>Lista de precios</h6>
                             <div class="accordion" id="accordion-example">
                                 @for($i = 0; $i < sizeof($producto->sucursales); $i++)
                                     <div class="accordion-item">

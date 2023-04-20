@@ -37,7 +37,7 @@ class ProductosController extends Controller
         $afectaVentas   = $request->get('f-afecta_ventas');
         $esProduccion   = $request->get('f-es_produccion');
         
-        $productos = Producto::with(['marcas', 'almacenes', 'unidadMedidas', 'proveedores', 'materiales',  'categorias', 'caracteristicas'])
+        $productos = Producto::with(['marcas', 'almacenes', 'unidadMedidas', 'proveedores', 'materiales',  'categorias', 'caracteristicas', 'imagenes'])
                     ->withOrOnlyTrashed($tipo)
                     ->marca($marca)
                     ->almacen($almacen)
@@ -177,6 +177,16 @@ class ProductosController extends Controller
             return json_encode(['icon'  => 'success', 'title'   => 'Exitó', 'text'  => 'Característica eliminada']);
         }catch(\Exception $e){
             return json_encode(['icon'  => 'error', 'title'   => 'Error', 'text'  => 'Ocurrio un error la característica no fue eliminada']);
+        }
+    }
+    public function deleteImg(Request $request, $id)
+    {
+        try{
+            ImagenesProducto::find($id)->delete();
+            $this->deleteImagen($request->get('name'), 'img/productos/');
+            return json_encode(['icon'  => 'success', 'title'   => 'Exitó', 'text'  => 'Imagen eliminada']);
+        }catch(\Exception $e){
+            return json_encode(['icon'  => 'error', 'title'   => 'Error', 'text'  => 'Ocurrio un error la imagen no fue eliminada']);
         }
     }
     public function searchProductForSale(Request $request)

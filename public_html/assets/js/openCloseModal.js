@@ -107,6 +107,8 @@ function openModal(id_modal, modulo, tipo){
                 $('#preview-img2').addClass('d-none');
                 $('#preview-img3').addClass('d-none');
             }
+            $('#input-imagenes').empty();
+            $('#preview-imagenes').empty();
             break;
         case 'almacenes':
             if(tipo == 0){

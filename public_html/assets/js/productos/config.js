@@ -327,5 +327,20 @@ $('#btn-add-imagenes').click(function(){
         preview();
     })
 });
-
+function loadPreview(id, pathImg){
+    let html = `
+            <div class="col-md-3">
+                <button class="btn btn-danger" type="button" onclick="confirmDelete(${id}, '${pathImg}', '/api/deleteImg/', 'imagen', 'la')">
+                    <i class="ti ti-trash-x"></i>
+                </button>
+                <div class="card card-sm">
+                    <img id="view" src='img/productos/${pathImg}' class="card-img-top img-preview" style="max-height: 200px !important;">
+                    <div class="card-body">
+                        Imagen guardada
+                    </div>
+                </div>
+            </div>
+        `;
+        $('#preview-imagenes').append(html);
+}
   

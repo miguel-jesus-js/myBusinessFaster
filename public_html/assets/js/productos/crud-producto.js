@@ -1,3 +1,8 @@
+var idMarca;
+var idAlmacen;
+var idUnidadMedida;
+var idProveedor;
+var idMaterial;
 $('#form-add-producto').submit(function(e){
     e.preventDefault();
     removeClass('form-add-producto');
@@ -118,13 +123,14 @@ function getProductos(tipo, filtro){
             })
             var elimnado = '';
             var row = '';
-            var caract = '';
             var cat = '';
             if(data.length > 0){
                 $.each(data, function(index, valor){
-                    caract = JSON.stringify(valor.caracteristicas);//hacemos la conversion para enviar el json
+                    var caract = JSON.stringify(valor.caracteristicas);//hacemos la conversion para enviar el json
+                    var image = JSON.stringify(valor.imagenes);//hacemos la conversion para enviar el json
                     var regex = new RegExp("\"", "g");
                     var caracteristicas = caract.replace(regex, "'");//quitamos las comillas "" por '', de otro modo da error al pasarlo como parametro
+                    var imagenes = image.replace(regex, "'");
                     cat = JSON.stringify(valor.categorias);//hacemos la conversion para enviar el json
                     var categorias = cat.replace(regex, "'");//quitamos las comillas "" por '', de otro modo da error al pasarlo como parametro
                     if(valor.deleted_at != null){ //validación para que los registros elimnados sean de color rojo
@@ -142,25 +148,13 @@ function getProductos(tipo, filtro){
                             <td>${valor.proveedores == null ? '' : valor.proveedores.nombres + ' ('+valor.proveedores.empresa+')'}</td>
                             <td>${valor.materiales == null ? '' : valor.materiales.material}</td>
                             <td class="d-none oculto">${valor.stock_min}</td>
-                            <td class="d-none oculto">${valor.cod_sat == null ? '' : valor.cod_sat}</td>
-                            <td class="d-none oculto">${valor.caducidad == null ? '' : valor.caducidad}</td>
-                            <td class="d-none oculto">${valor.color == null ? '' : valor.color}</td>
-                            <td class="d-none oculto">${valor.talla == null ? '' : valor.talla}</td>
-                            <td class="d-none oculto">${valor.modelo == null ? '' : valor.modelo}</td>
-                            <td class="d-none oculto">${valor.peso_kg == null ? '' : valor.peso_kg}</td>
-                            <td class="d-none oculto">${valor.meses_garantia == null ? '' : valor.meses_garantia}</td>
-                            <td class="d-none oculto">${valor.es_produccion == 1 ? 'Si' : 'No'}</td>
-                            <td class="d-none oculto">${valor.afecta_ventas == 1 ? 'Si' : 'No'}</td>
                             <td>
-                                <button type="button" class="btn p-0 border-0" onclick="onChange(${valor.id}, ${valor.marca_id}, ${valor.almacene_id}, ${valor.unidad_medida_id}, ${valor.proveedore_id}, ${valor.materiale_id}, '${valor.cod_barra}', ${valor.cod_sat}, '${valor.producto}', ${valor.stock_min}, '${valor.caducidad}', '${valor.color}', '${valor.talla}', '${valor.modelo}', ${valor.meses_garantia}, '${valor.peso_kg}', '${valor.desc_detallada}', ${valor.es_produccion}, ${valor.afecta_ventas}, ${caracteristicas}, ${categorias});">
+                                <button type="button" class="btn p-0 border-0" onclick="onChange(${valor.id}, ${valor.marca_id}, ${valor.almacene_id}, ${valor.unidad_medida_id}, ${valor.proveedore_id}, ${valor.materiale_id}, '${valor.cod_barra}', ${valor.cod_sat}, '${valor.producto}', ${valor.stock_min}, '${valor.caducidad}', '${valor.color}', '${valor.talla}', '${valor.modelo}', ${valor.meses_garantia}, '${valor.peso_kg}', '${valor.desc_detallada}', ${valor.es_produccion}, ${valor.afecta_ventas}, ${caracteristicas}, ${categorias}, ${imagenes});">
                                     <i class="ti ti-edit icono text-primary"></i>
                                 </button>
                                 <button type="button" class="btn p-0 border-0" onclick="confirmDelete(${valor.id}, '${valor.producto}', 'api/deleteProductos/', 'producto', 'el');">
                                     <i class="ti ti-trash icono text-danger"></i>
                                 </button>
-                                <button type="button" class="btn p-0 border-0 ver_mas" onclick="">
-                                    <i class="ti ti-eye icono text-success">
-                                </i></button>
                                 <a href="/api/showProducto/${valor.id}" class="btn p-0 border-0"><i class="ti ti-list-details icono text-dark"></i></a>
                             </td>
                
@@ -180,8 +174,18 @@ function getProductos(tipo, filtro){
         },
     })
 }
-function onChange(id, marca_id, almacene_id, unidad_medida_id, proveedore_id, materiale_id, cod_barra, cod_sat, producto, stock_min, caducidad, color, talla, modelo, meses_garantia, peso_kg, desc_detallada, es_produccion, afecta_ventas, caracteristicas, categorias){
+function onChange(id, marca_id, almacene_id, unidad_medida_id, proveedore_id, materiale_id, cod_barra, cod_sat, producto, stock_min, caducidad, color, talla, modelo, meses_garantia, peso_kg, desc_detallada, es_produccion, afecta_ventas, caracteristicas, categorias, imagenes){
+    idMarca         = marca_id;
+    idAlmacen       = almacene_id;
+    idUnidadMedida  = unidad_medida_id;
+    idProveedor     = proveedore_id;
+    idMaterial      = materiale_id;
     $('#id').val(id);
+    $('#marca_id').val(marca_id);
+    $('#almacene_id').val(almacene_id);
+    $('#unidad_medida_id').val(unidad_medida_id);
+    $('#proveedore_id').val(proveedore_id);
+    $('#materiale_id').val(materiale_id)
     $('#cod_barra').val(cod_barra);
     $('#cod_sat').val(cod_sat);
     $('#producto').val(producto);
@@ -197,11 +201,11 @@ function onChange(id, marca_id, almacene_id, unidad_medida_id, proveedore_id, ma
     $('#afecta_ventas').prop('checked', afecta_ventas == 1 ? true: false);
     openModal('modal-producto', 'productos', 1);
     getCategorias(categorias);
-    $.when(getMarcas()).then($('#marca_id').val(marca_id));
-    $.when(getAlmacenes()).then($('#almacene_id').val(almacene_id));
-    $.when(getUnidadMedidas()).then($('#unidad_medida_id').val(unidad_medida_id));
-    $.when(getProveedores()).then($('#proveedore_id').val(proveedore_id));
-    $.when(getMateriales()).then($('#materiale_id').val(materiale_id));
+    getMarcas();
+    getAlmacenes();
+    getUnidadMedidas();
+    getProveedores();
+    getMateriales();
     //llenamos la tabla con los permisos
     var rowCaracteristicas = '';
     $.each(caracteristicas, function(index, valor){
@@ -223,9 +227,11 @@ function onChange(id, marca_id, almacene_id, unidad_medida_id, proveedore_id, ma
                                 <button type="button" class="btn p-0 border-0 guardar"><i class="ti ti-device-floppy icono text-success"></i></button>
                             </div>
                         </td>
-                    </tr>     
-        `;
+                    </tr>`;
     });
     $('#table-caracteristicas tbody').html(rowCaracteristicas);
     $('#table-caracteristicas td:nth-child(1)').hide();//ocultamos la fila ID
+    $.each(imagenes, function(index, value){
+        loadPreview(value.id, value.imagen);
+    })
 }

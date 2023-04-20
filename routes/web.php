@@ -190,6 +190,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('api/showProducto/{id}', [ProductosController::class, 'show'])->name('showProducto');
     Route::delete('api/deleteProductos/{id}', [ProductosController::class, 'delete']);
     Route::delete('api/deleteCaract/{id}', [ProductosController::class, 'deleteCaract']);
+    Route::delete('api/deleteImg/{id}', [ProductosController::class, 'deleteImg']);
     Route::get('api/generateCodBarra', [ProductosController::class, 'generateCodBarra']);
     Route::get('api/generateCodSat', [ProductosController::class, 'generateCodSat']);
     Route::get('api/downloadPlantillaProducto', [ProductosController::class, 'downloadPlantilla'])->name('downloadPlantillaProducto');

@@ -112,16 +112,6 @@
                                 <th>Medida</th>
                                 <th>Proveedor</th>
                                 <th>Material</th>
-                                <th class="d-none oculto">Stock mínimo</th>
-                                <th class="d-none oculto">Código del SAT</th>
-                                <th class="d-none oculto">Caducidad</th>
-                                <th class="d-none oculto">Color</th>
-                                <th class="d-none oculto">Talla</th>
-                                <th class="d-none oculto">Modelo</th>
-                                <th class="d-none oculto">Meses de garantia</th>
-                                <th class="d-none oculto">Peso en KG</th>
-                                <th class="d-none oculto">Es producción</th>
-                                <th class="d-none oculto">Afecta a ventas</th>
                                 <th colspan="4" class="text-center">Acciones</th>
                             </tr>
                         </thead>

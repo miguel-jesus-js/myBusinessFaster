@@ -216,6 +216,21 @@ $(document).ajaxComplete(function(event, xhr, settings) {
         case 'api/getRoles':
             $('#role_id').val(idRol);
             break;
+        case 'api/getMarcas/2':
+            $('#marca_id').val(idMarca);
+            break;
+        case 'api/getAlmacenes/2':
+            $('#almacene_id').val(idAlmacen);
+            break;
+        case 'api/getUnidadMedidas/2':
+            $('#unidad_medida_id').val(idUnidadMedida);
+            break;
+        case 'api/getProveedores/2':
+            $('#proveedore_id').val(idProveedor);
+            break;
+        case 'api/getMateriales/2':
+            $('#materiale_id').val(idMaterial);
+            break;   
     }
 
 });
