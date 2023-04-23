@@ -61,7 +61,6 @@
                     <th>Teléfono</th>
                     <th>RFC</th>
                     <th>Empresa</th>
-                    <th>Dirección</th>
                 </tr>
             </thead>
             <tbody>
@@ -69,12 +68,11 @@
                 <tr>
                     <td>{{ $i+1 }}</td>
                     <td>{{ $proveedores[$i]['clave'] }}</td>
-                    <td>{{ $proveedores[$i]['nombres'].' '.$proveedores[$i]['app'].' '.$proveedores[$i]['apm'] }}</td>
-                    <td>{{ $proveedores[$i]['email'] }}</td>
-                    <td>{{ $proveedores[$i]['telefono'] }}</td>
-                    <td>{{ $proveedores[$i]['rfc'] }}</td>
+                    <td>{{ $proveedores[$i]['persona']['nombres'] }}</td>
+                    <td>{{ $proveedores[$i]['persona']['email'] }}</td>
+                    <td>{{ $proveedores[$i]['persona']['telefono'] }}</td>
+                    <td>{{ $proveedores[$i]['persona']['rfc'] }}</td>
                     <td>{{ $proveedores[$i]['empresa'] }}</td>
-                    <td>{{ $proveedores[$i]['calle'].' '.($proveedores[$i]['n_exterior'] == 0 ? '' : $proveedores[$i]['n_exterior']).', '.$proveedores[$i]['colonia'].', '.$proveedores[$i]['cp'].', '.$proveedores[$i]['municipio'].', '.$proveedores[$i]['estado'].', '.$proveedores[$i]['ciudad'] }}</td>
                 </tr>
 
                 @endfor

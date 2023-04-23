@@ -34,7 +34,38 @@
                           <img src="{{ asset('img/'.$setting->logotipo) }}" class="logo logo-icons logo-suffix" alt="Logotipo">
                         </div>
                         <div class="col-md-2 d-flex justify-content-end">
-                          <a href="/api/print/{{$venta->id}}" target="_blank" class="btn btn-outline-success" id="imprimir"><i class="ti ti-download h1"></i></a>
+                          <button class="nav-link dropdown-toggle btn btn-outline-success btn-sm mx-4 p-2" data-bs-toggle="dropdown"
+                            data-bs-auto-close="outside" role="button" aria-expanded="true">
+                            Remisión
+                          </button>
+                          <div class="dropdown-menu" data-bs-popper="static">
+                              <button class="dropdown-item">
+                                  <ul>
+                                      <li>
+                                        <a href="/api/remision/{{$venta->id}}?isPrint=true" class="dropdown-item" target="_blank" ><i class="ti ti-printer"></i>Imprimir remisión</a>
+                                      </li>
+                                      <li>
+                                        <a href="/api/ticket/{{$venta->id}}?isPrint=false" class="dropdown-item" target="_blank"><i class="ti ti-printer"></i>Descargar remisión</a>  
+                                      </li>
+                                  </ul>
+                              </button>
+                          </div>
+                          <button class="nav-link dropdown-toggle btn btn-outline-success btn-sm mx-4 p-2" data-bs-toggle="dropdown"
+                            data-bs-auto-close="outside" role="button" aria-expanded="true">
+                            Ticket
+                          </button>
+                          <div class="dropdown-menu" data-bs-popper="static">
+                              <button class="dropdown-item">
+                                  <ul>
+                                      <li>
+                                        <a href="/api/remision/{{$venta->id}}?isPrint=true" class="dropdown-item" target="_blank" ><i class="ti ti-printer"></i>Imprimir ticket</a>
+                                      </li>
+                                      <li>
+                                        <a href="/api/ticket/{{$venta->id}}?isPrint=false" class="dropdown-item" target="_blank"><i class="ti ti-printer"></i>Descargar ticket</a>  
+                                      </li>
+                                  </ul>
+                              </button>
+                          </div>
                         </div>
                       </div>
                       <br>
@@ -83,6 +114,11 @@
                           <small><strong class="datagrid-title class-name h6">Número de folio: </strong> {{ $venta->folio }}</small>
                           <br>
                           <small><strong class="datagrid-title class-name h6">Fecha y hora: </strong> {{ Carbon\Carbon::parse($venta->fecha)->format('d/m/Y h:i:s A')  }}</small>
+                          <br>
+                          <small><strong class="datagrid-title class-name h6">Tipo de venta: </strong> {{ $venta->tipo_venta == 0 ? 'Venta a menudeo' : 'Venta a mayoreo' }}</small>
+                          <br>
+                          <small><strong class="datagrid-title class-name h6">Vendedor: </strong> {{ $venta->empleado->persona->nombres}}</small>
+                          <br>
                         </div>
                       </div>
                       <div class="datagrid-title"> Descripción de los productos o servicios</div>
@@ -103,7 +139,7 @@
                                     <td class="p-1">{{$i + 1}}</td>
                                     <td class="p-1">{{$venta->productos[$i]->producto}}</td>
                                     <td class="p-1">{{$venta->productos[$i]->pivot->cantidad}}</td>
-                                    <td class="p-1">{{$venta->productos[$i]->pre_venta}}</td>
+                                    <td class="p-1">{{$venta->productos[$i]->pivot->precio}}</td>
                                     <td class="p-1">${{  $venta->productos[$i]->pivot->importe}}</td>
                                   </tr>
                             @endfor
@@ -112,7 +148,7 @@
                               <td class="p-1 text-end">${{ $venta->importe }}</td>
                             </tr>
                             <tr>
-                              <td colspan="4" class="p-1 strong text-end">IVA (16%):</td>
+                              <td colspan="4" class="p-1 strong text-end">IVA ({{$setting->iva}}%):</td>
                               <td class="p-1 text-end">${{ $venta->iva }}</td>
                             </tr>
                             <tr>
@@ -123,6 +159,21 @@
                               <td colspan="4" class="p-1 strong text-end">Total:</td>
                               <td class="p-1 text-end">${{ $venta->total }}</td>
                             </tr>
+                            @if ($venta->tipo_venta_pago == 0)
+                            <tr>
+                                <td colspan="4" class="p-1 strong text-end">Efectivo:</td>
+                                <td class="p-1 text-end">${{ $venta->paga_con }}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" class="p-1 strong text-end">Cambio:</td>
+                                <td class="p-1 text-end">${{ $venta->paga_con - $venta->total }}</td>
+                            </tr>
+                            @else
+                            <tr>
+                                <td colspan="4" class="p-1 strong text-end">Pago inicial:</td>
+                                <td class="p-1 text-end">${{ $venta->pago_inicial }}</td>
+                            </tr>
+                            @endif
                           </tbody>
                         </table>
                       </div>
@@ -136,11 +187,25 @@
                               </tr>
                               <tbody>
                                 <tr>
-                                  <td>Tipo de Pago: <i class="{{ $venta->tipo_pago == 'Efectivo' ? 'ti ti-brand-cashapp' : 'ti ti-brand-visa' }}"></i> {{ $venta->tipo_pago }}</td>
+                                  <td class="p-1">
+                                      Modalidad: {{ $venta->tipo_venta_pago == 0 ? 'Venta de contado' : 'Venta a crédito' }}
+                                  </td>
                                 </tr>
                                 <tr>
-                                  <td>Estado: {{ $venta->estado}}</td>
+                                    <td class="p-1">Tipo de Pago: <i class="{{ $venta->tipo_pago == 0 ? 'ti ti-brand-cashapp' : 'ti ti-brand-visa' }}"></i>
+                                        {{ $venta->tipo_pago == 0 ? 'Efectivo' : 'Tarjeta' }}
+                                    </td>
                                 </tr>
+                                <tr>
+                                    <td class="p-1">Estado: {{ $venta->estado == 0 ? 'Pagado' : 'Pagos pendientes'}}</td>
+                                </tr>
+                                @if ($venta->tipo_venta_pago == 1)
+                                <tr>
+                                    <td class="p-1">
+                                        Periodo de pagos: {{ \App\Models\Venta::PERIODO_PAGOS[$venta->periodo_pagos] }}
+                                    </td>
+                                </tr>
+                                @endif
                               </tbody>
                             </thead>
                           </table>

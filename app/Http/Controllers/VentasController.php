@@ -57,18 +57,22 @@ class VentasController extends Controller
             $fecha = Carbon::now()->format('Y-m-d H:i:s');
             $carrito = json_decode($data['carrito']);
             $datos_venta = [
-                'user_id'       => Auth::user()->id,
-                'cliente_id'    => isset($data['cliente_id']) ? $data['cliente_id'] : null,
-                'sucursale_id'  => Auth::user()->sucursal->id,
-                'folio'         => $folio == null ? 1 : $folio->folio + 1,
-                'fecha'         => $fecha,
-                'importe'       => floatval($data['subtotal']),
-                'iva'           => floatval($data['iva']),
-                'descuento'     => floatval($data['descuento']),
-                'total'         => (floatval($data['subtotal']) + floatval($data['iva'])) - floatval($data['descuento']),
-                'paga_con'      => floatval($data['paga_con']),
-                'tipo_pago'     => 'Efectivo',
-                'estado'        => 1,
+                'user_id'           => Auth::user()->id,
+                'cliente_id'        => isset($data['cliente_id']) ? $data['cliente_id'] : null,
+                'sucursale_id'      => Auth::user()->sucursal->id,
+                'folio'             => $folio == null ? 1 : $folio->folio + 1,
+                'fecha'             => $fecha,
+                'importe'           => floatval($data['subtotal']),
+                'iva'               => floatval($data['iva']),
+                'descuento'         => floatval($data['descuento']),
+                'total'             => (floatval($data['subtotal']) + floatval($data['iva'])) - floatval($data['descuento']),
+                'paga_con'          => isset($data['paga_con']) ? floatval($data['paga_con']) : null,
+                'pago_inicial'      => isset($data['pago_inicial']) ? floatval($data['pago_inicial']) : null,
+                'tipo_pago'         => 0,
+                'estado'            => isset($data['venta_credito']) ? 1 : 0,
+                'tipo_venta'        => $request->get('tipo_venta'),
+                'tipo_venta_pago'   => isset($data['venta_credito']) ? 1 : 0,
+                'periodo_pagos'     => isset($data['periodo_pagos']) ? $data['periodo_pagos'] : null,
             ];
             $venta = Venta::create($datos_venta);
             foreach($carrito as $producto)
@@ -96,7 +100,6 @@ class VentasController extends Controller
             ]);
         }catch(\Exception $e){
             DB::rollback();
-            dd($e);
             return json_encode(['icon'  => 'error', 'title'   => 'Error', 'text'  => 'Ocurrio un error, la venta no fue registrada']);
         }
     }
@@ -176,13 +179,25 @@ class VentasController extends Controller
         $setting = Configuracione::find(1);
         return view('detalle', ['venta' => $venta, 'setting' => $setting]);
     }
-    public function print($id)
+    public function remision(Request $request, $id)
     {
         $venta = Venta::with(['productos','empleado.sucursal', 'cliente', 'sucursal'])->find($id);
         $setting = Configuracione::find(1);
-        return view('print.detalle', ['venta' => $venta, 'setting' => $setting, 'isTicket' => true]);
-        // $pdf = Pdf::loadView('print.detalle', ['venta' => $venta, 'setting' => $setting]);
-        // return $pdf->download('Detalle de venta');
+        if($request->get('isPrint') == 'true'){
+            return view('print.remision', ['venta' => $venta, 'setting' => $setting]);
+        }
+        $pdf = Pdf::loadView('print.remision', ['venta' => $venta, 'setting' => $setting]);
+        return $pdf->download('Remisión.pdf');
+    }
+    public function ticket(Request $request, $id)
+    {
+        $venta = Venta::with(['productos','empleado.sucursal', 'cliente', 'sucursal'])->find($id);
+        $setting = Configuracione::find(1);
+        if($request->get('isPrint') == 'true'){
+            return view('print.ticket', ['venta' => $venta, 'setting' => $setting]);
+        }
+        $pdf = Pdf::loadView('print.ticket', ['venta' => $venta, 'setting' => $setting]);
+        return $pdf->download('Ticket.pdf');
     }
     public function delete($id)
     {

@@ -1,3 +1,5 @@
+var tipoVenta;
+var dataCliente
 function reloj() {
     let fecha = new Date(); //Actualizar fecha.
     let hora = fecha.getHours(); //hora actual
@@ -55,7 +57,7 @@ $('#form-add-venta').submit(function(e){
     e.preventDefault();
     let pagaCon = parseFloat($('#paga_con').val());
     let total = parseFloat($('#total_pagar').attr('data-total'));
-    if(pagaCon < total){
+    if(pagaCon < total && !$('#check-venta-credito').prop('checked')){
         Toast.fire({
             icon: 'warning',
             title: 'Advertencia',
@@ -82,7 +84,7 @@ $('#form-add-venta').submit(function(e){
     data = data+'&carrito='+JSON.stringify(carrito);
     $.ajax({
         'type': 'POST',
-        'url': 'api/addVenta',
+        'url': 'api/addVenta?tipo_venta='+tipoVenta,
         'data': data,
         beforeSend: function(){
         },
@@ -90,7 +92,7 @@ $('#form-add-venta').submit(function(e){
             let respuesta = JSON.parse(response);
 
             if(respuesta.icon == 'success'){
-                let cambio = pagaCon - total;
+                let cambio = $('#check-venta-credito').prop('checked') ? 0 : pagaCon - total;
                 msjInfo('success', 'VENTA EXITOSA', '<p><h3>¡¡¡ Felicidades !!!</h3></p> <p>Sigue incrementanto tus ventas</p> <h1>CAMBIO</h1> <h1>$'+cambio.toFixed(2)+'</h1>', false, 'Aceptar', resetForm, '');
                 let url = window.location;
                 window.open(url.origin+'/api/print/'+respuesta.venta_id,'_blank')
@@ -109,11 +111,11 @@ $('#form-add-venta').submit(function(e){
     })
 })
 function addProducto(data){
-    var cantidad = parseInt($('#cantidad_pro').val());
-    var importe = cantidad * parseFloat(data.sucursales[0].pivot.pre_venta
-);
-    var cod_barra = $('#cod_barra_search').val().replace(/\s/g, '');
-    var existeProducto = false
+    let cantidad = parseInt($('#cantidad_pro').val());
+    let precio = tipoVenta == 0 ? parseFloat(data.sucursales[0].pivot.pre_venta) : parseFloat(data.sucursales[0].pivot.pre_mayoreo);
+    let importe = cantidad * precio;
+    let cod_barra = $('#cod_barra_search').val().replace(/\s/g, '');
+    let existeProducto = false
     $('#form-search-producto').trigger('reset');
     $('input[name="cod_barra[]"]').each(function(){
         let input = $(this);
@@ -125,8 +127,7 @@ function addProducto(data){
             function addAmount(){
                 let importeActual = $(columnas[5]).find('input');
                 let nuevaCantidad = parseInt(cantidadActual.val()) + parseInt(cantidad);
-                importeActual.val(nuevaCantidad * parseFloat(data.sucursales[0].pivot.pre_venta
-));
+                importeActual.val(nuevaCantidad * precio);
                 cantidadActual.val(nuevaCantidad);
                 calculateTotals();
                 return false;
@@ -149,8 +150,7 @@ function addProducto(data){
                                 <span class="input-icon-addon">
                                     <i class="ti ti-currency-dollar"></i>
                                 </span>
-                                <input type="text" class="form-control form-control-sm input-table" name="pre_venta[]" value="${data.sucursales[0].pivot.pre_venta
-}" readonly>
+                                <input type="text" class="form-control form-control-sm input-table" name="pre_venta[]" value="${precio}" readonly>
                             </div>
                         </td>
                         <td>
@@ -264,6 +264,7 @@ function cleanCart(){
 function resetForm(){
     cleanCart();
     $('#form-add-venta').trigger('reset');
+    applyVentaCredito();
     setTimeout(() => {
         $('#cod_barra_search').focus();
     }, 500);
@@ -277,13 +278,15 @@ function getClientesSelect2(){
         },
         success: function(response) {
             let data = JSON.parse(response);
+            dataCliente = data;
             // Llenar select2 con los datos recuperados
             $('#cliente_id').empty();
+            $('#cliente_id').append('<option value="" disabled selected>Selecciona un cliente</option>');
             $.each(data, function(key, value) {
-                $('#cliente_id').append('<option value="' + value.id + '">' + value.persona.nombres + '</option>');
+                $('#cliente_id').append(`<option data-dias="" value="${value.id}">${value.persona.nombres}</option>`);
             });
             // Actualizar select2
-            $('#cliente_id').trigger('change');
+            //$('#cliente_id').trigger('change');
         }
     });
 }
@@ -302,11 +305,65 @@ $('#check-cliente').click(function(){
         $('#div-cliente').removeClass('d-none');
         $('#cliente_id').prop('disabled', false);
         $('#cliente_id').select2({
-            placeholder: 'Seleccionar opción',
+            placeholder: 'Selecciona un cliente',
             theme: 'tabler',
         });
     }else{
         $('#div-cliente').addClass('d-none');
         $('#cliente_id').prop('disabled', true);
     }
+});
+$('#check-venta-credito').click(function(){
+    applyVentaCredito();
+});
+$('#cliente_id').change(function(){
+    let id = parseInt($(this).val());
+    let cloneDataCliente = dataCliente.slice();
+    let filterData = cloneDataCliente.filter(item => item.id == id);
+    $('#dias_credito').val(filterData[0].dias_credito);
+    $('#limite_credito').val(filterData[0].limite_credito);
+})
+function applyVentaCredito(){
+    if($('#check-venta-credito').prop('checked')){
+        $('#check-cliente').prop('checked', true);
+        $('#div-periodos').removeClass('d-none');
+        $('#periodo_pagos').prop('disabled', false);
+        $('#div-dias').removeClass('d-none');
+        $('#dias_credito').prop('disabled', false);
+        $('#div-limite').removeClass('d-none');
+        $('#limite_credito').prop('disabled', false);
+        getClientesSelect2();
+        $('#div-cliente').removeClass('d-none');
+        $('#cliente_id').prop('disabled', false);
+        $('#cliente_id').select2({
+            placeholder: 'Selecciona un cliente',
+            theme: 'tabler',
+        });
+        $('#paga_con').prop('name', 'pago_inicial');
+        $('#paga_con').prop('min', 0);
+        $('#txt-paga-con').html('PAGO INICIAL:');
+        $('#pago-periodo').removeClass('d-none');
+    }else{
+        $('#check-cliente').prop('checked', false);
+        $('#div-cliente').addClass('d-none');
+        $('#cliente_id').prop('disabled', true);
+        $('#div-periodos').addClass('d-none');
+        $('#periodo_pagos').prop('disabled', true);
+        $('#div-dias').addClass('d-none');
+        $('#dias_credito').prop('disabled', true);    
+        $('#div-limite').addClass('d-none');
+        $('#limite_credito').prop('disabled', true);
+        $('#paga_con').prop('name', 'paga_con');
+        $('#paga_con').prop('min', 1);
+        $('#txt-paga-con').html('EFECTIVO:');
+        $('#pago-periodo').addClass('d-none');
+    }
+}
+$('#periodo_pagos').change(function(){
+    let total = parseFloat($('#total_pagar').attr('data-total'));
+    let periodo = parseFloat($(this).val());
+    let periodo_pagos = {1: [7, 'Semanal'], 2: [15, 'Quincenal'], 3: [30, 'Mensual']};
+    let monto_periodo = total / periodo_pagos[periodo][0];
+    let text = periodo_pagos[periodo][1]+' x $'+monto_periodo.toFixed(2);
+    $('#pago-periodo').html(text);
 })

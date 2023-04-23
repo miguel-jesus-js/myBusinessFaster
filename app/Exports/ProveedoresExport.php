@@ -14,7 +14,7 @@ class ProveedoresExport implements FromView
     */
     public function view() : View
     {
-        $proveedores = Proveedore::all();
+        $proveedores = Proveedore::with('persona')->get();
         return view('pdf.proveedores_pdf', [
             'proveedores' => $proveedores,
             'esExcel' => true,

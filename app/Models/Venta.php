@@ -21,8 +21,21 @@ class Venta extends Model
         'descuento',
         'total',
         'paga_con',
-        'tipo_pago',
-        'estado',
+        'pago_inicial',
+        'tipo_pago', // 0-Efectivo, 1-Tarjeta
+        'estado', //0-Pagado, 1-Pendiemte
+        'tipo_venta',//0-Venta a menudeo, 1-Venta a mayoreo
+        'tipo_venta_pago',//0-Venta al contado, 1-Venta a crédito
+        'periodo_pagos'
+    ];
+
+    const PERIODO_PAGO_SEMANAL      = 1;
+    const PERIODO_PAGO_QUINCENAL    = 2;
+    const PERIODO_PAGO_MENSUAL      = 3;
+    const PERIODO_PAGOS = [
+        self::PERIODO_PAGO_SEMANAL      => 'Semanal',
+        self::PERIODO_PAGO_QUINCENAL    => 'Quincenal',
+        self::PERIODO_PAGO_MENSUAL      => 'Mensual',
     ];
     public function scopeFolio($query, $folio)
     {

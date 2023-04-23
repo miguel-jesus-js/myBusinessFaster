@@ -161,7 +161,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('api/addProveedores', [ProveedoresController::class, 'create']);
     Route::put('api/updateProveedores', [ProveedoresController::class, 'update']);
     Route::delete('api/deleteProveedores/{id}', [ProveedoresController::class, 'delete']);
-    Route::get('api/downloadPlantillaProveedor', [ProveedoresController::class, 'downloadPlantilla'])->name('downloadPlantillaProveedor');
+    Route::get('api/downloadPlantillaProveedor', [ProveedoresController::class, 'downloadPlantilla']);
     Route::post('api/uploadProveedor', [ProveedoresController::class, 'uploadProveedor']);
     Route::get('api/exportarPdfProveedor', [ProveedoresController::class, 'exportarPDF']);
     Route::get('api/exportarExcelProveedor', [ProveedoresController::class, 'exportarExcel']);
@@ -242,7 +242,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('api/addVenta', [VentasController::class, 'create']);
     Route::get('api/getVentas/{tipo}', [VentasController::class, 'index']);
     Route::get('api/detalle_venta/{id}', [VentasController::class, 'show']);
-    Route::get('api/print/{id}', [VentasController::class, 'print']);    
+    Route::get('api/remision/{id}', [VentasController::class, 'remision']);    
+    Route::get('api/ticket/{id}', [VentasController::class, 'ticket']);    
     Route::get('api/saleByEmployees', [VentasController::class, 'saleByEmployees']);
     //apis tipo de gastos
     Route::get('api/getTipoGastos/{tipo}', [TipoGastosController::class, 'index']);

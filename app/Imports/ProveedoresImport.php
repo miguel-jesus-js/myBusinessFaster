@@ -2,40 +2,41 @@
 
 namespace App\Imports;
 
+use Illuminate\Support\Collection;
+use App\Models\Persona;
 use App\Models\Proveedore;
-use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 
 
-class ProveedoresImport implements ToModel, WithHeadingRow, WithBatchInserts, WithChunkReading
+class ProveedoresImport implements ToCollection, WithHeadingRow, WithBatchInserts, WithChunkReading
 {
     /**
     * @param array $row
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
-    public function model(array $row)
+    public function collection(Collection $rows)
     {
-        return new Proveedore([
-            'clave'     => $row['clave'],
-            'nombres'   => $row['nombre'],
-            'app'       => $row['apellido_p'],
-            'apm'       => $row['apellido_m'],
-            'email'     => $row['correo'],
-            'telefono'  => $row['telefono'],
-            'rfc'       => $row['rfc'],
-            'empresa'   => $row['empresa'],
-            'ciudad'    => $row['ciudad'],
-            'estado'    => $row['estado'],
-            'municipio' => $row['municipio'],
-            'cp'        => $row['cp'],
-            'colonia'   => $row['colonia'],
-            'calle'     => $row['calle'],
-            'n_exterior'=> $row['n_exterior'],
-            'n_interior'=> $row['n_interior'],
-        ]);
+        foreach($rows as $row){
+            try{
+                $persona = Persona::create([
+                    'nombres'   => $row['nombre'],
+                    'email'     => $row['correo'],
+                    'telefono'  => $row['telefono'],
+                    'rfc'       => $row['rfc'],
+                ]);
+                Proveedore::create([
+                    'persona_id'    => $persona->id,
+                    'clave'         => $row['clave'],
+                    'empresa'       => $row['empresa'],
+                ]);
+            }catch(\Exception $e){
+
+            }
+        }
     }
 
     public function batchSize(): int

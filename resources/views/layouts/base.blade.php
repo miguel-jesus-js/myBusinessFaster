@@ -262,9 +262,16 @@
                                     </a>
                                     <ul class="pcoded-submenu">
                                         <li class=" ">
-                                            <a href="/punto-de-venta" target="_blank" class="waves-effect waves-dark">
+                                            <a href="/punto-de-venta?tipo_venta=0" target="_blank" class="waves-effect waves-dark">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext">Punto de venta</span>
+                                                <span class="pcoded-mtext">Venta a menudeo</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a href="/punto-de-venta?tipo_venta=1" target="_blank" class="waves-effect waves-dark">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext">Venta a mayoreo</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
@@ -272,6 +279,29 @@
                                             <a href="/historial" class="waves-effect waves-dark">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext">Historial</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="pcoded-hasmenu data-item-color">
+                                    <a href="javascript:void(0)" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti ti-brand-cashapp icono"></i></span>
+                                        <span class="pcoded-mtext">Pagos</span>
+                                        <span class="ti ti-chevron-down acordeon"></span>
+                                    </a>
+                                    <ul class="pcoded-submenu">
+                                        <li class=" ">
+                                            <a href="/punto-de-venta?tipo_venta=0" target="_blank" class="waves-effect waves-dark">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext">Abonos</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a href="/punto-de-venta?tipo_venta=1" target="_blank" class="waves-effect waves-dark">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext">Pago de servicios</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>

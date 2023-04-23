@@ -34,9 +34,13 @@ function getHistorial(tipo, offset, limit, filtro){
                             <td>${formatter.format(valor.iva)}</td>
                             <td>${formatter.format(valor.descuento)}</td>
                             <td>${formatter.format(valor.total)}</td>
-                            <td>${valor.paga_con}</td>
-                            <td><i class="${valor.tipo_pago == 'Efectivo' ? 'ti ti-brand-cashapp' : 'ti ti-brand-visa'}"></i>  ${valor.tipo_pago}</td>
-                            <td>${valor.estado == 'Pagado' ? '<span class="badge bg-green-lt">Pagado</span>' : '<span class="badge bg-orange-lt">Pendiente</span>'}</td>
+                            <td>${valor.paga_con == null ? '': formatter.format(valor.paga_con)}</td>
+                            <td>${valor.pago_inicial == null ? '': formatter.format(valor.pago_inicial)}</td>
+                            <td><i class="${valor.tipo_pago == 0 ? 'ti ti-brand-cashapp icono' : 'ti ti-brand-visa icono'}"></i>  ${valor.tipo_pago == 0 ? 'Efectivo' : 'Tarjeta'}</td>
+                            <td>${valor.estado == 0 ? '<span class="badge bg-green-lt">Pagado</span>' : '<span class="badge bg-orange-lt">Pendiente</span>'}</td>
+                            <td>${valor.tipo_venta == 0 ? 'Menudeo' : 'Mayoreo'}</td>
+                            <td>${valor.tipo_venta_pago == 0 ? 'Contado' : 'Crédito'}</td>
+
                             <td>
                                 <a href="/api/detalle_venta/${valor.id}" class="btn p-0 border-0"><i class="ti ti-list-details icono text-dark"></i></a>
                             </td>

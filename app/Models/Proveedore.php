@@ -11,22 +11,9 @@ class Proveedore extends Model
 {
     use HasFactory, softDeletes;
     protected $fillable = [
+        'persona_id',
         'clave',
-        'nombres',
-        'app',
-        'apm',
-        'email',
-        'telefono',
-        'rfc',
         'empresa',
-        'ciudad',
-        'estado',
-        'municipio',
-        'cp',
-        'colonia',
-        'calle',
-        'n_exterior',
-        'n_interior'
     ];
 
     public function scopeProveedor($query, $proveedor)
@@ -41,5 +28,10 @@ class Proveedore extends Model
                         ->orWhere('clave', 'like', '%'.$proveedor.'%')
                         ->orWhere('empresa', 'like', '%'.$proveedor.'%');
         }
+    }
+
+    public function persona()
+    {
+        return $this->hasOne(Persona::class, 'id', 'persona_id');
     }
 }

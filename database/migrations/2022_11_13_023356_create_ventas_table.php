@@ -25,11 +25,13 @@ return new class extends Migration
             $table->decimal('iva', 8, 2)->nullable(false);
             $table->decimal('descuento', 8, 2)->nullable(false);
             $table->decimal('total', 8, 2)->nullable(false);
-            $table->decimal('paga_con', 8, 2)->nullable(false);
-            $table->enum('tipo_pago', ['Efectivo', 'Tarjeta'])->nullable(false);
-            $table->enum('estado', ['Pagado', 'Pendiente'])->nullable(false);
-            $table->enum('tipo_venta', ['Venta a menudeo', 'Venta a mayoreo'])->nullable(false);
-            $table->enum('tipo_venta_pago', ['Venta normal', 'Venta a crédito'])->nullable(false);
+            $table->decimal('paga_con', 8, 2)->nullable(true);
+            $table->decimal('pago_inicial', 8, 2)->nullable(true);
+            $table->boolean('tipo_pago')->nullable(false);
+            $table->boolean('estado')->nullable(false)->default(true);
+            $table->boolean('tipo_venta')->nullable(false);
+            $table->boolean('tipo_venta_pago')->nullable(false);
+            $table->integer('periodo_pagos')->nullable(true);
             $table->timestamps();
             $table->softdeletes();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

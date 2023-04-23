@@ -139,7 +139,7 @@
                                         <div class="mb-3 d-none" id="div-cliente">
                                             <div class="form-label required">Cliente</div>
                                             <div class="input-group w-100" id="group-cliente">
-                                                <select class="select2 form-select" name="cliente_id" id="cliente_id">
+                                                <select class="select2 form-select" name="cliente_id" id="cliente_id" required disabled="true">
                                                 </select>
                                                 <button type="button" class="btn bg-secondary-lt" id="add-cliente" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar cliente"><i class="ti ti-plus"></i></button>
                                                 <button type="button" class="btn bg-secondary-lt" id="reload-cliente" data-bs-toggle="tooltip" data-bs-placement="top" title="Recargar"><i class="ti ti-refresh"></i></button>
@@ -193,7 +193,7 @@
                                         </div>
                                         <div class="row mb-2 d-flex justify-content-end">
                                             <div class="col-auto">
-                                                <h5>EFECTIVO:</h5>
+                                                <h5 id="txt-paga-con">EFECTIVO:</h5>
                                             </div>
                                             <div class="col-auto">
                                                 <div class="input-group">
@@ -204,7 +204,33 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <button class="btn btn-lime btn-lg w-100" type="submit"><b class="ms-2" id="total_pagar" data-total=""> $0.00</b></button>
+                                        <div class="row d-flex justify-content-end">
+                                            <label class="form-check mb-3">
+                                                <input class="form-check-input" type="checkbox" name="venta_credito" id="check-venta-credito">
+                                                <span class="form-check-label">Aplicar venta a credito</span>
+                                            </label>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4 mb-3 d-none" id="div-periodos">
+                                                <label class="form-label required">Periodos de pago</label>
+                                                <select class="form-select" name="periodo_pagos" id="periodo_pagos" required disabled="true">
+                                                    <option value="" disabled selected>Elige una opción</option>
+                                                    @foreach (\App\Models\Venta::PERIODO_PAGOS as $periodo => $nombre)
+                                                      <option value="<?php echo $periodo ?>"><?php echo $nombre ?></option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4 mb-3 d-none" id="div-dias">
+                                                <label class="form-label required">Dias de crédito</label>
+                                                <input type="number" class="form-control" name="dias_credito" id="dias_credito" placeholder="0" autocomplete="off" readonly>
+                                            </div>
+                                            <div class="col-md-4 mb-3 d-none" id="div-limite">
+                                                <label class="form-label required">Límite de crédito</label>
+                                                <input type="number" class="form-control" name="limite_credito" id="limite_credito" placeholder="0.00" autocomplete="off" readonly min="1" step=0.01>
+                                            </div>
+                                        </div>
+                                        <h2 class="d-none" id="pago-periodo"></h2>
+                                        <button class="btn btn-lime btn-lg w-100 mt-2" type="submit"><b class="ms-2" id="total_pagar" data-total=""> $0.00</b></button>
                                     </section>
                                 </form>
                             </div>
@@ -228,6 +254,10 @@
     <script src="{{ asset('assets/js/clientes/config.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script type="text/javascript">
+        $(document).ready(function(){
+            let search = window.location.search.split('=');
+            tipoVenta = search[1];
+        });
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

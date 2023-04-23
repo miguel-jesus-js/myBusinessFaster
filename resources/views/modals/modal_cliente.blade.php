@@ -73,6 +73,11 @@
                                     <input type="text" class="form-control" name="apm" id="apm" placeholder="Apellido materno" required autocomplete="off" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,50}">
                                     <div class="invalid-feedback" id="error-apm"></div>
                                 </div> --}}
+                                <div class="col-sm-6 col-md-4 mb-3">
+                                    <label class="form-label required">Clave</label>
+                                    <input type="text" class="form-control" name="clave" id="clave" placeholder="Clave" required autocomplete="off" maxlength="10" minlength="3">
+                                    <div class="invalid-feedback" id="error-clave"></div>
+                                </div>
                                 <div class="col-sm-6 col-md-4 mb-2">
                                     <label class="form-label">RFC</label>
                                     <input type="text" class="form-control" name="rfc" id="rfc" placeholder="RFC" autocomplete="off" pattern="^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1]))([A-Z\d]{3})?$">

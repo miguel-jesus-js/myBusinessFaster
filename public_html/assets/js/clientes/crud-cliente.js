@@ -129,7 +129,7 @@ function getClientes(tipo, filtro){
                             <td>${valor.persona.email}</td>
                             <td>${valor.persona.telefono}</td>
                             <td>
-                                <button type="button" class="btn p-0 border-0" onclick="onChange(${valor.id}, ${valor.tipo_cliente_id}, '${valor.persona.nombres}', '${valor.persona.email}', '${valor.persona.telefono}', '${valor.persona.rfc}', '${valor.empresa}', ${direccionesString});"><i class="ti ti-edit icono text-primary"></i></button>
+                                <button type="button" class="btn p-0 border-0" onclick="onChange(${valor.persona_id}, ${valor.id}, ${valor.tipo_cliente_id}, '${valor.persona.nombres}', '${valor.persona.email}', '${valor.persona.telefono}', '${valor.persona.rfc}', '${valor.empresa}', ${valor.limite_credito}, ${valor.dias_credito}, ${direccionesString});"><i class="ti ti-edit icono text-primary"></i></button>
                             </td>
                             <td>
                                 <button type="button" class="btn p-0 border-0" onclick="confirmDelete(${valor.id}, '${valor.persona.nombres}', 'api/deleteClientes/', 'cliente', 'el');"><i class="ti ti-trash icono text-danger"></i></button>
@@ -150,14 +150,18 @@ function getClientes(tipo, filtro){
         }
     })
 }
-function onChange(id, tipo_cliente_id, nombres, email, telefono, rfc, empresa, direcciones){
+function onChange(id, cliente_id, tipo_cliente_id, nombres, email, telefono, rfc, empresa, limite_credito, dias_credito, direcciones){
     $.when(getTipoClientes()).then($('#tipo_cliente_id').val(tipo_cliente_id));
     $('#id').val(id);
+    $('#cliente_id').val(cliente_id);
     $('#nombres').val(nombres);
     $('#email').val(email);
     $('#telefono').val(telefono);
     $('#rfc').val(rfc == 'null' ? '': empresa);
     $('#empresa').val(empresa == 'null' ? '' : empresa);
+    $('#limite_credito').val(limite_credito);
+    $('#dias_credito').val(dias_credito);
+
     openModal('modal-cliente', 'clientes', 1);
     
     //llenamos la tabla con los direcciones

@@ -73,12 +73,12 @@ class ClientesController extends Controller
     public function update(PersonasRequest $personaRequest, ClientesRequest $clienteRequest)
     {
         $data = $personaRequest->all();
-        $cliente = Cliente::find($data['id'])->first();
-        $persona = Persona::find($cliente->persona_id);
+        $persona = Persona::find($data['id']);
+        $cliente = Cliente::find($data['cliente_id']);
         try {
             DB::beginTransaction();
-            $cliente->update($data);
             $persona->update($data);
+            $cliente->update($data);
             if(isset($data['ciudad']))
             {
                 for($i = 0; $i < sizeof($data['ciudad']); $i++)

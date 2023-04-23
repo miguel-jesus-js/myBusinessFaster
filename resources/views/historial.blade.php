@@ -152,8 +152,11 @@
                                 <th>Descuento</th>
                                 <th>Total</th>
                                 <th>Efectivo</th>
+                                <th>Pago inicial</th>
                                 <th>Tipo de pago</th>
                                 <th>Estado</th>
+                                <th>Tipo de venta</th>
+                                <th>Modalidad</th>
                                 <th colspan="3" class="text-center">Acciones</th>
                             </tr>
                         </thead>
