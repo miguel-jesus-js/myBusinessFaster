@@ -17,15 +17,15 @@ class ClientesSeeder extends Seeder
     {
         $data = [
             [
-                'persona_id'        => 3,
+                'persona_id'        => 1,
                 'tipo_cliente_id'   => 1,
                 'password'          => 'cliente@softcode.com.mx'
             ],
-            [
-                'persona_id'        => 4,
-                'tipo_cliente_id'   => 1,
-                'password'          => 'cliente2@softcode.com.mx'
-            ]
+            // [
+            //     'persona_id'        => 4,
+            //     'tipo_cliente_id'   => 1,
+            //     'password'          => 'cliente2@softcode.com.mx'
+            // ]
         ];
         DB::table('clientes')->insert($data);
     }
