@@ -21,11 +21,13 @@ function openModal(id_modal, modulo, tipo){
             }
             $('#tipo_cliente_id').closest('div').addClass('d-none');
             $('#empresa').closest('div').addClass('d-none');
+            $('#clave').closest('div').addClass('d-none');
             $('#item-credito').addClass('d-none');
             $('#tipo_cliente_id').prop('disabled', true);
             $('#empresa').prop('disabled', true);
             $('#limite_credito').prop('disabled', true);
             $('#dias_credito').prop('disabled', true);
+            $('#clave').prop('disabled', true);
             break;
         case 'marcas':
             if(tipo == 0){
@@ -97,8 +99,10 @@ function openModal(id_modal, modulo, tipo){
             $('#nom_user').prop('disabled', true);
             $('#password').prop('disabled', true);
             $('#role_id').prop('disabled', true);
+            $('#clave').prop('disabled', true);
             $('#sucursale_id').closest('div').addClass('d-none');
             $('#nom_user').closest('div').addClass('d-none');
+            $('#clave').closest('div').addClass('d-none');
             $('#password').closest('div .col-sm-6').addClass('d-none');
             $('#item-permisos').addClass('d-none');
             break;
