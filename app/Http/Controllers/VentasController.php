@@ -173,6 +173,12 @@ class VentasController extends Controller
                                     ->count();
         return json_encode([$saleByEmployees_t, $ammount]);
     }
+    public function searchVenta($folio)
+    {
+        $settings = Configuracione::find(1);
+        $venta = Venta::with(['productos','empleado.persona', 'cliente', 'cliente.persona', 'direccion', 'sucursal', 'pagos'])->where('folio', $folio)->first();
+        return json_encode([$venta, $settings]);
+    }
     public function show($id)
     {
         $venta = Venta::with(['productos','empleado.sucursal', 'cliente', 'sucursal'])->find($id);

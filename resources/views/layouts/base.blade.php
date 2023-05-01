@@ -292,14 +292,14 @@
                                     </a>
                                     <ul class="pcoded-submenu">
                                         <li class=" ">
-                                            <a href="/punto-de-venta?tipo_venta=0" target="_blank" class="waves-effect waves-dark">
+                                            <a href="/realizar_pago" class="waves-effect waves-dark">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext">Abonos</span>
+                                                <span class="pcoded-mtext">Pagos (Abonos)</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class=" ">
-                                            <a href="/punto-de-venta?tipo_venta=1" target="_blank" class="waves-effect waves-dark">
+                                            <a href="/punto-de-venta?tipo_venta=1" class="waves-effect waves-dark">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext">Pago de servicios</span>
                                                 <span class="pcoded-mcaret"></span>

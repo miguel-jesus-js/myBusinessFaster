@@ -24,6 +24,7 @@ use App\Http\Controllers\ProductosSucursalController;
 use App\Http\Controllers\TipoGastosController;
 use App\Http\Controllers\GastosController;
 use App\Http\Controllers\CortesController;
+use App\Http\Controllers\PagosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -245,6 +246,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('api/remision/{id}', [VentasController::class, 'remision']);    
     Route::get('api/ticket/{id}', [VentasController::class, 'ticket']);    
     Route::get('api/saleByEmployees', [VentasController::class, 'saleByEmployees']);
+    Route::get('api/searchVenta/{folio}', [VentasController::class, 'searchVenta']);
     //apis tipo de gastos
     Route::get('api/getTipoGastos/{tipo}', [TipoGastosController::class, 'index']);
     Route::post('api/addTipoGastos', [TipoGastosController::class, 'create']);
@@ -265,6 +267,11 @@ Route::group(['middleware' => 'auth'], function(){
     //apis corte de caja
     Route::get('corte_caja', [CortesController::class, 'index']);
     Route::get('printCorteCaja', [CortesController::class, 'print']);
+    //api pagos
+    Route::get('realizar_pago', [PagosController::class, 'realizarPagos']);
+    Route::put('api/add-pago', [PagosController::class, 'create']);
+    Route::get('api/ticket-pago/{id}', [PagosController::class, 'ticketPago']);
+
     //api cerrar sessión
     Route::post('api/logout', [LoginController::class, 'logout']);
 });

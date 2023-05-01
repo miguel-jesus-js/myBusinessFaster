@@ -37,6 +37,16 @@ class Venta extends Model
         self::PERIODO_PAGO_QUINCENAL    => 'Quincenal',
         self::PERIODO_PAGO_MENSUAL      => 'Mensual',
     ];
+
+    const ESTADO_PAGADO     = 1;
+    const ESTADO_CANCELADO  = 2;
+    const ESTADO_PENDIENTE  = 3;
+    const ESTADO_PAGO = [
+        self::ESTADO_PAGADO      => 'Pagado',
+        self::ESTADO_CANCELADO   => 'Cancelado',
+        self::ESTADO_PENDIENTE   => 'Pendiente',
+    ];
+
     public function scopeFolio($query, $folio)
     {
         if($folio)
@@ -99,5 +109,13 @@ class Venta extends Model
     public function sucursal()
     {
         return $this->belongsTo(Sucursale::class, 'sucursale_id', 'id');
+    }
+    public function pagos()
+    {
+        return $this->hasMany(Pago::class, 'venta_id', 'id');
+    }
+    public function direccion()
+    {
+        return $this->belongsTo(DireccionesEntrega::class, 'direcciones_entrega_id', 'id');
     }
 }

@@ -45,7 +45,7 @@
                                         <a href="/api/remision/{{$venta->id}}?isPrint=true" class="dropdown-item" target="_blank" ><i class="ti ti-printer"></i>Imprimir remisión</a>
                                       </li>
                                       <li>
-                                        <a href="/api/ticket/{{$venta->id}}?isPrint=false" class="dropdown-item" target="_blank"><i class="ti ti-printer"></i>Descargar remisión</a>  
+                                        <a href="/api/remision/{{$venta->id}}?isPrint=false" class="dropdown-item" target="_blank"><i class="ti ti-printer"></i>Descargar remisión</a>  
                                       </li>
                                   </ul>
                               </button>
@@ -58,7 +58,7 @@
                               <button class="dropdown-item">
                                   <ul>
                                       <li>
-                                        <a href="/api/remision/{{$venta->id}}?isPrint=true" class="dropdown-item" target="_blank" ><i class="ti ti-printer"></i>Imprimir ticket</a>
+                                        <a href="/api/ticket/{{$venta->id}}?isPrint=true" class="dropdown-item" target="_blank" ><i class="ti ti-printer"></i>Imprimir ticket</a>
                                       </li>
                                       <li>
                                         <a href="/api/ticket/{{$venta->id}}?isPrint=false" class="dropdown-item" target="_blank"><i class="ti ti-printer"></i>Descargar ticket</a>  
