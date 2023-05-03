@@ -325,6 +325,30 @@
                                         <span class="pcoded-mtext">Corte de caja</span>
                                     </a>
                                 </li>
+                                <li class=" data-item-color">
+                                    <a href="#" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti ti-cash icono"></i></span>
+                                        <span class="pcoded-mtext">Cuentas por cobrar</span>
+                                    </a>
+                                </li>
+                                <li class=" data-item-color">
+                                    <a href="#" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti ti-cash-off icono"></i></span>
+                                        <span class="pcoded-mtext">Cuentas por pagar</span>
+                                    </a>
+                                </li>
+                                <li class=" data-item-color">
+                                    <a href="#" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti ti-report-money icono"></i></span>
+                                        <span class="pcoded-mtext">Cotización de venta</span>
+                                    </a>
+                                </li>
+                                <li class=" data-item-color">
+                                    <a href="#" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti ti-credit-card icono"></i></span>
+                                        <span class="pcoded-mtext">Cotización de compra</span>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </nav>

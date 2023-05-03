@@ -24,9 +24,6 @@ return new class extends Migration
             $table->char('cod_sat', 8)->unique()->nullable(true);
             $table->string('producto', 50)->nullable(false);
             $table->integer('stock_min')->nullable(false);
-            // $table->string('img1', 100)->nullable(true);
-            // $table->string('img2', 100)->nullable(true);
-            // $table->string('img3', 100)->nullable(true);
             $table->date('caducidad')->nullable(true);
             $table->string('color', 50)->nullable(true);
             $table->enum('talla', ['Extra chica', 'Chica', 'Mediana', 'Grande', 'Extra grande', 'Estra extra grande'])->nullable(true);

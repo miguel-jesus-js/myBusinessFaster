@@ -87,10 +87,10 @@ class UsersController extends Controller
         {
             unset($data['foto_perfil']);
         }else{
-            $usuario->foto_perfil = $data['foto_perfil'];
-            if($usuario->foto_perfil != 'avatar.png'){
+            $persona->foto_perfil = $data['foto_perfil'];
+            if($persona->foto_perfil != 'avatar.png'){
 
-                $this->deleteImagen('img/usuarios/', $usuario->foto_perfil);
+                $this->deleteImagen('img/usuarios/', $persona->foto_perfil);
             }
         }
         if(isset($data['password'])){

@@ -4734,6 +4734,8 @@ select.form-control:not([size]):not([multiple]) {
 	text-align: center;
 	position: relative;
 	padding-bottom: 20px;
+	min-height: 126px;
+	max-height: 126px;
 }
 
 .main-menu .main-menu-header img {
@@ -4742,7 +4744,9 @@ select.form-control:not([size]):not([multiple]) {
 }
 
 .img-radius {
-	border-radius: 50%;
+	border-radius: 5px;
+	min-height: 40px;
+	max-height: 40px;
 }
 
 .main-menu .main-menu-header .user-details {

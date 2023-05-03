@@ -24,6 +24,7 @@ return new class extends Migration
             $table->decimal('paga_con', 8, 2)->nullable(false);
             $table->decimal('cambio', 8, 2)->nullable(false);
             $table->integer('estado')->nullable(false);
+            $table->boolean('tipo_pago')->nullable(false);
             $table->timestamps();
             $table->softDeletes();
         });

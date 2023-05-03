@@ -178,11 +178,6 @@
                                             <th class="d-none">ID</th>
                                             <th>Código de barra</th>
                                             <th>Producto</th>
-                                            <th>Marca</th>
-                                            <th>Almacén</th>
-                                            <th>Medida</th>
-                                            <th>Proveedor</th>
-                                            <th>Material</th>
                                             <th>P.de compra</th>
                                             <th>P.de venta</th>
                                             <th>P.de mayoreo</th>
