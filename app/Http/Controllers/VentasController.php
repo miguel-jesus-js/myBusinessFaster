@@ -9,6 +9,7 @@ use App\Models\Configuracione;
 use App\Models\ProductosSucursal;
 use App\Models\User;
 use App\Models\Cliente;
+use App\Models\Pago;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -54,25 +55,26 @@ class VentasController extends Controller
         try{
             DB::beginTransaction();
             $folio = Venta::orderBy('id', 'desc')->first();
-            $fecha = Carbon::now()->format('Y-m-d H:i:s');
+            $fecha = Carbon::now();
             $carrito = json_decode($data['carrito']);
             $datos_venta = [
                 'user_id'           => Auth::user()->id,
                 'cliente_id'        => isset($data['cliente_id']) ? $data['cliente_id'] : null,
                 'sucursale_id'      => Auth::user()->sucursal->id,
                 'folio'             => $folio == null ? 1 : $folio->folio + 1,
-                'fecha'             => $fecha,
+                'fecha'             => $fecha->format('Y-m-d H:i:s'),
                 'importe'           => floatval($data['subtotal']),
                 'iva'               => floatval($data['iva']),
                 'descuento'         => floatval($data['descuento']),
                 'total'             => (floatval($data['subtotal']) + floatval($data['iva'])) - floatval($data['descuento']),
-                'paga_con'          => isset($data['paga_con']) ? floatval($data['paga_con']) : null,
-                'pago_inicial'      => isset($data['pago_inicial']) ? floatval($data['pago_inicial']) : null,
+                'paga_con'          => floatval($data['paga_con']) ,
+                'pago_inicial'      => floatval($data['pago_inicial']),
                 'tipo_pago'         => 0,
-                'estado'            => isset($data['venta_credito']) ? 1 : 0,
+                'estado'            => $request->get('tipo_venta') == 3 ? 1 : 0,
                 'tipo_venta'        => $request->get('tipo_venta'),
-                'tipo_venta_pago'   => isset($data['venta_credito']) ? 1 : 0,
+                'tipo_venta_pago'   => 0,
                 'periodo_pagos'     => isset($data['periodo_pagos']) ? $data['periodo_pagos'] : null,
+                'tipo'              => 1,
             ];
             $venta = Venta::create($datos_venta);
             foreach($carrito as $producto)
@@ -81,13 +83,40 @@ class VentasController extends Controller
                     'precio'    => floatval($producto->precio),
                     'cantidad'  => intval($producto->cantidad),
                     'importe'   => floatval($producto->precio) * intval($producto->cantidad),
-                    'created_at'=> $fecha,
-                    'updated_at'=> $fecha,
+                    'created_at'=> $fecha->format('Y-m-d H:i:s'),
+                    'updated_at'=> $fecha->format('Y-m-d H:i:s'),
                 ];
                 $venta->productos()->attach($producto->producto_id, $datos_detalle);
                 $cantidadActual = ProductosSucursal::where([['sucursale_id', Auth::user()->sucursal->id], ['producto_id', $producto->producto_id]])->first();
                 $newCantidad = intval($cantidadActual->stock) - intval($producto->cantidad);
                 $cantidadActual->update(['stock' => $newCantidad]);
+            }
+            if(isset($data['periodo_pagos']))
+            {
+                $fecha_estimada = $fecha;
+                $fecha_hora = $fecha;
+                $cliente = Cliente::find($data['cliente_id']);
+                $total = (floatval($data['subtotal']) + floatval($data['iva'])) - floatval($data['descuento']) - floatval($data['pago_inicial']);
+                $dias_periodo = Venta::PERIODO_PAGOS_DIAS[$data['periodo_pagos']];
+                $total_periodo = floor($cliente->dias_credito / $dias_periodo);
+                $total_periodo = $total_periodo < 1 ? 1 : $total_periodo;
+                $monto_perido = $total / $total_periodo;
+                for($i = 0; $i < $total_periodo; $i++)
+                {
+                    $array_pagos = [
+                        'venta_id'      => $venta->id,
+                        'user_id'       => Auth::user()->id,
+                        'fecha_estimada'=> $fecha_estimada->addDays($dias_periodo)->format('Y-m-d H:i:s'),
+                        'fecha_hora'    => $fecha_hora->addDays($dias_periodo)->format('Y-m-d H:i:s'),
+                        'anticipo'      => 0,
+                        'monto'         => $monto_perido,
+                        'paga_con'      => 0,
+                        'cambio'        => 0,
+                        'estado'        => 1,
+                        'tipo_pago'     => false,
+                    ];
+                    Pago::create($array_pagos);
+                }
             }
             DB::commit();
             // $venta_detalle = Venta::with(['productos','empleado.sucursal', 'cliente'])->find($venta->id);
@@ -99,6 +128,7 @@ class VentasController extends Controller
                 'venta_id'      => $venta->id,
             ]);
         }catch(\Exception $e){
+            dd($e);
             DB::rollback();
             return json_encode(['icon'  => 'error', 'title'   => 'Error', 'text'  => 'Ocurrio un error, la venta no fue registrada']);
         }

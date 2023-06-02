@@ -17,7 +17,7 @@ class ProveedoresSeeder extends Seeder
     {
         $data = [
             [
-                'persona_id'    => 5,
+                'persona_id'    => 2,
                 'clave'         => 2,
                 'empresa'       => 'Sabritas',
             ],

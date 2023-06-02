@@ -81,6 +81,7 @@ $('#form-search-venta').submit(function(e){
                     </div>
                   </div>`;
               });
+              let fecha = new Date(venta.fecha);
               let htmlDetalleVenta = `
               <div class="row">
               <div class="col-md-10">
@@ -122,11 +123,11 @@ $('#form-search-venta').submit(function(e){
                       <small>
                       <address>
                           <strong class="datagrid-title class-name h6">Dirección: </strong>
-                          ${venta.direccion.calle +' '+ venta.direccion.n_exterior}
+                          ${venta?.direccion?.calle ?? 'Sin dirección'} ${venta?.direccion?.n_exterior ?? ''}
                           <br>
-                          ${venta.direccion.colonia +' '+ venta.direccion.cp}}
+                          ${venta?.direccion?.colonia ?? ''} ${venta?.direccion?.cp ?? ''}
                           <br>
-                          ${venta.direccion.municipio +' '+ venta.direccion.estado +' '+ venta.direccion.ciudad}
+                          ${venta?.direccion?.municipio ?? ''} ${venta?.direccion?.estado ?? ''} ${venta?.direccion?.ciudad ?? ''}
                           <br>
                       </address>
                       </small>
@@ -137,7 +138,7 @@ $('#form-search-venta').submit(function(e){
               <div class="col-12 my-3">
                 <small><strong class="datagrid-title class-name h6">Número de folio: </strong> ${venta.folio}</small>
                 <br>
-                <small><strong class="datagrid-title class-name h6">Fecha y hora: </strong> {{ Carbon\Carbon::parse($venta->fecha)->format('d/m/Y h:i:s A')  }}</small>
+                <small><strong class="datagrid-title class-name h6">Fecha y hora: </strong> ${fecha}</small>
                 <br>
                 <small><strong class="datagrid-title class-name h6">Tipo de venta: </strong> ${venta.tipo_venta == 0 ? 'Venta a menudeo' : 'Venta a mayoreo'}</small>
                 <br>

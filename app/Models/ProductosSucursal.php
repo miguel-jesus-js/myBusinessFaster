@@ -18,6 +18,7 @@ class ProductosSucursal extends Model
         'pre_compra',
         'pre_venta',
         'pre_mayoreo',
+        'pre_credito',
         'utilidad',
     ];
 

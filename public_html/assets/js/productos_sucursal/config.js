@@ -69,6 +69,9 @@ function getProductos(sucursal_id){
                             <td>
                                 <input type="number" class="form-control" name="pre_mayoreo[]" placeholder="Precio por mayoreo" autocomplete="off" min="1" max="100000" minlength="1" maxlength="7" step=0.01>
                             </td>
+                            <td>
+                                <input type="number" class="form-control" name="pre_credito[]" placeholder="Precio por crédito" autocomplete="off" min="1" max="100" minlength="1" maxlength="3" step=0.01>
+                            </td>
                             <td><input type="number" class="form-control" name="stock=[]" placeholder="Stock" autocomplete="off" min="1" max="100000" minlength="1" maxlength="7"></td>
                         </tr>
                     `;

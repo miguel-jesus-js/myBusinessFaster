@@ -17,7 +17,8 @@ class Pago extends Model
         'monto',
         'paga_con',
         'cambio',
-        'estado'
+        'estado',
+        'tipo_pago'
     ];
 
     const ESTADO_PAGADO = 1;

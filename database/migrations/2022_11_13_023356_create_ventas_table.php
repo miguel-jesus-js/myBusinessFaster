@@ -28,10 +28,10 @@ return new class extends Migration
             $table->decimal('total', 8, 2)->nullable(false);
             $table->decimal('paga_con', 8, 2)->nullable(true);
             $table->decimal('pago_inicial', 8, 2)->nullable(true);
-            $table->boolean('tipo_pago')->nullable(false);
-            $table->boolean('estado')->nullable(false)->default(true);
-            $table->boolean('tipo_venta')->nullable(false);
-            $table->boolean('tipo_venta_pago')->nullable(false);
+            $table->integer('tipo_pago')->nullable(false);
+            $table->integer('estado')->nullable(false)->default(1);
+            $table->integer('tipo_venta')->nullable(false);
+            $table->integer('tipo_venta_pago')->nullable(false);
             $table->integer('periodo_pagos')->nullable(true);
             $table->integer('tipo')->nullable(false);
             $table->timestamps();

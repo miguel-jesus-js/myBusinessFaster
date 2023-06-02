@@ -14,10 +14,11 @@ $('#form-add-producto_sucursal').submit(function(e){
             if($(this).prop('checked')){
                 let item = {
                     producto_id: fila[1].textContent,
-                    pre_venta: parseInt($(fila[9]).find('input').val()),
-                    pre_compra: parseInt($(fila[10]).find('input').val()),
-                    pre_mayoreo: parseInt($(fila[11]).find('input').val()),
-                    stock: parseInt($(fila[12]).find('input').val()),
+                    pre_compra: parseFloat($(fila[4]).find('input').val()),
+                    pre_venta: parseFloat($(fila[5]).find('input').val()),
+                    pre_mayoreo: parseFloat($(fila[6]).find('input').val()),
+                    pre_credito: parseFloat($(fila[7]).find('input').val()),
+                    stock: parseInt($(fila[8]).find('input').val()),
                 };
                 productos.push(item);
             }   
@@ -29,10 +30,11 @@ $('#form-add-producto_sucursal').submit(function(e){
             let fila = $(this).children();
             let item = {
                 producto_id: fila[1].textContent,
-                pre_venta: parseInt($(fila[9]).find('input').val()),
-                pre_compra: parseInt($(fila[10]).find('input').val()),
-                pre_mayoreo: parseInt($(fila[11]).find('input').val()),
-                stock: parseInt($(fila[12]).find('input').val()),
+                pre_compra: parseFloat($(fila[4]).find('input').val()),
+                pre_venta: parseFloat($(fila[5]).find('input').val()),
+                pre_mayoreo: parseFloat($(fila[6]).find('input').val()),
+                pre_credito: parseFloat($(fila[7]).find('input').val()),
+                stock: parseInt($(fila[8]).find('input').val()),
             };
             productos.push(item); 
         });
@@ -141,6 +143,7 @@ function getProductosSucursal(tipo, filtro){
                     }else{
                         elimnado = '';
                     }
+                    var porcentaje = (valor.pre_credito / 100) * valor.pre_venta;
                     row += `
                         <tr class="${elimnado}">
                             <td>${valor.sucursales.nombre}</td>
@@ -148,6 +151,7 @@ function getProductosSucursal(tipo, filtro){
                             <td>${formatter.format(valor.pre_compra)}</td>
                             <td>${formatter.format(valor.pre_venta)}</td>
                             <td>${formatter.format(valor.pre_mayoreo)}</td>
+                            <td>${porcentaje + parseFloat(valor.pre_venta)}</td>
                             <td>${valor.stock}</td>
                             <td>
                                 <button type="button" class="btn p-0 border-0"  aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Detalles" onclick="details('${valor.sucursales.nombre}', '${valor.productos.producto}', '${valor.pre_compra}', '${valor.pre_venta}', '${valor.pre_mayoreo}', '${valor.stock}', '${valor.created_at}', '${valor.updated_at}', '${valor.deleted_at}');"><i class="ti ti-eye icono text-success"></i></button>

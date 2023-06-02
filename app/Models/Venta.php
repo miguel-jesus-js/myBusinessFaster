@@ -24,9 +24,19 @@ class Venta extends Model
         'pago_inicial',
         'tipo_pago', // 0-Efectivo, 1-Tarjeta
         'estado', //0-Pagado, 1-Pendiemte
-        'tipo_venta',//0-Venta a menudeo, 1-Venta a mayoreo
+        'tipo_venta',//1-Venta a menudeo, 2-Venta a mayoreo, 3-Venta a crédito
         'tipo_venta_pago',//0-Venta al contado, 1-Venta a crédito
-        'periodo_pagos'
+        'periodo_pagos',
+        'tipo'
+    ];
+
+    const TIPO_VENTA_MENUDEO = 1;
+    const TIPO_VENTA_MAYOREO = 2;
+    const TIPO_VENTA_CREDITO = 3;
+    const TIPO_VENTA = [
+        self::TIPO_VENTA_MENUDEO    => 'Venta a menudeo',
+        self::TIPO_VENTA_MAYOREO    => 'Venta a mayoreo',
+        self::TIPO_VENTA_CREDITO    => 'Venta a crédito',
     ];
 
     const PERIODO_PAGO_SEMANAL      = 1;
@@ -37,7 +47,11 @@ class Venta extends Model
         self::PERIODO_PAGO_QUINCENAL    => 'Quincenal',
         self::PERIODO_PAGO_MENSUAL      => 'Mensual',
     ];
-
+    const PERIODO_PAGOS_DIAS = [
+        self::PERIODO_PAGO_SEMANAL      => 7,
+        self::PERIODO_PAGO_QUINCENAL    => 15,
+        self::PERIODO_PAGO_MENSUAL      => 30,
+    ];
     const ESTADO_PAGADO     = 1;
     const ESTADO_CANCELADO  = 2;
     const ESTADO_PENDIENTE  = 3;
