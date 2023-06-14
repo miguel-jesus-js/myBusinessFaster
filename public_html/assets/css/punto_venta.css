@@ -4,11 +4,3 @@
 #total_pagar{
     font-size: 40px;
 }
-.select2{
-    border: solid 1px #dddddd;
-    border-radius: 5px;
-}
-span.select2{
-    border-radius: 5px 0px 0px 5px !important;
-    padding-top: 5px !important;
-}

@@ -25,6 +25,7 @@ use App\Http\Controllers\TipoGastosController;
 use App\Http\Controllers\GastosController;
 use App\Http\Controllers\CortesController;
 use App\Http\Controllers\PagosController;
+use App\Http\Controllers\ProduccionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -99,6 +100,9 @@ Route::group(['middleware' => 'auth'], function(){
     });
     Route::get('/gastos', function () {
         return view('gastos');
+    });
+    Route::get('/produccion', function () {
+        return view('produccion');
     });
 
     Route::get('api/getRoles', [RolesController::class, 'index']);
@@ -187,6 +191,7 @@ Route::group(['middleware' => 'auth'], function(){
     //apis productos
     Route::get('api/getProductos/{filtro}', [ProductosController::class, 'index']);
     Route::post('api/addProductos', [ProductosController::class, 'create']);
+    Route::post('api/addInsumos', [ProductosController::class, 'createInsumo']);
     Route::put('api/updateProductos', [ProductosController::class, 'update']);
     Route::get('api/showProducto/{id}', [ProductosController::class, 'show'])->name('showProducto');
     Route::delete('api/deleteProductos/{id}', [ProductosController::class, 'delete']);
@@ -199,6 +204,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('api/exportarPdfProducto', [ProductosController::class, 'exportarPDF']);
     Route::get('api/exportarExcelProducto', [ProductosController::class, 'exportarExcel']);
     Route::post('api/searchProductForSale', [ProductosController::class, 'searchProductForSale']);
+    Route::get('api/getProductosBySucursal/{sucursaId}', [ProductosController::class, 'getProductosBySucursal']);
+    Route::get('api/getInsumos/{parentId}', [ProductosController::class, 'getInsumos']);
     //apis turnos
     Route::get('api/getTurnos/{tipo}', [TurnosController::class, 'index']);
     Route::post('api/addTurnos', [TurnosController::class, 'create']);
@@ -268,20 +275,10 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('corte_caja', [CortesController::class, 'index']);
     Route::get('printCorteCaja', [CortesController::class, 'print']);
     //api pagos
-    Route::get('realizar_pago', [PagosController::class, 'realizarPagos']);
+    Route::get('cuentas_por_cobrar', [PagosController::class, 'realizarPagos']);
     Route::put('api/add-pago', [PagosController::class, 'create']);
     Route::get('api/ticket-pago/{id}', [PagosController::class, 'ticketPago']);
 
     //api cerrar sessión
     Route::post('api/logout', [LoginController::class, 'logout']);
 });
-
-// Route::group(['middleware' => 'auth'], function () {
-//     //apis roles
-    
-// });
-
-// Route::group(['middleware' => 'auth'], function () {
-//     //apis roles
-    
-// });

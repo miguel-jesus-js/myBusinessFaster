@@ -1,6 +1,6 @@
 @extends('layouts.base')
 @section('css')
-
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endsection
 @section('contenido')
 <div class="page-header" id="page-header">
@@ -260,6 +260,12 @@
                                         </label>
                                         <div class="invalid-feedback" id="error-es_produccion"></div>
                                     </div>
+                                </div>
+                                <div class="col-sm-6 col-md-4 mb-2 d-none" id="div-parent">
+                                    <label class="form-label required">Producto padre</label>
+                                    <select class="select2 form-select" name="parent_id" id="parent_id" required disabled>
+                                    </select>
+                                    <div class="invalid-feedback" id="error-parent_id"></div>
                                 </div>
                             </div>
                         </div>
@@ -795,6 +801,8 @@
 <script src="{{ asset('assets/js/productos/crud-producto.js') }}"></script>
 <script src="{{ asset('assets/js/shared.js') }}"></script>
 <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 
 <script>
     $( document ).ready(function() {

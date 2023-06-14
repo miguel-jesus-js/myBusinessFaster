@@ -28,6 +28,7 @@ class VentasController extends Controller
         $fecha_fin      = $request->get('fecha_fin');
         $offset         = $request->get('offset');
         $limit          = $request->get('limit');
+        $estado         = $request->get('estado');
 
         $ventas         = Venta::with(['sucursal', 'cliente', 'empleado.persona', 'cliente.persona'])
                             ->folio($folio)
@@ -38,6 +39,9 @@ class VentasController extends Controller
                             ->fechaFin($fecha_fin)
                             ->offset($offset)
                             ->limit($limit)
+                            ->when($estado == 1, function($query){
+                                return $query->where('estado', 1);
+                            })
                             ->get();
         $cantidad       = Venta::with(['sucursal', 'cliente'])
                             ->folio($folio)
@@ -46,6 +50,9 @@ class VentasController extends Controller
                             ->cliente($cliente_id)
                             ->fechaIni($fecha_ini)
                             ->fechaFin($fecha_fin)
+                            ->when($estado == 1, function($query){
+                                return $query->where('estado', 1);
+                            })
                             ->count();
         return json_encode([$ventas, $cantidad]);
     }

@@ -145,7 +145,7 @@ function getProductos(tipo, filtro){
                             <td>${valor.marcas == null ? '' : valor.marcas.marca}</td>
                             <td>${valor.almacenes == null ? '' : valor.almacenes.nombre}</td>
                             <td>${valor.unidad_medidas  == null ? '' : valor.unidad_medidas.unidad_medida}</td>
-                            <td>${valor.proveedores == null ? '' : valor.proveedores.nombres + ' ('+valor.proveedores.empresa+')'}</td>
+                            <td>${valor.proveedores == null ? '' : valor.proveedores.persona.nombres + ' ('+valor.proveedores.empresa+')'}</td>
                             <td>${valor.materiales == null ? '' : valor.materiales.material}</td>
                             <td class="d-none oculto">${valor.stock_min}</td>
                             <td>

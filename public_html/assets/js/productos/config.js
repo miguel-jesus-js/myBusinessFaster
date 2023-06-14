@@ -90,7 +90,7 @@ function getProveedores() {
                 let data = JSON.parse(response);
                 let option = '';
                 $.each(data, function (index, valor) {
-                    option += `<option value="${valor.id}">${valor.nombres} ${valor.app} ${valor.apm} - (${valor.empresa == null ? '' : valor.empresa})</option>`;
+                    option += `<option value="${valor.id}">${valor.persona.nombres} - (${valor.empresa == null ? '' : valor.empresa})</option>`;
                 });
                 $('#proveedore_id').append(option);
                 $('#f-proveedore_id').append(option);
@@ -343,4 +343,40 @@ function loadPreview(id, pathImg){
         `;
         $('#preview-imagenes').append(html);
 }
-  
+function getProductosSelect2(){
+    $.ajax({
+        url: '/api/getProductos/2',
+        type: 'GET',
+        beforeSend: function(){
+            $('#parent_id').html('<option value="">Cargando...</option>');
+        },
+        success: function(response) {
+            let data = JSON.parse(response);
+            // Llenar select2 con los datos recuperados
+            $('#parent_id').empty();
+            $('#parent_id').append('<option value="" disabled selected>Selecciona un producto</option>');
+            $.each(data, function(key, value) {
+                $('#parent_id').append(`<option data-dias="" value="${value.id}">${value.producto}</option>`);
+            });
+            // Actualizar select2
+            //$('#cliente_id').trigger('change');
+        }
+    });
+}
+$('#es_produccion').click(function(){
+    if($(this).prop('checked')){
+        getProductosSelect2();
+        $('#div-parent').removeClass('d-none');
+        $('#parent_id').prop('disabled', false);
+        $('#parent_id').select2({
+            placeholder: 'Selecciona una opción',
+            theme: 'tabler',
+        });
+    }else{
+        $('#div-parent').addClass('d-none');
+        $('#parent_id').prop('disabled', true);
+    }
+});
+$(document).on('click', '.select2-search__field', function(event){
+    $(this).trigger('focus');
+})

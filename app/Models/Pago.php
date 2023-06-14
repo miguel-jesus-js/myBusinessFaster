@@ -30,6 +30,11 @@ class Pago extends Model
         self::ESTADO_PENDIENTE => 'Pendiente',
         self::ESTADO_CANCELADO => 'Cancelado',
     ];
+    const ARRAY_ESTADOS_COLOR = [
+        self::ESTADO_PAGADO => 'bg-teal',
+        self::ESTADO_PENDIENTE => 'bg-yellow',
+        self::ESTADO_CANCELADO => 'bg-red',
+    ];
 
     public function venta()
     {

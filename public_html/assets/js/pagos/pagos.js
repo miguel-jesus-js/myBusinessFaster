@@ -247,46 +247,44 @@ $('#form-search-venta').submit(function(e){
         }
     });
 });
-function addPago(){
-  $('.form-add-pago').submit(function(e){
-    e.preventDefault();
-    let efectivo = parseFloat($('#paga_con').val());
-    let total_pagar = parseFloat($('#total_pagar').val());
-    if(efectivo < total_pagar){
-      Toast.fire({
-        icon: 'warning',
-        title: 'Advertencia',
-        text: 'El efectivo es menor al total a pagar'
-      });
-      return;
-    }
-    let data = $(this).serialize();
-    $.ajax({
-        'type': 'PUT',
-        'url': 'api/add-pago',
-        'data': data,
-        beforeSend: function(){
-  
-        },
-        success: function(response){
-          let respuesta = JSON.parse(response);
-          Toast.fire({
-            icon: respuesta.icon,
-            title: respuesta.title,
-            text: respuesta.text
-          });
-          if(respuesta.icon == 'success'){
-            let url = window.location;
-            window.open(url.origin+'/api/ticket-pago/'+respuesta.id,'_blank')
-            $('#form-search-venta').trigger('submit');
-          }
-        },
-        error: function(){
-  
-        }
+$('#form-add-pago').submit(function(e){
+  e.preventDefault();
+  let efectivo = parseFloat($('#paga_con').val());
+  let total_pagar = parseFloat($('#total_pagar').val());
+  if(efectivo < total_pagar){
+    Toast.fire({
+      icon: 'warning',
+      title: 'Advertencia',
+      text: 'El efectivo es menor al total a pagar'
     });
+    return;
+  }
+  let data = $(this).serialize();
+  $.ajax({
+      'type': 'PUT',
+      'url': '/api/add-pago',
+      'data': data,
+      beforeSend: function(){
+
+      },
+      success: function(response){
+        let respuesta = JSON.parse(response);
+        Toast.fire({
+          icon: respuesta.icon,
+          title: respuesta.title,
+          text: respuesta.text
+        });
+        if(respuesta.icon == 'success'){
+          let url = window.location;
+          window.open(url.origin+'/api/ticket-pago/'+respuesta.id,'_blank')
+          location.reload();
+        }
+      },
+      error: function(){
+
+      }
   });
-}
+});
 var placeholderDetalleVenta = `
     <ul class="list-group list-group-flush placeholder-glow">
         <li class="list-group-item">
@@ -372,3 +370,12 @@ var placeholderDetalleVenta = `
         </li>
     </ul>
 `;
+function openModalPago(id, venta_id, monto, anticipo){
+  $('#id').val(id);
+  $('#venta_id').val(venta_id);
+  $('#monto').val(monto);
+  $('#anticipo').val(anticipo);
+  let total = parseFloat(monto) - parseFloat(anticipo);
+  $('#total_pagar').val(total);
+  openModal('modal-realizar-pago','detalle', 0);
+}

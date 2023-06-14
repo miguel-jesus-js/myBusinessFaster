@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('unidad_medida_id')->nullable(true);
             $table->unsignedBigInteger('proveedore_id')->nullable(true);
             $table->unsignedBigInteger('materiale_id')->nullable(true);
+            $table->unsignedBigInteger('parent_id')->nullable(true);
             $table->char('cod_barra', 13)->unique()->nullable(false);
             $table->char('cod_sat', 8)->unique()->nullable(true);
             $table->string('producto', 50)->nullable(false);
@@ -40,6 +41,7 @@ return new class extends Migration
             $table->foreign('unidad_medida_id')->references('id')->on('unidad_medidas')->onDelete('cascade');
             $table->foreign('proveedore_id')->references('id')->on('proveedores')->onDelete('cascade');
             $table->foreign('materiale_id')->references('id')->on('materiales')->onDelete('cascade');
+            $table->foreign('parent_id')->references('id')->on('productos')->onDelete('cascade');
         });
     }
 

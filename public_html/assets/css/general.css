@@ -214,3 +214,23 @@ body.ticket td{
     min-height: 280px;
     max-height: 280px;
 }
+.select2{
+    border: solid 1px #dddddd;
+    border-radius: 5px;
+}
+span.select2{
+    border-radius: 5px 0px 0px 5px !important;
+    padding-top: 5px !important;
+}
+.select2-container select2-container--tabler select2-container--open{
+    position: relative !important;
+    z-index: 9999 !important;
+}
+.select2-dropdown--below{
+    position: relative !important;
+    z-index: 9999 !important;
+}
+.select2-search__field{
+    position: relative !important;
+    z-index: 99999 !important;
+}

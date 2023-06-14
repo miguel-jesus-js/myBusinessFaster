@@ -72,7 +72,7 @@
           <br>
           <small><strong class="datagrid-title class-name h6">Fecha y hora: </strong> {{ Carbon\Carbon::parse($venta->fecha)->format('d/m/Y h:i:s A')  }}</small>
           <br>
-          <small><strong class="datagrid-title class-name h6">Tipo de venta: </strong> {{ $venta->tipo_venta == 0 ? 'Venta a menudeo' : 'Venta a mayoreo' }}</small>
+          <small><strong class="datagrid-title class-name h6">Tipo de venta: </strong> {{ \App\Models\Venta::TIPO_VENTA[$venta->tipo_venta] }}</small>
           <br>
           <small><strong class="datagrid-title class-name h6">Vendedor: </strong> {{ $venta->empleado->persona->nombres}}</small>
           <br>
@@ -116,19 +116,23 @@
               <td colspan="4" class="p-1 strong text-end">Total:</td>
               <td class="p-1 text-end">${{ $venta->total }}</td>
             </tr>
-            @if ($venta->tipo_venta_pago == 0)
-            <tr>
-                <td colspan="4" class="p-1 strong text-end">Efectivo:</td>
-                <td class="p-1 text-end">${{ $venta->paga_con }}</td>
-            </tr>
-            <tr>
-                <td colspan="4" class="p-1 strong text-end">Cambio:</td>
-                <td class="p-1 text-end">${{ $venta->paga_con - $venta->total }}</td>
-            </tr>
-            @else
+            @if ($venta->tipo_venta == 3)
             <tr>
                 <td colspan="4" class="p-1 strong text-end">Pago inicial:</td>
                 <td class="p-1 text-end">${{ $venta->pago_inicial }}</td>
+            </tr>
+            <tr>
+              <td colspan="4" class="p-1 strong text-end">Efectivo:</td>
+              <td class="p-1 text-end">${{ $venta->paga_con }}</td>
+            </tr>
+            <tr>
+                <td colspan="4" class="p-1 strong text-end">Cambio:</td>
+                <td class="p-1 text-end">${{ $venta->paga_con - $venta->pago_inicial }}</td>
+            </tr>
+            @else
+            <tr>
+                <td colspan="4" class="p-1 strong text-end">Cambio:</td>
+                <td class="p-1 text-end">${{ $venta->paga_con - $venta->total }}</td>
             </tr>
             @endif
           </tbody>
@@ -145,7 +149,7 @@
               <tbody>
                 <tr>
                   <td class="p-1">
-                      Modalidad: {{ $venta->tipo_venta_pago == 0 ? 'Venta de contado' : 'Venta a crédito' }}
+                      Modalidad: {{ $venta->tipo_venta == 3 ? 'Venta a crédito' : 'Venta de contado' }}
                   </td>
                 </tr>
                 <tr>
@@ -156,7 +160,7 @@
                 <tr>
                     <td class="p-1">Estado: {{ $venta->estado == 0 ? 'Pagado' : 'Pagos pendientes'}}</td>
                 </tr>
-                @if ($venta->tipo_venta_pago == 1)
+                @if ($venta->tipo_venta == 3)
                 <tr>
                     <td class="p-1">
                         Periodo de pagos: {{ \App\Models\Venta::PERIODO_PAGOS[$venta->periodo_pagos] }}

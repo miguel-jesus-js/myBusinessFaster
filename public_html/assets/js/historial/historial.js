@@ -26,7 +26,7 @@ function getHistorial(tipo, offset, limit, filtro){
                     row += `
                         <tr class="${elimnado}">
                             <td>${valor.folio}</td>
-                            <td>${valor.sucursal.nombre}</td>
+                            <td>${valor.sucursal}</td>
                             <td>${valor.cliente_id == null ? 'Publico en general' : valor.cliente.persona.nombres}</td>}</td>
                             <td>${valor.empleado.persona.nombres}</td>}</td>
                             <td>${valor.fecha}</td>
@@ -38,7 +38,7 @@ function getHistorial(tipo, offset, limit, filtro){
                             <td>${valor.pago_inicial == null ? '': formatter.format(valor.pago_inicial)}</td>
                             <td><i class="${valor.tipo_pago == 0 ? 'ti ti-brand-cashapp icono' : 'ti ti-brand-visa icono'}"></i>  ${valor.tipo_pago == 0 ? 'Efectivo' : 'Tarjeta'}</td>
                             <td>${valor.estado == 0 ? '<span class="badge bg-green-lt">Pagado</span>' : '<span class="badge bg-orange-lt">Pendiente</span>'}</td>
-                            <td>${valor.tipo_venta == 0 ? 'Menudeo' : 'Mayoreo'}</td>
+                            <td>${valor.tipo_venta == 1 ? 'Menudeo' : valor.tipo_venta == 2 ? 'Mayoreo' : 'Crédito'}</td>
                             <td>${valor.tipo_venta_pago == 0 ? 'Contado' : 'Crédito'}</td>
 
                             <td>
@@ -135,6 +135,10 @@ $('#form-filter').submit(function(e){
     e.preventDefault();
     filtro = $(this).serialize();
     producto = $("#search").val();
+    let modulo = $('#modulo').val();
+    if(modulo == 'cuentas_por_cobrar'){
+        filtro += '&estado=1';
+    }
     getHistorial(tipoFiltro, 0, 5, filtro);
     $('#closeCanvas').trigger('click');
 });

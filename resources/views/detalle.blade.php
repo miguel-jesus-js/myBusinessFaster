@@ -115,7 +115,7 @@
                           <br>
                           <small><strong class="datagrid-title class-name h6">Fecha y hora: </strong> {{ Carbon\Carbon::parse($venta->fecha)->format('d/m/Y h:i:s A')  }}</small>
                           <br>
-                          <small><strong class="datagrid-title class-name h6">Tipo de venta: </strong> {{ $venta->tipo_venta == 0 ? 'Venta a menudeo' : 'Venta a mayoreo' }}</small>
+                          <small><strong class="datagrid-title class-name h6">Tipo de venta: </strong> {{ \App\Models\Venta::TIPO_VENTA[$venta->tipo_venta] }}</small>
                           <br>
                           <small><strong class="datagrid-title class-name h6">Vendedor: </strong> {{ $venta->empleado->persona->nombres}}</small>
                           <br>
@@ -159,26 +159,29 @@
                               <td colspan="4" class="p-1 strong text-end">Total:</td>
                               <td class="p-1 text-end">${{ $venta->total }}</td>
                             </tr>
-                            @if ($venta->tipo_venta_pago == 0)
-                            <tr>
-                                <td colspan="4" class="p-1 strong text-end">Efectivo:</td>
-                                <td class="p-1 text-end">${{ $venta->paga_con }}</td>
-                            </tr>
-                            <tr>
-                                <td colspan="4" class="p-1 strong text-end">Cambio:</td>
-                                <td class="p-1 text-end">${{ $venta->paga_con - $venta->total }}</td>
-                            </tr>
-                            @else
+                            @if ($venta->tipo_venta == 3)
                             <tr>
                                 <td colspan="4" class="p-1 strong text-end">Pago inicial:</td>
                                 <td class="p-1 text-end">${{ $venta->pago_inicial }}</td>
+                            </tr>
+                            <tr>
+                              <td colspan="4" class="p-1 strong text-end">Efectivo:</td>
+                              <td class="p-1 text-end">${{ $venta->paga_con }}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" class="p-1 strong text-end">Cambio:</td>
+                                <td class="p-1 text-end">${{ $venta->paga_con - $venta->pago_inicial }}</td>
+                            </tr>
+                            @else
+                            <tr>
+                                <td colspan="4" class="p-1 strong text-end">Cambio:</td>
+                                <td class="p-1 text-end">${{ $venta->paga_con - $venta->total }}</td>
                             </tr>
                             @endif
                           </tbody>
                         </table>
                       </div>
-                      <br><br>
-                      <div class="row">
+                      <div class="row my-4">
                         <div class="col-md-5">
                           <table class="table bg-white table-bordered">
                             <thead class="disable-selection">
@@ -188,7 +191,7 @@
                               <tbody>
                                 <tr>
                                   <td class="p-1">
-                                      Modalidad: {{ $venta->tipo_venta_pago == 0 ? 'Venta de contado' : 'Venta a crédito' }}
+                                      Modalidad: {{ $venta->tipo_venta == 3 ? 'Venta a crédito' : 'Venta de contado'  }}
                                   </td>
                                 </tr>
                                 <tr>
@@ -199,7 +202,7 @@
                                 <tr>
                                     <td class="p-1">Estado: {{ $venta->estado == 0 ? 'Pagado' : 'Pagos pendientes'}}</td>
                                 </tr>
-                                @if ($venta->tipo_venta_pago == 1)
+                                @if ($venta->tipo_venta == 3)
                                 <tr>
                                     <td class="p-1">
                                         Periodo de pagos: {{ \App\Models\Venta::PERIODO_PAGOS[$venta->periodo_pagos] }}
@@ -211,6 +214,57 @@
                           </table>
                         </div>
                       </div>
+                      @if ($venta->tipo_venta == 3)
+                      <div class="table-responsive">
+                        <table class="table bg-white table-bordered">
+                          <thead class="disable-selection">
+                            <tr>
+                              <th>ID</th>
+                              <th>Empleado</th>
+                              <th>Fecha estimada</th>
+                              <th>Fecha de pago</th>
+                              <th>Anticipo</th>
+                              <th>Monto</th>
+                              <th>Efectivo</th>
+                              <th>Cambio</th>
+                              <th>Tipo de pago</th>
+                              <th>Estado</th>
+                              <th>Acciones</th>
+                            </tr>
+                            <tbody>
+                              @foreach ($venta->pagos as $pago)
+                                <tr>
+                                  <td>{{ $pago->id }}</td>
+                                  <td>{{ $pago->empleado->persona->nombres }}</td>
+                                  <td>{{ Carbon\Carbon::parse($pago->fecha_estimada)->format('d/m/Y h:i:s A') }}</td>
+                                  <td>{{ Carbon\Carbon::parse($pago->fecha)->format('d/m/Y h:i:s A') }}</td>
+                                  <td>{{ $pago->anticipo }}</td>
+                                  <td>{{ $pago->monto }}</td>
+                                  <td>{{ $pago->paga_con }}</td>
+                                  <td>{{ $pago->cambio }}</td>
+                                  <td>{{ $pago->tipo_pago == 0 ? 'Efectivo' : 'Tarjeta' }}</td>
+                                  <td>
+                                    <span class="badge {{ \App\Models\Pago::ARRAY_ESTADOS_COLOR[$pago->estado]}} ">{{ \App\Models\Pago::ARRAY_ESTADOS[$pago->estado]}} </span>
+                                  </td>
+                                  <td>
+                                    @switch($pago->estado)
+                                        @case(1)
+                                            <button type="button" class="btn btn-danger btn-sm">Cancelar</button>
+                                            @break
+                                        @case(2)
+                                          <button type="button" class="btn btn-primary btn-sm" onclick="openModalPago({{$pago->id}}, {{$pago->venta_id}}, {{ $pago->monto}}, {{ $pago->anticipo}})">Realizar pago</button>
+                                            @break
+                                        @default
+                                          <button type="button" class="btn btn-primary btn-sm" onclick="openModalPago({{$pago->id}}, {{$pago->venta_id}}, {{ $pago->monto}}, {{ $pago->anticipo}})">Reintentar pago</button>
+                                    @endswitch
+                                  </td>
+                                </tr>                                  
+                              @endforeach
+                            </tbody>
+                          </thead>
+                        </table>
+                      </div>
+                      @endif
                       <p class="text-muted text-center mt-3">Muchas gracias por hacer negocios con nosotros. ¡Esperamos trabajar con usted nuevamente!</p>
                     </div>
                   </div>
@@ -219,8 +273,60 @@
         </div>
     </div>
 </div>
-<div id="impresion" style="display: none;"></div>
+<div class="modal modal-blur fade" id="modal-realizar-pago" tabindex="-1" style="display: none;" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="modal-title">Realizar pago</h5>
+              <button type="button" class="btn-close" onclick="closeModal('modal-realizar-pago', 'form-add-pago')"></button>
+          </div>
+          <div class="modal-body">
+              <form id="form-add-pago">
+                  <div class="tab-content">
+                      <div id="load-form" class="efecto-cargando">
+                      </div>
+                      <input type="hidden" class="form-control form-control-lg" name="id" id="id" autocomplete="off" required>
+                      <input type="hidden" class="form-control form-control-lg" name="venta_id" id="venta_id" autocomplete="off" required>
+                      <input type="hidden" class="form-control form-control-lg" name="total_pagar" id="total_pagar" autocomplete="off" required>
+                      <div class="row mb-2">
+                        <label class="form-label required">Monto</label>
+                        <div class="input-group">
+                          <span class="input-group-text">
+                              <i class="ti ti-currency-dollar"></i>
+                          </span>
+                          <input type="number" class="form-control form-control-lg" name="monto" id="monto" placeholder="0.00" autocomplete="off" required min="1" step=0.01 disabled>
+                        </div>
+                        <label class="form-label required">Anticipo</label>
+                        <div class="input-group">
+                          <span class="input-group-text">
+                              <i class="ti ti-currency-dollar"></i>
+                          </span>
+                          <input type="number" class="form-control form-control-lg" name="anticipo" id="anticipo" placeholder="0.00" autocomplete="off" required min="0" step=0.01 disabled>
+                        </div>
+                        <label class="form-label required">Efectivo</label>
+                        <div class="input-group">
+                          <span class="input-group-text">
+                              <i class="ti ti-currency-dollar"></i>
+                          </span>
+                          <input type="number" class="form-control form-control-lg" name="paga_con" id="paga_con" placeholder="0.00" autocomplete="off" required min="1" step=0.01>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-red btn-pill" onclick="closeModal('modal-realizar-pago', 'form-add-pago')">Cancelar</button>
+                          <button type="submit" class="btn btn-blue btn-pill">
+                              <span id="load-button" class="spinner-grow spinner-grow-sm me-1 d-none" role="status" aria-hidden="true"></span>
+                              <b id="btn-modal"></b>
+                          </button>
+                      </div>
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>
 
 @endsection
 @section('script')
+  <script src="{{ asset('assets/js/pagos/pagos.js') }}"></script>
+  <script src="{{ asset('assets/js/shared.js') }}"></script>
 @endsection

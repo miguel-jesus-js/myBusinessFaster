@@ -284,7 +284,7 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="pcoded-hasmenu data-item-color">
+                                {{-- <li class="pcoded-hasmenu data-item-color">
                                     <a href="javascript:void(0)" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti ti-brand-cashapp icono"></i></span>
                                         <span class="pcoded-mtext">Pagos</span>
@@ -306,7 +306,7 @@
                                             </a>
                                         </li>
                                     </ul>
-                                </li>
+                                </li> --}}
                                 <li class="{{ (request()->is('asignar_productos')) ? 'active' : '' }} data-item-color">
                                     <a href="/asignar_productos" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti ti-git-branch icono"></i></span>
@@ -326,12 +326,18 @@
                                     </a>
                                 </li>
                                 <li class=" data-item-color">
-                                    <a href="#" class="waves-effect waves-dark">
+                                    <a href="/produccion" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti ti-building-store icono"></i></span>
+                                        <span class="pcoded-mtext">Producción</span>
+                                    </a>
+                                </li>
+                                <li class=" data-item-color">
+                                    <a href="/cuentas_por_cobrar" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti ti-cash icono"></i></span>
                                         <span class="pcoded-mtext">Cuentas por cobrar</span>
                                     </a>
                                 </li>
-                                <li class=" data-item-color">
+                                {{-- <li class=" data-item-color">
                                     <a href="#" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti ti-cash-off icono"></i></span>
                                         <span class="pcoded-mtext">Cuentas por pagar</span>
@@ -349,7 +355,7 @@
                                         <span class="pcoded-mtext">Cotización de compra</span>
                                     </a>
                                 </li>
-                            </ul>
+                            </ul> --}}
                         </div>
                     </nav>
                     <div class="pcoded-content">

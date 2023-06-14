@@ -15,6 +15,7 @@ class Producto extends Model
         'unidad_medida_id',
         'proveedore_id',
         'materiale_id',
+        'parent_id',
         'cod_barra',
         'cod_sat',
         'producto',

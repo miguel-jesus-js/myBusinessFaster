@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\ProductosRequest;
 use App\Http\Requests\ProductosUploadRequest;
+use App\Http\Requests\InsumosRequest;
 use App\Models\Producto;
+use App\Models\ProductosSucursal;
 use App\Models\DetalleCat;
 use App\Models\Caracteristica;
 use App\Models\ImagenesProducto;
@@ -37,7 +39,7 @@ class ProductosController extends Controller
         $afectaVentas   = $request->get('f-afecta_ventas');
         $esProduccion   = $request->get('f-es_produccion');
         
-        $productos = Producto::with(['marcas', 'almacenes', 'unidadMedidas', 'proveedores', 'materiales',  'categorias', 'caracteristicas', 'imagenes'])
+        $productos = Producto::with(['marcas', 'almacenes', 'unidadMedidas', 'proveedores', 'proveedores.persona', 'materiales',  'categorias', 'caracteristicas', 'imagenes'])
                     ->withOrOnlyTrashed($tipo)
                     ->marca($marca)
                     ->almacen($almacen)
@@ -274,5 +276,39 @@ class ProductosController extends Controller
     public function exportarExcel()
     {
         return Excel::download(new ProductosExport, 'Productos.xlsx');
+    }
+    public function getProductosBySucursal($sucursal_id)
+    {
+        $sucursal_id = 1;
+        if(!Auth::user()->is_admin)
+        {
+            $sucursal_id = Auth::user()->sucursal->id;
+        }
+        $productos = Producto::with(['sucursales' => function($query) use ($sucursal_id){
+            $query->where('sucursale_id', $sucursal_id);
+        }])->get();
+        return json_encode($productos);
+    }
+    public function getInsumos($parentId)
+    {
+        $productos = Producto::with(['sucursales'])->where('parent_id', $parentId)->get();
+        return json_encode($productos);
+    }
+    public function createInsumo(InsumosRequest $request)
+    {
+        $sucursale_id = Auth::user()->sucursal->id;
+        $data = $request->all();
+        $producto = ProductosSucursal::where([['sucursale_id', $sucursale_id], ['producto_id', $data['parent_id']]])->first();
+        $insumo = ProductosSucursal::where([['sucursale_id', $sucursale_id], ['producto_id', $data['id']]])->first();
+        $newCantidad = intval($data['cantidad']) * intval($data['cantidad_producto']);
+        try{
+            $producto->stock = $producto->stock - $data['cantidad'];
+            $insumo->stock = $insumo->stock + $newCantidad;
+            $insumo->save();
+            $producto->save();
+            return json_encode(['icon'  => 'success', 'title'   => 'Exitó', 'text'  => 'Producción exitosa']);
+        }catch(\Exception $e){
+            return json_encode(['icon'  => 'error', 'title'   => 'Error', 'text'  => 'Ocurrio un error la producción fallo']);
+        }
     }
 }

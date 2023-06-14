@@ -90,7 +90,7 @@ class User extends Authenticatable
     }
     public function sucursal()
     {
-        return $this->belongsTo(Sucursale::class, 'sucursale_id', 'id');
+        return $this->belongsTo(Sucursale::class, 'sucursale_id', 'id')->withTrashed();
     }
     public function ventas()
     {

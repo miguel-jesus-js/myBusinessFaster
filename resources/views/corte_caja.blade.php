@@ -57,7 +57,7 @@
                         </dl>
                         <div class="hr-text hr-text-left">Caja</div>
                         <dl class="row">
-                            <dt class="col-5">Saldo inicail</dt>
+                            <dt class="col-5">Saldo inicial</dt>
                             <dd class="col-7">${{ $saldoInicial }}</dd>
                             <dt class="col-5">Saldo final</dt>
                             <dd class="col-7">${{ $saldoFinal }}</dd>
