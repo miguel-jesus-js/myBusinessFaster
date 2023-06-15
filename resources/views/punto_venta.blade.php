@@ -204,12 +204,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row d-flex justify-content-end">
-                                            <label class="form-check mb-3">
-                                                <input class="form-check-input" type="checkbox" name="venta_credito" id="check-venta-credito">
-                                                <span class="form-check-label">Aplicar venta a credito</span>
-                                            </label>
-                                        </div>
                                         <div class="row">
                                             <div class="col-md-4 mb-3 d-none" id="div-periodos">
                                                 <label class="form-label required">Periodos de pago</label>
@@ -257,6 +251,26 @@
         $(document).ready(function(){
             let search = window.location.search.split('=');
             tipoVenta = search[1];
+            if(tipoVenta == 3){
+                $('#check-cliente').prop('checked', true);
+                $('#div-periodos').removeClass('d-none');
+                $('#periodo_pagos').prop('disabled', false);
+                $('#div-dias').removeClass('d-none');
+                $('#dias_credito').prop('disabled', false);
+                $('#div-limite').removeClass('d-none');
+                $('#limite_credito').prop('disabled', false);
+                getClientesSelect2();
+                $('#div-cliente').removeClass('d-none');
+                $('#cliente_id').prop('disabled', false);
+                $('#cliente_id').select2({
+                    placeholder: 'Selecciona un cliente',
+                    theme: 'tabler',
+                });
+                $('#paga_con').prop('name', 'pago_inicial');
+                $('#paga_con').prop('min', 0);
+                $('#txt-paga-con').html('PAGO INICIAL:');
+                $('#pago-periodo').removeClass('d-none');
+            }
         });
         $.ajaxSetup({
             headers: {

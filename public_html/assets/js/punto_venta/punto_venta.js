@@ -313,9 +313,6 @@ $('#check-cliente').click(function(){
         $('#cliente_id').prop('disabled', true);
     }
 });
-$('#check-venta-credito').click(function(){
-    applyVentaCredito();
-});
 $('#cliente_id').change(function(){
     let id = parseInt($(this).val());
     let cloneDataCliente = dataCliente.slice();
@@ -323,42 +320,6 @@ $('#cliente_id').change(function(){
     $('#dias_credito').val(filterData[0].dias_credito);
     $('#limite_credito').val(filterData[0].limite_credito);
 })
-function applyVentaCredito(){
-    if($('#check-venta-credito').prop('checked')){
-        $('#check-cliente').prop('checked', true);
-        $('#div-periodos').removeClass('d-none');
-        $('#periodo_pagos').prop('disabled', false);
-        $('#div-dias').removeClass('d-none');
-        $('#dias_credito').prop('disabled', false);
-        $('#div-limite').removeClass('d-none');
-        $('#limite_credito').prop('disabled', false);
-        getClientesSelect2();
-        $('#div-cliente').removeClass('d-none');
-        $('#cliente_id').prop('disabled', false);
-        $('#cliente_id').select2({
-            placeholder: 'Selecciona un cliente',
-            theme: 'tabler',
-        });
-        $('#paga_con').prop('name', 'pago_inicial');
-        $('#paga_con').prop('min', 0);
-        $('#txt-paga-con').html('PAGO INICIAL:');
-        $('#pago-periodo').removeClass('d-none');
-    }else{
-        $('#check-cliente').prop('checked', false);
-        $('#div-cliente').addClass('d-none');
-        $('#cliente_id').prop('disabled', true);
-        $('#div-periodos').addClass('d-none');
-        $('#periodo_pagos').prop('disabled', true);
-        $('#div-dias').addClass('d-none');
-        $('#dias_credito').prop('disabled', true);    
-        $('#div-limite').addClass('d-none');
-        $('#limite_credito').prop('disabled', true);
-        $('#paga_con').prop('name', 'paga_con');
-        $('#paga_con').prop('min', 1);
-        $('#txt-paga-con').html('EFECTIVO:');
-        $('#pago-periodo').addClass('d-none');
-    }
-}
 $('#periodo_pagos').change(function(){
     let total = parseFloat($('#total_pagar').attr('data-total'));
     let periodo = parseFloat($(this).val());

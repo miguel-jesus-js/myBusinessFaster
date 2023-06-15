@@ -262,16 +262,23 @@
                                     </a>
                                     <ul class="pcoded-submenu">
                                         <li class=" ">
-                                            <a href="/punto-de-venta?tipo_venta=0" target="_blank" class="waves-effect waves-dark">
+                                            <a href="/punto-de-venta?tipo_venta=1" target="_blank" class="waves-effect waves-dark">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext">Venta a menudeo</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class=" ">
-                                            <a href="/punto-de-venta?tipo_venta=1" target="_blank" class="waves-effect waves-dark">
+                                            <a href="/punto-de-venta?tipo_venta=2" target="_blank" class="waves-effect waves-dark">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext">Venta a mayoreo</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a href="/punto-de-venta?tipo_venta=3" target="_blank" class="waves-effect waves-dark">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext">Venta a crédito</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
