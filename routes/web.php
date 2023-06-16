@@ -45,7 +45,9 @@ Route::group(['middleware' => 'guest'], function(){
     })->name('login');
     Route::post('api/session', [LoginController::class, 'session']);
 });
-
+Route::get('/token', function () {
+    return csrf_token(); 
+});
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/settings', function () {
         return view('settings');
