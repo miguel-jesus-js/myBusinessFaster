@@ -143,7 +143,6 @@ function getProductosSucursal(tipo, filtro){
                     }else{
                         elimnado = '';
                     }
-                    var porcentaje = (valor.pre_credito / 100) * valor.pre_venta;
                     row += `
                         <tr class="${elimnado}">
                             <td>${valor.sucursales.nombre}</td>
@@ -151,13 +150,13 @@ function getProductosSucursal(tipo, filtro){
                             <td>${formatter.format(valor.pre_compra)}</td>
                             <td>${formatter.format(valor.pre_venta)}</td>
                             <td>${formatter.format(valor.pre_mayoreo)}</td>
-                            <td>${porcentaje + parseFloat(valor.pre_venta)}</td>
+                            <td>${parseFloat(valor.pre_venta) + (parseFloat(valor.pre_venta) * parseFloat(valor.pre_credito))}</td>
                             <td>${valor.stock}</td>
                             <td>
-                                <button type="button" class="btn p-0 border-0"  aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Detalles" onclick="details('${valor.sucursales.nombre}', '${valor.productos.producto}', '${valor.pre_compra}', '${valor.pre_venta}', '${valor.pre_mayoreo}', '${valor.stock}', '${valor.created_at}', '${valor.updated_at}', '${valor.deleted_at}');"><i class="ti ti-eye icono text-success"></i></button>
+                                <button type="button" class="btn p-0 border-0"  aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Detalles" onclick="details('${valor.sucursales.nombre}', '${valor.productos.producto}', '${valor.pre_compra}', '${valor.pre_venta}', '${valor.pre_mayoreo}', '${valor.pre_credito}', '${valor.stock}', '${valor.created_at}', '${valor.updated_at}', '${valor.deleted_at}');"><i class="ti ti-eye icono text-success"></i></button>
                             </td>
                             <td>
-                                <button type="button" class="btn p-0 border-0" onclick="onChange(${valor.id}, ${valor.sucursales.id}, ${valor.productos.id}, '${valor.productos.cod_barra}', '${valor.productos.producto}', '${valor.pre_compra}', '${valor.pre_venta}', '${valor.pre_mayoreo}', '${valor.stock}');"><i class="ti ti-edit icono text-primary"></i></button>
+                                <button type="button" class="btn p-0 border-0" onclick="onChange(${valor.id}, ${valor.sucursales.id}, ${valor.productos.id}, '${valor.productos.cod_barra}', '${valor.productos.producto}', '${valor.pre_compra}', '${valor.pre_venta}', '${valor.pre_mayoreo}', '${valor.pre_credito}', '${valor.stock}');"><i class="ti ti-edit icono text-primary"></i></button>
                             </td>
                             <td>
                                 <button type="button" class="btn p-0 border-0" onclick="confirmDelete(${valor.id}, '${valor.productos.producto +' de la sucursal'+ valor.sucursales.nombre}', 'api/deleteProductosSucursal/', 'articulo', 'el');"><i class="ti ti-trash icono text-danger"></i></button>
@@ -177,7 +176,7 @@ function getProductosSucursal(tipo, filtro){
         }
     })
 }
-function onChange(id, sucursale_id, producto_id, cod_barra, producto, pre_compra, pre_venta, pre_mayoreo, stock){
+function onChange(id, sucursale_id, producto_id, cod_barra, producto, pre_compra, pre_venta, pre_mayoreo, pre_credito, stock){
     idSucursal = sucursale_id;
     $('#id').val(id);
     $('#sucursale_id').val(sucursale_id);
@@ -187,11 +186,6 @@ function onChange(id, sucursale_id, producto_id, cod_barra, producto, pre_compra
                 <td  class="d-none">${producto_id}</td>
                 <td>${cod_barra}</td>
                 <td>${producto}</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
                 <td>
                     <input type="number" class="form-control" name="pre_compra[]" placeholder="Precio de compra" autocomplete="off" required min="1" max="100000" minlength="1" maxlength="7" step=0.01 value="${pre_compra}">
                 </td>
@@ -201,6 +195,9 @@ function onChange(id, sucursale_id, producto_id, cod_barra, producto, pre_compra
                 <td>
                     <input type="number" class="form-control" name="pre_mayoreo[]" placeholder="Precio por mayoreo" autocomplete="off" required min="1" max="100000" minlength="1" maxlength="7" step=0.01 value="${pre_mayoreo}">
                 </td>
+                <td>
+                    <input type="number" class="form-control" name="pre_credito[]" placeholder="Precio de crédito" autocomplete="off" required min="1" max="100000" minlength="1" maxlength="7" step=0.01 value="${pre_credito}">
+                </td>
                 <td><input type="number" class="form-control" name="stock=[]" placeholder="Stock" autocomplete="off" min="1" max="100000" minlength="1" maxlength="7" value="${stock}"></td>
             </tr>
             `;
@@ -208,7 +205,7 @@ function onChange(id, sucursale_id, producto_id, cod_barra, producto, pre_compra
     getSucursales();
     openModal('modal-add-producto_sucursal', 'productos_sucursal', 1);
 }
-function details(sucursal, producto, pre_compra, pre_venta, pre_mayoreo, stock, created_at, updated_at, deleted_at){
+function details(sucursal, producto, pre_compra, pre_venta, pre_mayoreo, pre_credito, stock, created_at, updated_at, deleted_at){
     const formatter = new Intl.NumberFormat('es-MX', {
         style: 'currency',
         currency: 'MXN',
@@ -220,6 +217,7 @@ function details(sucursal, producto, pre_compra, pre_venta, pre_mayoreo, stock, 
     $('#nom-pre_compra').html(formatter.format(pre_compra));
     $('#nom-pre_venta').html(formatter.format(pre_venta));
     $('#nom-pre_mayoreo').html(formatter.format(pre_mayoreo));
+    $('#nom-pre_credito').html(formatter.format(pre_credito));
     $('#nom-stock').html(stock);
     let creacion = new Date(created_at);
     let actualizacion = new Date(updated_at);

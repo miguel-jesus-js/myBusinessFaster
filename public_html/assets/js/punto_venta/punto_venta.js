@@ -56,14 +56,26 @@ $('#form-search-producto').submit(function(e){
 $('#form-add-venta').submit(function(e){
     e.preventDefault();
     let pagaCon = parseFloat($('#paga_con').val());
+    let pago_inicial = parseFloat($('#pago_inicial').val());
     let total = parseFloat($('#total_pagar').attr('data-total'));
-    if(pagaCon < total && !$('#check-venta-credito').prop('checked')){
-        Toast.fire({
-            icon: 'warning',
-            title: 'Advertencia',
-            text: 'El efectivo es menor al total a pagar'
-        });
-        return;
+    if(tipoVenta == 3){
+        if(pagaCon < pago_inicial){
+            Toast.fire({
+                icon: 'warning',
+                title: 'Advertencia',
+                text: 'El efectivo es menor al pago inicial'
+            });
+            return;
+        }
+    }else{
+        if(pagaCon < total){
+            Toast.fire({
+                icon: 'warning',
+                title: 'Advertencia',
+                text: 'El efectivo es menor al total a pagar'
+            });
+            return;
+        }
     }
 
     let data = $(this).serialize();
@@ -92,11 +104,11 @@ $('#form-add-venta').submit(function(e){
             let respuesta = JSON.parse(response);
 
             if(respuesta.icon == 'success'){
-                let cambio = $('#check-venta-credito').prop('checked') ? 0 : pagaCon - total;
+                let cambio = tipoVenta == 3 ? pagaCon - pago_inicial: pagaCon - total;
                 msjInfo('success', 'VENTA EXITOSA', '<p><h3>¡¡¡ Felicidades !!!</h3></p> <p>Sigue incrementanto tus ventas</p> <h1>CAMBIO</h1> <h1>$'+cambio.toFixed(2)+'</h1>', false, 'Aceptar', resetForm, '');
+                $('#pago-periodo').html('');
                 let url = window.location;
-                window.open(url.origin+'/api/print/'+respuesta.venta_id,'_blank')
-                //generateTicket(respuesta);
+                window.open(url.origin+'/api/ticket/'+respuesta.venta_id+'?isPrint=true','_blank')
             }else{
                 Toast.fire({
                     icon: respuesta.icon,
@@ -112,7 +124,8 @@ $('#form-add-venta').submit(function(e){
 })
 function addProducto(data){
     let cantidad = parseInt($('#cantidad_pro').val());
-    let precio = tipoVenta == 0 ? parseFloat(data.sucursales[0].pivot.pre_venta) : parseFloat(data.sucursales[0].pivot.pre_mayoreo);
+    let tipos_de_precio = [parseFloat(data.sucursales[0].pivot.pre_venta), parseFloat(data.sucursales[0].pivot.pre_mayoreo), parseFloat(data.sucursales[0].pivot.pre_venta) + (parseFloat(data.sucursales[0].pivot.pre_venta) * parseFloat(data.sucursales[0].pivot.pre_credito))];
+    let precio = tipos_de_precio[tipoVenta-1];
     let importe = cantidad * precio;
     let cod_barra = $('#cod_barra_search').val().replace(/\s/g, '');
     let existeProducto = false
@@ -150,7 +163,7 @@ function addProducto(data){
                                 <span class="input-icon-addon">
                                     <i class="ti ti-currency-dollar"></i>
                                 </span>
-                                <input type="text" class="form-control form-control-sm input-table" name="pre_venta[]" value="${precio}" readonly>
+                                <input type="number" class="form-control form-control-sm input-table input-precio" name="pre_venta[]" value="${precio}" step="0.01" readonly>
                             </div>
                         </td>
                         <td>
@@ -205,8 +218,10 @@ function calculateTotals(){
     let totalPagar = parseFloat(importe) + parseFloat(iva);
     $('#iva').val(iva.toFixed(2));
     $('#subtotal').val(importe);
-    $('#total_pagar').html('$' + totalPagar.toFixed(2));
     $('#total_pagar').attr('data-total', totalPagar.toFixed(2));
+    if(tipoVenta != 3){
+        $('#total_pagar').html('$' + totalPagar.toFixed(2));
+    }
 }
 $(document).on('click', '.increaseAmount', function(){
     increaseincreaseAmount($(this), 'increase');
@@ -321,10 +336,29 @@ $('#cliente_id').change(function(){
     $('#limite_credito').val(filterData[0].limite_credito);
 })
 $('#periodo_pagos').change(function(){
-    let total = parseFloat($('#total_pagar').attr('data-total'));
+    let total = parseFloat($('#total_pagar').attr('data-total')) - parseFloat($('#pago_inicial').val());
     let periodo = parseFloat($(this).val());
-    let periodo_pagos = {1: [7, 'Semanal'], 2: [15, 'Quincenal'], 3: [30, 'Mensual']};
-    let monto_periodo = total / periodo_pagos[periodo][0];
+    let periodo_pagos = {1: [7, 'Semanas'], 2: [15, 'Quincenas'], 3: [30, 'Meses']};
+    let plazos = Math.round(parseInt($('#dias_credito').val()) / periodo_pagos[periodo][0]);
+    let monto_periodo = total / plazos;
     let text = periodo_pagos[periodo][1]+' x $'+monto_periodo.toFixed(2);
-    $('#pago-periodo').html(text);
-})
+    $('#pago-periodo').html(plazos+' '+text);
+});
+$('#pago_inicial').keyup(function(){
+    $('#total_pagar').html('$'+$(this).val()+'.00');
+    //$('#total_pagar').attr('data-total', $(this).val());
+});
+$(document).on('click', '.input-precio', function(){
+    $(this).prop('readonly', false);
+    $(this).removeClass('input-table');
+});
+$(document).on('keydown', '.input-precio', function(){
+    if(event.keyCode == 13){
+        $(this).prop('readonly', true);
+        $(this).addClass('input-table');
+        let col_cantidad = $(this).closest('tr').children()[5];
+        let col_importe = $(this).closest('tr').children()[6];
+        $(col_importe).find('input').val(parseFloat($(this).val()) * $(col_cantidad).find('input').val());
+        calculateTotals();
+    }
+});

@@ -124,6 +124,7 @@
                                 <th>P. venta</th>
                                 <th>P. compra</th>
                                 <th>P. mayoreo</th>
+                                <th>P.de crédito</th>
                                 <th>Stock</th>
                                 <th colspan="3" class="text-center">Acciones</th>
                             </tr>
@@ -181,6 +182,7 @@
                                             <th>P.de compra</th>
                                             <th>P.de venta</th>
                                             <th>P.de mayoreo</th>
+                                            <th>P.de crédito</th>
                                             <th>Stock</th>
                                         </tr>
                                     </thead>
@@ -256,6 +258,8 @@
                 <p id="nom-pre_venta"></p>
                 <label class="form-label">Precio de mayoreo:</label>
                 <p id="nom-pre_mayoreo"></p>
+                <label class="form-label">Precio de cédito:</label>
+                <p id="nom-pre_credito"></p>
                 <label class="form-label">Stock:</label>
                 <p id="nom-stock"></p>
                 <label class="form-label">Fecha de creación:</label>

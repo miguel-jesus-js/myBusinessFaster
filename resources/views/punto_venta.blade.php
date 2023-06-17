@@ -191,6 +191,19 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="row mb-2 d-flex justify-content-end d-none" id="div-pago-inicial">
+                                            <div class="col-auto">
+                                                <h5 id="txt-paga-con">PAGO INICIAL:</h5>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="input-group">
+                                                    <span class="input-group-text">
+                                                        <i class="ti ti-currency-dollar"></i>
+                                                    </span>
+                                                    <input type="number" class="form-control form-control-lg" name="pago_inicial" id="pago_inicial" placeholder="0.00" autocomplete="off" required min="1" step=0.01>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="row mb-2 d-flex justify-content-end">
                                             <div class="col-auto">
                                                 <h5 id="txt-paga-con">EFECTIVO:</h5>
@@ -266,10 +279,10 @@
                     placeholder: 'Selecciona un cliente',
                     theme: 'tabler',
                 });
-                $('#paga_con').prop('name', 'pago_inicial');
-                $('#paga_con').prop('min', 0);
-                $('#txt-paga-con').html('PAGO INICIAL:');
+                $('#div-pago-inicial').removeClass('d-none');
                 $('#pago-periodo').removeClass('d-none');
+            }else{
+                $('#pago_inicial').prop('disabled', true);
             }
         });
         $.ajaxSetup({

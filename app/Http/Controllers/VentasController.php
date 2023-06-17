@@ -75,7 +75,7 @@ class VentasController extends Controller
                 'descuento'         => floatval($data['descuento']),
                 'total'             => (floatval($data['subtotal']) + floatval($data['iva'])) - floatval($data['descuento']),
                 'paga_con'          => floatval($data['paga_con']) ,
-                'pago_inicial'      => floatval($data['pago_inicial']),
+                'pago_inicial'      => isset($data['pago_inicial']) ?  floatval($data['pago_inicial']) : 0,
                 'tipo_pago'         => 0,
                 'estado'            => $request->get('tipo_venta') == 3 ? 1 : 0,
                 'tipo_venta'        => $request->get('tipo_venta'),
@@ -119,7 +119,7 @@ class VentasController extends Controller
                         'monto'         => $monto_perido,
                         'paga_con'      => 0,
                         'cambio'        => 0,
-                        'estado'        => 1,
+                        'estado'        => 2,
                         'tipo_pago'     => false,
                     ];
                     Pago::create($array_pagos);
