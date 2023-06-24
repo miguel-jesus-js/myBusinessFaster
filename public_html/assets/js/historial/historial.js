@@ -1,7 +1,7 @@
-function getHistorial(tipo, offset, limit, filtro){
+function getHistorial(tipo, offset, limit, filtro, ventaCompra){
     $.ajax({
         'type': 'GET',
-        'url': '/api/getVentas/'+tipo+'?offset='+offset+'&limit='+limit+'&'+filtro,
+        'url': '/api/getVentas/'+tipo+'?offset='+offset+'&limit='+limit+'&tipo='+ventaCompra+'&'+filtro,
         beforeSend: function(){
             $('#table-historial tbody').empty();
             $('#table-historial tbody').html('<tr id="load-almacenes"><td colspan="15"><center><h1>Cargando<span class="animated-dots"></span></h1></center></td></tr>');
@@ -26,7 +26,7 @@ function getHistorial(tipo, offset, limit, filtro){
                     row += `
                         <tr class="${elimnado}">
                             <td>${valor.folio}</td>
-                            <td>${valor.sucursal}</td>
+                            <td>${valor.sucursal.nombre}</td>
                             <td>${valor.cliente_id == null ? 'Publico en general' : valor.cliente.persona.nombres}</td>}</td>
                             <td>${valor.empleado.persona.nombres}</td>}</td>
                             <td>${valor.fecha}</td>
@@ -42,7 +42,7 @@ function getHistorial(tipo, offset, limit, filtro){
                             <td>${valor.tipo_venta_pago == 0 ? 'Contado' : 'Crédito'}</td>
 
                             <td>
-                                <a href="/api/detalle_venta/${valor.id}" class="btn p-0 border-0"><i class="ti ti-list-details icono text-dark"></i></a>
+                                <a href="/detalle/${valor.id}" class="btn p-0 border-0"><i class="ti ti-list-details icono text-dark"></i></a>
                             </td>
                             <td>
                                 <button type="button" class="btn p-0 border-0" onclick="confirmDelete(${valor.id}, 'con folio: ${valor.folio}', 'api/deleteSucursales/', 'historial', 'el');"><i class="ti ti-trash icono text-danger"></i></button>

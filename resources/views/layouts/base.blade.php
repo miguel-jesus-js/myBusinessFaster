@@ -332,16 +332,22 @@
                                         <span class="pcoded-mtext">Corte de caja</span>
                                     </a>
                                 </li>
-                                <li class=" data-item-color">
+                                <li class="{{ (request()->is('produccion')) ? 'active' : '' }} data-item-color">
                                     <a href="/produccion" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti ti-building-store icono"></i></span>
                                         <span class="pcoded-mtext">Producción</span>
                                     </a>
                                 </li>
-                                <li class=" data-item-color">
+                                <li class="{{ (request()->is('cuentas_por_cobrar')) ? 'active' : '' }} data-item-color">
                                     <a href="/cuentas_por_cobrar" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti ti-cash icono"></i></span>
                                         <span class="pcoded-mtext">Cuentas por cobrar</span>
+                                    </a>
+                                </li>
+                                <li class="{{ (request()->is('compras')) ? 'active' : '' }} data-item-color">
+                                    <a href="/compras" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti ti-brand-shopee icono"></i></span>
+                                        <span class="pcoded-mtext">Compras</span>
                                     </a>
                                 </li>
                                 {{-- <li class=" data-item-color">

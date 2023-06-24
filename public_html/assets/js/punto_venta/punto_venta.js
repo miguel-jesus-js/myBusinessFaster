@@ -1,5 +1,6 @@
 var tipoVenta;
-var dataCliente
+var dataCliente;
+var idProveedor;
 function reloj() {
     let fecha = new Date(); //Actualizar fecha.
     let hora = fecha.getHours(); //hora actual
@@ -79,6 +80,10 @@ $('#form-add-venta').submit(function(e){
     }
 
     let data = $(this).serialize();
+    if($('#tipo').val() == 1){
+        debugger;
+        data+= '&'+$('#proveedore_id').serialize();
+    }
     let carrito = [];
     $('input[name="cod_barra[]"]').each(function(){
         let producto = {};
@@ -104,6 +109,10 @@ $('#form-add-venta').submit(function(e){
             let respuesta = JSON.parse(response);
 
             if(respuesta.icon == 'success'){
+                if($('#tipo').val() == 1){
+                    closeModal('modal-compra', 'form-add-compra');
+                    getHistorial(2, 0, 5, '', 1);
+                }
                 let cambio = tipoVenta == 3 ? pagaCon - pago_inicial: pagaCon - total;
                 msjInfo('success', 'VENTA EXITOSA', '<p><h3>¡¡¡ Felicidades !!!</h3></p> <p>Sigue incrementanto tus ventas</p> <h1>CAMBIO</h1> <h1>$'+cambio.toFixed(2)+'</h1>', false, 'Aceptar', resetForm, '');
                 $('#pago-periodo').html('');
@@ -279,7 +288,6 @@ function cleanCart(){
 function resetForm(){
     cleanCart();
     $('#form-add-venta').trigger('reset');
-    applyVentaCredito();
     setTimeout(() => {
         $('#cod_barra_search').focus();
     }, 500);
@@ -362,3 +370,28 @@ $(document).on('keydown', '.input-precio', function(){
         calculateTotals();
     }
 });
+function getProveedores() {
+    let selectUnidad = $('#proveedore_id');
+    if (selectUnidad[0].children.length <= 1) {
+        $.ajax({
+            'type': 'GET',
+            'url': 'api/getProveedores/2',
+            async: false,
+            beforeSend: function () {
+                $('#load-select3').html('Cargando...');
+                $('#f-load-select3').html('Cargando...');
+            },
+            success: function (response) {
+                $('#load-select3').html('Elige una opción');
+                $('#f-load-select3').html('Elige una opción');
+                let data = JSON.parse(response);
+                let option = '';
+                $.each(data, function (index, valor) {
+                    option += `<option value="${valor.id}">${valor.persona.nombres} - (${valor.empresa == null ? '' : valor.empresa})</option>`;
+                });
+                $('#proveedore_id').append(option);
+                $('#f-proveedore_id').append(option);
+            }
+        });
+    }
+}

@@ -28,6 +28,9 @@
       <br>
       <div class="row">
         <div class="col-6">
+          <small><strong class="datagrid-title class-name h4">Datos de proveedor</strong></small>
+          <br>
+          <br>
           <small><strong class="datagrid-title class-name h6">Nombre o razón social: </strong> {{ $setting->razon_social }}</small>
           <br>
           <small><strong class="datagrid-title class-name h6">Número de identificación fiscal: </strong> {{ $venta->sucursal->rfc }}</small>
@@ -44,35 +47,69 @@
           <br>
           <small><strong class="datagrid-title class-name h6">Correo electrónico: </strong> {{ $venta->sucursal->correo }}</small>
         </div>
-        @if ($venta->cliente_id == null)
-        <div class="col-6 text-justify">
-          <small><strong class="datagrid-title class-name h6">Venta al publico en general</strong></small>
-        </div>
+        @if ($venta->tipo == 0)    
+          @if ($venta->cliente_id == null)
+            <div class="col-6 text-justify">
+              <small><strong class="datagrid-title class-name h6">Venta al publico en general</strong></small>
+            </div>
+          @else
+            <div class="col-6 text-justify">
+              <small><strong class="datagrid-title class-name h4">Datos del cliente</strong></small>
+              <br>
+              <br>
+              <small><strong class="datagrid-title class-name h6">Nombre o razón social: </strong> {{ $venta->cliente->persona->nombres }}</small>
+              <br>
+              <small><strong class="datagrid-title class-name h6">Número de identificación fiscal: </strong> {{ $venta->cliente->persona->rfc }}</small>
+              <br>
+              <small>
+                <address>
+                  <strong class="datagrid-title class-name h6">Dirección: </strong>
+                  {{$venta->cliente->calle.' '.$venta->cliente->n_exterior}}<br>
+                  {{$venta->cliente->colonia.', '.$venta->cliente->cp}}<br>
+                  {{$venta->cliente->municipio.', '.$venta->cliente->estado.', '.$venta->cliente->ciudad}}<br>
+                </address>
+              </small>
+              <small><strong class="datagrid-title class-name h6">Teléfono: </strong> {{ $venta->cliente->persona->telefono }}</small>
+              <br>
+              <small><strong class="datagrid-title class-name h6">Correo electrónico: </strong> {{ $venta->cliente->persona->email }}</small>
+            </div>
+          @endif
         @else
-        <div class="col-6 text-justify">
-          <small><strong class="datagrid-title class-name h6">Nombre o razón social: </strong> {{ $venta->cliente->persona->nombres }}</small>
-          <br>
-          <small><strong class="datagrid-title class-name h6">Número de identificación fiscal: </strong> {{ $venta->cliente->persona->rfc }}</small>
-          <br>
-          <small>
-            <address>
-              <strong class="datagrid-title class-name h6">Dirección: </strong>
-              {{$venta->cliente->calle.' '.$venta->cliente->n_exterior}}<br>
-              {{$venta->cliente->colonia.', '.$venta->cliente->cp}}<br>
-              {{$venta->cliente->municipio.', '.$venta->cliente->estado.', '.$venta->cliente->ciudad}}<br>
-            </address>
-          </small>
-          <small><strong class="datagrid-title class-name h6">Teléfono: </strong> {{ $venta->cliente->persona->telefono }}</small>
-          <br>
-          <small><strong class="datagrid-title class-name h6">Correo electrónico: </strong> {{ $venta->cliente->persona->email }}</small>
-        </div>
+          <div class="col-6 text-justify">
+            <small><strong class="datagrid-title class-name h4">Datos de proveedor</strong></small>
+            <br>
+            <br>
+            <small><strong class="datagrid-title class-name h6">Nombre o razón social: </strong> {{ $venta->proveedor->persona->nombres }}</small>
+            <br>
+            <small><strong class="datagrid-title class-name h6">Número de identificación fiscal: </strong> {{ $venta->proveedor->persona->rfc }}</small>
+            <br>
+            <small><strong class="datagrid-title class-name h6">Empresa: </strong> {{ $venta->proveedor->empresa }}</small>
+            <br>
+            <small><strong class="datagrid-title class-name h6">Clave: </strong> {{ $venta->proveedor->clave }}</small>
+            <br>
+            <small>
+              <address>
+                <strong class="datagrid-title class-name h6">Dirección: </strong>
+                {{$venta->proveedor->calle.' '.$venta->proveedor->n_exterior}}<br>
+                {{$venta->proveedor->colonia.', '.$venta->proveedor->cp}}<br>
+                {{$venta->proveedor->municipio.', '.$venta->proveedor->estado.', '.$venta->proveedor->ciudad}}<br>
+              </address>
+            </small>
+            <small><strong class="datagrid-title class-name h6">Teléfono: </strong> {{ $venta->proveedor->persona->telefono }}</small>
+            <br>
+            <small><strong class="datagrid-title class-name h6">Correo electrónico: </strong> {{ $venta->proveedor->persona->email }}</small>
+          </div>
         @endif
         <div class="col-12 my-3">
           <small><strong class="datagrid-title class-name h6">Número de folio: </strong> {{ $venta->folio }}</small>
           <br>
           <small><strong class="datagrid-title class-name h6">Fecha y hora: </strong> {{ Carbon\Carbon::parse($venta->fecha)->format('d/m/Y h:i:s A')  }}</small>
           <br>
-          <small><strong class="datagrid-title class-name h6">Tipo de venta: </strong> {{ \App\Models\Venta::TIPO_VENTA[$venta->tipo_venta] }}</small>
+          @if ($venta->tipo == 0)  
+            <small><strong class="datagrid-title class-name h6">Tipo de venta: </strong> {{ \App\Models\Venta::TIPO_VENTA[$venta->tipo_venta] }}</small>
+          @else
+            <small><strong class="datagrid-title class-name h6">Tipo de compra: </strong> {{ \App\Models\Venta::TIPO_COMPRA[$venta->tipo_venta] }}</small>
+          @endif
           <br>
           <small><strong class="datagrid-title class-name h6">Vendedor: </strong> {{ $venta->empleado->persona->nombres}}</small>
           <br>
@@ -87,7 +124,7 @@
               <th>Producto</th>
               <th>Cantidad</th>
               <th>Precio unitario</th>
-              <th>Total</th>
+              <th>Importe</th>
             </tr>
           </thead>
           <tbody>
@@ -149,7 +186,12 @@
               <tbody>
                 <tr>
                   <td class="p-1">
-                      Modalidad: {{ $venta->tipo_venta == 3 ? 'Venta a crédito' : 'Venta de contado' }}
+                    Modalidad: 
+                    @if ($venta->tipo == 1)
+                      Compra de contado
+                    @else
+                      {{ $venta->tipo_venta == 3 ? 'Venta a crédito' : 'Venta de contado'  }}    
+                    @endif
                   </td>
                 </tr>
                 <tr>
@@ -172,7 +214,9 @@
           </table>
         </div>
       </div>
-      <p class="text-muted text-center mt-3">Muchas gracias por hacer negocios con nosotros. ¡Esperamos trabajar con usted nuevamente!</p>
+      @if ($venta->tipo == 0)  
+        <p class="text-muted text-center mt-3">Muchas gracias por hacer negocios con nosotros. ¡Esperamos trabajar con usted nuevamente!</p>
+      @endif
     <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
     <script>
       $(window).on("load", function() {

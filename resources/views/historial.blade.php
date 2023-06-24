@@ -186,7 +186,6 @@
 <script>
     $( document ).ready(function() {
         getHistorial(2, 0, 5, '');
-        $("#modal-categoria").draggable();
     });
 </script>
 @endsection

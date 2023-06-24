@@ -12,6 +12,7 @@ class Venta extends Model
     protected $fillable = [
         'user_id',
         'cliente_id',
+        'proveedore_id',
         'sucursale_id',
         'direcciones_entrega_id',
         'folio',
@@ -27,7 +28,7 @@ class Venta extends Model
         'tipo_venta',//1-Venta a menudeo, 2-Venta a mayoreo, 3-Venta a crédito
         'tipo_venta_pago',//0-Venta al contado, 1-Venta a crédito
         'periodo_pagos',
-        'tipo'
+        'tipo'//0-Venta, 1-Compra
     ];
 
     const TIPO_VENTA_MENUDEO = 1;
@@ -37,6 +38,12 @@ class Venta extends Model
         self::TIPO_VENTA_MENUDEO    => 'Venta a menudeo',
         self::TIPO_VENTA_MAYOREO    => 'Venta a mayoreo',
         self::TIPO_VENTA_CREDITO    => 'Venta a crédito',
+    ];
+
+    const TIPO_COMPRA= [
+        self::TIPO_VENTA_MENUDEO    => 'Compra a menudeo',
+        self::TIPO_VENTA_MAYOREO    => 'Compra a mayoreo',
+        self::TIPO_VENTA_CREDITO    => 'Compra a crédito',
     ];
 
     const PERIODO_PAGO_SEMANAL      = 1;
@@ -119,6 +126,10 @@ class Venta extends Model
     public function cliente()
     {
         return $this->belongsTo(Cliente::class, 'cliente_id', 'id');
+    }
+    public function proveedor()
+    {
+        return $this->belongsTo(Proveedore::class, 'proveedore_id', 'id');
     }
     public function sucursal()
     {

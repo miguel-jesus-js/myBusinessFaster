@@ -106,6 +106,9 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/produccion', function () {
         return view('produccion');
     });
+    Route::get('/compras', function () {
+        return view('compras');
+    });
 
     Route::get('api/getRoles', [RolesController::class, 'index']);
     Route::get('api/getModulos', [ModulosController::class, 'index']);
@@ -251,7 +254,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/dashboard', [VentasController::class, 'dashboard']);
     Route::post('api/addVenta', [VentasController::class, 'create']);
     Route::get('api/getVentas/{tipo}', [VentasController::class, 'index']);
-    Route::get('api/detalle_venta/{id}', [VentasController::class, 'show']);
+    Route::get('detalle/{id}', [VentasController::class, 'show']);
     Route::get('api/remision/{id}', [VentasController::class, 'remision']);    
     Route::get('api/ticket/{id}', [VentasController::class, 'ticket']);    
     Route::get('api/saleByEmployees', [VentasController::class, 'saleByEmployees']);

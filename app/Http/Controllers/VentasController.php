@@ -29,6 +29,7 @@ class VentasController extends Controller
         $offset         = $request->get('offset');
         $limit          = $request->get('limit');
         $estado         = $request->get('estado');
+        $tipo           = $request->get('tipo');
 
         $ventas         = Venta::with(['sucursal', 'cliente', 'empleado.persona', 'cliente.persona'])
                             ->folio($folio)
@@ -39,6 +40,7 @@ class VentasController extends Controller
                             ->fechaFin($fecha_fin)
                             ->offset($offset)
                             ->limit($limit)
+                            ->where('tipo', $tipo)
                             ->when($estado == 1, function($query){
                                 return $query->where('estado', 1);
                             })
@@ -50,6 +52,7 @@ class VentasController extends Controller
                             ->cliente($cliente_id)
                             ->fechaIni($fecha_ini)
                             ->fechaFin($fecha_fin)
+                            ->where('tipo', $tipo)
                             ->when($estado == 1, function($query){
                                 return $query->where('estado', 1);
                             })
@@ -67,6 +70,7 @@ class VentasController extends Controller
             $datos_venta = [
                 'user_id'           => Auth::user()->id,
                 'cliente_id'        => isset($data['cliente_id']) ? $data['cliente_id'] : null,
+                'proveedore_id'     => isset($data['proveedore_id']) ? $data['proveedore_id'] : null,
                 'sucursale_id'      => Auth::user()->sucursal->id,
                 'folio'             => $folio == null ? 1 : $folio->folio + 1,
                 'fecha'             => $fecha->format('Y-m-d H:i:s'),
@@ -81,7 +85,7 @@ class VentasController extends Controller
                 'tipo_venta'        => $request->get('tipo_venta'),
                 'tipo_venta_pago'   => 0,
                 'periodo_pagos'     => isset($data['periodo_pagos']) ? $data['periodo_pagos'] : null,
-                'tipo'              => 1,
+                'tipo'              => $data['tipo'],
             ];
             $venta = Venta::create($datos_venta);
             foreach($carrito as $producto)
@@ -95,7 +99,12 @@ class VentasController extends Controller
                 ];
                 $venta->productos()->attach($producto->producto_id, $datos_detalle);
                 $cantidadActual = ProductosSucursal::where([['sucursale_id', Auth::user()->sucursal->id], ['producto_id', $producto->producto_id]])->first();
-                $newCantidad = intval($cantidadActual->stock) - intval($producto->cantidad);
+                if($data['tipo'] == 0)
+                {
+                    $newCantidad = intval($cantidadActual->stock) - intval($producto->cantidad);
+                }else{
+                    $newCantidad = intval($cantidadActual->stock) + intval($producto->cantidad);
+                }
                 $cantidadActual->update(['stock' => $newCantidad]);
             }
             if(isset($data['periodo_pagos']))

@@ -177,6 +177,13 @@ function openModal(id_modal, modulo, tipo){
                 $('#modal-title-perfil').html('Editar perfil');
             }
             break;
+        case 'compras':
+            if(tipo == 0){
+                $('#modal-title').html('Agregar compra');
+            }else if(tipo == 1){
+                $('#modal-title').html('Editar compra');
+            }
+            break;
     }
     $('#'+id_modal).modal({backdrop: 'static', keyboard: false});
     if(tipo == 3){
