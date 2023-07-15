@@ -62,6 +62,9 @@ function filterGeneral(modulo, tipo){
         case 'gastos':
             getGastos(tipoFiltro, '');
             break;
+        case 'inventario':
+            getinventario(tipoFiltro, '');
+            break;
     }
 }
 $("#search").keyup(function() {
@@ -69,7 +72,6 @@ $("#search").keyup(function() {
     switch(modulo){
         case 'usuarios':
             getUsuarios(tipoFiltro, $(this).val());
-            break; 
             break; 
         case 'marcas':
             getMarcas(tipoFiltro, $(this).val());
@@ -112,6 +114,9 @@ $("#search").keyup(function() {
             break;
         case 'gastos':
             getGastos(tipoFiltro, $(this).val());
+            break;
+        case 'inventario':
+            getinventario(tipoFiltro,  $(this).val());
             break;
     }
 });

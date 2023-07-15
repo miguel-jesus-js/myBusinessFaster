@@ -157,7 +157,7 @@
                                                         <i class="ti ti-currency-dollar"></i>
                                                     </span>
                                                     <input type="number" class="form-control form-control-lg" name="subtotal" id="subtotal" placeholder="0.00" required autocomplete="off" readonly min="1" step=0.01>
-                                                    <input type="hidden" name="tipo"  required autocomplete="off" readonly value="1">
+                                                    <input type="hidden" name="tipo"  required autocomplete="off" readonly value="0">
                                                 </div>
                                             </div>
                                         </div>

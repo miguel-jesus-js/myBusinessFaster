@@ -291,6 +291,36 @@
                                         </li>
                                     </ul>
                                 </li>
+                                <li class="pcoded-hasmenu data-item-color">
+                                    <a href="javascript:void(0)" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti ti-clipboard-list icono"></i></span>
+                                        <span class="pcoded-mtext">Inventario</span>
+                                        <span class="ti ti-chevron-down acordeon"></span>
+                                    </a>
+                                    <ul class="pcoded-submenu">
+                                        <li class=" ">
+                                            <a href="/entradas" class="waves-effect waves-dark">
+                                                <span class="pcoded-micon"><i class="ti ti-plus"></i></span>
+                                                <span class="pcoded-mtext">Entradas</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a href="/salidas" class="waves-effect waves-dark">
+                                                <span class="pcoded-micon"><i class="ti ti-minus"></i></span>
+                                                <span class="pcoded-mtext">Salidas</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a href="/inventario" class="waves-effect waves-dark">
+                                                <span class="pcoded-micon"><i class="ti ti-clipboard-list"></i></span>
+                                                <span class="pcoded-mtext">Inventario</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
                                 {{-- <li class="pcoded-hasmenu data-item-color">
                                     <a href="javascript:void(0)" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti ti-brand-cashapp icono"></i></span>

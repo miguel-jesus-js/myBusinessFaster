@@ -25,7 +25,7 @@ use App\Http\Controllers\TipoGastosController;
 use App\Http\Controllers\GastosController;
 use App\Http\Controllers\CortesController;
 use App\Http\Controllers\PagosController;
-use App\Http\Controllers\ProduccionController;
+use App\Http\Controllers\InventarioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -108,6 +108,15 @@ Route::group(['middleware' => 'auth'], function(){
     });
     Route::get('/compras', function () {
         return view('compras');
+    });
+    Route::get('/salidas', function () {
+        return view('salidas');
+    });
+    Route::get('/entradas', function () {
+        return view('entradas');
+    });
+    Route::get('/inventario', function () {
+        return view('inventario');
     });
 
     Route::get('api/getRoles', [RolesController::class, 'index']);
@@ -279,10 +288,14 @@ Route::group(['middleware' => 'auth'], function(){
     //apis corte de caja
     Route::get('corte_caja', [CortesController::class, 'index']);
     Route::get('printCorteCaja', [CortesController::class, 'print']);
-    //api pagos
+    //apis pagos
     Route::get('cuentas_por_cobrar', [PagosController::class, 'realizarPagos']);
     Route::put('api/add-pago', [PagosController::class, 'create']);
     Route::get('api/ticket-pago/{id}', [PagosController::class, 'ticketPago']);
+    //apis inventario
+    Route::get('api/getInventario/{tipo}/{inventario}', [InventarioController::class, 'getInventario']);
+    Route::get('api/exportarPdfIventario/{tipo}', [InventarioController::class, 'exportarPDF']);
+    Route::get('api/exportarExcelIventario/{tipo}', [InventarioController::class, 'exportarExcel']);
 
     //api cerrar sessión
     Route::post('api/logout', [LoginController::class, 'logout']);

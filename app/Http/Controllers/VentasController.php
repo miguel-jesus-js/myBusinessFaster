@@ -10,6 +10,7 @@ use App\Models\ProductosSucursal;
 use App\Models\User;
 use App\Models\Cliente;
 use App\Models\Pago;
+use App\Models\Inventario;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -97,6 +98,15 @@ class VentasController extends Controller
                     'created_at'=> $fecha->format('Y-m-d H:i:s'),
                     'updated_at'=> $fecha->format('Y-m-d H:i:s'),
                 ];
+                $datos_inventario = [
+                    'user_id'       => Auth::user()->id,
+                    'sucursale_id'  => Auth::user()->sucursal->id,
+                    'almacene_id'   => null,
+                    'producto_id'   => $producto->producto_id,
+                    'fecha'         => $fecha->format('Y-m-d H:i:s'),
+                    'cantidad'      => $producto->cantidad,
+                    'tipo'          => $data['tipo']
+                ];
                 $venta->productos()->attach($producto->producto_id, $datos_detalle);
                 $cantidadActual = ProductosSucursal::where([['sucursale_id', Auth::user()->sucursal->id], ['producto_id', $producto->producto_id]])->first();
                 if($data['tipo'] == 0)
@@ -106,6 +116,7 @@ class VentasController extends Controller
                     $newCantidad = intval($cantidadActual->stock) + intval($producto->cantidad);
                 }
                 $cantidadActual->update(['stock' => $newCantidad]);
+                Inventario::create($datos_inventario);
             }
             if(isset($data['periodo_pagos']))
             {
@@ -135,8 +146,6 @@ class VentasController extends Controller
                 }
             }
             DB::commit();
-            // $venta_detalle = Venta::with(['productos','empleado.sucursal', 'cliente'])->find($venta->id);
-            // $setting = Configuracione::find(1);
             return json_encode([
                 'icon'          => 'success', 
                 'title'         => 'Exitó', 
@@ -144,7 +153,6 @@ class VentasController extends Controller
                 'venta_id'      => $venta->id,
             ]);
         }catch(\Exception $e){
-            dd($e);
             DB::rollback();
             return json_encode(['icon'  => 'error', 'title'   => 'Error', 'text'  => 'Ocurrio un error, la venta no fue registrada']);
         }
