@@ -5,10 +5,14 @@ use Closure;
 
 class CheckPermission
 {
-    public function handle($request, Closure $next, $permission)
+    public function handle($request, Closure $next, $permissions)
     {
-        if (!auth()->user()->can($permission)) {
-            return response()->json(['icon'  => 'error', 'title'   => 'Error', 'text'  => 'No tienes permisos para realizar esta acción'], 403);
+        $permissions = explode('|', $permissions);
+        foreach($permissions as $permission)
+        {
+            if (!auth()->user()->can($permission)) {
+                return response()->json(['icon'  => 'error', 'title'   => 'Error', 'text'  => 'No tienes permisos para realizar esta acción'], 403);
+            }
         }
 
         return $next($request);

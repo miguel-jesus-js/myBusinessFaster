@@ -68,6 +68,15 @@ class Venta extends Model
         self::ESTADO_PENDIENTE   => 'Pendiente',
     ];
 
+    const TIPO_DOCUMENTO_VENTA = 0;
+    const TIPO_DOCUMENTO_COMPRA = 1;
+    const TIPO_DOCUMENTO_COTIZACION_VENTA = 2;
+
+    CONST TIPO_DOCUMENTO = [
+        self::TIPO_DOCUMENTO_VENTA => 'Venta',
+        self::TIPO_DOCUMENTO_COMPRA => 'Compra',
+        self::TIPO_DOCUMENTO_COTIZACION_VENTA => 'Cotización de venta',
+    ];
     public function scopeFolio($query, $folio)
     {
         if($folio)

@@ -191,6 +191,13 @@ function openModal(id_modal, modulo, tipo){
                 $('#modal-title').html('Editar rol');
             }
             break;
+        case 'cotizacion_venta':
+            if(tipo == 0){
+                $('#modal-title').html('Agregar cotización de venta');
+            }else if(tipo == 1){
+                $('#modal-title').html('Editar cotización de venta');
+            }
+            break;
     }
     $('#'+id_modal).modal({backdrop: 'static', keyboard: false});
     if(tipo == 3){

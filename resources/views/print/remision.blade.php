@@ -105,11 +105,18 @@
           <br>
           <small><strong class="datagrid-title class-name h6">Fecha y hora: </strong> {{ Carbon\Carbon::parse($venta->fecha)->format('d/m/Y h:i:s A')  }}</small>
           <br>
-          @if ($venta->tipo == 0)  
-            <small><strong class="datagrid-title class-name h6">Tipo de venta: </strong> {{ \App\Models\Venta::TIPO_VENTA[$venta->tipo_venta] }}</small>
-          @else
-            <small><strong class="datagrid-title class-name h6">Tipo de compra: </strong> {{ \App\Models\Venta::TIPO_COMPRA[$venta->tipo_venta] }}</small>
-          @endif
+          @switch($venta->tipo)
+            @case(0)
+              <small><strong class="datagrid-title class-name h6">Tipo de venta: </strong> {{ \App\Models\Venta::TIPO_VENTA[$venta->tipo_venta] }}</small>
+              @break
+            @case(1)
+              <small><strong class="datagrid-title class-name h6">Tipo de compra: </strong> {{ \App\Models\Venta::TIPO_COMPRA[$venta->tipo_venta] }}</small>
+              @break
+            @case(2)
+            <small><strong class="datagrid-title class-name h6">Tipo: </strong> {{ \App\Models\Venta::TIPO_DOCUMENTO[$venta->tipo] }}</small>
+            @break
+            @default  
+          @endswitch
           <br>
           <small><strong class="datagrid-title class-name h6">Vendedor: </strong> {{ $venta->empleado->persona->nombres}}</small>
           <br>

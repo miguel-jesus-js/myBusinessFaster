@@ -88,7 +88,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/tipo_gastos', function () {
         return view('tipo_gastos');
     })->middleware('permission:ver_tipo_gastos');
-    Route::get('/punto-de-venta', [VentasController::class, 'puntoVenta'])->middleware('permission:ver_venta_menudeo|permission:ver_venta_mayoreo|ver_venta_credito');
+    Route::get('/punto-de-venta', [VentasController::class, 'puntoVenta'])->middleware('permission:ver_venta_menudeo|ver_venta_mayoreo|ver_venta_credito');
     Route::get('/historial', function () {
         return view('historial');
     })->middleware('permission:ver_historial');
@@ -121,7 +121,9 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/roles', function () {
         return view('roles');
     })->middleware('permission:ver_roles');    
-
+    Route::get('/cotizacion_venta', function () {
+        return view('cotizacion_venta');
+    });
     Route::get('/catalogos', function () {
         return view('catalogos');
     });
@@ -203,8 +205,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('api/exportarPdfProducto', [ProductosController::class, 'exportarPDF'])->middleware('permission:ver_productos');
     Route::get('api/exportarExcelProducto', [ProductosController::class, 'exportarExcel'])->middleware('permission:ver_productos');
     //apis características
-    Route::post('api/addCaracteristicas', [CaracteristicasController::class, 'create'])->middleware('permission:agregar_productos|permission:editar_productos');
-    Route::post('api/addCaracteristicasTable', [CaracteristicasController::class, 'createTable'])->middleware('permission:agregar_productos|permission:editar_productos');
+    Route::post('api/addCaracteristicas', [CaracteristicasController::class, 'create'])->middleware('permission:agregar_productos|editar_productos');
+    Route::post('api/addCaracteristicasTable', [CaracteristicasController::class, 'createTable'])->middleware('permission:agregar_productos|editar_productos');
     //apis almacenes
     Route::get('api/getAlmacenes/{tipo}', [AlmacenesController::class, 'index'])->middleware('permission:ver_almacenes');
     Route::post('api/addAlmacenes', [AlmacenesController::class, 'create'])->middleware('permission:agregar_almacenes');
@@ -242,8 +244,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('api/exportarPdfTipoGastos', [TipoGastosController::class, 'exportarPDF'])->middleware('permission:ver_tipo_gastos');
     Route::get('api/exportarExcelTipoGastos', [TipoGastosController::class, 'exportarExcel'])->middleware('permission:ver_tipo_gastos');
     //apis punto de venta
-    Route::post('api/addVenta', [VentasController::class, 'create'])->middleware('permission:agregar_venta_menudeo|permission:agregar_venta_mayoreo|agregar_venta_credito|permission:agregar_compras');
-    Route::post('api/searchProductForSale', [ProductosController::class, 'searchProductForSale'])->middleware('permission:ver_venta_menudeo|permission:ver_venta_mayoreo|ver_venta_credito');
+    Route::post('api/addVenta', [VentasController::class, 'create'])->middleware('permission:agregar_venta_menudeo|agregar_venta_mayoreo|agregar_venta_credito|agregar_compras');
+    Route::post('api/searchProductForSale', [ProductosController::class, 'searchProductForSale'])->middleware('permission:ver_venta_menudeo|ver_venta_mayoreo|ver_venta_credito');
     //apis historial
     Route::get('api/getVentas/{tipo}', [VentasController::class, 'index'])->middleware('permission:ver_historial');
     Route::get('detalle/{id}', [VentasController::class, 'show'])->middleware('permission:ver_historial');
@@ -251,9 +253,9 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('api/ticket/{id}', [VentasController::class, 'ticket'])->middleware('permission:ver_historial');    
     Route::get('api/searchVenta/{folio}', [VentasController::class, 'searchVenta'])->middleware('permission:ver_historial');
     //apis inventario
-    Route::get('api/getInventario/{tipo}/{inventario}', [InventarioController::class, 'getInventario'])->middleware('permission:ver_entradas|permission:ver_salidas|permission:ver_inventario');
-    Route::get('api/exportarPdfIventario/{tipo}', [InventarioController::class, 'exportarPDF'])->middleware('permission:ver_entradas|permission:ver_salidas|permission:ver_inventario');
-    Route::get('api/exportarExcelIventario/{tipo}', [InventarioController::class, 'exportarExcel'])->middleware('permission:ver_entradas|permission:ver_salidas|permission:ver_inventario');
+    Route::get('api/getInventario/{tipo}/{inventario}', [InventarioController::class, 'getInventario'])->middleware('permission:ver_entradas|ver_salidas|ver_inventario');
+    Route::get('api/exportarPdfIventario/{tipo}', [InventarioController::class, 'exportarPDF'])->middleware('permission:ver_entradas|ver_salidas|ver_inventario');
+    Route::get('api/exportarExcelIventario/{tipo}', [InventarioController::class, 'exportarExcel'])->middleware('permission:ver_entradas|ver_salidas|ver_inventario');
     //apis prosuctos sucursal
     Route::get('api/getProductosSucursal/{tipo}', [ProductosSucursalController::class, 'index'])->middleware('permission:ver_asignar_productos');
     Route::post('api/addProductosSucursal', [ProductosSucursalController::class, 'create'])->middleware('permission:agregar_asignar_productos');
@@ -285,8 +287,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::put('api/updateSettings', [ConfiguracionesController::class, 'update'])->middleware('permission:editar_configuracion');
     Route::put('api/updateSettingsUser', [ConfiguracionesController::class, 'updateSettingsUser']);
     //apis direcciones de entrega
-    Route::post('api/addDireccionesEntrega', [DireccionesEntregasController::class, 'create'])->middleware('permission:agregar_empleados|permission:agregar_clientes|permission:agregar_proveedores|permission:editar_empleados|permission:editar_clientes|permission:editar_proveedores');
-    Route::post('api/addDireccionesEntregaTable', [DireccionesEntregasController::class, 'createTable'])->middleware('permission:agregar_empleados|permission:agregar_clientes|permission:agregar_proveedores|permission:editar_empleados|permission:editar_clientes|permission:editar_proveedores');
+    Route::post('api/addDireccionesEntrega', [DireccionesEntregasController::class, 'create'])->middleware('permission:agregar_empleados|agregar_clientes|agregar_proveedores|editar_empleados|editar_clientes|editar_proveedores');
+    Route::post('api/addDireccionesEntregaTable', [DireccionesEntregasController::class, 'createTable'])->middleware('permission:agregar_empleados|agregar_clientes|agregar_proveedores|editar_empleados|editar_clientes|editar_proveedores');
     //apis roles
     Route::get('api/getRoles/', [RolesController::class, 'index'])->middleware('permission:ver_roles');
     Route::post('api/addRoles', [RolesController::class, 'create'])->middleware('permission:agregar_roles');

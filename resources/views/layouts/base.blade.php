@@ -380,6 +380,12 @@
                                         <span class="pcoded-mtext">Compras</span>
                                     </a>
                                 </li>
+                                <li class="{{ (request()->is('cotizacion_venta')) ? 'active' : '' }} data-item-color">
+                                    <a href="/cotizacion_venta" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti ti-report-money icono"></i></span>
+                                        <span class="pcoded-mtext">Corización de venta</span>
+                                    </a>
+                                </li>
                                 {{-- <li class=" data-item-color">
                                     <a href="#" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti ti-cash-off icono"></i></span>
