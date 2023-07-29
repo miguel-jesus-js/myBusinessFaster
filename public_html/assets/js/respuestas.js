@@ -109,6 +109,9 @@ function confirmDelete(id, info, api, modulo, prefijo){
                                 closeModal('modal-producto', 'form-add-producto');
                                 getProductos(2, '');
                                 break;
+                            case 'roles':
+                                getRoles(2, '');
+                                break;
                         }
                     }
                 }

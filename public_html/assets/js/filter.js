@@ -65,6 +65,9 @@ function filterGeneral(modulo, tipo){
         case 'inventario':
             getinventario(tipoFiltro, '');
             break;
+        case 'roles':
+            getRoles(tipoFiltro, '');
+            break;
     }
 }
 $("#search").keyup(function() {
@@ -117,6 +120,9 @@ $("#search").keyup(function() {
             break;
         case 'inventario':
             getinventario(tipoFiltro,  $(this).val());
+            break;
+        case 'roles':
+            getRoles(tipoFiltro,  $(this).val());
             break;
     }
 });

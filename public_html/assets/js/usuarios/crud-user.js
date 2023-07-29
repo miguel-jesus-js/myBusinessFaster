@@ -115,7 +115,7 @@ function getUsuarios(tipo, filtro){
                         <td>${valor.persona.nombres}</td>
                         <td>${valor.sucursal.nombre}</td>
                         <td>${valor.nom_user}</td>
-                        <td>${valor.roles.rol}</td>
+                        <td>${valor.roles[0].name}</td>
                         <td>${valor.persona.email}</td>
                         <td>${valor.persona.telefono}</td>
                         <td>

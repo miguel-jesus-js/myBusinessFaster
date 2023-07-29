@@ -8,7 +8,7 @@ use App\Models\Modulo;
 class ModulosController extends Controller
 {
     public function index(){
-        $modulos = Modulo::all();
+        $modulos = Modulo::with('permisos')->get();
         return json_encode($modulos);
     }
 }

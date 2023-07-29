@@ -212,12 +212,12 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="p-2 bd-highlight">
+                                {{-- <div class="p-2 bd-highlight">
                                     <label class="form-label required invisible">Modulos</label>
                                     <button type="button" class="btn btn-success" onclick="openModal('modal-modulos','usuarios', 2), getModulos()">Seleccionar modulos</button>
-                                </div>
+                                </div> --}}
                             </div>
-                            <br>
+                            {{-- <br>
                             <table class="table" id="table-user-modulos">
                                 <thead>
                                     <tr>
@@ -235,7 +235,7 @@
                                         <td colspan="7"><center><h1>Cargando<span class="animated-dots"></span></h1></center></td>
                                     </tr>
                                 </tbody>
-                            </table>
+                            </table> --}}
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-red btn-pill" onclick="closeModal('modal-cliente', 'form-add-cliente')">Cancelar</button>

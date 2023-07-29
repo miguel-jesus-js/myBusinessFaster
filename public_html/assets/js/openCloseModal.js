@@ -184,6 +184,13 @@ function openModal(id_modal, modulo, tipo){
                 $('#modal-title').html('Editar compra');
             }
             break;
+        case 'roles':
+            if(tipo == 0){
+                $('#modal-title').html('Agregar rol');
+            }else if(tipo == 1){
+                $('#modal-title').html('Editar rol');
+            }
+            break;
     }
     $('#'+id_modal).modal({backdrop: 'static', keyboard: false});
     if(tipo == 3){

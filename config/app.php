@@ -185,6 +185,8 @@ return [
         Barryvdh\DomPDF\ServiceProvider::class,
         //libreria BarCode
         Milon\Barcode\BarcodeServiceProvider::class,
+        //Larvel permissions
+        Spatie\Permission\PermissionServiceProvider::class,
 
         /*
          * Package Service Providers...

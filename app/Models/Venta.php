@@ -28,7 +28,7 @@ class Venta extends Model
         'tipo_venta',//1-Venta a menudeo, 2-Venta a mayoreo, 3-Venta a crédito
         'tipo_venta_pago',//0-Venta al contado, 1-Venta a crédito
         'periodo_pagos',
-        'tipo'//0-Venta, 1-Compra
+        'tipo'//0-Venta, 1-Compra, 2-Cotización de venta, 3.Cotización de compra
     ];
 
     const TIPO_VENTA_MENUDEO = 1;

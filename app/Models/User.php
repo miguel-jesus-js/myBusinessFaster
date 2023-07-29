@@ -9,12 +9,11 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Role;
-use App\Models\Acceso;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -24,7 +23,6 @@ class User extends Authenticatable
     protected $fillable = [
         'persona_id',
         'sucursale_id',
-        'role_id',
         'nom_user',
         'password',
         'api_token',
@@ -79,14 +77,6 @@ class User extends Authenticatable
     public function persona()
     {
         return $this->hasOne(Persona::class, 'id', 'persona_id');
-    }
-    public function roles()
-    {
-        return $this->belongsTo(Role::class, 'role_id', 'id');
-    }
-    public function acceso()
-    {
-        return $this->hasMany(Acceso::class);
     }
     public function sucursal()
     {

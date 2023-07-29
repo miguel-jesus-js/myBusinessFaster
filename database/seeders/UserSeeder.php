@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
             [
                 'persona_id'    => 2,
                 'sucursale_id'  => 1,
-                'role_id'       => 1,
+                //'role_id'       => 1,
                 'nom_user'      => 'User prueba',
                 'password'      => Hash::make('admin@softcode.com.mx'),
                 'is_admin'      => true,

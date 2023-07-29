@@ -52,7 +52,8 @@ class UsersController extends Controller
             DB::beginTransaction();
             $persona = Persona::create($data);
             $data = array_merge($data, ['persona_id' => $persona->id]);
-            User::create($data);
+            $user = User::create($data);
+            $user->assignRole($data['role_id']);
             if(isset($data['ciudad']))
             {
                 for($i = 0; $i < sizeof($data['ciudad']); $i++)

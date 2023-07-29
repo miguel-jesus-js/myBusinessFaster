@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('modulo', 30)->nuallable(false);
             $table->string('icono', 30)->nuallable(false);
             $table->string('link', 50)->nuallable(false);
-            $table->boolean('es_catalogo')->nuallable(false);
+            $table->boolean('is_accordion')->nuallable(false);
             //$table->timestamps();
         });
     }
