@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Venta;
 use App\Models\Gasto;
 use App\Models\Configuracione;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class CortesController extends Controller
 {
@@ -24,15 +24,15 @@ class CortesController extends Controller
     
     public function getInfoCorte()
     {
-        $fecha = Carbon::now()->format('Y-m-d');
+        $user = Auth::user();
         $setting = Configuracione::find(1);
-        $nVentas = Venta::betwwenDate()->count();
-        $ventasEfectivo = Venta::betwwenDate()->where('tipo_pago', 'Efectivo')->sum('total');
-        $ventasTarjeta = Venta::betwwenDate()->where('tipo_pago', 'tarjeta')->sum('total');
+        $nVentas = Venta::betwwenDate()->where('user_id', $user->id)->count();
+        $ventasEfectivo = Venta::betwwenDate()->where([['tipo_pago', 'Efectivo'], ['user_id', $user->id]])->sum('total');
+        $ventasTarjeta = Venta::betwwenDate()->where([['tipo_pago', 'tarjeta'], ['user_id', $user->id]])->sum('total');
         $pagos = 0;
         $compras = 0;
         $descuentos = Venta::betwwenDate()->sum('descuento');
-        $gastos = Gasto::betwwenDate()->sum('monto');
+        $gastos = Gasto::betwwenDate()->where('user_id', $user->id)->sum('monto');
         //total de ingresos
         $ingresos = floatval($ventasEfectivo) + floatval($ventasTarjeta) + floatval($pagos);
         $egresos = floatval($compras) + floatval($gastos);

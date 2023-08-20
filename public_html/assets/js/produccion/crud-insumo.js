@@ -36,6 +36,9 @@ $('#form-add-insumo').submit(function(e){
                 case 0:
                     msjError('error', 'Error', 'Se perdio la conexión con el servidor, intente nuevamente');
                     break;
+                case 0:
+                    msjError('error', 'Error', 'Se perdio la conexión con el servidor, intente nuevamente');
+                    break;
             }
             removeClassBtnEfectoLoad('load-form','load-button', 'btn-modal');
         }

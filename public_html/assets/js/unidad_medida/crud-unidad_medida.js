@@ -45,6 +45,9 @@ $('#form-add-unidad_medida').submit(function(e){
                 case 0:
                     msjError('error', 'Error', 'Se perdio la conexión con el servidor, intente nuevamente');
                     break;
+                case 403:
+                    msjError(request.responseJSON.icon, request.responseJSON.title, request.responseJSON.text);
+                    break;
             }
             removeClassBtnEfectoLoad('load-form','load-button', 'btn-modal');
         }
@@ -84,6 +87,9 @@ $('#form-upload-unidad_medida').submit(function(e){
                     break;
                 case 0:
                     msjError('error', 'Error', 'Se perdio la conexión con el servidor, intente nuevamente');
+                    break;
+                case 403:
+                    msjError(request.responseJSON.icon, request.responseJSON.title, request.responseJSON.text);
                     break;
             }
             removeClassBtnEfectoLoad('load-form1','load-button1', 'btn-modal1');

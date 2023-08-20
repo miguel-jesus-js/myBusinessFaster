@@ -117,7 +117,7 @@ Route::group(['middleware' => 'auth'], function(){
     })->middleware('permission:ver_compras');
     Route::get('/settings', function () {
         return view('settings');
-    })->middleware('permission:ver_configuración');
+    })->middleware('permission:ver_configuracion');
     Route::get('/roles', function () {
         return view('roles');
     })->middleware('permission:ver_roles');    
@@ -283,7 +283,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::put('api/add-pago', [PagosController::class, 'create'])->middleware('permission:agregar_cuentas_cobrar');
     Route::get('api/ticket-pago/{id}', [PagosController::class, 'ticketPago'])->middleware('permission:agregar_cuentas_cobrar');
     //apis settings
-    Route::get('api/settings', [ConfiguracionesController::class, 'settings']);
+    Route::get('api/settings', [ConfiguracionesController::class, 'settings'])->middleware('permission:ver_configuracion');
     Route::put('api/updateSettings', [ConfiguracionesController::class, 'update'])->middleware('permission:editar_configuracion');
     Route::put('api/updateSettingsUser', [ConfiguracionesController::class, 'updateSettingsUser']);
     //apis direcciones de entrega
@@ -298,4 +298,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/dashboard', [VentasController::class, 'dashboard']);
     //api cerrar sessión
     Route::post('api/logout', [LoginController::class, 'logout']);
+});
+
+Route::get('/ecommerce', function () {
+    return view('ecommerce.index');
 });

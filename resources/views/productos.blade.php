@@ -93,7 +93,7 @@
                     <button class="btn btn-dark btn-icon" aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Importar" onclick="openModal('upload-producto','productos', 0)">
                         <i class="ti ti-file-upload icono"></i>
                     </button>
-                    <a href="{{ route('downloadPlantillaProducto') }}" target="_blank" class="btn btn-dark btn-icon" aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Descargar plantilla" download="Excel productos">
+                    <a href="/api/downloadPlantillaProducto" target="_blank" class="btn btn-dark btn-icon" aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Descargar plantilla" download="Excel productos">
                         <i class="ti ti-file-download icono"></i>
                     </a>
                     <button class="btn btn-dark btn-icon" aria-label="Button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Recargar" onclick="getProductos(2, '');">
@@ -593,38 +593,6 @@
                                         <label class="form-check">
                                             <input class="form-check-input checar" type="checkbox" name="campos[]" value="producto">
                                             <span class="form-check-label">Producto</span>
-                                        </label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <label class="form-check">
-                                            <input class="form-check-input checar" type="checkbox" name="campos[]" value="pre_compra">
-                                            <span class="form-check-label">Precio de compra</span>
-                                        </label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <label class="form-check">
-                                            <input class="form-check-input checar" type="checkbox" name="campos[]" value="pre_venta">
-                                            <span class="form-check-label">Precio de venta</span>
-                                        </label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <label class="form-check">
-                                            <input class="form-check-input checar" type="checkbox" name="campos[]" value="pre_mayoreo">
-                                            <span class="form-check-label">Prercio de mayoreo</span>
-                                        </label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <label class="form-check">
-                                            <input class="form-check-input checar" type="checkbox" name="campos[]" value="utilidad">
-                                            <span class="form-check-label">Utilidad</span>
                                         </label>
                                     </td>
                                 </tr>

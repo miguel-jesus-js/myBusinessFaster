@@ -37,7 +37,12 @@ $('#form-add-tipo_cliente').submit(function(e){
                 case 422:
                     addValidacion(request.responseJSON.message, false);
                     break;
-            
+                case 0:
+                    msjError('error', 'Error', 'Se perdio la conexión con el servidor, intente nuevamente');
+                    break;
+                case 403:
+                    msjError(request.responseJSON.icon, request.responseJSON.title, request.responseJSON.text);
+                    break;
                 default:
                     break;
             }
@@ -76,6 +81,12 @@ $('#form-upload-tipo-cliente').submit(function(e){
             switch (request.status) {
                 case 422:
                     addValidacion(request.responseJSON.errors, false);
+                    break;
+                case 0:
+                    msjError('error', 'Error', 'Se perdio la conexión con el servidor, intente nuevamente');
+                    break;
+                case 403:
+                    msjError(request.responseJSON.icon, request.responseJSON.title, request.responseJSON.text);
                     break;
                 default:
                     break;
